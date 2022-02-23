@@ -133,30 +133,28 @@ public class Cliente {
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
     }
 
-    /*  *essa funcionalidade não está completa ainda
+     /*   *essa funcionalidade não está completa ainda
    
     private boolean validaTelefone(String telefone) {
-//  caso a quantidade de digitos esteja errada, telefone é falso
-        if (telefone.length() < 10 || telefone.length() > 11) {
-
-//  um telefone fixo tem só 9 digitos
-            if (telefone.length() != 9) {
-                return false;
-            } else {
-                return true;
-            }
-
+//  * caso a quantidade de digitos esteja errada, telefone é falso
+//  * um telefone fixo tem só 10 digitos(8 numeros mais o DDD)
+        if (telefone.length() == 10 || telefone.length() == 11) {
+            return true;
         } else {
             return true;
         }
     }
      */
-    /*
-    *falta fazer a formatação para telefones fixos
-    
     private String formataTelefone(String telefone) {
-        return "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 3) + " " + telefone.substring(3, 7) + "-" + telefone.substring(7, telefone.length());
+        switch (telefone.length()) {
+//  caso seja um telefone celular, com o 9
+            case 11:
+                return "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 7) + "-" + telefone.substring(7, telefone.length());
 
+//  caso seja um telefone fixo
+            default:
+                return "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 6) + " - " + telefone.substring(6, telefone.length());
+        }
     }
-*/
+
 }
