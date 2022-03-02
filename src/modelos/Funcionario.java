@@ -29,6 +29,15 @@ public class Funcionario extends Pessoa {
         this.telefoneSecundario = telefoneSecundario;
     }
 
+    public String getTelefoneSecundario() {
+        return telefoneSecundario;
+    }
+
+    public void setTelefoneSecundario(String telefoneSecundario) {
+        this.telefoneSecundario = telefoneSecundario;
+    }
+
+    
     public ArrayList<String>[][] getProdutos() {
         return produtos;
     }
