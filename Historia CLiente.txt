@@ -1,0 +1,18 @@
+PROCESSO CLIENTE
+	0-cliente chega com carro 
+	1- cadastro do cliente.
+		se tiver cadastrado, valida dados com cliente e altera se necessario
+		qualquer cliente pode levar +1 carro.
+			carro só esta vinculado a um cliente.
+	2-Abertura de uma ordem de serviço para aquele veiculo
+		-peças (anexadas a ordem)
+		-serviços (a serem realizados no carro)
+			-para cada serviço existe um responsavel pelo serviço
+		-Também é um orçamento.
+			-quais serviços/peças serão utilizados.
+			-custa tando
+				após autorização  > inicia serviço.
+			
+			
+	Peças:
+		
