@@ -10,8 +10,8 @@ package modelos;
  */
 public class Cliente extends Pessoa {
 
-    public Cliente(String nome, String cpf, String endereco, String telefone, String email) throws Exception {
-        super(nome, cpf, telefone, email, endereco);
+    public Cliente(int id, String nome, String cpf, String endereco, String telefone, String email) throws Exception {
+        super(id, nome, cpf, telefone, email, endereco);
 
     }
 

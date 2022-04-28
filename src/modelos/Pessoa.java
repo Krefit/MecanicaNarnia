@@ -7,18 +7,24 @@ package modelos;
  */
 public class Pessoa {
 
-    private String nome;
-    private String cpf;
-    private String telefone;
-    private String email;
-    private String endereco;
+    protected final int id;//o id não pode ser modificado
+    protected String nome;
+    protected String cpf;
+    protected String telefone;
+    protected String email;
+    protected String endereco;
 
-    public Pessoa(String nome, String cpf, String telefone, String email, String endereco) {
+    public Pessoa(int id, String nome, String cpf, String telefone, String email, String endereco) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
         this.email = email;
         this.endereco = endereco;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String getNome() {
@@ -67,7 +73,7 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    private boolean validaCPF(String CPF) {
+    public static boolean validaCPF(String CPF) {
         if (CPF.equals("00000000000")
                 || CPF.equals("11111111111")
                 || CPF.equals("22222222222") || CPF.equals("33333333333")
@@ -122,6 +128,6 @@ public class Pessoa {
     private String formataCPF(String CPF) {
         return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
-        
+
     }
 }

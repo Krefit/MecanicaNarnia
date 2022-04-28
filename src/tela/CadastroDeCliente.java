@@ -5,6 +5,7 @@
  */
 package tela;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelos.Cliente;
 
@@ -13,6 +14,8 @@ import modelos.Cliente;
  * @author tanak
  */
 public class CadastroDeCliente extends javax.swing.JFrame {
+
+    ArrayList<Cliente> listaClientes = new ArrayList<>();
 
     /**
      * Creates new form CadastroDeCliente
@@ -145,15 +148,19 @@ public class CadastroDeCliente extends javax.swing.JFrame {
             String endereco = tField_endereco.getText();
             String email = tField_email.getText();
 
-            Cliente clienteParaAdicionar = new Cliente(nome, cpf, endereco, telefone, email);
+            //criando novo cliente com o id correspondente
+            Cliente clienteParaAdicionar = new Cliente(geradorId.GeradorId.getID(), nome, cpf, endereco, telefone, email);
 
-            String saida = clienteParaAdicionar.getNome() + "\n";
-            saida += clienteParaAdicionar.getCpf() + "\n";
-            saida += clienteParaAdicionar.getTelefone() + "\n";
-            saida += clienteParaAdicionar.getEndereco() + "\n";
-            saida += clienteParaAdicionar.getEmail() + "\n";
+            StringBuffer saida = new StringBuffer("Cliente criado com sucesso");
+            saida.append("Dados do novo cliente: ");
+            saida.append(clienteParaAdicionar.getNome()).append("\n");
+            saida.append(clienteParaAdicionar.getCpf()).append("\n");
+            saida.append(clienteParaAdicionar.getTelefone()).append("\n");
+            saida.append(clienteParaAdicionar.getEndereco()).append("\n");
+            saida.append(clienteParaAdicionar.getEmail()).append("\n");
 
-            tArea_saida.setText(saida);
+            listaClientes.add(clienteParaAdicionar);
+            tArea_saida.setText(String.valueOf(saida));
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
@@ -170,7 +177,7 @@ public class CadastroDeCliente extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

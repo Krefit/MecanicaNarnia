@@ -13,14 +13,16 @@ public class Funcionario extends Pessoa {
 // * O campo telefone secundáriio é o único que não é obrigatório ser preenchido quando se adiciona um novo fornecedor
     private String telefoneSecundario = "";
 
-    public Funcionario(String nome, String cpf, String endereco, String telefone, String email) {
+    public Funcionario(String nome, String cpf, String endereco, String telefone,
+             String email) throws Exception {
 
-        super(nome, cpf, telefone, email, endereco);
+        super(geradorId.GeradorId.getID(), nome, cpf, telefone, email, endereco);
 
     }
 
-    public Funcionario(String nome, String cpf, String endereco, String telefone, String telefoneSecundario, String email) {
-        super(nome, cpf, telefone, email, endereco);
+    public Funcionario(String nome, String cpf, String endereco, String telefone,
+            String telefoneSecundario, String email) throws Exception {
+        super(geradorId.GeradorId.getID(), nome, cpf, telefone, email, endereco);
         this.telefoneSecundario = telefoneSecundario;
     }
 
