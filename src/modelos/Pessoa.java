@@ -130,4 +130,12 @@ public class Pessoa {
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
 
     }
+
+    @Override
+    public String toString() {
+        return id + ";" + nome + ";" + cpf + ";" + telefone + ";" + email + ";" + endereco;
+    }
+    
+    
+    
 }
