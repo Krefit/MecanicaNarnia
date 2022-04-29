@@ -12,18 +12,20 @@ public class Funcionario extends Pessoa {
 
 // * O campo telefone secundáriio é o único que não é obrigatório ser preenchido quando se adiciona um novo fornecedor
     private String telefoneSecundario = "";
+    private String especialidade = "";
 
     public Funcionario(String nome, String cpf, String endereco, String telefone,
-             String email) throws Exception {
+            String email) throws Exception {
 
         super(geradorId.GeradorId.getID(), nome, cpf, telefone, email, endereco);
 
     }
 
     public Funcionario(String nome, String cpf, String endereco, String telefone,
-            String telefoneSecundario, String email) throws Exception {
+            String telefoneSecundario, String email, String especialidade) throws Exception {
         super(geradorId.GeradorId.getID(), nome, cpf, telefone, email, endereco);
         this.telefoneSecundario = telefoneSecundario;
+        this.especialidade = especialidade;
     }
 
     public String getTelefoneSecundario() {
@@ -33,4 +35,19 @@ public class Funcionario extends Pessoa {
     public void setTelefoneSecundario(String telefoneSecundario) {
         this.telefoneSecundario = telefoneSecundario;
     }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ";" + telefoneSecundario + ";" + especialidade;
+    }
+    
+    
 }
