@@ -16,18 +16,20 @@ public class GeradorId {
     public static int getID() throws FileNotFoundException, IOException {
         String nomeDoArquivo = "idGerado.txt";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(nomeDoArquivo));
-                BufferedWriter bw = new BufferedWriter(new FileWriter(nomeDoArquivo, false))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(nomeDoArquivo))) {
 
             //lendo o id antigo
-            int id = Integer.parseInt(br.readLine());
+            String linha = br.readLine();
+            int id = Integer.parseInt(linha);
 
             //aumentando o id
             id++;
 
+            BufferedWriter bw = new BufferedWriter(new FileWriter(nomeDoArquivo, false));
             //apagando valor antigo e escrevendo novo valor no arquivo
-            bw.write(id);
+            bw.write(String.valueOf(id));
 
+            bw.close();
             return id;
         }
     }

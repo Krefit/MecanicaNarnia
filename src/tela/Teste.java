@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package tela;
+import modelos.Funcionario;
 import modelos.Peça;
-
 /**
  *
  * @author ALUNO
@@ -81,7 +81,7 @@ public class Teste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        modelos.Peça p = new Peça(0, "Nome", 2, "nome do fornecedor", "Civic", "Honda");
+        modelos.Funcionario p = new Funcionario("João", "123.456.789", "Rua sem nome", "62988888", "62999999", "teste@email.com", "Trabalhador");
         jTextArea1.setText(p.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
 
