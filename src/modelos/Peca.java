@@ -10,7 +10,7 @@ import java.util.Arrays;
  *
  * @author ALUNO
  */
-public class Peça {
+public class Peca {
 
     private final int id;
     private String nome;
@@ -18,11 +18,11 @@ public class Peça {
     String[] veiculosCompativeis;
     int quantidadeNoEstoque;
 
-    public Peça() {
+    public Peca() {
         this.id = 0;
     }
 
-    public Peça(int id, String nome, int quantidadeNoEstoque, String fornecedor, String... veiculosCompativeis) {
+    public Peca(int id, String nome, int quantidadeNoEstoque, String fornecedor, String... veiculosCompativeis) {
         this.id = id;
         this.nome = nome;
         this.quantidadeNoEstoque = quantidadeNoEstoque;

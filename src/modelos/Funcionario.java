@@ -21,9 +21,9 @@ public class Funcionario extends Pessoa {
 
     }
 
-    public Funcionario(String nome, String cpf, String endereco, String telefone,
+    public Funcionario(int id, String nome, String cpf, String endereco, String telefone,
             String telefoneSecundario, String email, String especialidade) throws Exception {
-        super(geradorId.GeradorId.getID(), nome, cpf, telefone, email, endereco);
+        super(id, nome, cpf, telefone, email, endereco);
         this.telefoneSecundario = telefoneSecundario;
         this.especialidade = especialidade;
     }
@@ -48,6 +48,5 @@ public class Funcionario extends Pessoa {
     public String toString() {
         return super.toString() + ";" + telefoneSecundario + ";" + especialidade;
     }
-    
-    
+
 }

@@ -4,10 +4,24 @@
  */
 package modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ALUNO
  */
 public class Veiculo {
+//    private static String[] listaModelos;
+
+    private String modelo;//talvez criar uma classe separada
+    private String marca;
+    private String chassi;
+    private String placa;
     
+    private int anoFabricacaoVeiculo;
+    
+    private ArrayList<OrdemDeServico> listaOS;
+    
+    private int idDonoVeiculo;
+
 }

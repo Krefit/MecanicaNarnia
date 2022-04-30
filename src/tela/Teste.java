@@ -3,8 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package tela;
+
+import javax.swing.JOptionPane;
 import modelos.Funcionario;
-import modelos.Peça;
+import modelos.Peca;
+
 /**
  *
  * @author ALUNO
@@ -81,8 +84,12 @@ public class Teste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        modelos.Funcionario p = new Funcionario("João", "123.456.789", "Rua sem nome", "62988888", "62999999", "teste@email.com", "Trabalhador");
-        jTextArea1.setText(p.toString());
+        try {
+            modelos.Funcionario p = new Funcionario(5,"João", "123.456.789", "Rua sem nome", "62988888", "62999999", "teste@email.com", "Trabalhador");
+            jTextArea1.setText(p.toString());
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(rootPane, "Fudeu!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
