@@ -1,6 +1,8 @@
 // Essa classe será usada como a superclasse de todas as classes que tenham pessoas, pois teram vários atributos iguais
 package modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author tanak
@@ -10,11 +12,11 @@ public class Pessoa {
     protected final int id;//o id não pode ser modificado
     protected String nome;
     protected String cpf;
-    protected String telefone;
+    protected ArrayList<String> telefone;
     protected String email;
     protected String endereco;
 
-    public Pessoa(int id, String nome, String cpf, String telefone, String email, String endereco) {
+    public Pessoa(int id, String nome, String cpf, ArrayList<String> telefone, String email, String endereco) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -49,11 +51,11 @@ public class Pessoa {
         }
     }
 
-    public String getTelefone() {
+    public ArrayList<String> getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(ArrayList<String> telefone) {
         this.telefone = telefone;
     }
 

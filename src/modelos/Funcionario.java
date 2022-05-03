@@ -4,6 +4,8 @@
  */
 package modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ALUNO
@@ -14,14 +16,14 @@ public class Funcionario extends Pessoa {
     private String telefoneSecundario = "";
     private String especialidade = "";
 
-    public Funcionario(String nome, String cpf, String endereco, String telefone,
+    public Funcionario(String nome, String cpf, String endereco, ArrayList<String> telefone,
             String email) throws Exception {
 
         super(geradorId.GeradorId.getID(), nome, cpf, telefone, email, endereco);
 
     }
 
-    public Funcionario(String nome, String cpf, String endereco, String telefone,
+    public Funcionario(String nome, String cpf, String endereco, ArrayList<String> telefone,
             String telefoneSecundario, String email, String especialidade) throws Exception {
         super(geradorId.GeradorId.getID(), nome, cpf, telefone, email, endereco);
         this.telefoneSecundario = telefoneSecundario;

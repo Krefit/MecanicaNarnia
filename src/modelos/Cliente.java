@@ -4,13 +4,15 @@
  */
 package modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ALUNO
  */
 public class Cliente extends Pessoa {
 
-    public Cliente(int id, String nome, String cpf, String endereco, String telefone, String email) throws Exception {
+    public Cliente(int id, String nome, String cpf, String endereco, ArrayList<String> telefone, String email) throws Exception {
         super(id, nome, cpf, telefone, email, endereco);
 
     }
