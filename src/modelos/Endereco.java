@@ -102,7 +102,7 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return tipoLogradouro + "," + logradouro + "," + numero + "," + complemento + "," + bairro + "," + cidade + "," + estado + "," + CEP + ";";
+        return tipoLogradouro + "," + logradouro + "," + numero + "," + complemento + "," + bairro + "," + cidade + "," + estado + "," + CEP;
     }
 
 }
