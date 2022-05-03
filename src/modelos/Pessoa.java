@@ -1,52 +1,29 @@
 // Essa classe será usada como a superclasse de todas as classes que tenham pessoas, pois teram vários atributos iguais
 package modelos;
 
+import java.util.InputMismatchException;
+
 /**
  *
  * @author tanak
  */
 public class Pessoa {
 
-    protected final int id;//o id não pode ser modificado
-    protected String nome;
-    protected String cpf;
     protected String telefone;
     protected String email;
-    protected String endereco;
+    protected Endereco endereco;
 
-    public Pessoa(int id, String nome, String cpf, String telefone, String email, String endereco) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
+    public Pessoa() {
+    }
+
+    public Pessoa(String telefone, String email, Endereco endereco) {
+
+        if (!validaTelefone(telefone)) {
+            throw new InputMismatchException("Telefone inválido");
+        }
         this.telefone = telefone;
         this.email = email;
         this.endereco = endereco;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) throws Exception {
-//  só deve colocar o CPF, caso ele seja válido
-        if (validaCPF(cpf)) {
-//  o cpf será salvo já formatado corretamente
-            this.cpf = formataCPF(cpf);
-        } else {
-            throw new Exception("CPF informado incorretamente");
-        }
     }
 
     public String getTelefone() {
@@ -54,6 +31,9 @@ public class Pessoa {
     }
 
     public void setTelefone(String telefone) {
+        if (!validaTelefone(telefone)) {
+            throw new InputMismatchException("Telefone inválido");
+        }
         this.telefone = telefone;
     }
 
@@ -65,77 +45,38 @@ public class Pessoa {
         this.email = email;
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
-
-    public static boolean validaCPF(String CPF) {
-        if (CPF.equals("00000000000")
-                || CPF.equals("11111111111")
-                || CPF.equals("22222222222") || CPF.equals("33333333333")
-                || CPF.equals("44444444444") || CPF.equals("55555555555")
-                || CPF.equals("66666666666") || CPF.equals("77777777777")
-                || CPF.equals("88888888888") || CPF.equals("99999999999")
-                || (CPF.length() != 11)) {
-            return (false);
-        }
-
-        char dig10, dig11;
-        int sm, i, r, num, peso;
-
-        sm = 0;
-        peso = 10;
-        for (i = 0; i < 9; i++) {
-            num = (int) (CPF.charAt(i) - 48);
-            sm = sm + (num * peso);
-            peso = peso - 1;
-        }
-
-        r = 11 - (sm % 11);
-        if ((r == 10) || (r == 11)) {
-            dig10 = '0';
-        } else {
-            dig10 = (char) (r + 48);
-        }
-
-        sm = 0;
-        peso = 11;
-        for (i = 0; i < 10; i++) {
-            num = (int) (CPF.charAt(i) - 48);
-            sm = sm + (num * peso);
-            peso = peso - 1;
-        }
-
-        r = 11 - (sm % 11);
-        if ((r == 10) || (r == 11)) {
-            dig11 = '0';
-        } else {
-            dig11 = (char) (r + 48);
-        }
-
-        if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
-            return (true);
-        } else {
-            return (false);
-        }
-
-    }
-
-    private String formataCPF(String CPF) {
-        return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
-                + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
-
     }
 
     @Override
     public String toString() {
-        return id + ";" + nome + ";" + cpf + ";" + telefone + ";" + email + ";" + endereco;
+        return telefone + ";" + email + ";" + endereco.toString();
     }
-    
-    
-    
+
+    public boolean validaTelefone(String telefoneParaValidar) {
+        formataTelefone(telefoneParaValidar);//formatando o telefone para colocar os parenteses no DDD e o hifen no meio do numero
+        return (telefoneParaValidar.matches("^\\([1-9]{2}\\) 9[7-9]{1}[0-9]{3}\\-[0-9]{4}$"));
+        // o método matches, diz se uma String segue o padrão informado, que no caso é o padrão de telefone, com parênteses e o hifen "(xx) 9XXXX-XXXX"
+    }
+
+    private String formataTelefone(String telefoneParaFormatar) {
+        if (telefoneParaFormatar.length() < 7) {//se for menor q 7 não dá pra formatar
+            return "Telefone inválido";
+        }
+        if (telefoneParaFormatar.matches("^\\([1-9]{2}\\) 9[7-9]{1}[0-9]{3}\\-[0-9]{4}$")) {//caso ja esteja formatado
+            return telefoneParaFormatar;
+        }
+        StringBuilder telefoneFormatado = new StringBuilder();
+        telefoneFormatado.append('(').append(telefoneParaFormatar.substring(0, 2)).append(')');
+        telefoneFormatado.append(' ').append(telefoneParaFormatar.substring(2, 7)).append('-');
+        telefoneFormatado.append(telefoneParaFormatar.substring(7));
+
+        return String.valueOf(telefoneFormatado);
+    }
+
 }
