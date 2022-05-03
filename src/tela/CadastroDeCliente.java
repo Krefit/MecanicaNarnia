@@ -7,7 +7,7 @@ package tela;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import modelos.Cliente;
+import modelos.Cliente_PessoaFisica;
 
 /**
  *
@@ -15,7 +15,7 @@ import modelos.Cliente;
  */
 public class CadastroDeCliente extends javax.swing.JFrame {
 
-    ArrayList<Cliente> listaClientes = new ArrayList<>();
+    ArrayList<Cliente_PessoaFisica> listaClientes = new ArrayList<>();
 
     /**
      * Creates new form CadastroDeCliente
@@ -149,17 +149,17 @@ public class CadastroDeCliente extends javax.swing.JFrame {
             String email = tField_email.getText();
 
             //criando novo cliente com o id correspondente
-            Cliente clienteParaAdicionar = new Cliente(geradorId.GeradorId.getID(), nome, cpf, endereco, telefone, email);
+//            Cliente_PessoaFisica clienteParaAdicionar = new Cliente_PessoaFisica(nome, cpf, endereco, telefone, email);
 
             StringBuffer saida = new StringBuffer("Cliente criado com sucesso");
             saida.append("Dados do novo cliente: ");
-            saida.append(clienteParaAdicionar.getNome()).append("\n");
-            saida.append(clienteParaAdicionar.getCpf()).append("\n");
-            saida.append(clienteParaAdicionar.getTelefone()).append("\n");
-            saida.append(clienteParaAdicionar.getEndereco()).append("\n");
-            saida.append(clienteParaAdicionar.getEmail()).append("\n");
+//            saida.append(clienteParaAdicionar.getNome()).append("\n");
+//            saida.append(clienteParaAdicionar.getCpf()).append("\n");
+//            saida.append(clienteParaAdicionar.getTelefone()).append("\n");
+//            saida.append(clienteParaAdicionar.getEndereco()).append("\n");
+//            saida.append(clienteParaAdicionar.getEmail()).append("\n");
 
-            listaClientes.add(clienteParaAdicionar);
+//            listaClientes.add(clienteParaAdicionar);
             tArea_saida.setText(String.valueOf(saida));
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());

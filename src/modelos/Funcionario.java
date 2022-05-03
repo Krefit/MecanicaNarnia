@@ -4,26 +4,24 @@
  */
 package modelos;
 
+import java.util.Date;
 /**
  *
  * @author ALUNO
  */
-public class Funcionario extends Pessoa {
+public class Funcionario extends PessoaFisica {
 
 // * O campo telefone secundáriio é o único que não é obrigatório ser preenchido quando se adiciona um novo fornecedor
     private String telefoneSecundario = "";
     private String especialidade = "";
 
-    public Funcionario(String nome, String cpf, String endereco, String telefone,
-            String email) throws Exception {
-
-        super(geradorId.GeradorId.getID(), nome, cpf, telefone, email, endereco);
-
+    public Funcionario(String nome, String cpf, Date dataNascimento, String telefone, String email, Endereco endereco, String especialidade) {
+        super(nome, cpf, dataNascimento, telefone, email, endereco);
+        this.especialidade = especialidade;
     }
 
-    public Funcionario(int id, String nome, String cpf, String endereco, String telefone,
-            String telefoneSecundario, String email, String especialidade) throws Exception {
-        super(id, nome, cpf, telefone, email, endereco);
+    public Funcionario(String nome, String cpf, Date dataNascimento, String telefone, String telefoneSecundario, String email, Endereco endereco, String especialidade) {
+        super(nome, cpf, dataNascimento, telefone, email, endereco);
         this.telefoneSecundario = telefoneSecundario;
         this.especialidade = especialidade;
     }

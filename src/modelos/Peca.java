@@ -4,7 +4,6 @@
  */
 package modelos;
 
-import java.util.Arrays;
 
 /**
  *
@@ -12,18 +11,15 @@ import java.util.Arrays;
  */
 public class Peca {
 
-    private final int id;
     private String nome;
     String fornecedor;
     String[] veiculosCompativeis;
     int quantidadeNoEstoque;
 
     public Peca() {
-        this.id = 0;
     }
 
-    public Peca(int id, String nome, int quantidadeNoEstoque, String fornecedor, String... veiculosCompativeis) {
-        this.id = id;
+    public Peca(String nome, int quantidadeNoEstoque, String fornecedor, String... veiculosCompativeis) {
         this.nome = nome;
         this.quantidadeNoEstoque = quantidadeNoEstoque;
         this.fornecedor = fornecedor;
@@ -71,7 +67,7 @@ public class Peca {
 
             veiculos.append(",").append(veiculosCompativeis[i]);
         }
-        return id + ";" + nome + ";" + fornecedor + ";" + quantidadeNoEstoque
+        return nome + ";" + fornecedor + ";" + quantidadeNoEstoque
                 + ";" + veiculos;
     }
 

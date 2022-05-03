@@ -16,33 +16,25 @@ public class OrdemDeServico {
     public enum SitucaoOrdemServico {
         EM_ABERTO, EM_EXECUCAO, CONCLUIDA, CANCELADA;
     }
-    private final int id;
 
     private String defeitoRelatado;
     private ServicosOferecidos servico;
-
     private Funcionario responsavel;
     private Peca peca = null; //opcional
-
     private float valorServico;
     private float valorPecas = 0;
-
     private Date dataEntrada;
     private Date dataSaida = null;//só colocar depois de o serviço ser concluido
-
     private SitucaoOrdemServico situacao;
-
-    private Cliente donoVeiculo;
+    private Cliente_PessoaFisica donoVeiculo;
     private Veiculo veiculo;
 
     public OrdemDeServico() {
-        this.id = 0;
     }
 
-    public OrdemDeServico(int id, String defeitoRelatado, ServicosOferecidos servico,
+    public OrdemDeServico(String defeitoRelatado, ServicosOferecidos servico,
             Funcionario responsavel, float valorServico, Date dataEntrada,
-            SitucaoOrdemServico situacao, Cliente donoVeiculo, Veiculo veiculo) {
-        this.id = id;
+            SitucaoOrdemServico situacao, Cliente_PessoaFisica donoVeiculo, Veiculo veiculo) {
         this.defeitoRelatado = defeitoRelatado;
         this.servico = servico;
         this.responsavel = responsavel;
@@ -53,10 +45,9 @@ public class OrdemDeServico {
         this.veiculo = veiculo;
     }
 
-    public OrdemDeServico(int id, String defeitoRelatado, ServicosOferecidos servico,
+    public OrdemDeServico(String defeitoRelatado, ServicosOferecidos servico,
             Funcionario responsavel, float valorServico, Date dataEntrada, SitucaoOrdemServico situacao,
-            Cliente donoVeiculo, Veiculo veiculo, Peca peca, float valorPecas) {
-        this.id = id;
+            Cliente_PessoaFisica donoVeiculo, Veiculo veiculo, Peca peca, float valorPecas) {
         this.defeitoRelatado = defeitoRelatado;
         this.servico = servico;
         this.responsavel = responsavel;
@@ -133,11 +124,7 @@ public class OrdemDeServico {
         this.situacao = situacao;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public Cliente getDonoVeiculo() {
+    public Cliente_PessoaFisica getDonoVeiculo() {
         return donoVeiculo;
     }
 
