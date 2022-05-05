@@ -21,7 +21,7 @@ public class Pessoa {
         if (!validaTelefone(telefone)) {
             throw new InputMismatchException("Telefone inválido");
         }
-        this.telefone = telefone;
+        this.telefone = formataTelefone(telefone);
         this.email = email;
         this.endereco = endereco;
     }
@@ -34,7 +34,7 @@ public class Pessoa {
         if (!validaTelefone(telefone)) {
             throw new InputMismatchException("Telefone inválido");
         }
-        this.telefone = telefone;
+        this.telefone = formataTelefone(telefone);
     }
 
     public String getEmail() {
