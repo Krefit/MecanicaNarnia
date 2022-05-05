@@ -98,16 +98,16 @@ public class Teste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-//            modelos.Funcionario p = new Funcionario(5,"João", "123.456.789", "Rua sem nome", "62988888", "62999999", "teste@email.com", "Trabalhador");
-            Pessoa p = new Pessoa();
-            PessoaJuridica pj = new PessoaJuridica(tField_teste.getText(), "razaoSocial", "nomeFantasia", "62999990000", "email",
-                    new Endereco("Rua", "sem nome", "0", "apt 0", "setor da perdição", "Cidade", EstadosBrazil.GOIAS, "CEp"));
-            jTextArea1.setText("" + pj.toString());
-//            jTextArea1.setText("" + p.validaTelefone(tField_teste.getText()));
-        } catch (Exception e) {
-            JOptionPane.showConfirmDialog(rootPane, e.getMessage());
-        }
+//        try {
+////            modelos.Funcionario p = new Funcionario(5,"João", "123.456.789", "Rua sem nome", "62988888", "62999999", "teste@email.com", "Trabalhador");
+//            Pessoa p = new Pessoa();
+//            PessoaJuridica pj = new PessoaJuridica(tField_teste.getText(), "razaoSocial", "nomeFantasia", "62999990000", "email",
+//                    new Endereco("Rua", "sem nome", "0", "apt 0", "setor da perdição", "Cidade", EstadosBrazil.GOIAS, "CEp"));
+//            jTextArea1.setText("" + pj.toString());
+////            jTextArea1.setText("" + p.validaTelefone(tField_teste.getText()));
+//        } catch (Exception e) {
+//            JOptionPane.showConfirmDialog(rootPane, e.getMessage());
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tField_testeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tField_testeActionPerformed

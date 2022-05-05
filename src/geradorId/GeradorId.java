@@ -13,10 +13,9 @@ import java.io.IOException;
  */
 public class GeradorId {
 
-    public static int getID() throws FileNotFoundException, IOException {
-        String nomeDoArquivo = "idGerado.txt";
+    public static int getID(String caminhoArquivo) throws FileNotFoundException, IOException {
 
-        try (BufferedReader br = new BufferedReader(new FileReader(nomeDoArquivo))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
 
             //lendo o id antigo
             String linha = br.readLine();
@@ -25,7 +24,7 @@ public class GeradorId {
             //aumentando o id
             id++;
 
-            BufferedWriter bw = new BufferedWriter(new FileWriter(nomeDoArquivo, false));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(caminhoArquivo, false));
             //apagando valor antigo e escrevendo novo valor no arquivo
             bw.write(String.valueOf(id));
 
