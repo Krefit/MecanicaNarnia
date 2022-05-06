@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import modelos.auxiliares.Endereco;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import persistencia.ManipulaBanco;

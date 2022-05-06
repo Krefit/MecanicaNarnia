@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import modelos.auxiliares.Endereco;
 import java.util.InputMismatchException;
 
 /**

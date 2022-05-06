@@ -14,7 +14,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import modelos.Cliente_PessoaFisica;
-import modelos.Endereco;
+import modelos.auxiliares.Endereco;
 import persistencia.ManipulaBanco;
 
 /**

@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import modelos.auxiliares.Endereco;
 import java.util.Date;
 import java.util.InputMismatchException;
 
@@ -25,7 +26,7 @@ public class PessoaFisica extends Pessoa {
     public PessoaFisica(String nome, String cpf, Date dataNascimento, String telefone, String email, Endereco endereco) {
         super(telefone, email, endereco);
         if (!validaCPF(cpf)) {
-            throw new InputMismatchException("CPF inválido");
+            throw new InputMismatchException("O CPF: " + cpf + " é inválido");
         }
         this.nome = nome;
         this.cpf = formataCPF(cpf);
@@ -39,7 +40,16 @@ public class PessoaFisica extends Pessoa {
         this.cpf = formataCPF(cpf);//  o cpf será salvo já formatado corretamente
     }
 
+    public static String desformatarCPF(String cpf) {
+        if (cpf.matches("^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$")) {
+            return cpf.substring(0, 3) + cpf.substring(4, 7) + cpf.substring(8, 11) + cpf.substring(12);
+        } else {
+            return cpf;
+        }
+    }
+
     public static boolean validaCPF(String CPF) {
+        CPF = desformatarCPF(CPF);
         if (CPF.equals("00000000000")
                 || CPF.equals("11111111111")
                 || CPF.equals("22222222222") || CPF.equals("33333333333")
@@ -91,7 +101,8 @@ public class PessoaFisica extends Pessoa {
 
     }
 
-    private String formataCPF(String CPF) {
+    public static String formataCPF(String CPF) {
+        CPF = desformatarCPF(CPF);
         return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
 
@@ -99,8 +110,7 @@ public class PessoaFisica extends Pessoa {
 
     @Override
     public String toString() {
-        return nome + ";" + cpf + ";" + dataNascimento +";"+ super.toString();
+        return nome + ";" + cpf + ";" + dataNascimento + ";" + super.toString();
     }
-    
-    
+
 }
