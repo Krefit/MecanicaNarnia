@@ -4,50 +4,58 @@
  */
 package modelos;
 
-
 /**
  *
  * @author ALUNO
  */
 public class Peca {
 
-    private String nome;
-    String fornecedor;
-    String[] veiculosCompativeis;
-    int quantidadeNoEstoque;
+    private String codigoPeca;
+    private String descricao;
+    private float valorPeca;
+    private int quantidadeNoEstoque;
+    private int quantidadeReservadas;
+    private int estoquequantidadeMinima;
 
     public Peca() {
     }
 
-    public Peca(String nome, int quantidadeNoEstoque, String fornecedor, String... veiculosCompativeis) {
-        this.nome = nome;
+    public Peca(String codigoPeca, String descricao, float valorPeca) {
+        this.codigoPeca = codigoPeca;
+        this.descricao = descricao;
+        this.valorPeca = valorPeca;
+    }
+
+    public Peca(String codigoPeca, String descricao, float valorPeca, int quantidadeNoEstoque, int estoquequantidadeMinima) {
+        this.codigoPeca = codigoPeca;
+        this.descricao = descricao;
+        this.valorPeca = valorPeca;
         this.quantidadeNoEstoque = quantidadeNoEstoque;
-        this.fornecedor = fornecedor;
-        this.veiculosCompativeis = veiculosCompativeis;
+        this.estoquequantidadeMinima = estoquequantidadeMinima;
     }
 
-    public String getNome() {
-        return nome;
+    public String getCodigoPeca() {
+        return codigoPeca;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setCodigoPeca(String codigoPeca) {
+        this.codigoPeca = codigoPeca;
     }
 
-    public String getFornecedor() {
-        return fornecedor;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setFornecedor(String fornecedor) {
-        this.fornecedor = fornecedor;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String[] getVeiculosCompativeis() {
-        return veiculosCompativeis;
+    public float getValorPeca() {
+        return valorPeca;
     }
 
-    public void setVeiculosCompativeis(String[] veiculosCompativeis) {
-        this.veiculosCompativeis = veiculosCompativeis;
+    public void setValorPeca(float valorPeca) {
+        this.valorPeca = valorPeca;
     }
 
     public int getQuantidadeNoEstoque() {
@@ -58,17 +66,20 @@ public class Peca {
         this.quantidadeNoEstoque = quantidadeNoEstoque;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder veiculos = new StringBuilder();
+    public int getQuantidadeReservadas() {
+        return quantidadeReservadas;
+    }
 
-        veiculos.append(veiculosCompativeis[0]);
-        for (int i = 1; i < veiculosCompativeis.length; i++) {
+    public void setQuantidadeReservadas(int quantidadeReservadas) {
+        this.quantidadeReservadas = quantidadeReservadas;
+    }
 
-            veiculos.append(",").append(veiculosCompativeis[i]);
-        }
-        return nome + ";" + fornecedor + ";" + quantidadeNoEstoque
-                + ";" + veiculos;
+    public int getEstoquequantidadeMinima() {
+        return estoquequantidadeMinima;
+    }
+
+    public void setEstoquequantidadeMinima(int estoquequantidadeMinima) {
+        this.estoquequantidadeMinima = estoquequantidadeMinima;
     }
 
 }
