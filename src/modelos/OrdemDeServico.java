@@ -5,6 +5,7 @@
 package modelos;
 
 import enumerations.ServicosOferecidos;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -18,46 +19,41 @@ public class OrdemDeServico {
     }
 
     private String defeitoRelatado;
-    private ServicosOferecidos servico;
-    private Funcionario responsavel;
-    private Peca peca = null; //opcional
+    private String servico;
     private float valorServico;
-    private float valorPecas = 0;
     private Date dataEntrada;
     private Date dataSaida = null;//só colocar depois de o serviço ser concluido
     private SitucaoOrdemServico situacao;
-    private Cliente_PessoaFisica donoVeiculo;
-    private Veiculo veiculo;
+    private int idFuncionarioResponsavel;
+    private int idPeca; //opcional
+    private int idVeiculo;
 
     public OrdemDeServico() {
     }
 
-    public OrdemDeServico(String defeitoRelatado, ServicosOferecidos servico,
-            Funcionario responsavel, float valorServico, Date dataEntrada,
-            SitucaoOrdemServico situacao, Cliente_PessoaFisica donoVeiculo, Veiculo veiculo) {
+    public OrdemDeServico(String defeitoRelatado, String servico,
+            int idFuncionarioResponsavel, float valorServico, Date dataEntrada,
+            SitucaoOrdemServico situacao, int idVeiculo) {
         this.defeitoRelatado = defeitoRelatado;
         this.servico = servico;
-        this.responsavel = responsavel;
+        this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.valorServico = valorServico;
         this.dataEntrada = dataEntrada;
         this.situacao = situacao;
-        this.donoVeiculo = donoVeiculo;
-        this.veiculo = veiculo;
+        this.idVeiculo = idVeiculo;
     }
 
-    public OrdemDeServico(String defeitoRelatado, ServicosOferecidos servico,
-            Funcionario responsavel, float valorServico, Date dataEntrada, SitucaoOrdemServico situacao,
-            Cliente_PessoaFisica donoVeiculo, Veiculo veiculo, Peca peca, float valorPecas) {
+    public OrdemDeServico(String defeitoRelatado, String servico,
+            int idFuncionarioResponsavel, float valorServico, Date dataEntrada, SitucaoOrdemServico situacao,
+            int idVeiculo, int idPeca) {
         this.defeitoRelatado = defeitoRelatado;
         this.servico = servico;
-        this.responsavel = responsavel;
+        this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.valorServico = valorServico;
         this.dataEntrada = dataEntrada;
         this.situacao = situacao;
-        this.donoVeiculo = donoVeiculo;
-        this.veiculo = veiculo;
-        this.peca = peca;
-        this.valorPecas = valorPecas;
+        this.idVeiculo = idVeiculo;
+        this.idPeca = idPeca;
     }
 
     public String getDefeitoRelatado() {
@@ -68,36 +64,44 @@ public class OrdemDeServico {
         this.defeitoRelatado = defeitoRelatado;
     }
 
-    public ServicosOferecidos getServico() {
+    public String getServico() {
         return servico;
     }
 
-    public void setServico(ServicosOferecidos servico) {
+    public void setServico(String servico) {
         this.servico = servico;
     }
 
-    public Funcionario getResponsavel() {
-        return responsavel;
+    public int getIdFuncionarioResponsavel() {
+        return idFuncionarioResponsavel;
     }
 
-    public void setResponsavel(Funcionario responsavel) {
-        this.responsavel = responsavel;
+    public void setIdFuncionarioResponsavel(int idFuncionarioResponsavel) {
+        this.idFuncionarioResponsavel = idFuncionarioResponsavel;
     }
 
-    public Peca getPeca() {
-        return peca;
+    public float getValorServico() {
+        return valorServico;
     }
 
-    public void setPeca(Peca peca) {
-        this.peca = peca;
+    public void setValorServico(float valorServico) {
+        this.valorServico = valorServico;
     }
 
-    public float getvalorPecas() {
-        return valorPecas;
+    public int getIdPeca() {
+        return idPeca;
     }
 
-    public void setvalorPecas(float valor) {
-        this.valorPecas = valor;
+    public void setIdPeca(int idPeca) {
+        this.idPeca = idPeca;
+    }
+
+    public int getIdVeiculo() {
+        return idVeiculo;
+    }
+
+    public void setIdVeiculo(int idVeiculo) {
+        this.idVeiculo = idVeiculo;
     }
 
     public Date getDataEntrada() {
@@ -124,15 +128,19 @@ public class OrdemDeServico {
         this.situacao = situacao;
     }
 
-    public Cliente_PessoaFisica getDonoVeiculo() {
-        return donoVeiculo;
+    public int getidVeiculo() {
+        return idVeiculo;
     }
 
-    public Veiculo getVeiculo() {
-        return veiculo;
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        if (dataSaida == null) {
+            return defeitoRelatado + ";" + servico + ";" + idFuncionarioResponsavel + ";" + valorServico + ";"
+                    + sdf.format(dataEntrada) + ";" + "null" + ";" + situacao + ";" + idVeiculo + ";" + idPeca;
+        }
+        return defeitoRelatado + ";" + servico + ";" + idFuncionarioResponsavel + ";" + valorServico + ";"
+                + sdf.format(dataEntrada) + ";" + sdf.format(dataSaida) + ";" + situacao + ";" + idVeiculo + ";" + idPeca;
     }
 
-    public float valorTotal() {
-        return this.valorServico + this.valorPecas;
-    }
 }

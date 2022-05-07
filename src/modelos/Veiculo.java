@@ -11,7 +11,9 @@ import java.util.ArrayList;
  * @author ALUNO
  */
 public class Veiculo {
-//    private static String[] listaModelos;
+
+    private static String NomeArquivoDisco = "veiculo.txt";
+    private static String arquivoID = "idGeradoVeiculo.txt";
 
     private int idModelo;//talvez criar uma classe separada
     private int idMarca;
@@ -42,6 +44,16 @@ public class Veiculo {
 
         this.listaOS = new ArrayList<>();//a lista de OS inicia sempre vazia
     }
+
+    public static String getNomeArquivoDisco() {
+        return NomeArquivoDisco;
+    }
+
+    public static String getArquivoID() {
+        return arquivoID;
+    }
+    
+    
 
     public int getIdModelo() {
         return idModelo;
@@ -143,6 +155,11 @@ public class Veiculo {
             throw new Exception("OS não encontrada");
         }
         return listaOS.get(listaOS.indexOf(os));
+    }
+
+    @Override
+    public String toString() {
+        return idModelo + ";" + idMarca + ";" + chassi + ";" + renavam + ";" + tipoVeiculo + ";" + placa + ";" + anoFabricacao + ";" + anoModelo + ";" + idDonoVeiculo + ";" + listaOS.toString();
     }
 
 }

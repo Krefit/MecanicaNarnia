@@ -5,12 +5,14 @@
 package tela;
 
 import enumerations.EstadosBrazil;
+import enumerations.ServicosOferecidos;
 import java.io.IOException;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import modelos.*;
 import modelos.auxiliares.Endereco;
 import persistencia.ManipulaBancoClientePEssoaFisica;
+import persistencia.ManipulaBancoVeiculo;
 
 /**
  *
@@ -115,19 +117,26 @@ public class Teste extends javax.swing.JFrame {
 
 //3;asd;750.320.151-72;Mon Nov 11 00:00:00 BRST 2002;62982941812;asd;asd,asd,asd,asd,asd,asd,AC,asd
         Date dataNascimento = new Date(102, 10, 11);
-        Cliente_PessoaFisica cpf = new Cliente_PessoaFisica("a", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
-        Cliente_PessoaFisica cpf2 = new Cliente_PessoaFisica("b", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
+//        Cliente_PessoaFisica cpf = new Cliente_PessoaFisica("a", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
+//        Cliente_PessoaFisica cpf2 = new Cliente_PessoaFisica("b", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
 //        Cliente_PessoaFisica cpf3 = new Cliente_PessoaFisica("c", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
         try {
-ManipulaBancoClientePEssoaFisica p = new ManipulaBancoClientePEssoaFisica();
-            jTextArea1.setText(p.buscar(cpf).toString());
+//ManipulaBancoClientePEssoaFisica p = new ManipulaBancoClientePEssoaFisica();
+//            jTextArea1.setText(p.buscar(cpf).toString());
 //        } catch (IOException e) {
 //            e.printStackTrace();
+            Veiculo v = new Veiculo(2, 3, "chassi", "renavam", "tipoVeiculo", "placa", 2002, 2000, 3);
+            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado1", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5,12));
+            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado2", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5,15));
+            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado3", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5));
+            ManipulaBancoVeiculo m = new ManipulaBancoVeiculo();
+//            m.incluir(v);
+            System.out.println(m.buscar(v));
         } catch (Exception e) {
             e.printStackTrace();
         }
 //        jTextArea1.setText("" +Cliente_PessoaFisica.validaCPF( tField_teste.getText()));
-        System.out.println(cpf2.toString());
+//        System.out.println(cpf2.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tField_testeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tField_testeActionPerformed
