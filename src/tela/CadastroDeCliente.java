@@ -15,7 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import modelos.Cliente_PessoaFisica;
 import modelos.auxiliares.Endereco;
-import persistencia.ManipulaBanco;
+import persistencia.ManipulaBancoClientePEssoaFisica;
 
 /**
  *
@@ -24,14 +24,14 @@ import persistencia.ManipulaBanco;
 public class CadastroDeCliente extends javax.swing.JFrame {
 
     ArrayList<Cliente_PessoaFisica> listaClientes = new ArrayList<>();
+
     /**
      * Creates new form CadastroDeCliente
      */
     public CadastroDeCliente() {
         initComponents();
         loadComboBox();
-        
-        
+
     }
 
     /**
@@ -271,14 +271,14 @@ public class CadastroDeCliente extends javax.swing.JFrame {
             String CEP = tField_CEP.getText();
             String auxDataNascimento = tField_DataNascimento.getText();
             String[] vetDataNascimento = auxDataNascimento.split("/");
-            Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2])-1900,Integer.parseInt(vetDataNascimento[1])-1,Integer.parseInt(vetDataNascimento[0]));
+            Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2]) - 1900, Integer.parseInt(vetDataNascimento[1]) - 1, Integer.parseInt(vetDataNascimento[0]));
             String email = tField_email.getText();
-            
+
             EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class, estado);
-            
+
             Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
             Cliente_PessoaFisica clPF = new Cliente_PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
-            ManipulaBanco.incluir(clPF);
+            new ManipulaBancoClientePEssoaFisica().incluir(clPF);
             //criando novo cliente com o id correspondente
             //Cliente_PessoaFisica clienteParaAdicionar = new Cliente_PessoaFisica(nome, cpf, endereco, telefone, email);
             //Cliente_PessoaFisica cliPF = new Cliente_PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
@@ -328,8 +328,7 @@ public class CadastroDeCliente extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CadastroDeCliente().setVisible(true);
-                
-                
+
             }
         });
     }

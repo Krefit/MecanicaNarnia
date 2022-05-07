@@ -1,54 +1,57 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package persistencia;
 
 import enumerations.EstadosBrazil;
 import geradorId.GeradorId;
 import java.io.BufferedReader;
-import modelos.*;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import modelos.Cliente_PessoaFisica;
 import modelos.auxiliares.Endereco;
 
-public class ManipulaBanco {
+/**
+ *
+ * @author tanak
+ */
+public class ManipulaBancoClientePEssoaFisica implements IManipulaBanco<Cliente_PessoaFisica> {
 
-    public static void incluir(Cliente_PessoaFisica obj) throws Exception {
-        try {
+    @Override
+    public void incluir(Cliente_PessoaFisica obj) throws Exception {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(obj.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(obj.getarquivoID());
-            //objeto.setId(id);
-            //cria arquivo CLIENTE
-            FileWriter fw = new FileWriter(obj.getNomeArquivoDisco(), true);//true = acumular
-            //cria buffer
-            BufferedWriter bw = new BufferedWriter(fw);
-            //escreve arquivo
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
-            bw.close();
-        } catch (Exception erro) {
-            throw erro;
         }
     }
 
-    public static Cliente_PessoaFisica buscar(Cliente_PessoaFisica obj) throws Exception {
+    @Override
+    public Cliente_PessoaFisica buscar(Cliente_PessoaFisica obj) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(obj.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.endsWith(obj.toString())) {
+                if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
                     String[] dados = linha.split(";");
                     if (dados.length != 7) {
                         throw new Exception("Dados incorretos");
                     }
-                    
+
                     String[] dadosEndereco = dados[6].split(",");
                     if (dadosEndereco.length != 8) {
                         throw new Exception("Dados incorretos");
                     }
-                    
+
                     Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
-                    System.out.println(dados[2]);
-                    return new Cliente_PessoaFisica(dados[1], dados[2], new Date(), dados[4], dados[5], endereco);
+                    Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
+                    return new Cliente_PessoaFisica(dados[1], dados[2], data, dados[4], dados[5], endereco);
                 }
 
                 linha = br.readLine();
@@ -58,7 +61,8 @@ public class ManipulaBanco {
 
     }
 
-    public static void remover(Cliente_PessoaFisica obj) throws IOException, Exception {
+    @Override
+    public void remover(Cliente_PessoaFisica obj) throws Exception {
 
         try (BufferedReader br = new BufferedReader(new FileReader(obj.getNomeArquivoDisco()))) {
             boolean achou = false;
@@ -67,7 +71,7 @@ public class ManipulaBanco {
 
             while (linha != null) {
                 if (!linha.endsWith(obj.toString())) {//ignorando o ID, pois o obj não tem id
-                    lista.append(linha).append("\n");
+                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
                 } else {
                     achou = true;
                 }
@@ -85,4 +89,13 @@ public class ManipulaBanco {
             }
         }
     }
+
+    @Override
+    public void editar(Cliente_PessoaFisica objParaRemover, Cliente_PessoaFisica objParaAdicionar) throws Exception {
+
+        remover(objParaRemover);//caso o objeto não exista, vai dar um erro nesse método, esta é a validacao
+        incluir(objParaAdicionar);
+
+    }
+
 }

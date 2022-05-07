@@ -10,7 +10,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import modelos.*;
 import modelos.auxiliares.Endereco;
-import persistencia.ManipulaBanco;
+import persistencia.ManipulaBancoClientePEssoaFisica;
 
 /**
  *
@@ -115,14 +115,12 @@ public class Teste extends javax.swing.JFrame {
 
 //3;asd;750.320.151-72;Mon Nov 11 00:00:00 BRST 2002;62982941812;asd;asd,asd,asd,asd,asd,asd,AC,asd
         Date dataNascimento = new Date(102, 10, 11);
-//        Cliente_PessoaFisica cpf = new Cliente_PessoaFisica("a", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
+        Cliente_PessoaFisica cpf = new Cliente_PessoaFisica("a", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
         Cliente_PessoaFisica cpf2 = new Cliente_PessoaFisica("b", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
 //        Cliente_PessoaFisica cpf3 = new Cliente_PessoaFisica("c", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
         try {
-//            ManipulaBanco.incluir(cpf);
-//            ManipulaBanco.incluir(cpf2);
-//            ManipulaBanco.incluir(cpf3);
-            jTextArea1.setText(ManipulaBanco.buscar(cpf2).toString());
+ManipulaBancoClientePEssoaFisica p = new ManipulaBancoClientePEssoaFisica();
+            jTextArea1.setText(p.buscar(cpf).toString());
 //        } catch (IOException e) {
 //            e.printStackTrace();
         } catch (Exception e) {

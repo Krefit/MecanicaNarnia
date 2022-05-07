@@ -7,16 +7,17 @@ package modelos;
 import modelos.auxiliares.Endereco;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import persistencia.ManipulaBanco;
+import persistencia.ManipulaBancoClientePEssoaFisica;
 
 /**
  *
  * @author ALUNO
  */
-public class Cliente_PessoaFisica extends PessoaFisica{
+public class Cliente_PessoaFisica extends PessoaFisica {
 
     String nomeArquivoDisco = "clientePessoaFisica.txt";
     String arquivoID = "idGeradoClientePessoaFisica.txt";
+
     public Cliente_PessoaFisica(String telefone, String email, Endereco endereco) {
         super(telefone, email, endereco);
     }
@@ -25,16 +26,15 @@ public class Cliente_PessoaFisica extends PessoaFisica{
         super(nome, cpf, dataNascimento, telefone, email, endereco);
     }
 
-    
     public void incluir(Cliente_PessoaFisica objeto) throws Exception {
-        ManipulaBanco.incluir(objeto); 
+        new ManipulaBancoClientePEssoaFisica().incluir(objeto);
     }
 
     public String getNomeArquivoDisco() {
         return nomeArquivoDisco;
     }
-    
-    public String getarquivoID(){
+
+    public String getarquivoID() {
         return arquivoID;
     }
 
@@ -42,11 +42,5 @@ public class Cliente_PessoaFisica extends PessoaFisica{
     public String toString() {
         return super.toString();
     }
-    
-    
-    
-    
-    
-   
 
 }
