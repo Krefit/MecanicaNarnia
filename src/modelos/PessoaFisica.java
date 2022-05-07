@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import java.text.SimpleDateFormat;
 import modelos.auxiliares.Endereco;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -110,7 +111,8 @@ public class PessoaFisica extends Pessoa {
 
     @Override
     public String toString() {
-        return nome + ";" + cpf + ";" + dataNascimento + ";" + super.toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return nome + ";" + cpf + ";" + sdf.format(dataNascimento) + ";" + super.toString();
     }
 
 }
