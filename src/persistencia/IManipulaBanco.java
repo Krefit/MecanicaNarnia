@@ -16,8 +16,14 @@ public interface IManipulaBanco<T> {
 
     public T buscar(T obj) throws Exception;
 
+    public T buscar(int id) throws Exception;
+
     public void remover(T obj) throws Exception;
 
+    public void remover(int id) throws Exception;
+
     public void editar(T objParaRemover, T objParaAdicionar) throws Exception;
+
+    public void editar(int idObjParaRemover, T objParaAdicionar) throws Exception;
 
 }

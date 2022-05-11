@@ -5,13 +5,13 @@
 package tela;
 
 import enumerations.EstadosBrazil;
-import enumerations.ServicosOferecidos;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import modelos.*;
+import modelos.PessoaFisica;
+import modelos.Veiculo;
 import modelos.auxiliares.Endereco;
-import persistencia.ManipulaBancoClientePEssoaFisica;
+import persistencia.ManipulaBancoPessoaFisica;
 import persistencia.ManipulaBancoVeiculo;
 
 /**
@@ -21,7 +21,7 @@ import persistencia.ManipulaBancoVeiculo;
 public class Teste extends javax.swing.JFrame {
 
     /**
-     * Creates new form Teste
+     * Creates new form TEste
      */
     public Teste() {
         initComponents();
@@ -36,114 +36,82 @@ public class Teste extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jButtonTestar = new javax.swing.JButton();
         tField_teste = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaSaida = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTestar.setText("jButton1");
+        jButtonTestar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonTestarActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        tField_teste.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tField_testeActionPerformed(evt);
-            }
-        });
+        jTextAreaSaida.setColumns(20);
+        jTextAreaSaida.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaSaida);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jButton1))
+                        .addGap(135, 135, 135)
+                        .addComponent(jButtonTestar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(tField_teste, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                        .addGap(72, 72, 72)
+                        .addComponent(tField_teste, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tField_teste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(tField_teste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButtonTestar)
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        try {
-////            modelos.Funcionario p = new Funcionario(5,"João", "123.456.789", "Rua sem nome", "62988888", "62999999", "teste@email.com", "Trabalhador");
-//            Pessoa p = new Pessoa();
-//            PessoaJuridica pj = new PessoaJuridica(tField_teste.getText(), "razaoSocial", "nomeFantasia", "62999990000", "email",
-//                    new Endereco("Rua", "sem nome", "0", "apt 0", "setor da perdição", "Cidade", EstadosBrazil.GOIAS, "CEp"));
-//            jTextArea1.setText("" + pj.toString());
-////            jTextArea1.setText("" + p.validaTelefone(tField_teste.getText()));
-//        } catch (Exception e) {
-//            JOptionPane.showConfirmDialog(rootPane, e.getMessage());
-//        }
-
-//3;asd;750.320.151-72;Mon Nov 11 00:00:00 BRST 2002;62982941812;asd;asd,asd,asd,asd,asd,asd,AC,asd
-        Date dataNascimento = new Date(102, 10, 11);
-//        Cliente_PessoaFisica cpf = new Cliente_PessoaFisica("a", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
-//        Cliente_PessoaFisica cpf2 = new Cliente_PessoaFisica("b", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
-//        Cliente_PessoaFisica cpf3 = new Cliente_PessoaFisica("c", "51931918007", dataNascimento, "62986422099", "email", new Endereco("rua", "asda", "asda", "asda", "asda", "ASD", EstadosBrazil.ES, "asdas"));
+    private void jButtonTestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTestarActionPerformed
+        
         try {
-//ManipulaBancoClientePEssoaFisica p = new ManipulaBancoClientePEssoaFisica();
-//            jTextArea1.setText(p.buscar(cpf).toString());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            Veiculo v = new Veiculo(2, 3, "chassi", "renavam", "tipoVeiculo", "placa", 2002, 2000, 3);
-//            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado1", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5,12));
-//            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado2", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5,15));
-//            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado3", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5));
-            ManipulaBancoVeiculo m = new ManipulaBancoVeiculo();
-            ManipulaBancoClientePEssoaFisica m2 = new ManipulaBancoClientePEssoaFisica();
+            ManipulaBancoPessoaFisica mbcpf = new ManipulaBancoPessoaFisica();
 
-//            m.incluir(v);
-            System.out.println(m.buscar(13));
+            Endereco endereco = new Endereco("Rua", "logradouro", "numero", "complemento",
+                    "bairro", "cidade", EstadosBrazil.GO, "CEP");
+            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse("23/02/1999");
+
+            PessoaFisica pf = new PessoaFisica("nome", "06516083096", dataNascimento,
+                    "62988887777", "email", endereco);
+
+//            mbcpf.incluir(pf);
+
+//            ManipulaBancoVeiculo mbv = new ManipulaBancoVeiculo();
+//            
+//            Veiculo v = new Veiculo(12, 23, "chassi", "renavam", "tipoVeiculo", "placa", 2010, 2008, 2);
+//            
+//            jTextAreaSaida.setText(v.toString());
+
+            jTextAreaSaida.setText(pf.toString());
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
         }
-//        jTextArea1.setText("" +Cliente_PessoaFisica.validaCPF( tField_teste.getText()));
-//        System.out.println(cpf2.toString());
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void tField_testeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tField_testeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tField_testeActionPerformed
+    }//GEN-LAST:event_jButtonTestarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,6 +139,7 @@ public class Teste extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -181,10 +150,9 @@ public class Teste extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButtonTestar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextAreaSaida;
     private javax.swing.JTextField tField_teste;
     // End of variables declaration//GEN-END:variables
 }

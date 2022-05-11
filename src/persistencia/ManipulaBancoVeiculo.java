@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import javax.print.DocFlavor;
-import modelos.Cliente_PessoaFisica;
 import modelos.OrdemDeServico;
 import modelos.Veiculo;
 import modelos.auxiliares.Endereco;
@@ -71,6 +70,7 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
         throw new Exception("Cliente não encontrado");
     }
 
+    @Override
     public Veiculo buscar(int id) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
@@ -108,12 +108,70 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
 
     @Override
     public void remover(Veiculo obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
+            boolean achou = false;
+            String linha = br.readLine();
+            StringBuilder lista = new StringBuilder();
+
+            while (linha != null) {
+                if (!linha.endsWith(obj.toString())) {//ignorando o ID, pois o obj não tem id
+                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
+                } else {
+                    achou = true;
+                }
+                linha = br.readLine();
+            }
+
+            if (!achou) {
+                throw new Exception("Cliente não encontrado");
+            }
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(Veiculo.getNomeArquivoDisco(), false))) {
+                if (lista.toString() != null) {
+                    bw.write(lista.toString());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void remover(int id) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
+            boolean achou = false;
+            String linha = br.readLine();
+            StringBuilder lista = new StringBuilder();
+
+            while (linha != null) {
+                if (!linha.startsWith(String.valueOf(id))) {//ignorando o ID, pois o obj não tem id
+                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
+                } else {
+                    achou = true;
+                }
+                linha = br.readLine();
+            }
+
+            if (!achou) {
+                throw new Exception("Cliente não encontrado");
+            }
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(Veiculo.getNomeArquivoDisco(), false))) {
+                if (lista.toString() != null) {
+                    bw.write(lista.toString());
+                }
+            }
+        }
     }
 
     @Override
     public void editar(Veiculo objParaRemover, Veiculo objParaAdicionar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        remover(objParaRemover);
+        incluir(objParaAdicionar);
+    }
+
+    @Override
+    public void editar(int idObjParaRemover, Veiculo objParaAdicionar) throws Exception {
+        remover(idObjParaRemover);
+        incluir(objParaAdicionar);
     }
 
 }

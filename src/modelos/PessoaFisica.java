@@ -16,6 +16,9 @@ import java.util.InputMismatchException;
  */
 public class PessoaFisica extends Pessoa {
 
+    private static String nomeArquivoDisco = "clientePessoaFisica.txt";
+    private static String arquivoID = "idGeradoClientePessoaFisica.txt";
+
     protected String nome;
     protected String cpf;
     protected Date dataNascimento;
@@ -32,6 +35,14 @@ public class PessoaFisica extends Pessoa {
         this.nome = nome;
         this.cpf = formataCPF(cpf);
         this.dataNascimento = dataNascimento;
+    }
+
+    public static String getNomeArquivoDisco() {
+        return nomeArquivoDisco;
+    }
+
+    public static String getArquivoID() {
+        return arquivoID;
     }
 
     public void setCpf(String cpf) throws Exception {

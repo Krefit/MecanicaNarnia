@@ -31,7 +31,8 @@ public class Veiculo {
     public Veiculo() {
     }
 
-    public Veiculo(int idModelo, int idMarca, String chassi, String renavam, String tipoVeiculo, String placa, int anoFabricacao, int anoModelo, int idDonoVeiculo) {
+    public Veiculo(int idModelo, int idMarca, String chassi, String renavam, 
+            String tipoVeiculo, String placa, int anoFabricacao, int anoModelo, int idDonoVeiculo) {
         this.idModelo = idModelo;
         this.idMarca = idMarca;
         this.chassi = chassi;

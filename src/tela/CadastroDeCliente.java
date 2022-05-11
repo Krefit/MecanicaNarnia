@@ -13,9 +13,9 @@ import java.util.HashSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import modelos.Cliente_PessoaFisica;
+import modelos.PessoaFisica;
 import modelos.auxiliares.Endereco;
-import persistencia.ManipulaBancoClientePEssoaFisica;
+import persistencia.ManipulaBancoPessoaFisica;
 
 /**
  *
@@ -23,7 +23,7 @@ import persistencia.ManipulaBancoClientePEssoaFisica;
  */
 public class CadastroDeCliente extends javax.swing.JFrame {
 
-    ArrayList<Cliente_PessoaFisica> listaClientes = new ArrayList<>();
+    ArrayList<PessoaFisica> listaClientes = new ArrayList<>();
 
     /**
      * Creates new form CadastroDeCliente
@@ -277,8 +277,8 @@ public class CadastroDeCliente extends javax.swing.JFrame {
             EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class, estado);
 
             Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
-            Cliente_PessoaFisica clPF = new Cliente_PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
-            new ManipulaBancoClientePEssoaFisica().incluir(clPF);
+            PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
+            new ManipulaBancoPessoaFisica().incluir(clPF);
             //criando novo cliente com o id correspondente
             //Cliente_PessoaFisica clienteParaAdicionar = new Cliente_PessoaFisica(nome, cpf, endereco, telefone, email);
             //Cliente_PessoaFisica cliPF = new Cliente_PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
