@@ -61,6 +61,34 @@ public class ManipulaBancoClientePEssoaFisica implements IManipulaBanco<Cliente_
 
     }
 
+    public Cliente_PessoaFisica buscar(int id) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(Cliente_PessoaFisica.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                if (linha.startsWith(String.valueOf(id))) {
+                    String[] dados = linha.split(";");
+                    if (dados.length != 7) {
+                        throw new Exception("Dados incorretos");
+                    }
+
+                    String[] dadosEndereco = dados[6].split(",");
+                    if (dadosEndereco.length != 8) {
+                        throw new Exception("Dados incorretos");
+                    }
+
+                    Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
+
+                    Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
+                    return new Cliente_PessoaFisica(dados[1], dados[2], data, dados[4], dados[5], endereco);
+                }
+
+                linha = br.readLine();
+            }
+        }
+        throw new Exception("Cliente não encontrado");
+
+    }
+
     @Override
     public void remover(Cliente_PessoaFisica obj) throws Exception {
 

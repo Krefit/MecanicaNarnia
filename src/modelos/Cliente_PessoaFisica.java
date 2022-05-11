@@ -15,8 +15,8 @@ import persistencia.ManipulaBancoClientePEssoaFisica;
  */
 public class Cliente_PessoaFisica extends PessoaFisica {
 
-    String nomeArquivoDisco = "clientePessoaFisica.txt";
-    String arquivoID = "idGeradoClientePessoaFisica.txt";
+    private static String nomeArquivoDisco = "clientePessoaFisica.txt";
+    private static String arquivoID = "idGeradoClientePessoaFisica.txt";
 
     public Cliente_PessoaFisica(String telefone, String email, Endereco endereco) {
         super(telefone, email, endereco);
@@ -30,11 +30,11 @@ public class Cliente_PessoaFisica extends PessoaFisica {
         new ManipulaBancoClientePEssoaFisica().incluir(objeto);
     }
 
-    public String getNomeArquivoDisco() {
+    public static String getNomeArquivoDisco() {
         return nomeArquivoDisco;
     }
 
-    public String getarquivoID() {
+    public static String getarquivoID() {
         return arquivoID;
     }
 

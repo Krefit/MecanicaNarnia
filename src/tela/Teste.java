@@ -125,13 +125,15 @@ public class Teste extends javax.swing.JFrame {
 //            jTextArea1.setText(p.buscar(cpf).toString());
 //        } catch (IOException e) {
 //            e.printStackTrace();
-            Veiculo v = new Veiculo(2, 3, "chassi", "renavam", "tipoVeiculo", "placa", 2002, 2000, 3);
-            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado1", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5,12));
-            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado2", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5,15));
-            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado3", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5));
+//            Veiculo v = new Veiculo(2, 3, "chassi", "renavam", "tipoVeiculo", "placa", 2002, 2000, 3);
+//            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado1", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5,12));
+//            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado2", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5,15));
+//            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado3", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5));
             ManipulaBancoVeiculo m = new ManipulaBancoVeiculo();
+            ManipulaBancoClientePEssoaFisica m2 = new ManipulaBancoClientePEssoaFisica();
+
 //            m.incluir(v);
-            System.out.println(m.buscar(v));
+            System.out.println(m.buscar(13));
         } catch (Exception e) {
             e.printStackTrace();
         }
