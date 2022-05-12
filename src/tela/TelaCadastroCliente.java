@@ -10,7 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import modelos.Cliente_PessoaFisica;
 import modelos.auxiliares.Endereco;
-import persistencia.ManipulaBancoClientePEssoaFisica;
+import persistencia.ManipulaBancoPessoaFisica;
 
 /**
  *
@@ -270,7 +270,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
             Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
             Cliente_PessoaFisica clPF = new Cliente_PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
-            new ManipulaBancoClientePEssoaFisica().incluir(clPF);
+            new ManipulaBancoPessoaFisica().incluir(clPF);
             //criando novo cliente com o id correspondente
             //Cliente_PessoaFisica clienteParaAdicionar = new Cliente_PessoaFisica(nome, cpf, endereco, telefone, email);
             //Cliente_PessoaFisica cliPF = new Cliente_PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
