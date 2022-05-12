@@ -8,7 +8,7 @@ import enumerations.EstadosBrazil;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import modelos.Cliente_PessoaFisica;
+import modelos.PessoaFisica;
 import modelos.auxiliares.Endereco;
 import persistencia.ManipulaBancoPessoaFisica;
 
@@ -269,7 +269,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class, estado);
 
             Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
-            Cliente_PessoaFisica clPF = new Cliente_PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
+            PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
             new ManipulaBancoPessoaFisica().incluir(clPF);
             //criando novo cliente com o id correspondente
             //Cliente_PessoaFisica clienteParaAdicionar = new Cliente_PessoaFisica(nome, cpf, endereco, telefone, email);
