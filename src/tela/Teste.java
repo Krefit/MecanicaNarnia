@@ -9,9 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import modelos.PessoaFisica;
+import modelos.PessoaJuridica;
 import modelos.Veiculo;
 import modelos.auxiliares.Endereco;
 import persistencia.ManipulaBancoPessoaFisica;
+import persistencia.ManipulaBancoPessoaJuridica;
 import persistencia.ManipulaBancoVeiculo;
 
 /**
@@ -87,26 +89,29 @@ public class Teste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonTestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTestarActionPerformed
-        
-        try {
-            ManipulaBancoPessoaFisica mbcpf = new ManipulaBancoPessoaFisica();
 
+        try {
+//            ManipulaBancoPessoaFisica mbcpf = new ManipulaBancoPessoaFisica();
+//
             Endereco endereco = new Endereco("Rua", "logradouro", "numero", "complemento",
                     "bairro", "cidade", EstadosBrazil.GO, "CEP");
-            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse("23/02/1999");
-
-            PessoaFisica pf = new PessoaFisica("nome", "06516083096", dataNascimento,
-                    "62988887777", "email", endereco);
+//            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse("23/02/1999");
+//
+//            PessoaFisica pf = new PessoaFisica("nome", "06516083096", dataNascimento,
+//                    "62988887777", "email", endereco);
 
 //            mbcpf.incluir(pf);
-
 //            ManipulaBancoVeiculo mbv = new ManipulaBancoVeiculo();
 //            
 //            Veiculo v = new Veiculo(12, 23, "chassi", "renavam", "tipoVeiculo", "placa", 2010, 2008, 2);
 //            
 //            jTextAreaSaida.setText(v.toString());
+//            jTextAreaSaida.setText(pf.toString());
+            PessoaJuridica pj = new PessoaJuridica("72699025000136", "razaoSocial", "nomeFantasia", "62986422099", "email", endereco);
 
-            jTextAreaSaida.setText(pf.toString());
+//            new ManipulaBancoPessoaJuridica().incluir(pj);
+            new ManipulaBancoPessoaJuridica().remover(6);
+//System.out.println(PessoaJuridica.desformatarCNPJ("51.168.306/0001-92"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
