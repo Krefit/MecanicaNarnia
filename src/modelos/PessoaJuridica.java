@@ -14,6 +14,9 @@ import java.util.InputMismatchException;
  */
 public class PessoaJuridica extends Pessoa {
 
+    private static String nomeArquivoDisco = "clientePessoaJuridica.txt";
+    private static String arquivoID = "idGeradoPessoaJuridica.txt";
+
     private String cnpj;
     private String razaoSocial;
     private String nomeFantasia;
@@ -24,11 +27,22 @@ public class PessoaJuridica extends Pessoa {
     public PessoaJuridica(String cnpj, String razaoSocial, String nomeFantasia, String telefone, String email, Endereco endereco) {
         super(telefone, email, endereco);
         if (!validaCNPJ(cnpj)) {
-            throw new InputMismatchException("CNPJ inválido!");
+            cnpj = desformatarCNPJ(cnpj);
+            if (!validaCNPJ(cnpj)) {
+                throw new InputMismatchException("CNPJ inválido!");
+            }
         }
         this.cnpj = formataCNPJ(cnpj);//salvando cnpj já formatado
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
+    }
+
+    public static String getNomeArquivoDisco() {
+        return nomeArquivoDisco;
+    }
+
+    public static String getArquivoID() {
+        return arquivoID;
     }
 
     public String getCnpj() {
@@ -37,7 +51,10 @@ public class PessoaJuridica extends Pessoa {
 
     public void setCnpj(String cnpj) {
         if (!validaCNPJ(cnpj)) {
-            throw new InputMismatchException("CNPJ inválido!");
+            cnpj = desformatarCNPJ(cnpj);
+            if (!validaCNPJ(cnpj)) {
+                throw new InputMismatchException("CNPJ inválido!");
+            }
         }
         this.cnpj = formataCNPJ(cnpj);//salvando cnpj já formatado
     }
@@ -136,6 +153,13 @@ public class PessoaJuridica extends Pessoa {
         return (CNPJ.substring(0, 2) + "." + CNPJ.substring(2, 5) + "."
                 + CNPJ.substring(5, 8) + "." + CNPJ.substring(8, 12) + "-"
                 + CNPJ.substring(12, 14));
+    }
+
+    private static String desformatarCNPJ(String CNPJ) {
+        return CNPJ.substring(0, 2) + CNPJ.substring(3, 6)
+                + CNPJ.substring(7, 10) + CNPJ.substring(11, 15)
+                + CNPJ.substring(16, 18);
+
     }
 
 }

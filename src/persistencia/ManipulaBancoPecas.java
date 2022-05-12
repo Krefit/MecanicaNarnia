@@ -10,28 +10,27 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import modelos.PessoaJuridica;
+import modelos.Peca;
+import modelos.Peca;
 import modelos.auxiliares.Endereco;
 
 /**
  *
  * @author ALUNO
  */
-public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridica> {
+public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
 
     @Override
-    public void incluir(PessoaJuridica obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaJuridica.getNomeArquivoDisco(), true))) {
-            int id = GeradorId.getID(PessoaJuridica.getArquivoID());
+    public void incluir(Peca obj) throws Exception {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Peca.getNomeArquivoDisco(), true))) {
+            int id = GeradorId.getID(Peca.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
         }//fecha arquivo
     }
 
     @Override
-    public PessoaJuridica buscar(PessoaJuridica obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+    public Peca buscar(Peca obj) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
@@ -40,14 +39,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
                         throw new Exception("Dados incorretos");
                     }
 
-                    String[] dadosEndereco = dados[6].split(",");
-                    if (dadosEndereco.length != 8) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
-
-                    return new PessoaJuridica(dados[2], dados[3], dados[1], dados[4], dados[5], endereco);
+                    return new Peca(dados[1], dados[2], Float.parseFloat(dados[3]), Integer.parseInt(dados[4]), Integer.parseInt(dados[6]));
                 }
 
                 linha = br.readLine();
@@ -58,8 +50,8 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
     }
 
     @Override
-    public PessoaJuridica buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+    public Peca buscar(int id) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {//ignorando o iD, pois isso não fica salvo no objeto
@@ -68,25 +60,20 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
                         throw new Exception("Dados incorretos");
                     }
 
-                    String[] dadosEndereco = dados[6].split(",");
-                    if (dadosEndereco.length != 8) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
-
-                    return new PessoaJuridica(dados[2], dados[3], dados[1], dados[4], dados[5], endereco);
+                    return new Peca(dados[1], dados[2], Float.parseFloat(dados[3]), Integer.parseInt(dados[4]), Integer.parseInt(dados[6]));
                 }
 
                 linha = br.readLine();
             }
         }
         throw new Exception("Cliente não encontrado");
+//        throw new UnsupportedOperationException("Operacao nao suportada ainda");
+
     }
 
     @Override
-    public void remover(PessoaJuridica obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+    public void remover(Peca obj) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             boolean achou = false;
             String linha = br.readLine();
             StringBuilder lista = new StringBuilder();
@@ -104,7 +91,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
                 throw new Exception("Cliente não encontrado");
             }
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaJuridica.getNomeArquivoDisco(), false))) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(Peca.getNomeArquivoDisco(), false))) {
                 if (lista.toString() != null) {
                     bw.write(lista.toString());
                 }
@@ -114,7 +101,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
 
     @Override
     public void remover(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             boolean achou = false;
             String linha = br.readLine();
             StringBuilder lista = new StringBuilder();
@@ -132,7 +119,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
                 throw new Exception("Cliente não encontrado");
             }
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaJuridica.getNomeArquivoDisco(), false))) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(Peca.getNomeArquivoDisco(), false))) {
                 if (lista.toString() != null) {
                     bw.write(lista.toString());
                 }
@@ -141,13 +128,13 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
     }
 
     @Override
-    public void editar(PessoaJuridica objParaRemover, PessoaJuridica objParaAdicionar) throws Exception {
+    public void editar(Peca objParaRemover, Peca objParaAdicionar) throws Exception {
         remover(objParaRemover);
         incluir(objParaAdicionar);
     }
 
     @Override
-    public void editar(int idObjParaRemover, PessoaJuridica objParaAdicionar) throws Exception {
+    public void editar(int idObjParaRemover, Peca objParaAdicionar) throws Exception {
         remover(idObjParaRemover);
         incluir(objParaAdicionar);
     }

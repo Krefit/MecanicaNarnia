@@ -1,0 +1,3 @@
+3;codigoPeca;descricao;23.2;0;0;10
+4;codigoPeca;descricao;23.2;0;0;10
+5;codigoPeca;descricao;23.2;0;0;10
