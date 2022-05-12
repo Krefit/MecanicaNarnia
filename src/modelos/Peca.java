@@ -10,6 +10,9 @@ package modelos;
  */
 public class Peca {
 
+    private static String nomeArquivoDisco = "pecas.txt";
+    private static String arquivoID = "idGeradoPecas.txt";
+
     private String codigoPeca;
     private String descricao;
     private float valorPeca;
@@ -32,6 +35,14 @@ public class Peca {
         this.valorPeca = valorPeca;
         this.quantidadeNoEstoque = quantidadeNoEstoque;
         this.estoquequantidadeMinima = estoquequantidadeMinima;
+    }
+
+    public static String getNomeArquivoDisco() {
+        return nomeArquivoDisco;
+    }
+
+    public static String getArquivoID() {
+        return arquivoID;
     }
 
     public String getCodigoPeca() {
@@ -80,6 +91,11 @@ public class Peca {
 
     public void setEstoquequantidadeMinima(int estoquequantidadeMinima) {
         this.estoquequantidadeMinima = estoquequantidadeMinima;
+    }
+
+    @Override
+    public String toString() {
+        return codigoPeca + ";" + descricao + ";" + valorPeca + ";" + quantidadeNoEstoque + ";" + quantidadeReservadas + ";" + estoquequantidadeMinima;
     }
 
 }
