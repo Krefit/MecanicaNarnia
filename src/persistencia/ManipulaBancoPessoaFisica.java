@@ -14,27 +14,27 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import modelos.Cliente_PessoaFisica;
+import modelos.PessoaFisica;
 import modelos.auxiliares.Endereco;
 
 /**
  *
  * @author tanak
  */
-public class ManipulaBancoClientePEssoaFisica implements IManipulaBanco<Cliente_PessoaFisica> {
+public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
-    public void incluir(Cliente_PessoaFisica obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(obj.getNomeArquivoDisco(), true))) {
-            int id = GeradorId.getID(obj.getarquivoID());
+    public void incluir(PessoaFisica obj) throws Exception {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), true))) {
+            int id = GeradorId.getID(PessoaFisica.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
         }
     }
 
     @Override
-    public Cliente_PessoaFisica buscar(Cliente_PessoaFisica obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(obj.getNomeArquivoDisco()))) {
+    public PessoaFisica buscar(PessoaFisica obj) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
@@ -51,7 +51,7 @@ public class ManipulaBancoClientePEssoaFisica implements IManipulaBanco<Cliente_
                     Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
                     Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                    return new Cliente_PessoaFisica(dados[1], dados[2], data, dados[4], dados[5], endereco);
+                    return new PessoaFisica(dados[1], dados[2], data, dados[4], dados[5], endereco);
                 }
 
                 linha = br.readLine();
@@ -61,8 +61,8 @@ public class ManipulaBancoClientePEssoaFisica implements IManipulaBanco<Cliente_
 
     }
 
-    public Cliente_PessoaFisica buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(Cliente_PessoaFisica.getNomeArquivoDisco()))) {
+    public PessoaFisica buscar(int id) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {
@@ -79,7 +79,7 @@ public class ManipulaBancoClientePEssoaFisica implements IManipulaBanco<Cliente_
                     Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
                     Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                    return new Cliente_PessoaFisica(dados[1], dados[2], data, dados[4], dados[5], endereco);
+                    return new PessoaFisica(dados[1], dados[2], data, dados[4], dados[5], endereco);
                 }
 
                 linha = br.readLine();
@@ -90,9 +90,9 @@ public class ManipulaBancoClientePEssoaFisica implements IManipulaBanco<Cliente_
     }
 
     @Override
-    public void remover(Cliente_PessoaFisica obj) throws Exception {
+    public void remover(PessoaFisica obj) throws Exception {
 
-        try (BufferedReader br = new BufferedReader(new FileReader(obj.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             boolean achou = false;
             String linha = br.readLine();
             StringBuilder lista = new StringBuilder();
@@ -110,7 +110,7 @@ public class ManipulaBancoClientePEssoaFisica implements IManipulaBanco<Cliente_
                 throw new Exception("Cliente não encontrado");
             }
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(obj.getNomeArquivoDisco(), false))) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
                 if (lista.toString() != null) {
                     bw.write(lista.toString());
                 }
@@ -119,11 +119,45 @@ public class ManipulaBancoClientePEssoaFisica implements IManipulaBanco<Cliente_
     }
 
     @Override
-    public void editar(Cliente_PessoaFisica objParaRemover, Cliente_PessoaFisica objParaAdicionar) throws Exception {
+    public void remover(int id) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+            boolean achou = false;
+            String linha = br.readLine();
+            StringBuilder lista = new StringBuilder();
+
+            while (linha != null) {
+                if (!linha.startsWith(String.valueOf(id))) {
+                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
+                } else {
+                    achou = true;
+                }
+                linha = br.readLine();
+            }
+
+            if (!achou) {
+                throw new Exception("Cliente não encontrado");
+            }
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
+                if (lista.toString() != null) {
+                    bw.write(lista.toString());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void editar(PessoaFisica objParaRemover, PessoaFisica objParaAdicionar) throws Exception {
 
         remover(objParaRemover);//caso o objeto não exista, vai dar um erro nesse método, esta é a validacao
         incluir(objParaAdicionar);
 
+    }
+
+    @Override
+    public void editar(int idObjParaRemover, PessoaFisica objParaAdicionar) throws Exception {
+        remover(idObjParaRemover);
+        incluir(objParaAdicionar);
     }
 
 }

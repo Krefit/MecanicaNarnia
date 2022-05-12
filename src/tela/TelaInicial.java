@@ -60,8 +60,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btn_CadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastroClienteActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new CadastroDeCliente().setVisible(true);
-        
+        new TelaCadastroCliente().setVisible(true);
+
     }//GEN-LAST:event_btn_CadastroClienteActionPerformed
 
     /**
