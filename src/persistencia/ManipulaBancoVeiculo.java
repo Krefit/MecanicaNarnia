@@ -26,6 +26,9 @@ import modelos.auxiliares.Endereco;
  */
 public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
 
+    public ManipulaBancoVeiculo() {
+    }
+    
     @Override
     public void incluir(Veiculo obj) throws Exception {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(Veiculo.getNomeArquivoDisco(), true))) {

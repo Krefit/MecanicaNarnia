@@ -131,7 +131,7 @@ public class Teste extends javax.swing.JFrame {
 //            v.adicionaItemListaOS(new OrdemDeServico("defeitoRelatado3", "Servico feito", 2, 219.45f, dataNascimento, OrdemDeServico.SitucaoOrdemServico.EM_ABERTO, 5));
             ManipulaBancoVeiculo m = new ManipulaBancoVeiculo();
             ManipulaBancoClientePEssoaFisica m2 = new ManipulaBancoClientePEssoaFisica();
-
+            
 //            m.incluir(v);
             System.out.println(m.buscar(13));
         } catch (Exception e) {
