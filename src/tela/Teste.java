@@ -5,15 +5,11 @@
 package tela;
 
 import enumerations.EstadosBrazil;
-import java.text.SimpleDateFormat;
+import enumerations.ServicosOferecidos;
+import java.io.IOException;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import modelos.PessoaFisica;
-import modelos.PessoaJuridica;
-import modelos.Veiculo;
-import modelos.auxiliares.Endereco;
-import persistencia.ManipulaBancoPessoaFisica;
-import persistencia.ManipulaBancoPessoaJuridica;
+
 import persistencia.ManipulaBancoVeiculo;
 
 /**
@@ -23,7 +19,7 @@ import persistencia.ManipulaBancoVeiculo;
 public class Teste extends javax.swing.JFrame {
 
     /**
-     * Creates new form TEste
+     * Creates new form Teste
      */
     public Teste() {
         initComponents();
@@ -38,85 +34,84 @@ public class Teste extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonTestar = new javax.swing.JButton();
-        tField_teste = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaSaida = new javax.swing.JTextArea();
+        jTextArea1 = new javax.swing.JTextArea();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        tField_teste = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButtonTestar.setText("jButton1");
-        jButtonTestar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTestarActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        jTextAreaSaida.setColumns(20);
-        jTextAreaSaida.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaSaida);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        tField_teste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tField_testeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(jButtonTestar))
+                        .addGap(128, 128, 128)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(tField_teste, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addGap(50, 50, 50)
+                        .addComponent(tField_teste, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(tField_teste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jButtonTestar)
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tField_teste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonTestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTestarActionPerformed
 
-        try {
-//            ManipulaBancoPessoaFisica mbcpf = new ManipulaBancoPessoaFisica();
-//
-            Endereco endereco = new Endereco("Rua", "logradouro", "numero", "complemento",
-                    "bairro", "cidade", EstadosBrazil.GO, "CEP");
-//            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse("23/02/1999");
-//
-//            PessoaFisica pf = new PessoaFisica("nome", "06516083096", dataNascimento,
-//                    "62988887777", "email", endereco);
-
-//            mbcpf.incluir(pf);
-//            ManipulaBancoVeiculo mbv = new ManipulaBancoVeiculo();
-//            
-//            Veiculo v = new Veiculo(12, 23, "chassi", "renavam", "tipoVeiculo", "placa", 2010, 2008, 2);
-//            
-//            jTextAreaSaida.setText(v.toString());
-//            jTextAreaSaida.setText(pf.toString());
-            PessoaJuridica pj = new PessoaJuridica("72699025000136", "razaoSocial", "nomeFantasia", "62986422099", "email", endereco);
-
-//            new ManipulaBancoPessoaJuridica().incluir(pj);
-            new ManipulaBancoPessoaJuridica().remover(6);
-//System.out.println(PessoaJuridica.desformatarCNPJ("51.168.306/0001-92"));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButtonTestarActionPerformed
+//        jTextArea1.setText("" +Cliente_PessoaFisica.validaCPF( tField_teste.getText()));
+//        System.out.println(cpf2.toString());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tField_testeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tField_testeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tField_testeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,7 +139,6 @@ public class Teste extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -155,9 +149,10 @@ public class Teste extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonTestar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaSaida;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField tField_teste;
     // End of variables declaration//GEN-END:variables
 }
