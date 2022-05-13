@@ -5,6 +5,8 @@
 package tela;
 
 import modelos.Peca;
+import modelos.auxiliares.MarcaVeiculo;
+import persistencia.ManipulaBancoMarcaVeiculo;
 import persistencia.ManipulaBancoPecas;
 
 /**
@@ -65,6 +67,11 @@ public class Teste extends javax.swing.JFrame {
             Peca p = new Peca("codigoPeca", "descricao", 23.2f, 0, 10);
             ManipulaBancoPecas mbp = new ManipulaBancoPecas();
 
+            //marca veículo
+            MarcaVeiculo marcaVeiculoNova = new MarcaVeiculo("Fiat");
+            ManipulaBancoMarcaVeiculo marcaVeiculoNovaMb = new ManipulaBancoMarcaVeiculo();
+            marcaVeiculoNovaMb.incluir(marcaVeiculoNova);
+            
 //            mbp.incluir(p);
             System.out.println(mbp.buscar(p));
         } catch (Exception e) {

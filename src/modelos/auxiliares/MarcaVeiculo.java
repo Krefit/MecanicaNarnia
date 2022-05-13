@@ -1,19 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelos.auxiliares;
 
-/**
- *
- * @author tanak
- */
 public class MarcaVeiculo {
 
     private String nomeMarca;
+    private static String NomeArquivoDisco = "marcaVeiculo.txt";
+    private static String arquivoID = "idGeradoMarcaVeiculo.txt";
 
     public MarcaVeiculo() {
+    }
+
+    public static String getNomeArquivoDisco() {
+        return NomeArquivoDisco;
+    }
+
+    public static void setNomeArquivoDisco(String NomeArquivoDisco) {
+        MarcaVeiculo.NomeArquivoDisco = NomeArquivoDisco;
+    }
+
+    public static String getArquivoID() {
+        return arquivoID;
+    }
+
+    public static void setArquivoID(String arquivoID) {
+        MarcaVeiculo.arquivoID = arquivoID;
     }
 
     public MarcaVeiculo(String nomeMarca) {
