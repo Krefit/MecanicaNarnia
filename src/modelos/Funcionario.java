@@ -13,6 +13,9 @@ import java.util.Date;
  */
 public class Funcionario extends PessoaFisica {
 
+    private static String NomeArquivoDisco = "funcionario.txt";
+    private static String arquivoID = "idGeradoFuncionario.txt";
+
     private String especialidade;
     private double salarioMensal;
     private double salariohora;
@@ -24,6 +27,14 @@ public class Funcionario extends PessoaFisica {
         this.salarioMensal = salarioMensal;
         this.salariohora = salariohora;
         this.matricula = matricula;
+    }
+
+    public static String getNomeArquivoDisco() {
+        return NomeArquivoDisco;
+    }
+
+    public static String getArquivoID() {
+        return arquivoID;
     }
 
     public String getEspecialidade() {
