@@ -4,27 +4,23 @@
  */
 package persistencia;
 
-import enumerations.EstadosBrazil;
 import geradorId.GeradorId;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import modelos.PessoaFisica;
-import modelos.auxiliares.Endereco;
 import modelos.auxiliares.MarcaVeiculo;
+import modelos.auxiliares.ModeloVeiculo;
 
 /**
  *
  * @author tanak
  */
-public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
+public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
 
     @Override
-    public void incluir(MarcaVeiculo obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(MarcaVeiculo.getNomeArquivoDisco(), true))) {
+    public void incluir(ModeloVeiculo obj) throws Exception {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(ModeloVeiculo.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(MarcaVeiculo.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
@@ -32,46 +28,45 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
     }
 
     @Override
-    public MarcaVeiculo buscar(MarcaVeiculo obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+    public ModeloVeiculo buscar(ModeloVeiculo obj) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {
                     String[] dados = linha.split(";");
-                    if (dados.length != 2) {
+                    if (dados.length != 3) {
                         throw new Exception("Dados incorretos");
                     }
 
-                    return new MarcaVeiculo(dados[1]);
+                    return new ModeloVeiculo(dados[1], Integer.parseInt(dados[2]));
                 }
                 linha = br.readLine();
             }
         }
-        throw new Exception("Marca não encontrada");
+        throw new Exception("Modelo não encontrado");
     }
 
     @Override
-    public MarcaVeiculo buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+    public ModeloVeiculo buscar(int id) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {
                     String[] dados = linha.split(";");
-                    if (dados.length != 2) {
+                    if (dados.length != 3) {
                         throw new Exception("Dados incorretos");
                     }
 
-                    return new MarcaVeiculo(dados[1]);
+                    return new ModeloVeiculo(dados[1], Integer.parseInt(dados[2]));
                 }
                 linha = br.readLine();
             }
         }
-        throw new Exception("Cliente não encontrado");
-
+        throw new Exception("Modelo não encontrado");
     }
 
     @Override
-    public void remover(MarcaVeiculo obj) throws Exception {
+    public void remover(ModeloVeiculo obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -81,12 +76,12 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
     }
 
     @Override
-    public void editar(MarcaVeiculo objParaRemover, MarcaVeiculo objParaAdicionar) throws Exception {
+    public void editar(ModeloVeiculo objParaRemover, ModeloVeiculo objParaAdicionar) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void editar(int idObjParaRemover, MarcaVeiculo objParaAdicionar) throws Exception {
+    public void editar(int idObjParaRemover, ModeloVeiculo objParaAdicionar) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
