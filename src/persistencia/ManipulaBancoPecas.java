@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import modelos.Peca;
 import modelos.Peca;
 import modelos.auxiliares.Endereco;
@@ -69,6 +70,25 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
         throw new Exception("Cliente não encontrado");
 //        throw new UnsupportedOperationException("Operacao nao suportada ainda");
 
+    }
+
+    @Override
+    public ArrayList<Peca> buscarTodos() throws Exception {
+
+        ArrayList<Peca> listaPecas = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                String[] dados = linha.split(";");
+                if (dados.length != 7) {
+                    throw new Exception("Dados incorretos");
+                }
+
+                listaPecas.add(new Peca(dados[1], dados[2], Float.parseFloat(dados[3]), Integer.parseInt(dados[4]), Integer.parseInt(dados[6])));
+                linha = br.readLine();
+            }
+        }
+        return listaPecas;
     }
 
     @Override

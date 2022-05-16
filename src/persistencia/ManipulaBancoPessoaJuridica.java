@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import modelos.PessoaJuridica;
 import modelos.auxiliares.Endereco;
@@ -82,6 +83,32 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
             }
         }
         throw new Exception("Cliente não encontrado");
+    }
+
+    @Override
+    public ArrayList<PessoaJuridica> buscarTodos() throws Exception {
+        ArrayList<PessoaJuridica> listaPessoasJuridicas = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                String[] dados = linha.split(";");
+                if (dados.length != 7) {
+                    throw new Exception("Dados incorretos");
+                }
+
+                String[] dadosEndereco = dados[6].split(",");
+                if (dadosEndereco.length != 8) {
+                    throw new Exception("Dados incorretos");
+                }
+
+                Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
+
+                listaPessoasJuridicas.add(new PessoaJuridica(dados[2], dados[3], dados[1], dados[4], dados[5], endereco));
+
+                linha = br.readLine();
+            }
+        }
+        return listaPessoasJuridicas;
     }
 
     @Override

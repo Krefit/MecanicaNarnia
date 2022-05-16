@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import modelos.auxiliares.MarcaVeiculo;
 import modelos.auxiliares.ModeloVeiculo;
 
@@ -63,6 +64,25 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
             }
         }
         throw new Exception("Modelo não encontrado");
+    }
+
+    @Override
+    public ArrayList<ModeloVeiculo> buscarTodos() throws Exception {
+        ArrayList<ModeloVeiculo> listaModelos = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                String[] dados = linha.split(";");
+                if (dados.length != 3) {
+                    throw new Exception("Dados incorretos");
+                }
+
+                listaModelos.add(new ModeloVeiculo(dados[1], Integer.parseInt(dados[2])));
+                linha = br.readLine();
+            }
+        }
+
+        return listaModelos;
     }
 
     @Override

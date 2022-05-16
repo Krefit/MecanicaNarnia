@@ -11,7 +11,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import modelos.Funcionario;
 import modelos.PessoaFisica;
 import modelos.auxiliares.Endereco;
 import modelos.auxiliares.MarcaVeiculo;
@@ -68,6 +70,26 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
         }
         throw new Exception("Cliente não encontrado");
 
+    }
+
+    @Override
+    public ArrayList<MarcaVeiculo> buscarTodos() throws Exception {
+
+        ArrayList<MarcaVeiculo> listaMarcas = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                String[] dados = linha.split(";");
+                if (dados.length != 2) {
+                    throw new Exception("Dados incorretos");
+                }
+
+                MarcaVeiculo m = new MarcaVeiculo(dados[1]);
+                listaMarcas.add(m);
+                linha = br.readLine();
+            }
+        }
+        return listaMarcas;
     }
 
     @Override
