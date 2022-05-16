@@ -34,11 +34,28 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     }
 
     @Override
-    public PessoaFisica buscar(PessoaFisica obj) throws Exception {
+    public int buscar(PessoaFisica obj) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
+
+                    System.out.println(linha);
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                }
+
+                linha = br.readLine();
+            }
+        }
+        throw new Exception("Cliente não encontrado");
+
+    }
+
+    public PessoaFisica buscar(String cpf) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                if (linha.contains(cpf)) {
                     String[] dados = linha.split(";");
                     if (dados.length != 7) {
                         throw new Exception("Dados incorretos");

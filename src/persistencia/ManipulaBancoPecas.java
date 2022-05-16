@@ -30,17 +30,12 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
     }
 
     @Override
-    public Peca buscar(Peca obj) throws Exception {
+    public int buscar(Peca obj) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
-                    String[] dados = linha.split(";");
-                    if (dados.length != 7) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    return new Peca(dados[1], dados[2], Float.parseFloat(dados[3]), Integer.parseInt(dados[4]), Integer.parseInt(dados[6]));
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
                 }
 
                 linha = br.readLine();

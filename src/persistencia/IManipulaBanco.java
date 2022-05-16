@@ -16,7 +16,7 @@ public interface IManipulaBanco<T> {
 
     public void incluir(T obj) throws Exception;
 
-    public T buscar(T obj) throws Exception;
+    public int buscar(T obj) throws Exception;
 
     public T buscar(int id) throws Exception;
 

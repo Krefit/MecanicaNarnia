@@ -29,17 +29,12 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
     }
 
     @Override
-    public ModeloVeiculo buscar(ModeloVeiculo obj) throws Exception {
+    public int buscar(ModeloVeiculo obj) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {
-                    String[] dados = linha.split(";");
-                    if (dados.length != 3) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    return new ModeloVeiculo(dados[1], Integer.parseInt(dados[2]));
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
                 }
                 linha = br.readLine();
             }

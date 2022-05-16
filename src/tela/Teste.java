@@ -4,8 +4,25 @@
  */
 package tela;
 
+import enumerations.EstadosBrazil;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import modelos.Funcionario;
 import modelos.Peca;
+import modelos.PessoaFisica;
+import modelos.PessoaJuridica;
+import modelos.Veiculo;
+import modelos.auxiliares.Endereco;
+import modelos.auxiliares.MarcaVeiculo;
+import modelos.auxiliares.ModeloVeiculo;
+import persistencia.ManipulaBancoFuncionario;
+import persistencia.ManipulaBancoMarca;
+import persistencia.ManipulaBancoModelos;
 import persistencia.ManipulaBancoPecas;
+import persistencia.ManipulaBancoPessoaFisica;
+import persistencia.ManipulaBancoPessoaJuridica;
+import persistencia.ManipulaBancoVeiculo;
 
 /**
  *
@@ -65,8 +82,45 @@ public class Teste extends javax.swing.JFrame {
             Peca p = new Peca("codigoPeca", "descricao", 23.2f, 0, 10);
             ManipulaBancoPecas mbp = new ManipulaBancoPecas();
 
-//            mbp.incluir(p);
+            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse("11/12/2002");
+
+            Endereco e = new Endereco("tipoLogradouro", "logradouro", "numero", "complemento",
+                    "bairro", "cidade", EstadosBrazil.GO, "CEP");
+            Funcionario f = new Funcionario("especialidade", 1200.0f, 15, 123, "nome", "71817240021",
+                    dataNascimento, "62987666666", "email", e);
+                        mbp.incluir(p);
+                        System.out.println(mbp.buscar(p));
+            ManipulaBancoFuncionario mbFunc = new ManipulaBancoFuncionario();
+            System.out.println(mbFunc.buscar(f));
+            MarcaVeiculo m = new MarcaVeiculo("nomeMarca2");
+            
+            ManipulaBancoMarca mbm = new ManipulaBancoMarca();
+            System.out.println(mbm.buscar(3));
+            ModeloVeiculo mv = new ModeloVeiculo("NomeModelo", 2);
+            ManipulaBancoModelos mbv = new ManipulaBancoModelos();
+            ManipulaBancoFuncionario mbf = new ManipulaBancoFuncionario();
+//            mbv.incluir(mv);
+            ManipulaBancoPessoaFisica mbpf = new ManipulaBancoPessoaFisica();
+            ManipulaBancoPessoaJuridica mbpj = new ManipulaBancoPessoaJuridica();
+
+//            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse("11/12/2002");
+
+//            Endereco e = new Endereco("tipoLogradouro", "logradouro", "numero", "complemento",
+//                    "bairro", "cidade", EstadosBrazil.GO, "CEP");
+
+            PessoaJuridica pf = new PessoaJuridica("03993120000125", "razaoSocial", " nomeFantasia", "62998887777", " email", e);
+//            mbpj.incluir(pf);
+            ManipulaBancoVeiculo mbv2 = new ManipulaBancoVeiculo();
+//            ArrayList<Veiculo> listaFunc = mbv.buscarTodos();
+
+            System.out.println(mbFunc.buscar(f));
+            System.out.println(mbm.buscar(m));
             System.out.println(mbp.buscar(p));
+            System.out.println(mbpj.buscar(pf));
+//            for (Veiculo f : listaFunc) {
+//                System.out.println(f.toString());
+//            }
+//            System.out.println(mbv.buscar(5));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

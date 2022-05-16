@@ -45,6 +45,19 @@ public class PessoaFisica extends Pessoa {
         return arquivoID;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    
     public void setCpf(String cpf) throws Exception {
         if (!validaCPF(cpf)) {
             throw new Exception("CPF informado incorretamente");

@@ -34,17 +34,12 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
     }
 
     @Override
-    public MarcaVeiculo buscar(MarcaVeiculo obj) throws Exception {
+    public int buscar(MarcaVeiculo obj) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {
-                    String[] dados = linha.split(";");
-                    if (dados.length != 2) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    return new MarcaVeiculo(dados[1]);
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
                 }
                 linha = br.readLine();
             }
@@ -58,6 +53,24 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {
+                    String[] dados = linha.split(";");
+                    if (dados.length != 2) {
+                        throw new Exception("Dados incorretos");
+                    }
+
+                    return new MarcaVeiculo(dados[1]);
+                }
+                linha = br.readLine();
+            }
+        }
+        throw new Exception("Cliente não encontrado");
+
+    }
+    public MarcaVeiculo buscar(String nome) throws Exception {
+        try (BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                if (linha.contains(nome)) {
                     String[] dados = linha.split(";");
                     if (dados.length != 2) {
                         throw new Exception("Dados incorretos");

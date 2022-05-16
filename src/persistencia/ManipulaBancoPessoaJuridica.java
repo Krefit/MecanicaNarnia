@@ -31,24 +31,12 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
     }
 
     @Override
-    public PessoaJuridica buscar(PessoaJuridica obj) throws Exception {
+    public int buscar(PessoaJuridica obj) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
-                    String[] dados = linha.split(";");
-                    if (dados.length != 7) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    String[] dadosEndereco = dados[6].split(",");
-                    if (dadosEndereco.length != 8) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
-
-                    return new PessoaJuridica(dados[2], dados[3], dados[1], dados[4], dados[5], endereco);
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
                 }
 
                 linha = br.readLine();
