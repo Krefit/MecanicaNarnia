@@ -1,2 +1,4 @@
 2;nomeMarca
 3;nomeMarca2
+6;Fiat
+7;Chevrolet
