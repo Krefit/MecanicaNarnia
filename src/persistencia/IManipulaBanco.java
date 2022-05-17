@@ -5,6 +5,8 @@
  */
 package persistencia;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author tanak
@@ -14,9 +16,11 @@ public interface IManipulaBanco<T> {
 
     public void incluir(T obj) throws Exception;
 
-    public T buscar(T obj) throws Exception;
+    public int buscar(T obj) throws Exception;
 
     public T buscar(int id) throws Exception;
+
+    public ArrayList<T> buscarTodos() throws Exception;
 
     public void remover(T obj) throws Exception;
 

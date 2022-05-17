@@ -23,12 +23,12 @@ public class PessoaFisica extends Pessoa {
     protected String cpf;
     protected Date dataNascimento;
 
-    public PessoaFisica(String telefone, String email, Endereco endereco) {
-        super(telefone, email, endereco);
+    public PessoaFisica(String email, Endereco endereco, String... telefone) {
+        super(email, endereco, telefone);
     }
 
-    public PessoaFisica(String nome, String cpf, Date dataNascimento, String telefone, String email, Endereco endereco) {
-        super(telefone, email, endereco);
+    public PessoaFisica(String nome, String cpf, Date dataNascimento, String email, Endereco endereco, String... telefone) {
+        super(email, endereco,telefone);
         if (!validaCPF(cpf)) {
             throw new InputMismatchException("O CPF: " + cpf + " é inválido");
         }
@@ -45,6 +45,19 @@ public class PessoaFisica extends Pessoa {
         return arquivoID;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    
     public void setCpf(String cpf) throws Exception {
         if (!validaCPF(cpf)) {
             throw new Exception("CPF informado incorretamente");

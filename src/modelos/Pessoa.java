@@ -10,32 +10,36 @@ import java.util.InputMismatchException;
  */
 public class Pessoa {
 
-    protected String telefone;
+    protected String[] telefone = new String[3];
     protected String email;
     protected Endereco endereco;
 
     public Pessoa() {
     }
 
-    public Pessoa(String telefone, String email, Endereco endereco) {
+    public Pessoa(String email, Endereco endereco, String[] telefone) {
 
-        if (!validaTelefone(telefone)) {
+        if (!validaTelefone(telefone[0])||!validaTelefone(telefone[1])||!validaTelefone(telefone[2])) {
             throw new InputMismatchException("Telefone inválido");
         }
-        this.telefone = formataTelefone(telefone);
+        this.telefone[0] = formataTelefone(telefone[0]);
+        this.telefone[1] = formataTelefone(telefone[1]);
+        this.telefone[2] = formataTelefone(telefone[2]);
         this.email = email;
         this.endereco = endereco;
     }
 
-    public String getTelefone() {
+    public String[] getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
-        if (!validaTelefone(telefone)) {
+    public void setTelefone(String[] telefone) {
+        if (!validaTelefone(telefone[0])||!validaTelefone(telefone[1])||!validaTelefone(telefone[2])) {
             throw new InputMismatchException("Telefone inválido");
         }
-        this.telefone = formataTelefone(telefone);
+        this.telefone[0] = formataTelefone(telefone[0]);
+        this.telefone[1] = formataTelefone(telefone[1]);
+        this.telefone[2] = formataTelefone(telefone[2]);
     }
 
     public String getEmail() {

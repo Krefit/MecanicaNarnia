@@ -1,0 +1,1 @@
+11; nomeFantasia;03.993.120.0001-25;razaoSocial;(62) 99888-7777; email;tipoLogradouro,logradouro,numero,complemento,bairro,cidade,GO,CEP

@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import modelos.Peca;
 import modelos.Peca;
 import modelos.auxiliares.Endereco;
@@ -29,17 +30,12 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
     }
 
     @Override
-    public Peca buscar(Peca obj) throws Exception {
+    public int buscar(Peca obj) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
-                    String[] dados = linha.split(";");
-                    if (dados.length != 7) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    return new Peca(dados[1], dados[2], Float.parseFloat(dados[3]), Integer.parseInt(dados[4]), Integer.parseInt(dados[6]));
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
                 }
 
                 linha = br.readLine();
@@ -69,6 +65,25 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
         throw new Exception("Cliente não encontrado");
 //        throw new UnsupportedOperationException("Operacao nao suportada ainda");
 
+    }
+
+    @Override
+    public ArrayList<Peca> buscarTodos() throws Exception {
+
+        ArrayList<Peca> listaPecas = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                String[] dados = linha.split(";");
+                if (dados.length != 7) {
+                    throw new Exception("Dados incorretos");
+                }
+
+                listaPecas.add(new Peca(dados[1], dados[2], Float.parseFloat(dados[3]), Integer.parseInt(dados[4]), Integer.parseInt(dados[6])));
+                linha = br.readLine();
+            }
+        }
+        return listaPecas;
     }
 
     @Override

@@ -1,17 +1,36 @@
-
 package tela;
+
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import modelos.Veiculo;
 import persistencia.ManipulaBancoVeiculo;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelos.Pessoa;
+import modelos.PessoaFisica;
+import modelos.auxiliares.MarcaVeiculo;
+import modelos.auxiliares.ModeloVeiculo;
+import persistencia.IManipulaBanco;
+import persistencia.ManipulaBancoFuncionario;
+import persistencia.ManipulaBancoMarca;
+import persistencia.ManipulaBancoModelos;
+import persistencia.ManipulaBancoPessoaFisica;
 
 public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
-
+    
     public TelaCadastroDeVeiculo() {
         initComponents();
         setLocationRelativeTo(null);
+//        loadComboBoxModelos();
+        jComboBoxModelos.setVisible(false);
+        loadComboBoxMarcas();
+        loadTableClientes();
+        jTextFieldDonoDoVeiculo.setEnabled(false);
+        jTextFieldMarca.setEditable(false);
+        jTextFieldModelo.setEditable(false);
+        jButtonCadastrarVeiculo.setVisible(true);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -36,28 +55,54 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jTextFieldDonoDoVeiculo = new javax.swing.JTextField();
         jButtonCadastrarCliente = new javax.swing.JButton();
+        jComboBoxModelos = new javax.swing.JComboBox<>();
+        jComboBoxMarcas = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButtonCadastrarVeiculo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("CADASTRO DE VEÍCULO");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 6, -1, -1));
 
         jLabel2.setText("MODELO");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 43, -1, -1));
+        getContentPane().add(jTextFieldModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 40, 115, -1));
 
         jLabel3.setText("MARCA");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 74, -1, -1));
+        getContentPane().add(jTextFieldMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 74, 108, -1));
 
         jLabel4.setText("CHASSI");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 111, -1, -1));
+        getContentPane().add(jTextFieldChassi, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 108, 91, -1));
 
         jLabel5.setText("RENAVAM");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 145, -1, -1));
+        getContentPane().add(jTextFieldRenavam, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 142, 75, -1));
 
         jLabel6.setText("TIPO DO VEÍCULO");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 179, -1, -1));
+        getContentPane().add(jTextFieldTipoDoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 176, 102, -1));
 
         jLabel7.setText("PLACA");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 213, -1, -1));
+        getContentPane().add(jTextFieldPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 210, 99, -1));
 
         jLabel8.setText("ANO DE FABRICAÇÃO");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 247, -1, -1));
+        getContentPane().add(jTextFieldAnoDeFabricacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 244, 88, -1));
 
         jLabel9.setText("ANO DO MODELO");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 281, -1, -1));
+        getContentPane().add(jTextFieldAnoDoModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 278, 73, -1));
 
         jLabel10.setText("DONO DO VEÍCULO");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 321, -1, -1));
+        getContentPane().add(jTextFieldDonoDoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 318, 210, -1));
 
         jButtonCadastrarCliente.setText("CADASTRAR CLIENTE");
         jButtonCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -65,127 +110,171 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
                 jButtonCadastrarClienteActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonCadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 377, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(268, 268, 268)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextFieldRenavam))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextFieldChassi, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldTipoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldAnoDeFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldAnoDoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldDonoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButtonCadastrarCliente))))
-                .addContainerGap(259, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextFieldChassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextFieldTipoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextFieldAnoDeFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextFieldAnoDoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextFieldDonoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addComponent(jButtonCadastrarCliente)
-                .addContainerGap(55, Short.MAX_VALUE))
-        );
+        jComboBoxModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxModelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxModelosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBoxModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 120, -1));
+
+        jComboBoxMarcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxMarcas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxMarcasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBoxMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 120, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 440, 720, 220));
+
+        jButton1.setText("Cadastrar nova marca");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 190, -1));
+
+        jButtonCadastrarVeiculo.setText("Cadastrar novo veiculo");
+        jButtonCadastrarVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarVeiculoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonCadastrarVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 380, 260, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarClienteActionPerformed
-            try {
-            int  idModelo = Integer.parseInt(jTextFieldModelo.getText());
-            int idMarca = Integer.parseInt(jTextFieldMarca.getText());
+    private void loadComboBoxModelos() {
+        try {
+            ArrayList<ModeloVeiculo> listaModelos = new ManipulaBancoModelos().buscarTodos();
+            String[] nomeModelos = new String[listaModelos.size() + 1];
+            nomeModelos[0] = "--Modelos--";
+            for (int i = 0; i < listaModelos.size(); i++) {
+                nomeModelos[i + 1] = listaModelos.get(i).getNomeModelo();
+            }
+            jComboBoxModelos.setModel(new DefaultComboBoxModel<>(nomeModelos));
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    private void loadComboBoxMarcas() {
+        try {
+            ArrayList<MarcaVeiculo> listaModelos = new ManipulaBancoMarca().buscarTodos();
+            String[] nomeModelos = new String[listaModelos.size() + 1];
+            nomeModelos[0] = "--Marcas--";
+            for (int i = 0; i < listaModelos.size(); i++) {
+                nomeModelos[i + 1] = listaModelos.get(i).getNomeMarca();
+            }
+            jComboBoxMarcas.setModel(new DefaultComboBoxModel<>(nomeModelos));
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    private void loadTableClientes() {
+        try {
+            ArrayList<PessoaFisica> listaPessoas = new ManipulaBancoPessoaFisica().buscarTodos();
+            String[][] dados = new String[listaPessoas.size()][4];
+            for (int i = 0; i < listaPessoas.size(); i++) {
+                dados[i][0] = listaPessoas.get(i).getNome();
+                dados[i][1] = listaPessoas.get(i).getCpf();
+                dados[i][2] = listaPessoas.get(i).getTelefone()[0];
+                dados[i][3] = listaPessoas.get(i).getEmail();
+            }
+            
+            jTable1.setModel(new DefaultTableModel(dados, new Object[]{"Nome", "CPF", "Telefone", "Email"}));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void jButtonCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarVeiculoActionPerformed
+        try {
+            String cpf = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1));
+            
+            ManipulaBancoPessoaFisica mb = new ManipulaBancoPessoaFisica();
+            int idDonoVeiculo = mb.buscar(cpf);
+            
+            ManipulaBancoMarca mbd = new ManipulaBancoMarca();
+            int idMarca = mbd.buscar(jTextFieldMarca.getText());
+            
+            ManipulaBancoModelos mbm = new ManipulaBancoModelos();
+            int idModelo = mbm.buscar(jTextFieldModelo.getText());
+            
             String chassi = jTextFieldChassi.getText();
             String renavam = jTextFieldRenavam.getText();
             String tipoDoVeiculo = jTextFieldTipoDoVeiculo.getText();
             String placa = jTextFieldPlaca.getText();
-            String anoDeFabricacao = jTextFieldAnoDeFabricacao.getText();
-            String anoDoModelo = jTextFieldAnoDoModelo.getText();
-            String donoDoVeiculo = jTextFieldDonoDoVeiculo.getText();
+            int anoDeFabricacao = Integer.parseInt(jTextFieldAnoDeFabricacao.getText());
+            int anoDoModelo = Integer.parseInt(jTextFieldAnoDoModelo.getText());
             
-            Veiculo veiculoNovo = new Veiculo(idModelo, idMarca, chassi, renavam, tipoDoVeiculo, placa, idMarca, idModelo, idModelo);
-           
+            Veiculo veiculoNovo = new Veiculo(idModelo, idMarca, chassi, renavam, tipoDoVeiculo, placa, anoDeFabricacao, anoDoModelo, idDonoVeiculo);
+            
             new ManipulaBancoVeiculo().incluir(veiculoNovo);
-            JOptionPane.showMessageDialog (null, "VEÍCULO CADASTRADO!");
+            JOptionPane.showMessageDialog(null, "VEÍCULO CADASTRADO!");
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, erro.getMessage());        }                                        
+            System.err.println(erro.getMessage());
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+        }
+    }//GEN-LAST:event_jButtonCadastrarVeiculoActionPerformed
+
+    private void jComboBoxMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMarcasActionPerformed
+        if (jComboBoxMarcas.getSelectedIndex() > 0) {
+            jTextFieldMarca.setText(String.valueOf(jComboBoxMarcas.getSelectedItem()));
+            jComboBoxModelos.setVisible(true);
+            loadComboBoxModelos();
+        } else {
+            jTextFieldMarca.setText("");
+            jTextFieldModelo.setText("");
+            jComboBoxModelos.setVisible(false);
+        }
+    }//GEN-LAST:event_jComboBoxMarcasActionPerformed
+
+    private void jComboBoxModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModelosActionPerformed
+        if (jComboBoxModelos.getSelectedIndex() > 0) {
+            jTextFieldModelo.setText(String.valueOf(jComboBoxModelos.getSelectedItem()));
+        } else {
+            jTextFieldModelo.setText("");
+        }
+    }//GEN-LAST:event_jComboBoxModelosActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0)));
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyTyped
+        
+        JOptionPane.showMessageDialog(this, "Ordenação da tabela não está pronto pra ser usado ainda!");
+
+    }//GEN-LAST:event_jTable1KeyTyped
+
+    private void jButtonCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarClienteActionPerformed
+        new TelaCadastroCliente().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonCadastrarClienteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new TelaCadastroMarca().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,7 +313,11 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCadastrarCliente;
+    private javax.swing.JButton jButtonCadastrarVeiculo;
+    private javax.swing.JComboBox<String> jComboBoxMarcas;
+    private javax.swing.JComboBox<String> jComboBoxModelos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -235,6 +328,8 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldAnoDeFabricacao;
     private javax.swing.JTextField jTextFieldAnoDoModelo;
     private javax.swing.JTextField jTextFieldChassi;
