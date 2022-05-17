@@ -69,7 +69,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                     Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
                     Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                    return new PessoaFisica(dados[1], dados[2], data, dados[4], dados[5], endereco);
+                    return new PessoaFisica(dados[1], dados[2], data, dados[5], endereco, dados[4]);
                 }
 
                 linha = br.readLine();
@@ -97,7 +97,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                     Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
                     Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                    return new PessoaFisica(dados[1], dados[2], data, dados[4], dados[5], endereco);
+                    return new PessoaFisica(dados[1], dados[2], data, dados[5], endereco, dados[4]);
                 }
 
                 linha = br.readLine();
@@ -126,7 +126,12 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                 Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
                 Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                listaPessoasFisicas.add(new PessoaFisica(dados[1], dados[2], data, dados[4], dados[5], endereco));
+                listaPessoasFisicas.add(new PessoaFisica(dados[1]/*NomePessoa*/
+                                                       , dados[2]/*CPF*/
+                                                       , data/*DataNascimento*/
+                                                       , dados[5]/*Email*/
+                                                       , endereco/*Endereco*/
+                                                       , dados[4].split(",")/*Telefone*/));
 
                 linha = br.readLine();
             }

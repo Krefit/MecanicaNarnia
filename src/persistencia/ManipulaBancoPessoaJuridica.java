@@ -64,7 +64,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
 
                     Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
-                    return new PessoaJuridica(dados[2], dados[3], dados[1], dados[4], dados[5], endereco);
+                    return new PessoaJuridica(dados[2], dados[3], dados[1], dados[5], endereco, dados[4]);
                 }
 
                 linha = br.readLine();
@@ -91,7 +91,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
 
                 Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
-                listaPessoasJuridicas.add(new PessoaJuridica(dados[2], dados[3], dados[1], dados[4], dados[5], endereco));
+                listaPessoasJuridicas.add(new PessoaJuridica(dados[2], dados[3], dados[1], dados[5], endereco, dados[4]));
 
                 linha = br.readLine();
             }

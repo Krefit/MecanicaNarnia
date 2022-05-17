@@ -109,10 +109,10 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 608, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 59, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(10, 10, 10)
@@ -182,14 +182,14 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                             .addGap(170, 170, 170)
                             .addComponent(btn_criarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 59, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGap(0, 535, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 42, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -236,7 +236,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                     .addComponent(btn_criarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(16, 16, 16)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 43, Short.MAX_VALUE)))
         );
 
         pack();
@@ -252,7 +252,10 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             private EstadosBrazil estado;
             private String CEP;*/
             String cpf = tField_cpf.getText();
-            String telefone = tField_telefone.getText();
+            String[] telefone = new String[3];
+            telefone[0] = tField_telefone.getText();
+            telefone[1] = tField_telefone.getText();
+            telefone[2] = tField_telefone.getText();
             String tipoLogradouro = tField_TipoLogradouro.getText();
             String logradoro = tField_Logradouro.getText();
             String numero = tField_Numero.getText();
@@ -269,7 +272,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class, estado);
 
             Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
-            PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
+            PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, email, endereco, telefone);
             new ManipulaBancoPessoaFisica().incluir(clPF);
             //criando novo cliente com o id correspondente
             //Cliente_PessoaFisica clienteParaAdicionar = new Cliente_PessoaFisica(nome, cpf, endereco, telefone, email);

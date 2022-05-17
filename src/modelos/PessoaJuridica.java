@@ -24,8 +24,8 @@ public class PessoaJuridica extends Pessoa {
     public PessoaJuridica() {
     }
 
-    public PessoaJuridica(String cnpj, String razaoSocial, String nomeFantasia, String telefone, String email, Endereco endereco) {
-        super(telefone, email, endereco);
+    public PessoaJuridica(String cnpj, String razaoSocial, String nomeFantasia, String email, Endereco endereco, String... telefone) {
+        super(email, endereco, telefone);
         if (!validaCNPJ(cnpj)) {
             cnpj = desformatarCNPJ(cnpj);
             if (!validaCNPJ(cnpj)) {

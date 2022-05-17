@@ -69,7 +69,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
                     return new Funcionario(dadosFuncionario[7], Double.parseDouble(dadosFuncionario[8]),
                             Double.parseDouble(dadosFuncionario[9]), Integer.parseInt(dadosFuncionario[10]), dadosFuncionario[1], dadosFuncionario[2],
-                            new SimpleDateFormat("dd/MM/yyyy").parse(dadosFuncionario[3]), dadosFuncionario[4], dadosFuncionario[5], endereco);
+                            new SimpleDateFormat("dd/MM/yyyy").parse(dadosFuncionario[3]), dadosFuncionario[5], endereco, dadosFuncionario[4]);
 
                 }
                 linha = br.readLine();
@@ -102,7 +102,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
                 Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
                 Funcionario f = new Funcionario(dados[7], Double.parseDouble(dados[8]), Double.parseDouble(dados[9]),
-                        Integer.parseInt(dados[10]), dados[1], dados[2], dataNascimento, dados[4], dados[5], endereco);
+                        Integer.parseInt(dados[10]), dados[1], dados[2], dataNascimento, dados[5], endereco, dados[4]);
                 listaFuncionarios.add(f);
                 linha = br.readLine();
             }

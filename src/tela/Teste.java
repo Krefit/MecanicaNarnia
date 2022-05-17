@@ -87,7 +87,7 @@ public class Teste extends javax.swing.JFrame {
             Endereco e = new Endereco("tipoLogradouro", "logradouro", "numero", "complemento",
                     "bairro", "cidade", EstadosBrazil.GO, "CEP");
             Funcionario f = new Funcionario("especialidade", 1200.0f, 15, 123, "nome", "71817240021",
-                    dataNascimento, "62987666666", "email", e);
+                    dataNascimento, "email", e, "62987666666");
                         mbp.incluir(p);
                         System.out.println(mbp.buscar(p));
             ManipulaBancoFuncionario mbFunc = new ManipulaBancoFuncionario();
@@ -108,7 +108,7 @@ public class Teste extends javax.swing.JFrame {
 //            Endereco e = new Endereco("tipoLogradouro", "logradouro", "numero", "complemento",
 //                    "bairro", "cidade", EstadosBrazil.GO, "CEP");
 
-            PessoaJuridica pf = new PessoaJuridica("03993120000125", "razaoSocial", " nomeFantasia", "62998887777", " email", e);
+            PessoaJuridica pf = new PessoaJuridica("03993120000125", "razaoSocial", " nomeFantasia", " email", e, "62998887777");
 //            mbpj.incluir(pf);
             ManipulaBancoVeiculo mbv2 = new ManipulaBancoVeiculo();
 //            ArrayList<Veiculo> listaFunc = mbv.buscarTodos();

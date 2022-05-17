@@ -21,8 +21,8 @@ public class Funcionario extends PessoaFisica {
     private double salariohora;
     private int matricula;
 
-    public Funcionario(String especialidade, double salarioMensal, double salariohora, int matricula, String nome, String cpf, Date dataNascimento, String telefone, String email, Endereco endereco) {
-        super(nome, cpf, dataNascimento, telefone, email, endereco);
+    public Funcionario(String especialidade, double salarioMensal, double salariohora, int matricula, String nome, String cpf, Date dataNascimento, String email, Endereco endereco, String... telefone) {
+        super(nome, cpf, dataNascimento, email, endereco,telefone);
         this.especialidade = especialidade;
         this.salarioMensal = salarioMensal;
         this.salariohora = salariohora;
