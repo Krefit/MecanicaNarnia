@@ -26,7 +26,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
     public void incluir(PessoaFisica obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), true))) {
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(PessoaFisica.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
@@ -35,7 +35,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
     public int buscar(PessoaFisica obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
@@ -51,25 +51,13 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     }
 
-    public PessoaFisica buscar(String cpf) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+    public int buscar(String cpf) throws Exception {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.contains(cpf)) {
                     String[] dados = linha.split(";");
-                    if (dados.length != 7) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    String[] dadosEndereco = dados[6].split(",");
-                    if (dadosEndereco.length != 8) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
-
-                    Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                    return new PessoaFisica(dados[1], dados[2], data, dados[5], endereco, dados[4]);
+                    return Integer.parseInt(dados[0]);
                 }
 
                 linha = br.readLine();
@@ -80,7 +68,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     }
 
     public PessoaFisica buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {
@@ -110,7 +98,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     @Override
     public ArrayList<PessoaFisica> buscarTodos() throws Exception {
         ArrayList<PessoaFisica> listaPessoasFisicas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
@@ -126,12 +114,12 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                 Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
                 Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                listaPessoasFisicas.add(new PessoaFisica(dados[1]/*NomePessoa*/
-                                                       , dados[2]/*CPF*/
-                                                       , data/*DataNascimento*/
-                                                       , dados[5]/*Email*/
-                                                       , endereco/*Endereco*/
-                                                       , dados[4].split(",")/*Telefone*/));
+                listaPessoasFisicas.add(new PessoaFisica(dados[1]/*NomePessoa*/,
+                        dados[2]/*CPF*/,
+                        data/*DataNascimento*/,
+                        dados[5]/*Email*/,
+                        endereco/*Endereco*/,
+                        dados[4].split(",")/*Telefone*/));
 
                 linha = br.readLine();
             }
@@ -142,7 +130,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     @Override
     public void remover(PessoaFisica obj) throws Exception {
 
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             boolean achou = false;
             String linha = br.readLine();
             StringBuilder lista = new StringBuilder();
@@ -160,7 +148,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                 throw new Exception("Cliente não encontrado");
             }
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
+            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
                 if (lista.toString() != null) {
                     bw.write(lista.toString());
                 }
@@ -170,7 +158,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
     public void remover(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             boolean achou = false;
             String linha = br.readLine();
             StringBuilder lista = new StringBuilder();
@@ -188,7 +176,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                 throw new Exception("Cliente não encontrado");
             }
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
+            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
                 if (lista.toString() != null) {
                     bw.write(lista.toString());
                 }
