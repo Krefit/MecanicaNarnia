@@ -61,6 +61,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButtonCadastrarVeiculo = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -158,6 +159,14 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonCadastrarVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 380, 260, -1));
+
+        jButton2.setText("Cadastrar novo modelo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 190, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -276,6 +285,10 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         new TelaCadastroMarca().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new TelaCadastroModelo().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -314,6 +327,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonCadastrarCliente;
     private javax.swing.JButton jButtonCadastrarVeiculo;
     private javax.swing.JComboBox<String> jComboBoxMarcas;
