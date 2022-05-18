@@ -126,6 +126,11 @@ public class TelaCadastroMarca extends javax.swing.JFrame {
             jTextField1.setText("");
             loadTableMarcas();
             jLabelCriadoComSucesso.setVisible(true);
+            
+            //try return window origin
+            TelaCadastroMarca janela02 = new TelaCadastroMarca();
+            janela02.setVisible(true);
+            dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
