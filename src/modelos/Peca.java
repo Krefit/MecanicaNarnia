@@ -10,8 +10,8 @@ package modelos;
  */
 public class Peca {
 
-    private static String nomeArquivoDisco = "pecas.txt";
-    private static String arquivoID = "idGeradoPecas.txt";
+    private final static String nomeArquivoDisco = "pecas.txt";
+    private final static String arquivoID = "idGeradoPecas.txt";
 
     private String codigoPeca;
     private String descricao;

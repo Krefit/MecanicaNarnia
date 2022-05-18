@@ -13,8 +13,8 @@ import java.util.Date;
  */
 public class Funcionario extends PessoaFisica {
 
-    private static String NomeArquivoDisco = "funcionario.txt";
-    private static String arquivoID = "idGeradoFuncionario.txt";
+    private final static String NomeArquivoDisco = "funcionario.txt";
+    private final static String arquivoID = "idGeradoFuncionario.txt";
 
     private String especialidade;
     private double salarioMensal;
@@ -22,7 +22,7 @@ public class Funcionario extends PessoaFisica {
     private int matricula;
 
     public Funcionario(String especialidade, double salarioMensal, double salariohora, int matricula, String nome, String cpf, Date dataNascimento, String email, Endereco endereco, String... telefone) {
-        super(nome, cpf, dataNascimento, email, endereco,telefone);
+        super(nome, cpf, dataNascimento, email, endereco, telefone);
         this.especialidade = especialidade;
         this.salarioMensal = salarioMensal;
         this.salariohora = salariohora;

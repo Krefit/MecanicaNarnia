@@ -14,8 +14,8 @@ import java.util.InputMismatchException;
  */
 public class PessoaJuridica extends Pessoa {
 
-    private static String nomeArquivoDisco = "clientePessoaJuridica.txt";
-    private static String arquivoID = "idGeradoPessoaJuridica.txt";
+    private final static String nomeArquivoDisco = "clientePessoaJuridica.txt";
+    private final static String arquivoID = "idGeradoPessoaJuridica.txt";
 
     private String cnpj;
     private String razaoSocial;

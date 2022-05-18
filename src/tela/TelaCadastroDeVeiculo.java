@@ -25,7 +25,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jComboBoxModelos.setVisible(false);
         loadComboBoxMarcas();
         loadTableClientes();
-        jTextFieldDonoDoVeiculo.setEnabled(false);
+        jTextFieldDonoDoVeiculo.setEditable(false);
         jTextFieldMarca.setEditable(false);
         jTextFieldModelo.setEditable(false);
         jButtonCadastrarVeiculo.setVisible(true);
@@ -140,6 +140,11 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 440, 720, 220));

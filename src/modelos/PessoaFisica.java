@@ -16,8 +16,8 @@ import java.util.InputMismatchException;
  */
 public class PessoaFisica extends Pessoa {
 
-    private static String nomeArquivoDisco = "clientePessoaFisica.txt";
-    private static String arquivoID = "idGeradoClientePessoaFisica.txt";
+    private final static String nomeArquivoDisco = "clientePessoaFisica.txt";
+    private final static String arquivoID = "idGeradoClientePessoaFisica.txt";
 
     protected String nome;
     protected String cpf;
@@ -28,7 +28,7 @@ public class PessoaFisica extends Pessoa {
     }
 
     public PessoaFisica(String nome, String cpf, Date dataNascimento, String email, Endereco endereco, String... telefone) {
-        super(email, endereco,telefone);
+        super(email, endereco, telefone);
         if (!validaCPF(cpf)) {
             throw new InputMismatchException("O CPF: " + cpf + " é inválido");
         }
@@ -57,7 +57,6 @@ public class PessoaFisica extends Pessoa {
         return dataNascimento;
     }
 
-    
     public void setCpf(String cpf) throws Exception {
         if (!validaCPF(cpf)) {
             throw new Exception("CPF informado incorretamente");

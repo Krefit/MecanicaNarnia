@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Veiculo {
 
-    private static String NomeArquivoDisco = "veiculo.txt";
-    private static String arquivoID = "idGeradoVeiculo.txt";
+    private final static String NomeArquivoDisco = "veiculo.txt";
+    private final static String arquivoID = "idGeradoVeiculo.txt";
 
     private int idModelo;//talvez criar uma classe separada
     private int idMarca;
@@ -31,7 +31,7 @@ public class Veiculo {
     public Veiculo() {
     }
 
-    public Veiculo(int idModelo, int idMarca, String chassi, String renavam, 
+    public Veiculo(int idModelo, int idMarca, String chassi, String renavam,
             String tipoVeiculo, String placa, int anoFabricacao, int anoModelo, int idDonoVeiculo) {
         this.idModelo = idModelo;
         this.idMarca = idMarca;
@@ -53,8 +53,6 @@ public class Veiculo {
     public static String getArquivoID() {
         return arquivoID;
     }
-    
-    
 
     public int getIdModelo() {
         return idModelo;
