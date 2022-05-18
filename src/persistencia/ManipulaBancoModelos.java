@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package persistencia;
 
 import geradorId.GeradorId;
@@ -13,10 +10,6 @@ import java.util.ArrayList;
 import modelos.auxiliares.MarcaVeiculo;
 import modelos.auxiliares.ModeloVeiculo;
 
-/**
- *
- * @author tanak
- */
 public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
 
     @Override

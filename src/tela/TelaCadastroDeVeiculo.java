@@ -21,10 +21,12 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     public TelaCadastroDeVeiculo() {
         initComponents();
         setLocationRelativeTo(null);
-//        loadComboBoxModelos();
-        jComboBoxModelos.setVisible(false);
+        loadComboBoxModelos();
+        jComboBoxModelos.setVisible(true);
         loadComboBoxMarcas();
         loadTableClientes();
+        jTextFieldMarca.setVisible(false);
+        jTextFieldModelo.setVisible(false);
         jTextFieldDonoDoVeiculo.setEditable(false);
         jTextFieldMarca.setEditable(false);
         jTextFieldModelo.setEditable(false);
@@ -36,9 +38,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jTextFieldModelo = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jTextFieldMarca = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldChassi = new javax.swing.JTextField();
@@ -68,14 +68,8 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
 
         jLabel1.setText("CADASTRO DE VEÍCULO");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 6, -1, -1));
-
-        jLabel2.setText("MODELO");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 43, -1, -1));
-        getContentPane().add(jTextFieldModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 40, 115, -1));
-
-        jLabel3.setText("MARCA");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 74, -1, -1));
-        getContentPane().add(jTextFieldMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 74, 108, -1));
+        getContentPane().add(jTextFieldModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 30, -1));
+        getContentPane().add(jTextFieldMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(628, 10, 30, -1));
 
         jLabel4.setText("CHASSI");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 111, -1, -1));
@@ -119,7 +113,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
                 jComboBoxModelosActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBoxModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 120, -1));
+        getContentPane().add(jComboBoxModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 120, -1));
 
         jComboBoxMarcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxMarcas.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +121,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
                 jComboBoxMarcasActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBoxMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 120, -1));
+        getContentPane().add(jComboBoxMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 120, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,7 +149,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 190, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 190, -1));
 
         jButtonCadastrarVeiculo.setText("Cadastrar novo veiculo");
         jButtonCadastrarVeiculo.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +165,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 190, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, 190, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -266,8 +260,10 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private void jComboBoxModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModelosActionPerformed
         if (jComboBoxModelos.getSelectedIndex() > 0) {
             jTextFieldModelo.setText(String.valueOf(jComboBoxModelos.getSelectedItem()));
+            jComboBoxModelos.setVisible(true);
         } else {
             jTextFieldModelo.setText("");
+            jComboBoxModelos.setVisible(true);
         }
     }//GEN-LAST:event_jComboBoxModelosActionPerformed
 
@@ -339,8 +335,6 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxModelos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
