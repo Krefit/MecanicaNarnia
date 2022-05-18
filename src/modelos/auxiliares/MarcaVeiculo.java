@@ -7,8 +7,6 @@ public class MarcaVeiculo {
     private static String arquivoID = "idGeradoMarcas.txt";
 
     private String nomeMarca;
-    private static String NomeArquivoDisco = "marcaVeiculo.txt";
-    private static String arquivoID = "idGeradoMarcaVeiculo.txt";
 
     public MarcaVeiculo() {
     }
@@ -31,22 +29,6 @@ public class MarcaVeiculo {
 
     public MarcaVeiculo(String nomeMarca) {
         this.nomeMarca = nomeMarca;
-    }
-
-    public static String getNomeArquivoDisco() {
-        return NomeArquivoDisco;
-    }
-
-    public static void setNomeArquivoDisco(String NomeArquivoDisco) {
-        MarcaVeiculo.NomeArquivoDisco = NomeArquivoDisco;
-    }
-
-    public static String getArquivoID() {
-        return arquivoID;
-    }
-
-    public static void setArquivoID(String arquivoID) {
-        MarcaVeiculo.arquivoID = arquivoID;
     }
 
     public String getNomeMarca() {
