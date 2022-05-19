@@ -29,7 +29,6 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
 
     @Override
     public int buscar(OrdemDeServico obj) throws Exception {
-        int id = 0;
         try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
@@ -38,18 +37,17 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
 //  * id, defeito relatado, servico feito, Valor mao de obra, data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), 
 //  * situacao da OS, id do funcionario responsável, iD da peca usada, quantidade de pecas usadas, valor unitario da peca, id do veiculo
                     if (dados.length != 12) {
-                        //linnha com defeito
+                        //linha com defeito
                     }
-                    id = Integer.parseInt(dados[0]);
+                    return Integer.parseInt(dados[0]);
                 }
             }
-            return id;
+            return 0;
         }
     }
 
     @Override
     public OrdemDeServico buscar(int id) throws Exception {
-        OrdemDeServico os = null;
         try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
@@ -58,7 +56,7 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
 //  * id, defeito relatado, servico feito, Valor mao de obra, data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), 
 //  * situacao da OS, id do funcionario responsável, iD da peca usada, quantidade de pecas usadas, valor unitario da peca, id do veiculo
                     if (dados.length != 12) {
-                        //linnha com defeito
+                        //linha com defeito
                     }
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     Date DataAbertura = sdf.parse(dados[4]);
@@ -67,17 +65,38 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
                         dataFechamento = sdf.parse(dados[5]);
                     }
 
-                    os = new OrdemDeServico(dados[1], dados[2], Double.parseDouble(dados[3]), DataAbertura, Integer.parseInt(dados[7]),
+                    return new OrdemDeServico(dados[1], dados[2], Double.parseDouble(dados[3]), DataAbertura, Integer.parseInt(dados[7]),
                             Integer.parseInt(dados[8]), Integer.parseInt(dados[9]), Integer.parseInt(dados[11]));
                 }
             }
         }
-        return os;
+        return null;
     }
 
     @Override
     public ArrayList<OrdemDeServico> buscarTodos() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<OrdemDeServico> listaOSs = new ArrayList<>();
+        try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                String[] dados = linha.split(";");
+//  * id, defeito relatado, servico feito, Valor mao de obra, data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), 
+//  * situacao da OS, id do funcionario responsável, iD da peca usada, quantidade de pecas usadas, valor unitario da peca, id do veiculo
+                if (dados.length != 12) {
+                    //linha com defeito
+                }
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date DataAbertura = sdf.parse(dados[4]);
+                Date dataFechamento = null;
+                if (!dados[5].equals("null")) {//não tentar se o valor não for uma data
+                    dataFechamento = sdf.parse(dados[5]);
+                }
+
+                listaOSs.add(new OrdemDeServico(dados[1], dados[2], Double.parseDouble(dados[3]), DataAbertura, Integer.parseInt(dados[7]),
+                        Integer.parseInt(dados[8]), Integer.parseInt(dados[9]), Integer.parseInt(dados[11])));
+            }
+        }
+        return null;
     }
 
     @Override
