@@ -4,7 +4,27 @@
  */
 package tela;
 import modelos.Funcionario;
+<<<<<<< Updated upstream
 import modelos.Peça;
+=======
+import modelos.OrdemDeServico;
+import modelos.Peca;
+import modelos.PessoaFisica;
+import modelos.PessoaJuridica;
+import modelos.Veiculo;
+import modelos.auxiliares.Endereco;
+import modelos.auxiliares.MarcaVeiculo;
+import modelos.auxiliares.ModeloVeiculo;
+import persistencia.ManipulaBancoFuncionario;
+import persistencia.ManipulaBancoMarca;
+import persistencia.ManipulaBancoModelos;
+import persistencia.ManipulaBancoOrdemServico;
+import persistencia.ManipulaBancoPecas;
+import persistencia.ManipulaBancoPessoaFisica;
+import persistencia.ManipulaBancoPessoaJuridica;
+import persistencia.ManipulaBancoVeiculo;
+
+>>>>>>> Stashed changes
 /**
  *
  * @author ALUNO
@@ -81,8 +101,65 @@ public class Teste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+<<<<<<< Updated upstream
         modelos.Funcionario p = new Funcionario("João", "123.456.789", "Rua sem nome", "62988888", "62999999", "teste@email.com", "Trabalhador");
         jTextArea1.setText(p.toString());
+=======
+        try {
+//            Peca p = new Peca("codigoPeca", "descricao", 23.2f, 0, 10);
+//            ManipulaBancoPecas mbp = new ManipulaBancoPecas();
+//
+//            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse("11/12/2002");
+//
+//            Endereco e = new Endereco("tipoLogradouro", "logradouro", "numero", "complemento",
+//                    "bairro", "cidade", EstadosBrazil.GO, "CEP");
+//            Funcionario f = new Funcionario("especialidade", 1200.0f, 15, 123, "nome", "71817240021",
+//                    dataNascimento, "email", e, "62987666666");
+//                        mbp.incluir(p);
+//                        System.out.println(mbp.buscar(p));
+//            ManipulaBancoFuncionario mbFunc = new ManipulaBancoFuncionario();
+//            System.out.println(mbFunc.buscar(f));
+//            MarcaVeiculo m = new MarcaVeiculo("nomeMarca2");
+//            
+//            ManipulaBancoMarca mbm = new ManipulaBancoMarca();
+//            System.out.println(mbm.buscar(3));
+//            ModeloVeiculo mv = new ModeloVeiculo("NomeModelo", 2);
+//            ManipulaBancoModelos mbv = new ManipulaBancoModelos();
+//            ManipulaBancoFuncionario mbf = new ManipulaBancoFuncionario();
+////            mbv.incluir(mv);
+//            ManipulaBancoPessoaFisica mbpf = new ManipulaBancoPessoaFisica();
+//            ManipulaBancoPessoaJuridica mbpj = new ManipulaBancoPessoaJuridica();
+//
+            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse("11/12/2002");
+//
+////            Endereco e = new Endereco("tipoLogradouro", "logradouro", "numero", "complemento",
+////                    "bairro", "cidade", EstadosBrazil.GO, "CEP");
+//
+//            PessoaJuridica pf = new PessoaJuridica("03993120000125", "razaoSocial", " nomeFantasia", " email", e, "62998887777");
+////            mbpj.incluir(pf);
+//            ManipulaBancoVeiculo mbv2 = new ManipulaBancoVeiculo();
+////            ArrayList<Veiculo> listaFunc = mbv.buscarTodos();
+//
+//            System.out.println(mbFunc.buscar(f));
+//            System.out.println(mbm.buscar(m));
+//            System.out.println(mbp.buscar(p));
+//            System.out.println(mbpj.buscar(pf));
+//            for (Veiculo f : listaFunc) {
+//                System.out.println(f.toString());
+//            }
+//            System.out.println(mbv.buscar(5));
+
+            ManipulaBancoOrdemServico mbOs = new ManipulaBancoOrdemServico();
+
+            OrdemDeServico os = new OrdemDeServico("defeitoRelatado", "servico",
+                    23.5, dataNascimento, 2, 51, 3, 1);
+            System.out.println(os);
+            mbOs.incluir(os);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+>>>>>>> Stashed changes
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
