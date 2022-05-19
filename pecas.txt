@@ -1,4 +1,3 @@
-3;codigoPeca;descricao;23.2;0;0;10
-4;codigoPeca;descricao;23.2;0;0;10
-5;codigoPeca;descricao;23.2;0;0;10
-6;codigoPeca;descricao;23.2;0;0;10
+9;1057;PNEU ARO 16;150.0;0;0;0
+10;1059;CABEÇOTE;1000.0;0;0;0
+11;1060;FREIO;300.0;0;0;0

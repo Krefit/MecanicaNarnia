@@ -36,6 +36,13 @@ public class Peca {
         this.quantidadeNoEstoque = quantidadeNoEstoque;
         this.estoquequantidadeMinima = estoquequantidadeMinima;
     }
+    
+    public Peca(String codigoPeca, String descricao, float valorPeca, int estoquequantidadeMinima) {
+        this.codigoPeca = codigoPeca;
+        this.descricao = descricao;
+        this.valorPeca = valorPeca;
+        this.estoquequantidadeMinima = estoquequantidadeMinima;
+    }
 
     public static String getNomeArquivoDisco() {
         return nomeArquivoDisco;
