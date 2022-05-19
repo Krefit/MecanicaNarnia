@@ -7,6 +7,7 @@ package modelos;
 import enumerations.ServicosOferecidos;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import persistencia.ManipulaBancoPecas;
 
 /**
  *
@@ -18,42 +19,55 @@ public class OrdemDeServico {
         EM_ABERTO, EM_EXECUCAO, CONCLUIDA, CANCELADA;
     }
 
+    private final static String nomeArquivoDisco = "ordensDeServicos.txt";
+    private final static String arquivoID = "idGeradoOrdensDeServicos.txt";
+
     private String defeitoRelatado;
     private String servico;
-    private float valorServico;
+    private double valorMaoDeObra;
     private Date dataEntrada;
     private Date dataSaida = null;//só colocar depois de o serviço ser concluido
     private SitucaoOrdemServico situacao;
     private int idFuncionarioResponsavel;
     private int idPeca; //opcional
+    private int quantidadePeca; //opciona
+    private double valorUnitarioPeca;//apenas se usar peca
     private int idVeiculo;
 
     public OrdemDeServico() {
     }
 
-    public OrdemDeServico(String defeitoRelatado, String servico,
-            int idFuncionarioResponsavel, float valorServico, Date dataEntrada,
-            SitucaoOrdemServico situacao, int idVeiculo) {
+    public OrdemDeServico(String defeitoRelatado, String servico, double valorMaoDeObra, Date dataEntrada,
+            int idFuncionarioResponsavel, int idVeiculo) {
         this.defeitoRelatado = defeitoRelatado;
         this.servico = servico;
-        this.idFuncionarioResponsavel = idFuncionarioResponsavel;
-        this.valorServico = valorServico;
+        this.valorMaoDeObra = valorMaoDeObra;
         this.dataEntrada = dataEntrada;
-        this.situacao = situacao;
+        this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.idVeiculo = idVeiculo;
+        situacao = SitucaoOrdemServico.EM_ABERTO;
     }
 
-    public OrdemDeServico(String defeitoRelatado, String servico,
-            int idFuncionarioResponsavel, float valorServico, Date dataEntrada, SitucaoOrdemServico situacao,
-            int idVeiculo, int idPeca) {
+    public OrdemDeServico(String defeitoRelatado, String servico, double valorMaoDeObra, Date dataEntrada,
+            int idFuncionarioResponsavel, int idPeca, int quantidadePeca, int idVeiculo) throws Exception {
         this.defeitoRelatado = defeitoRelatado;
         this.servico = servico;
-        this.idFuncionarioResponsavel = idFuncionarioResponsavel;
-        this.valorServico = valorServico;
+        this.valorMaoDeObra = valorMaoDeObra;
         this.dataEntrada = dataEntrada;
-        this.situacao = situacao;
-        this.idVeiculo = idVeiculo;
+        this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.idPeca = idPeca;
+        this.quantidadePeca = quantidadePeca;
+        this.idVeiculo = idVeiculo;
+        this.valorUnitarioPeca = new ManipulaBancoPecas().buscar(idPeca).getValorPeca();
+        situacao = SitucaoOrdemServico.EM_ABERTO;
+    }
+
+    public static String getNomeArquivoDisco() {
+        return nomeArquivoDisco;
+    }
+
+    public static String getArquivoID() {
+        return arquivoID;
     }
 
     public String getDefeitoRelatado() {
@@ -80,12 +94,12 @@ public class OrdemDeServico {
         this.idFuncionarioResponsavel = idFuncionarioResponsavel;
     }
 
-    public float getValorServico() {
-        return valorServico;
+    public double getValorMaoDeObra() {
+        return valorMaoDeObra;
     }
 
-    public void setValorServico(float valorServico) {
-        this.valorServico = valorServico;
+    public void setValorMaoDeObra(double valorMaoDeObra) {
+        this.valorMaoDeObra = valorMaoDeObra;
     }
 
     public int getIdPeca() {
@@ -132,15 +146,31 @@ public class OrdemDeServico {
         return idVeiculo;
     }
 
+    public int getQuantidadePeca() {
+        return quantidadePeca;
+    }
+
+    public void setQuantidadePeca(int quantidadePeca) {
+        this.quantidadePeca = quantidadePeca;
+    }
+
+    public double getValorUnitarioPeca() {
+        return valorUnitarioPeca;
+    }
+
+    public void setValorUnitarioPeca(double valorUnitarioPeca) {
+        this.valorUnitarioPeca = valorUnitarioPeca;
+    }
+
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        if (dataSaida == null) {
-            return defeitoRelatado + ";" + servico + ";" + idFuncionarioResponsavel + ";" + valorServico + ";"
-                    + sdf.format(dataEntrada) + ";" + "null" + ";" + situacao + ";" + idVeiculo + ";" + idPeca;
+        if (dataSaida != null) {
+            return defeitoRelatado + ";" + servico + ";" + valorMaoDeObra + ";" + sdf.format(dataEntrada) + ";" + sdf.format(dataSaida) + ";" + situacao
+                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + valorUnitarioPeca + ";" + idVeiculo;
+        } else {
+            return defeitoRelatado + ";" + servico + ";" + valorMaoDeObra + ";" + sdf.format(dataEntrada) + ";" + null + ";" + situacao
+                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + valorUnitarioPeca + ";" + idVeiculo;
         }
-        return defeitoRelatado + ";" + servico + ";" + idFuncionarioResponsavel + ";" + valorServico + ";"
-                + sdf.format(dataEntrada) + ";" + sdf.format(dataSaida) + ";" + situacao + ";" + idVeiculo + ";" + idPeca;
     }
-
 }
