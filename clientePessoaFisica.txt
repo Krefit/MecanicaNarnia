@@ -1,4 +1,0 @@
-51;a;519.319.180-07;11/11/2002;(62) 98642-2099,(62) 98642-2099,(62) 98642-2099;email;rua,asda,asda,asda,asda,ASD,ES,asdas
-52;Danilo;142.134.246-42;11/11/2002;(62) 98642-9920,(62) 98642-2099,(62) 98642-2099;teste@gmail.com;asdasds,asdasa,123,aasdas,asda,goiânia,GO,1231
-53;teste;065.160.830-96;22/03/1998;(62) 98642-2299,(62) 98642-2099,(62) 98642-2099;teste@gmail.com;ae1231ed,asdadasd,12,qwdqw,nomeBairro,Goiânia,GO,123123
-
