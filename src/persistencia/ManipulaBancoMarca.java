@@ -26,7 +26,7 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
 
     @Override
     public void incluir(MarcaVeiculo obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(MarcaVeiculo.getNomeArquivoDisco(), true))) {
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(MarcaVeiculo.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(MarcaVeiculo.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
@@ -35,7 +35,7 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
 
     @Override
     public int buscar(MarcaVeiculo obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {
@@ -44,12 +44,12 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
                 linha = br.readLine();
             }
         }
-        throw new Exception("Marca não encontrada");
+        return 0;
     }
 
     @Override
     public MarcaVeiculo buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {
@@ -63,7 +63,7 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
                 linha = br.readLine();
             }
         }
-        throw new Exception("Marca não encontrada");
+        return null;
 
     }
 
@@ -71,7 +71,7 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
         if (nome.equals("")) {
             throw new Exception("Modelo inválido");
         }
-        try (BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.contains(nome)) {
@@ -81,15 +81,14 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
                 linha = br.readLine();
             }
         }
-        throw new Exception("Cliente não encontrado");
-
+        return 0;
     }
 
     @Override
     public ArrayList<MarcaVeiculo> buscarTodos() throws Exception {
 
         ArrayList<MarcaVeiculo> listaMarcas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");

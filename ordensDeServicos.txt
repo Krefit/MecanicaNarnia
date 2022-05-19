@@ -1,0 +1,2 @@
+3;defeitoRelatado;servico;250.99;11/12/2002;null;EM_ABERTO;12;0;0;0.0;51
+4;defeitoRelatado;servico;250.99;11/12/2002;null;EM_ABERTO;12;6;1;23.200000762939453;51

@@ -1,4 +1,3 @@
-
 package persistencia;
 
 import geradorId.GeradorId;
@@ -17,8 +16,7 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
         try ( BufferedWriter bw = new BufferedWriter(new FileWriter(ModeloVeiculo.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(MarcaVeiculo.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
-            //fecha arquivo
-        }
+        }//fecha arquivo
     }
 
     @Override
@@ -32,7 +30,7 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
                 linha = br.readLine();
             }
         }
-        throw new Exception("Modelo não encontrado");
+        return 0;
     }
 
     public int buscar(String dado) throws Exception {
@@ -48,7 +46,7 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
                 linha = br.readLine();
             }
         }
-        throw new Exception("Modelo não encontrado");
+        return 0;
     }
 
     @Override
@@ -67,7 +65,7 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
                 linha = br.readLine();
             }
         }
-        throw new Exception("Modelo não encontrado");
+        return null;
     }
 
     @Override

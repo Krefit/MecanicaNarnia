@@ -24,7 +24,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
 
     @Override
     public void incluir(PessoaJuridica obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaJuridica.getNomeArquivoDisco(), true))) {
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaJuridica.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(PessoaJuridica.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
         }//fecha arquivo
@@ -32,7 +32,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
 
     @Override
     public int buscar(PessoaJuridica obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
@@ -42,13 +42,12 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
                 linha = br.readLine();
             }
         }
-        throw new Exception("Cliente não encontrado");
-
+        return 0;
     }
 
     @Override
     public PessoaJuridica buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {//ignorando o iD, pois isso não fica salvo no objeto
@@ -70,13 +69,13 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
                 linha = br.readLine();
             }
         }
-        throw new Exception("Cliente não encontrado");
+        return null;
     }
 
     @Override
     public ArrayList<PessoaJuridica> buscarTodos() throws Exception {
         ArrayList<PessoaJuridica> listaPessoasJuridicas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
@@ -101,70 +100,78 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
 
     @Override
     public void remover(PessoaJuridica obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
-            boolean achou = false;
-            String linha = br.readLine();
-            StringBuilder lista = new StringBuilder();
+//        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+//            boolean achou = false;
+//            String linha = br.readLine();
+//            StringBuilder lista = new StringBuilder();
+//
+//            while (linha != null) {
+//                if (!linha.endsWith(obj.toString())) {//ignorando o ID, pois o obj não tem id
+//                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
+//                } else {
+//                    achou = true;
+//                }
+//                linha = br.readLine();
+//            }
+//
+//            if (!achou) {
+//                throw new Exception("Cliente não encontrado");
+//            }
+//
+//            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaJuridica.getNomeArquivoDisco(), false))) {
+//                if (lista.toString() != null) {
+//                    bw.write(lista.toString());
+//                }
+//            }
+//        }
+        throw new UnsupportedOperationException("Não implementado ainda");
 
-            while (linha != null) {
-                if (!linha.endsWith(obj.toString())) {//ignorando o ID, pois o obj não tem id
-                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
-                } else {
-                    achou = true;
-                }
-                linha = br.readLine();
-            }
-
-            if (!achou) {
-                throw new Exception("Cliente não encontrado");
-            }
-
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaJuridica.getNomeArquivoDisco(), false))) {
-                if (lista.toString() != null) {
-                    bw.write(lista.toString());
-                }
-            }
-        }
     }
 
     @Override
     public void remover(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
-            boolean achou = false;
-            String linha = br.readLine();
-            StringBuilder lista = new StringBuilder();
+//        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaJuridica.getNomeArquivoDisco()))) {
+//            boolean achou = false;
+//            String linha = br.readLine();
+//            StringBuilder lista = new StringBuilder();
+//
+//            while (linha != null) {
+//                if (!linha.startsWith(String.valueOf(id))) {//ignorando o ID, pois o obj não tem id
+//                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
+//                } else {
+//                    achou = true;
+//                }
+//                linha = br.readLine();
+//            }
+//
+//            if (!achou) {
+//                throw new Exception("Cliente não encontrado");
+//            }
+//
+//            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaJuridica.getNomeArquivoDisco(), false))) {
+//                if (lista.toString() != null) {
+//                    bw.write(lista.toString());
+//                }
+//            }
+//        }
+        throw new UnsupportedOperationException("Não implementado ainda");
 
-            while (linha != null) {
-                if (!linha.startsWith(String.valueOf(id))) {//ignorando o ID, pois o obj não tem id
-                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
-                } else {
-                    achou = true;
-                }
-                linha = br.readLine();
-            }
-
-            if (!achou) {
-                throw new Exception("Cliente não encontrado");
-            }
-
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaJuridica.getNomeArquivoDisco(), false))) {
-                if (lista.toString() != null) {
-                    bw.write(lista.toString());
-                }
-            }
-        }
     }
 
     @Override
     public void editar(PessoaJuridica objParaRemover, PessoaJuridica objParaAdicionar) throws Exception {
-        remover(objParaRemover);
-        incluir(objParaAdicionar);
+//        remover(objParaRemover);
+//        incluir(objParaAdicionar);
+        throw new UnsupportedOperationException("Não implementado ainda");
+
     }
 
     @Override
     public void editar(int idObjParaRemover, PessoaJuridica objParaAdicionar) throws Exception {
-        remover(idObjParaRemover);
-        incluir(objParaAdicionar);
+//        remover(idObjParaRemover);
+//        incluir(objParaAdicionar);
+        throw new UnsupportedOperationException("Não implementado ainda");
+
     }
 
 }

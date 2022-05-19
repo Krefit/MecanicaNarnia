@@ -27,7 +27,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
     @Override
     public void incluir(Funcionario obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), true))) {
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(Funcionario.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
@@ -36,7 +36,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
     @Override
     public int buscar(Funcionario obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
@@ -46,12 +46,13 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
             }
 
         }
-        throw new Exception("Cliente não encontrado");
+        return 0;//Funcionario não encontrado
     }
 
     @Override
     public Funcionario buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+        Funcionario f = null;
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {
@@ -67,34 +68,34 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
                     Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3],
                             dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
-                    return new Funcionario(dadosFuncionario[7], Double.parseDouble(dadosFuncionario[8]),
+                    f = new Funcionario(dadosFuncionario[7], Double.parseDouble(dadosFuncionario[8]),
                             Double.parseDouble(dadosFuncionario[9]), Integer.parseInt(dadosFuncionario[10]), dadosFuncionario[1], dadosFuncionario[2],
                             new SimpleDateFormat("dd/MM/yyyy").parse(dadosFuncionario[3]), dadosFuncionario[5], endereco, dadosFuncionario[4]);
-
+                    break;
                 }
                 linha = br.readLine();
             }
 
         }
-        throw new Exception("Cliente não encontrado");
+        return f;
     }
 
     @Override
     public ArrayList<Funcionario> buscarTodos() throws Exception {
         ArrayList<Funcionario> listaFuncionarios = new ArrayList<Funcionario>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
 
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
                 if (dados.length != 11) {
-                    throw new Exception("Dados incorretos");
+                    throw new Exception("Dados do funcionario incorretos");
                 }
 
                 String[] dadosEndereco = dados[6].split(",");
                 if (dadosEndereco.length != 8) {
-                    throw new Exception("Dados incorretos");
+                    throw new Exception("Dados de endereço do funcionario incorretos");
                 }
 
                 Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3],

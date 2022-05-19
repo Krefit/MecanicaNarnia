@@ -47,8 +47,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                 linha = br.readLine();
             }
         }
-        throw new Exception("Cliente não encontrado");
-
+        return 0;
     }
 
     public int buscar(String cpf) throws Exception {
@@ -63,8 +62,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                 linha = br.readLine();
             }
         }
-        throw new Exception("Cliente não encontrado");
-
+        return 0;
     }
 
     public PessoaFisica buscar(int id) throws Exception {
@@ -91,8 +89,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                 linha = br.readLine();
             }
         }
-        throw new Exception("Cliente não encontrado");
-
+        return null;
     }
 
     @Override
@@ -130,72 +127,79 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     @Override
     public void remover(PessoaFisica obj) throws Exception {
 
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-            boolean achou = false;
-            String linha = br.readLine();
-            StringBuilder lista = new StringBuilder();
+//        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+//            boolean achou = false;
+//            String linha = br.readLine();
+//            StringBuilder lista = new StringBuilder();
+//
+//            while (linha != null) {
+//                if (!linha.endsWith(obj.toString())) {//ignorando o ID, pois o obj não tem id
+//                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
+//                } else {
+//                    achou = true;
+//                }
+//                linha = br.readLine();
+//            }
+//
+//            if (!achou) {
+//                throw new Exception("Cliente não encontrado");
+//            }
+//
+//            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
+//                if (lista.toString() != null) {
+//                    bw.write(lista.toString());
+//                }
+//            }
+//        }
+        throw new UnsupportedOperationException("Não implementado ainda");
 
-            while (linha != null) {
-                if (!linha.endsWith(obj.toString())) {//ignorando o ID, pois o obj não tem id
-                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
-                } else {
-                    achou = true;
-                }
-                linha = br.readLine();
-            }
-
-            if (!achou) {
-                throw new Exception("Cliente não encontrado");
-            }
-
-            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
-                if (lista.toString() != null) {
-                    bw.write(lista.toString());
-                }
-            }
-        }
     }
 
     @Override
     public void remover(int id) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-            boolean achou = false;
-            String linha = br.readLine();
-            StringBuilder lista = new StringBuilder();
+//        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+//            boolean achou = false;
+//            String linha = br.readLine();
+//            StringBuilder lista = new StringBuilder();
+//
+//            while (linha != null) {
+//                if (!linha.startsWith(String.valueOf(id))) {
+//                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
+//                } else {
+//                    achou = true;
+//                }
+//                linha = br.readLine();
+//            }
+//
+//            if (!achou) {
+//                throw new Exception("Cliente não encontrado");
+//            }
+//
+//            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
+//                if (lista.toString() != null) {
+//                    bw.write(lista.toString());
+//                }
+//            }
+//        }
+        throw new UnsupportedOperationException("Não implementado ainda");
 
-            while (linha != null) {
-                if (!linha.startsWith(String.valueOf(id))) {
-                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
-                } else {
-                    achou = true;
-                }
-                linha = br.readLine();
-            }
-
-            if (!achou) {
-                throw new Exception("Cliente não encontrado");
-            }
-
-            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
-                if (lista.toString() != null) {
-                    bw.write(lista.toString());
-                }
-            }
-        }
     }
 
     @Override
     public void editar(PessoaFisica objParaRemover, PessoaFisica objParaAdicionar) throws Exception {
-
-        remover(objParaRemover);//caso o objeto não exista, vai dar um erro nesse método, esta é a validacao
-        incluir(objParaAdicionar);
+//
+//        remover(objParaRemover);//caso o objeto não exista, vai dar um erro nesse método, esta é a validacao
+//        incluir(objParaAdicionar);
+        throw new UnsupportedOperationException("Não implementado ainda");
 
     }
 
     @Override
     public void editar(int idObjParaRemover, PessoaFisica objParaAdicionar) throws Exception {
-        remover(idObjParaRemover);
-        incluir(objParaAdicionar);
+//        remover(idObjParaRemover);
+//        incluir(objParaAdicionar);
+        throw new UnsupportedOperationException("Não implementado ainda");
+
     }
 
 }
