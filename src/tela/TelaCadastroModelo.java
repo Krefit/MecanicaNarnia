@@ -78,7 +78,7 @@ public class TelaCadastroModelo extends javax.swing.JFrame {
         jComboBoxMarcas = new javax.swing.JComboBox<>();
         jButtonVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTableModelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
