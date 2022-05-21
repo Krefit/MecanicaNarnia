@@ -60,7 +60,7 @@ public class TelaCadastroServicos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jFormattedTextFieldValorMaoDeObra = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
