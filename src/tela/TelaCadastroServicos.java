@@ -22,17 +22,19 @@ public class TelaCadastroServicos extends javax.swing.JFrame {
      */
     public TelaCadastroServicos() {
         initComponents();
-        loadTableServicos();
+        loadTableServicos("");
     }
 
-    private void loadTableServicos() {
+    private void loadTableServicos(String busca) {
         try {
             DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
             table.setRowCount(0);//apagando linhas antigas para não duplicar a tabela
 
             ArrayList<Servico> listaServicos = new ManipulaBancoServicos().buscarTodos();// * buscando todos os serviços registrados
             for (Servico s : listaServicos) {
-                table.addRow(new Object[]{s.getNomeServico(), String.format("%.2f", s.getValorMaoDeObra())});//    * adicionando linha com os dados do serviço
+                if (s.getNomeServico().contains(busca)) {
+                    table.addRow(new Object[]{s.getNomeServico(), String.format("%.2f", s.getValorMaoDeObra())});//    * adicionando linha com os dados do serviço
+                }
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -89,9 +91,9 @@ public class TelaCadastroServicos extends javax.swing.JFrame {
 
         jLabel2.setText("Nome do serviço: ");
 
-        jTextFieldNomeServico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNomeServicoActionPerformed(evt);
+        jTextFieldNomeServico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNomeServicoKeyTyped(evt);
             }
         });
 
@@ -148,10 +150,6 @@ public class TelaCadastroServicos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNomeServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeServicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomeServicoActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             String nomeServico = jTextFieldNomeServico.getText();
@@ -159,12 +157,16 @@ public class TelaCadastroServicos extends javax.swing.JFrame {
             Servico s = new Servico(nomeServico, valorMaoDeObra);
             new ManipulaBancoServicos().incluir(s);
             JOptionPane.showMessageDialog(this, "Serviço Registrado");
-            loadTableServicos();
+            loadTableServicos("");
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextFieldNomeServicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeServicoKeyTyped
+        loadTableServicos(jTextFieldNomeServico.getText());
+    }//GEN-LAST:event_jTextFieldNomeServicoKeyTyped
 
     /**
      * @param args the command line arguments
