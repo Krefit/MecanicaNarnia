@@ -24,8 +24,6 @@ public class Veiculo {
     private int anoFabricacao;
     private int anoModelo;
 
-    private ArrayList<OrdemDeServico> listaOS;
-
     private int idDonoVeiculo;
 
     public Veiculo() {
@@ -42,8 +40,6 @@ public class Veiculo {
         this.anoFabricacao = anoFabricacao;
         this.anoModelo = anoModelo;
         this.idDonoVeiculo = idDonoVeiculo;
-
-        this.listaOS = new ArrayList<>();//a lista de OS inicia sempre vazia
     }
 
     public static String getNomeArquivoDisco() {
@@ -118,10 +114,6 @@ public class Veiculo {
         this.anoModelo = anoModelo;
     }
 
-    public ArrayList<OrdemDeServico> getListaOS() {
-        return listaOS;
-    }
-
     public int getIdDonoVeiculo() {
         return idDonoVeiculo;
     }
@@ -130,35 +122,10 @@ public class Veiculo {
         this.idDonoVeiculo = idDonoVeiculo;
     }
 
-    public void adicionaItemListaOS(OrdemDeServico os) throws Exception {
-        if (os == null) {
-            throw new Exception("Não se pode adicionar uma OS vazia!!");
-        }
-        listaOS.add(os);
-    }
-
-    public void removeItemListaOS(OrdemDeServico os) throws Exception {
-        if (os == null) {
-            throw new Exception("Não se pode remover uma OS vazia!!");
-        }
-        if (!listaOS.remove(os)) {
-            throw new Exception("OS não encontrada");
-        }
-    }
-
-    public OrdemDeServico buscarItemListaOS(OrdemDeServico os) throws Exception {
-        if (os == null) {
-            throw new Exception("Não se pode remover uma OS vazia!!");
-        }
-        if (!listaOS.contains(os)) {
-            throw new Exception("OS não encontrada");
-        }
-        return listaOS.get(listaOS.indexOf(os));
-    }
-
     @Override
     public String toString() {
-        return idModelo + ";" + idMarca + ";" + chassi + ";" + renavam + ";" + tipoVeiculo + ";" + placa + ";" + anoFabricacao + ";" + anoModelo + ";" + idDonoVeiculo + ";" + listaOS.toString();
+        return idModelo + ";" + idMarca + ";" + chassi + ";" + renavam + ";" + tipoVeiculo + ";" + placa + ";" + anoFabricacao
+                + ";" + anoModelo + ";" + idDonoVeiculo;
     }
 
 }

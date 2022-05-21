@@ -97,7 +97,7 @@ public class ManipulaBancoMarcaVeiculo implements IManipulaBanco<MarcaVeiculo> {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {
-                    String[] dadosMarcaVeiculoBusca = linha.substring(0, linha.indexOf("[")).split(";");//não ler dadosVeiculo das OSs
+                    String[] dadosMarcaVeiculoBusca = linha.split(";");//não ler dadosVeiculo das OSs
                     if (dadosMarcaVeiculoBusca.length != 10) {
                         throw new Exception("Dados incorretos");
                     }

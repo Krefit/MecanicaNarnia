@@ -137,5 +137,4 @@ public class PessoaFisica extends Pessoa {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return nome + ";" + cpf + ";" + sdf.format(dataNascimento) + ";" + super.toString();
     }
-
 }

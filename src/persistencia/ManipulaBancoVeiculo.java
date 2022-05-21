@@ -96,7 +96,7 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
         try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                String[] dadosVeiculo = linha.substring(0, linha.indexOf("[")).split(";");//não ler dadosVeiculo das OSs
+                String[] dadosVeiculo = linha.split(";");
                 if (dadosVeiculo.length != 10) {
                     throw new Exception("Dados incorretos");
                 }
@@ -104,8 +104,6 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
                 Veiculo veiculo = new Veiculo(Integer.parseInt(dadosVeiculo[1]), Integer.parseInt(dadosVeiculo[2]),
                         dadosVeiculo[3], dadosVeiculo[4], dadosVeiculo[5], dadosVeiculo[6], Integer.parseInt(dadosVeiculo[7]),
                         Integer.parseInt(dadosVeiculo[8]), Integer.parseInt(dadosVeiculo[9]));
-
-//                setOSs(veiculo, linha);
 
                 listaVeiculos.add(veiculo);
                 linha = br.readLine();

@@ -1,11 +1,2 @@
-13;2;3;chassi;renavam;tipoVeiculo;placa;2002;2000;3;[defeitoRelatado1;Servico feito;2;219.45;11/11/2002;null;EM_ABERTO;5;12, defeitoRelatado2;Servico feito;2;219.45;11/11/2002;null;EM_ABERTO;5;15, defeitoRelatado3;Servico feito;2;219.45;11/11/2002;null;EM_ABERTO;5;0]
-14;2;3;234234;156151;CAMIONETE;561065SDFDS;3;2;2;[]
-15;1;2;231651;13151;dfsdf;15156165;2;1;1;[]
-16;1;2;1215;4848;teste;rteste;2;1;1;[]
-17;1;1;a;a;a;aa;1;1;1;[]
-
-28;12;3;asd;asdasd;adasda;dasd;123;123;52;[]
-29;12;2;asd;asdasd;adasda;dasd;123;123;52;[]
-30;5;2;asd;asd;asd;sad;123;1231;53;[]
-31;5;2;;;;;123;123;52;[]
-32;5;2;;;;;123;23;51;[]
+33;13;6;chassis;Renavan;Passeio;asd9012;2002;2001;52
+34;14;8;asda;asdasdas;asdasd;asdasd;2000;2003;52
