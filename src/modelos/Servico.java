@@ -10,8 +10,8 @@ package modelos;
  */
 public class Servico {
 
-    private final static String nomeArquivoDisco = "clientePessoaFisica.txt";
-    private final static String arquivoID = "idGeradoClientePessoaFisica.txt";
+    private final static String nomeArquivoDisco = "servicos.txt";
+    private final static String arquivoID = "idGeradoServicos.txt";
 
     private String nomeServico;
     private double valorMaoDeObra;
