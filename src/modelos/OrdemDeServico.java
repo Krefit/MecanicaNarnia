@@ -4,7 +4,6 @@
  */
 package modelos;
 
-import enumerations.ServicosOferecidos;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import persistencia.ManipulaBancoPecas;
