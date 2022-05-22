@@ -13,16 +13,21 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelos.Funcionario;
 import modelos.OrdemDeServico;
+import modelos.Peca;
 import modelos.Pessoa;
 import modelos.PessoaFisica;
+import modelos.PessoaJuridica;
 import modelos.Servico;
 import modelos.Veiculo;
+import modelos.auxiliares.MarcaVeiculo;
+import modelos.auxiliares.ModeloVeiculo;
 import persistencia.IManipulaBanco;
 import persistencia.ManipulaBancoFuncionario;
 import persistencia.ManipulaBancoMarca;
 import persistencia.ManipulaBancoMarcaVeiculo;
 import persistencia.ManipulaBancoModelos;
 import persistencia.ManipulaBancoOrdemServico;
+import persistencia.ManipulaBancoPecas;
 import persistencia.ManipulaBancoPessoaFisica;
 import persistencia.ManipulaBancoPessoaJuridica;
 import persistencia.ManipulaBancoServicos;
@@ -39,34 +44,54 @@ public class TelaCadastroOS extends javax.swing.JFrame {
      */
     public TelaCadastroOS() {
         initComponents();
-        loadTableVeiculos();
+        loadTableVeiculos("");
         loadTableServicos("");
         loadComboBoxFuncionarios();
+        jTablePecas.setVisible(false);
+        jFormattedTextFieldQuantidadePecas.setVisible(false);
+        jLabelQuantidadePecas.setVisible(false);
     }
-
-    private void loadTableVeiculos() {
+    
+    private void loadTableVeiculos(String busca) {
         try {
             ArrayList<Veiculo> listaVeiculos = new ManipulaBancoVeiculo().buscarTodos();
             DefaultTableModel table = (DefaultTableModel) jTableVeiculos.getModel();
+            table.setRowCount(0);// * apagando linhas para não duplicar os dados da tabela
 
             ManipulaBancoPessoaFisica mbPf = new ManipulaBancoPessoaFisica();
             ManipulaBancoPessoaJuridica mbPj = new ManipulaBancoPessoaJuridica();
             ManipulaBancoMarca mbMarca = new ManipulaBancoMarca();
             ManipulaBancoModelos mbModelo = new ManipulaBancoModelos();
             for (Veiculo v : listaVeiculos) {
-                if (mbPf.buscar(v.getIdDonoVeiculo()) != null) {
-                    table.addRow(new Object[]{mbPf.buscar(v.getIdDonoVeiculo()).getNome(), v.getPlaca(),
-                        mbMarca.buscar(v.getIdMarca()), mbModelo.buscar(v.getIdModelo()).getNomeModelo()});
-                } else {
-                    table.addRow(new Object[]{mbPj.buscar(v.getIdDonoVeiculo()).getNomeFantasia(),});
+                if (v.getPlaca().contains(busca)) {//   * filtrando a busca
+                    MarcaVeiculo marca = mbMarca.buscar(v.getIdMarca());
+                    ModeloVeiculo modelo = mbModelo.buscar(v.getIdModelo());
+                    PessoaFisica pf = mbPf.buscar(v.getIdDonoVeiculo());
+                    if (marca != null && modelo != null) {//    * conferindo se a marca e o modelo existem
+                        if (pf != null) {//  * vendo se é uma pessoa física
+                            table.addRow(new Object[]{pf.getNome(), v.getPlaca(), marca.getNomeMarca(),
+                                modelo.getNomeModelo()});
+                        } else {
+                            PessoaJuridica pj = mbPj.buscar(v.getIdDonoVeiculo());
+                            if (pj != null) {//  * caso todos os dados estejam corretos
+                                table.addRow(new Object[]{pj.getNomeFantasia(), v.getPlaca(), marca.getNomeMarca(),
+                                    modelo.getNomeModelo()});
+                            } else {
+// falha, o dono do veiculo não consta no banco de dados
+                            }
+                        }
+                    } else {
+// falha, o modelo ou a marca não consta no banco de dados
+                    }
                 }
             }
+            
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
         }
     }
-
+    
     private void loadTableServicos(String busca) {
         try {
             DefaultTableModel table = (DefaultTableModel) jTableServicos.getModel();
@@ -83,7 +108,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-
+    
     private void loadComboBoxFuncionarios() {
         try {
             ArrayList<Funcionario> listaFunc = new ManipulaBancoFuncionario().buscarTodos();
@@ -91,13 +116,28 @@ public class TelaCadastroOS extends javax.swing.JFrame {
             for (Funcionario f : listaFunc) {
                 listaNomesFuncionarios.add(f.getNome());
             }
-
+            
             jComboBox1.setModel(new DefaultComboBoxModel(listaNomesFuncionarios.toArray()));
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-
+        
+    }
+    
+    private void loadTablePecas() {
+        try {
+            DefaultTableModel table = (DefaultTableModel) jTablePecas.getModel();
+            table.setRowCount(0);// * apagando linhas para não duplicar dados na tabela
+            ArrayList<Peca> listaPecas = new ManipulaBancoPecas().buscarTodos();
+            for (Peca p : listaPecas) {
+                int quantidadePecasDisponiveis = p.getQuantidadeNoEstoque() - p.getQuantidadeReservadas();
+                table.addRow(new Object[]{p.getCodigoPeca(), p.getDescricao(), p.getValorPeca(), quantidadePecasDisponiveis});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }
 
     /**
@@ -124,8 +164,14 @@ public class TelaCadastroOS extends javax.swing.JFrame {
         jFormattedTextFieldDataEntrada = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jRadioButton1 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTablePecas = new javax.swing.JTable();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabelQuantidadePecas = new javax.swing.JLabel();
+        jFormattedTextFieldQuantidadePecas = new javax.swing.JFormattedTextField();
+        jButton3 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,6 +187,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1377, 758));
 
         jTableVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,6 +210,11 @@ public class TelaCadastroOS extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableVeiculos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTableVeiculosKeyTyped(evt);
             }
         });
         jScrollPane2.setViewportView(jTableVeiculos);
@@ -219,12 +271,60 @@ public class TelaCadastroOS extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jRadioButton1.setText("Usará alguma peça");
-
         jButton1.setText("Criar nova Ordem de serviço");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Voltar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTablePecas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Descrição", "preço unitário", "Quantidade disponível"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jTablePecas);
+
+        jCheckBox1.setText("vai usar peças");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabelQuantidadePecas.setText("quantidade de pecas usadas: ");
+
+        jFormattedTextFieldQuantidadePecas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
+        jButton3.setText("Adicionar novo serviço");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -233,65 +333,84 @@ public class TelaCadastroOS extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldBuscaServicos))
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane5))
-                                    .addComponent(jFormattedTextFieldDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)
+                        .addComponent(jFormattedTextFieldDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addGap(58, 58, 58)
+                        .addComponent(jButton1)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(193, 193, 193))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(264, 264, 264))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jCheckBox1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabelQuantidadePecas)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jFormattedTextFieldQuantidadePecas, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jTextFieldBuscaServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton3)))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(29, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldBuscaServicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jFormattedTextFieldDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldBuscaServicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton3))
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jFormattedTextFieldDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jButton1))
-                .addContainerGap(156, Short.MAX_VALUE))
+                    .addComponent(jCheckBox1)
+                    .addComponent(jLabelQuantidadePecas)
+                    .addComponent(jFormattedTextFieldQuantidadePecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -306,25 +425,57 @@ public class TelaCadastroOS extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableServicosMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (!jRadioButton1.isSelected()) {
-            try {
-                String defeitoRelatado = jTextAreaDefeitoRelatado.getText();
-                int idServico = new ManipulaBancoServicos().buscar(String.valueOf(jTableServicos.getValueAt(jTableServicos.getSelectedRow(), 0)));
-                Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(jFormattedTextFieldDataEntrada.getText());
-                int idFuncResponsavel = new ManipulaBancoFuncionario().buscar(String.valueOf(jComboBox1.getSelectedItem()));
-                int idVeiculo = new ManipulaBancoVeiculo().buscar(String.valueOf(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 1)));
+        try {
+            String defeitoRelatado = jTextAreaDefeitoRelatado.getText();
+            int idServico = new ManipulaBancoServicos().buscar(String.valueOf(jTableServicos.getValueAt(jTableServicos.getSelectedRow(), 0)));
+            Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(jFormattedTextFieldDataEntrada.getText());
+            int idFuncResponsavel = new ManipulaBancoFuncionario().buscar(String.valueOf(jComboBox1.getSelectedItem()));
+            int idVeiculo = new ManipulaBancoVeiculo().buscar(String.valueOf(jTableVeiculos.getValueAt(jTableVeiculos.getSelectedRow(), 1)));
+            double valorMaoDeObra = new ManipulaBancoServicos().buscar(idServico).getValorMaoDeObra();
+//    * lendo o valor da mao de obra do serviço no banco de dados de serviços
 
-                new ManipulaBancoOrdemServico().incluir(new OrdemDeServico(defeitoRelatado, idServico, dataEntrada, idFuncResponsavel, idVeiculo));
-                JOptionPane.showMessageDialog(rootPane, "Ordem de serviço cadastrada");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            if (!jCheckBox1.isSelected()) {
+//caso não vá usar peças
+                new ManipulaBancoOrdemServico().incluir(new OrdemDeServico(defeitoRelatado, idServico, valorMaoDeObra, dataEntrada, idFuncResponsavel, idVeiculo));
+            } else {
+                int idPeca = new ManipulaBancoPecas().buscar(String.valueOf(jTablePecas.getValueAt(jTablePecas.getSelectedRow(), 0)));
+                int quantidadePecasUsadas = Integer.parseInt(jFormattedTextFieldQuantidadePecas.getText());
+                double valorUnitarioPeca = new ManipulaBancoPecas().buscar(idPeca).getValorPeca();//    * lendo o valor unitário da peça no banco de dados de peças
+                new ManipulaBancoOrdemServico().incluir(new OrdemDeServico(defeitoRelatado, idServico, valorMaoDeObra, dataEntrada,
+                        idFuncResponsavel, idPeca, quantidadePecasUsadas, valorUnitarioPeca, idVeiculo));
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "A adição de peças na ordem de serviço não está pronto ainda");
+            JOptionPane.showMessageDialog(rootPane, "Ordem de serviço cadastrada");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new TelaInicial().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if (jCheckBox1.isSelected()) {
+            jTablePecas.setVisible(true);
+            jLabelQuantidadePecas.setVisible(true);
+            jFormattedTextFieldQuantidadePecas.setVisible(true);
+            loadTablePecas();
+        } else {
+            jTablePecas.setVisible(false);
+            jFormattedTextFieldQuantidadePecas.setVisible(false);
+            jLabelQuantidadePecas.setVisible(false);
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jTableVeiculosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableVeiculosKeyTyped
+        loadTableVeiculos(String.valueOf(evt.getKeyChar()));
+    }//GEN-LAST:event_jTableVeiculosKeyTyped
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new TelaCadastroServicos().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,21 +491,21 @@ public class TelaCadastroOS extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelaCadastroOS.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(TelaCadastroOS.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaCadastroOS.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaCadastroOS.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -371,18 +522,24 @@ public class TelaCadastroOS extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataEntrada;
+    private javax.swing.JFormattedTextField jFormattedTextFieldQuantidadePecas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JLabel jLabelQuantidadePecas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablePecas;
     private javax.swing.JTable jTableServicos;
     private javax.swing.JTable jTableVeiculos;
     private javax.swing.JTextArea jTextAreaDefeitoRelatado;

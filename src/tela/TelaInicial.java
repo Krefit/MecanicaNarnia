@@ -1,4 +1,3 @@
-
 package tela;
 
 public class TelaInicial extends javax.swing.JFrame {
@@ -22,6 +21,7 @@ public class TelaInicial extends javax.swing.JFrame {
         btn_CadastroCliente = new javax.swing.JButton();
         jButtonCadastroDeVeiculo = new javax.swing.JButton();
         jButtonCadastroDePeca = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +46,13 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Cadastro de OS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -53,14 +60,13 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonCadastroDePeca)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_CadastroCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(jButtonCadastroDeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96))))
+                    .addComponent(btn_CadastroCliente)
+                    .addComponent(jButtonCadastroDePeca))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonCadastroDeVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(96, 96, 96))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +76,9 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(btn_CadastroCliente)
                     .addComponent(jButtonCadastroDeVeiculo))
                 .addGap(18, 18, 18)
-                .addComponent(jButtonCadastroDePeca)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCadastroDePeca)
+                    .addComponent(jButton1))
                 .addContainerGap(223, Short.MAX_VALUE))
         );
 
@@ -93,6 +101,11 @@ public class TelaInicial extends javax.swing.JFrame {
         this.setVisible(false);
         new TelaCadastroDePeca().setVisible(true);
     }//GEN-LAST:event_jButtonCadastroDePecaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new TelaCadastroOS().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,6 +144,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_CadastroCliente;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCadastroDePeca;
     private javax.swing.JButton jButtonCadastroDeVeiculo;
     // End of variables declaration//GEN-END:variables

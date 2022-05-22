@@ -153,7 +153,9 @@ public class TelaCadastroServicos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             String nomeServico = jTextFieldNomeServico.getText();
-            double valorMaoDeObra = Double.parseDouble(jFormattedTextFieldValorMaoDeObra.getText().replace(",", "."));
+            double valorMaoDeObra = Double.parseDouble(jFormattedTextFieldValorMaoDeObra.getText().replace(".", "").replace(",", "."));
+            //  * apagando ponto de separação numérico e substituindo virgula por ponto
+
             Servico s = new Servico(nomeServico, valorMaoDeObra);
             new ManipulaBancoServicos().incluir(s);
             JOptionPane.showMessageDialog(this, "Serviço Registrado");
