@@ -49,6 +49,20 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
         return 0;//Funcionario não encontrado
     }
 
+    public int buscar(String dado) throws Exception {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                if (linha.contains(dado)) {//ignorando o iD, pois isso não fica salvo no objeto
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                }
+                linha = br.readLine();
+            }
+
+        }
+        return 0;//Funcionario não encontrado
+    }
+
     @Override
     public Funcionario buscar(int id) throws Exception {
         Funcionario f = null;

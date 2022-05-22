@@ -53,6 +53,20 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
         return 0;
     }
 
+    public int buscar(String dado) throws Exception {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                if (linha.contains(dado)) {
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                }
+                linha = br.readLine();
+            }
+
+        }
+        return 0;
+    }
+
     @Override
     public Veiculo buscar(int id) throws Exception {
         try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
