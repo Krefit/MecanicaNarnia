@@ -1,2 +1,1 @@
-2;nome;718.172.400-21;11/12/2002;(62) 98766-6666;email;tipoLogradouro,logradouro,numero,complemento,bairro,cidade,GO,CEP;especialidade;1200.0;15.0;123
-3;nome;718.172.400-21;11/12/2002;(62) 98766-6666;email;tipoLogradouro,logradouro,numero,complemento,bairro,cidade,GO,CEP;especialidade;1200.0;15.0;123
+5;Severino;031.497.940-99;23/07/1997;[(62) 98888-8888, (62) 98888-8888, (62) 98888-8888];email@email.com;Rua,Rua 7,23,,Centro,Goiânia,GO,123341;Pintor;1099.0;35.0;121
