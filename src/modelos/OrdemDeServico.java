@@ -37,11 +37,11 @@ public class OrdemDeServico {
     public OrdemDeServico() {
     }
 
-    public OrdemDeServico(String defeitoRelatado, int idServico, Date dataEntrada,
+    public OrdemDeServico(String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
             int idFuncionarioResponsavel, int idVeiculo) throws Exception {
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
-        this.valorMaoDeObra = new ManipulaBancoServicos().buscar(idServico).getValorMaoDeObra();
+        this.valorMaoDeObra = valorMaoDeObra;
         this.dataEntrada = dataEntrada;
         this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.idVeiculo = idVeiculo;
@@ -49,7 +49,7 @@ public class OrdemDeServico {
     }
 
     public OrdemDeServico(String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
-            int idFuncionarioResponsavel, int idPeca, int quantidadePeca, int idVeiculo) throws Exception {
+            int idFuncionarioResponsavel, int idPeca, int quantidadePeca, double valorUnitarioDaPeca, int idVeiculo) throws Exception {
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
         this.valorMaoDeObra = valorMaoDeObra;
@@ -58,7 +58,7 @@ public class OrdemDeServico {
         this.idPeca = idPeca;
         this.quantidadePeca = quantidadePeca;
         this.idVeiculo = idVeiculo;
-        this.valorUnitarioPeca = new ManipulaBancoPecas().buscar(idPeca).getValorPeca();
+        this.valorUnitarioPeca = valorUnitarioDaPeca;
         situacao = SitucaoOrdemServico.EM_ABERTO;
     }
 

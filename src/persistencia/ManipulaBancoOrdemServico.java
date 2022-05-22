@@ -66,7 +66,7 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
                     }
 
                     return new OrdemDeServico(dados[1], Integer.parseInt(dados[2]), Double.parseDouble(dados[3]), DataAbertura, Integer.parseInt(dados[7]),
-                            Integer.parseInt(dados[8]), Integer.parseInt(dados[9]), Integer.parseInt(dados[11]));
+                            Integer.parseInt(dados[8]), Integer.parseInt(dados[9]), Double.parseDouble(dados[10]), Integer.parseInt(dados[11]));
                 }
             }
         }
@@ -93,7 +93,7 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
                 }
 
                 listaOSs.add(new OrdemDeServico(dados[1], Integer.parseInt(dados[2]), Double.parseDouble(dados[3]), DataAbertura, Integer.parseInt(dados[7]),
-                        Integer.parseInt(dados[8]), Integer.parseInt(dados[9]), Integer.parseInt(dados[11])));
+                        Integer.parseInt(dados[8]), Integer.parseInt(dados[9]), Double.parseDouble(dados[10]), Integer.parseInt(dados[11])));
             }
         }
         return null;

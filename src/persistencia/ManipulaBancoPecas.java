@@ -44,6 +44,20 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
         return 0;
     }
 
+    public int buscar(String dado) throws Exception {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                if (linha.contains(dado)) {
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                }
+
+                linha = br.readLine();
+            }
+        }
+        return 0;
+    }
+
     @Override
     public Peca buscar(int id) throws Exception {
         try ( BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
