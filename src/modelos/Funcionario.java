@@ -71,7 +71,7 @@ public class Funcionario extends PessoaFisica {
 
     @Override
     public String toString() {
-        return super.toString() + ";" + especialidade + ";" + salarioMensal + ";" + salariohora + ";" + matricula;
+        return super.toString() + ";" + especialidade + ";" + String.format("%.2f;%.2f", salarioMensal, salariohora) + ";" + matricula;
     }
 
 }

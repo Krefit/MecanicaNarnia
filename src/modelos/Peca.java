@@ -36,7 +36,7 @@ public class Peca {
         this.quantidadeNoEstoque = quantidadeNoEstoque;
         this.estoquequantidadeMinima = estoquequantidadeMinima;
     }
-    
+
     public Peca(String codigoPeca, String descricao, float valorPeca, int estoquequantidadeMinima) {
         this.codigoPeca = codigoPeca;
         this.descricao = descricao;
@@ -102,7 +102,7 @@ public class Peca {
 
     @Override
     public String toString() {
-        return codigoPeca + ";" + descricao + ";" + valorPeca + ";" + quantidadeNoEstoque + ";" + quantidadeReservadas + ";" + estoquequantidadeMinima;
+        return codigoPeca + ";" + descricao + ";" + String.format("%.2f", valorPeca) + ";" + quantidadeNoEstoque + ";" + quantidadeReservadas + ";" + estoquequantidadeMinima;
     }
 
 }

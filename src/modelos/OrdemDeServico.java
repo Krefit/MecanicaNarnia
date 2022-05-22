@@ -7,6 +7,7 @@ package modelos;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import persistencia.ManipulaBancoPecas;
+import persistencia.ManipulaBancoServicos;
 
 /**
  *
@@ -22,7 +23,7 @@ public class OrdemDeServico {
     private final static String arquivoID = "idGeradoOrdensDeServicos.txt";
 
     private String defeitoRelatado;
-    private String servico;
+    private int idServico;
     private double valorMaoDeObra;
     private Date dataEntrada;
     private Date dataSaida = null;//só colocar depois de o serviço ser concluido
@@ -36,21 +37,21 @@ public class OrdemDeServico {
     public OrdemDeServico() {
     }
 
-    public OrdemDeServico(String defeitoRelatado, String servico, double valorMaoDeObra, Date dataEntrada,
-            int idFuncionarioResponsavel, int idVeiculo) {
+    public OrdemDeServico(String defeitoRelatado, int idServico, Date dataEntrada,
+            int idFuncionarioResponsavel, int idVeiculo) throws Exception {
         this.defeitoRelatado = defeitoRelatado;
-        this.servico = servico;
-        this.valorMaoDeObra = valorMaoDeObra;
+        this.idServico = idServico;
+        this.valorMaoDeObra = new ManipulaBancoServicos().buscar(idServico).getValorMaoDeObra();
         this.dataEntrada = dataEntrada;
         this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.idVeiculo = idVeiculo;
         situacao = SitucaoOrdemServico.EM_ABERTO;
     }
 
-    public OrdemDeServico(String defeitoRelatado, String servico, double valorMaoDeObra, Date dataEntrada,
+    public OrdemDeServico(String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
             int idFuncionarioResponsavel, int idPeca, int quantidadePeca, int idVeiculo) throws Exception {
         this.defeitoRelatado = defeitoRelatado;
-        this.servico = servico;
+        this.idServico = idServico;
         this.valorMaoDeObra = valorMaoDeObra;
         this.dataEntrada = dataEntrada;
         this.idFuncionarioResponsavel = idFuncionarioResponsavel;
@@ -77,12 +78,12 @@ public class OrdemDeServico {
         this.defeitoRelatado = defeitoRelatado;
     }
 
-    public String getServico() {
-        return servico;
+    public int getIdServico() {
+        return idServico;
     }
 
-    public void setServico(String servico) {
-        this.servico = servico;
+    public void setServico(int idServico) {
+        this.idServico = idServico;
     }
 
     public int getIdFuncionarioResponsavel() {
@@ -165,11 +166,11 @@ public class OrdemDeServico {
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (dataSaida != null) {
-            return defeitoRelatado + ";" + servico + ";" + valorMaoDeObra + ";" + sdf.format(dataEntrada) + ";" + sdf.format(dataSaida) + ";" + situacao
-                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + valorUnitarioPeca + ";" + idVeiculo;
+            return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra) + ";" + sdf.format(dataEntrada) + ";" + sdf.format(dataSaida) + ";" + situacao
+                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca) + ";" + idVeiculo;
         } else {
-            return defeitoRelatado + ";" + servico + ";" + valorMaoDeObra + ";" + sdf.format(dataEntrada) + ";" + null + ";" + situacao
-                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + valorUnitarioPeca + ";" + idVeiculo;
+            return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra) + ";" + sdf.format(dataEntrada) + ";" + null + ";" + situacao
+                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca) + ";" + idVeiculo;
         }
     }
 }

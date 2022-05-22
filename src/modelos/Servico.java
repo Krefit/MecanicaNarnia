@@ -50,7 +50,7 @@ public class Servico {
 
     @Override
     public String toString() {
-        return nomeServico + ";" + valorMaoDeObra;
+        return nomeServico + ";" + String.format("%.2f", valorMaoDeObra);
     }
 
 }
