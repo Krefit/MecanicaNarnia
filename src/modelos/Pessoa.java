@@ -20,9 +20,9 @@ public class Pessoa {
 
     public Pessoa(String email, Endereco endereco, String[] telefone) {
 
-        if (!validaTelefone(telefone[0])||!validaTelefone(telefone[1])||!validaTelefone(telefone[2])) {
-            System.out.println(Arrays.toString(telefone));
+        if (!validaTelefone(telefone[0]) || !validaTelefone(telefone[1]) || !validaTelefone(telefone[2])) {
             System.out.println(telefone.length);
+            System.out.println(Arrays.toString(telefone));
             System.out.println(telefone[0] + "\t" + telefone[1] + "\t" + telefone[2]);
             throw new InputMismatchException("Telefone inválido");
         }
@@ -38,7 +38,7 @@ public class Pessoa {
     }
 
     public void setTelefone(String[] telefone) {
-        if (!validaTelefone(telefone[0])||!validaTelefone(telefone[1])||!validaTelefone(telefone[2])) {
+        if (!validaTelefone(telefone[0]) || !validaTelefone(telefone[1]) || !validaTelefone(telefone[2])) {
             throw new InputMismatchException("Telefone inválido");
         }
         this.telefone[0] = formataTelefone(telefone[0]);
@@ -64,12 +64,16 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return telefone + ";" + email + ";" + endereco.toString();
+        return Arrays.toString(telefone) + ";" + email + ";" + endereco.toString();
     }
 
     public boolean validaTelefone(String telefoneParaValidar) {
-        telefoneParaValidar = formataTelefone(telefoneParaValidar);//formatando o telefone para colocar os parenteses no DDD e o hifen no meio do numero
-        return (telefoneParaValidar.matches("^\\([1-9]{2}\\) 9[7-9]{1}[0-9]{3}\\-[0-9]{4}$"));
+        if (telefoneParaValidar.matches("^\\([1-9]{2}\\) 9[7-9]{1}[0-9]{3}\\-[0-9]{4}$")) {
+            return true;
+        } else {
+            telefoneParaValidar = formataTelefone(telefoneParaValidar);//formatando o telefone para colocar os parenteses no DDD e o hifen no meio do numero
+            return (telefoneParaValidar.matches("^\\([1-9]{2}\\) 9[7-9]{1}[0-9]{3}\\-[0-9]{4}$"));
+        }
         // o método matches, diz se uma String segue o padrão informado, que no caso é o padrão de telefone, com parênteses e o hifen "(xx) 9XXXX-XXXX"
     }
 
@@ -77,9 +81,7 @@ public class Pessoa {
         if (telefoneParaFormatar.length() < 7) {//se for menor q 7 não dá pra formatar
             return "O Telefone: " + telefoneParaFormatar + "é inválido";
         }
-        if (telefoneParaFormatar.matches("^\\([1-9]{2}\\) 9[7-9]{1}[0-9]{3}\\-[0-9]{4}$")) {//caso ja esteja formatado
-            return telefoneParaFormatar;
-        }
+
         StringBuilder telefoneFormatado = new StringBuilder();
         telefoneFormatado.append('(').append(telefoneParaFormatar.substring(0, 2)).append(')');
         telefoneFormatado.append(' ').append(telefoneParaFormatar.substring(2, 7)).append('-');

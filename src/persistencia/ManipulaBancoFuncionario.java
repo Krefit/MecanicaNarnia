@@ -89,6 +89,8 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
+//   * id, nome, cpf, dataNascimento, telefones, email, endereco, especialidade, salarioMes, salarioHora, matriculaFuncionario
+
                 if (dados.length != 11) {
                     throw new Exception("Dados do funcionario incorretos");
                 }
@@ -97,13 +99,19 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
                 if (dadosEndereco.length != 8) {
                     throw new Exception("Dados de endereço do funcionario incorretos");
                 }
-
+                String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");// * ignorando "[]"
+                for (int i = 0; i < telefones.length; i++) {
+                    telefones[i] = telefones[i].trim();//   * tirando espaços em branco
+                }
+                if (telefones.length != 3) {
+                    throw new Exception("Telefones incorretos");
+                }
                 Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3],
                         dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
 
                 Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
                 Funcionario f = new Funcionario(dados[7], Double.parseDouble(dados[8]), Double.parseDouble(dados[9]),
-                        Integer.parseInt(dados[10]), dados[1], dados[2], dataNascimento, dados[5], endereco, dados[4]);
+                        Integer.parseInt(dados[10]), dados[1], dados[2], dataNascimento, dados[5], endereco, telefones);
                 listaFuncionarios.add(f);
                 linha = br.readLine();
             }
