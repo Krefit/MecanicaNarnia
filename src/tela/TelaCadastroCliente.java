@@ -36,10 +36,11 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup_TipoPessoa = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         tField_nome = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        tField_cpf = new javax.swing.JTextField();
+        jLabel_CPF_CNPJ = new javax.swing.JLabel();
+        tField_cpf_cnpj = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         tField_telefone = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -47,10 +48,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         tField_email = new javax.swing.JTextField();
         btn_criarCliente = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tArea_saida = new javax.swing.JTextArea();
         tField_DataNascimento = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel_DtNasc_RazSoc = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         tField_Logradouro = new javax.swing.JTextField();
         tField_Numero = new javax.swing.JTextField();
@@ -65,18 +64,36 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         cb_Estado = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         tField_CEP = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        tField_telefone1 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        tField_telefone2 = new javax.swing.JTextField();
+        jRadioButton_PessoaFisica = new javax.swing.JRadioButton();
+        jRadioButton_PessoaJuridica = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Nome: ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, 20));
+        getContentPane().add(tField_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 420, -1));
 
-        jLabel2.setText("CPF: ");
+        jLabel_CPF_CNPJ.setText("CPF: ");
+        getContentPane().add(jLabel_CPF_CNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, 20));
+        getContentPane().add(tField_cpf_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 150, -1));
 
-        jLabel3.setText("Telefone: ");
+        jLabel3.setText("Celular:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, 20));
+        getContentPane().add(tField_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 150, -1));
 
         jLabel4.setText("Tipo Logradouro:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, -1, 20));
+        getContentPane().add(tField_TipoLogradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 160, -1));
 
         jLabel5.setText("Email:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
+        getContentPane().add(tField_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 200, -1));
 
         btn_criarCliente.setText("Criar Cliente");
         btn_criarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -84,151 +101,57 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 btn_criarClienteActionPerformed(evt);
             }
         });
+        getContentPane().add(btn_criarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, 137, 44));
+        getContentPane().add(tField_DataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 140, 145, -1));
 
-        tArea_saida.setColumns(20);
-        tArea_saida.setRows(5);
-        jScrollPane1.setViewportView(tArea_saida);
-
-        jLabel6.setText("Data de Nascimento:");
+        jLabel_DtNasc_RazSoc.setText("Data de Nascimento:");
+        getContentPane().add(jLabel_DtNasc_RazSoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, -1));
 
         jLabel7.setText("Logradouro");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, -1, 32));
+        getContentPane().add(tField_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 210, -1));
+        getContentPane().add(tField_Numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 60, -1));
 
         jLabel8.setText("Nº:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, 18, -1));
 
         jLabel9.setText("Complemento:");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 380, -1, -1));
+        getContentPane().add(tField_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 480, -1));
 
         jLabel10.setText("Bairro:");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 36, -1));
 
         jLabel11.setText("Cidade:");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+        getContentPane().add(tField_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 150, -1));
+        getContentPane().add(tField_Cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 150, -1));
 
         jLabel12.setText("Estado:");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, 51, -1));
+
+        getContentPane().add(cb_Estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 110, -1));
 
         jLabel13.setText("CEP:");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, -1, -1));
+        getContentPane().add(tField_CEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 110, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel1)
-                .addGap(11, 11, 11)
-                .addComponent(tField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel2)
-                .addGap(23, 23, 23)
-                .addComponent(tField_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jLabel6)
-                .addGap(5, 5, 5)
-                .addComponent(tField_DataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel3)
-                .addGap(2, 2, 2)
-                .addComponent(tField_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(tField_email, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel11)
-                .addGap(10, 10, 10)
-                .addComponent(tField_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(cb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(tField_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jLabel13)
-                .addGap(21, 21, 21)
-                .addComponent(tField_CEP, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(tField_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(tField_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(jLabel4)
-                .addGap(9, 9, 9)
-                .addComponent(tField_TipoLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel9))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(tField_Complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(229, 229, 229)
-                .addComponent(btn_criarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tField_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(tField_DataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tField_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(tField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(tField_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(cb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(tField_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(tField_CEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(tField_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tField_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tField_TipoLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(8, 8, 8)
-                .addComponent(jLabel9)
-                .addGap(4, 4, 4)
-                .addComponent(tField_Complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_criarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jLabel14.setText("Residencial:");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, -1, 20));
+        getContentPane().add(tField_telefone1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 180, -1));
+
+        jLabel15.setText("Comercial:");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, 20));
+        getContentPane().add(tField_telefone2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 150, -1));
+
+        buttonGroup_TipoPessoa.add(jRadioButton_PessoaFisica);
+        jRadioButton_PessoaFisica.setSelected(true);
+        jRadioButton_PessoaFisica.setText("Pessoa Fisica");
+        getContentPane().add(jRadioButton_PessoaFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, -1));
+
+        buttonGroup_TipoPessoa.add(jRadioButton_PessoaJuridica);
+        jRadioButton_PessoaJuridica.setText("Pessoa Juridica");
+        getContentPane().add(jRadioButton_PessoaJuridica, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -242,7 +165,6 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             private String cidade;
             private EstadosBrazil estado;
             private String CEP;*/
-            String cpf = tField_cpf.getText();
             String[] telefone = new String[3];
             telefone[0] = tField_telefone.getText();
             telefone[1] = tField_telefone.getText();
@@ -255,16 +177,25 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             String cidade = tField_Cidade.getText();
             String estado = cb_Estado.getSelectedItem().toString();
             String CEP = tField_CEP.getText();
-            String auxDataNascimento = tField_DataNascimento.getText();
-            String[] vetDataNascimento = auxDataNascimento.split("/");
-            Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2]) - 1900, Integer.parseInt(vetDataNascimento[1]) - 1, Integer.parseInt(vetDataNascimento[0]));
             String email = tField_email.getText();
-
             EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class, estado);
 
             Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
-            PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, email, endereco, telefone);
-            new ManipulaBancoPessoaFisica().incluir(clPF);
+            if (jRadioButton_PessoaFisica.isSelected()) {
+                String cpf = tField_cpf_cnpj.getText();
+                String auxDataNascimento = tField_DataNascimento.getText();
+                String[] vetDataNascimento = auxDataNascimento.split("/");
+                Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2]) - 1900, Integer.parseInt(vetDataNascimento[1]) - 1, Integer.parseInt(vetDataNascimento[0]));
+
+                PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, email, endereco, telefone);
+                new ManipulaBancoPessoaFisica().incluir(clPF);
+            }else
+                if(jRadioButton_PessoaJuridica.isSelected())
+                {
+                    String cnpj = tField_cpf_cnpj.getText();
+                    //String razaoSocial = t
+                }
+
             //criando novo cliente com o id correspondente
             //Cliente_PessoaFisica clienteParaAdicionar = new Cliente_PessoaFisica(nome, cpf, endereco, telefone, email);
             //Cliente_PessoaFisica cliPF = new Cliente_PessoaFisica(nome, cpf, dataNascimento, telefone, email, endereco);
@@ -277,7 +208,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             //            saida.append(clienteParaAdicionar.getEmail()).append("\n");
 
             //            listaClientes.add(clienteParaAdicionar);
-            tArea_saida.setText(String.valueOf(saida));
+            //tArea_saida.setText(String.valueOf(saida));
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
         }
@@ -321,22 +252,25 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_criarCliente;
+    private javax.swing.ButtonGroup buttonGroup_TipoPessoa;
     private javax.swing.JComboBox<EstadosBrazil> cb_Estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea tArea_saida;
+    private javax.swing.JLabel jLabel_CPF_CNPJ;
+    private javax.swing.JLabel jLabel_DtNasc_RazSoc;
+    private javax.swing.JRadioButton jRadioButton_PessoaFisica;
+    private javax.swing.JRadioButton jRadioButton_PessoaJuridica;
     private javax.swing.JTextField tField_Bairro;
     private javax.swing.JTextField tField_CEP;
     private javax.swing.JTextField tField_Cidade;
@@ -345,10 +279,12 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     private javax.swing.JTextField tField_Logradouro;
     private javax.swing.JTextField tField_Numero;
     private javax.swing.JTextField tField_TipoLogradouro;
-    private javax.swing.JTextField tField_cpf;
+    private javax.swing.JTextField tField_cpf_cnpj;
     private javax.swing.JTextField tField_email;
     private javax.swing.JTextField tField_nome;
     private javax.swing.JTextField tField_telefone;
+    private javax.swing.JTextField tField_telefone1;
+    private javax.swing.JTextField tField_telefone2;
     // End of variables declaration//GEN-END:variables
  private void loadComboBox() {
         cb_Estado.setModel(new DefaultComboBoxModel<>(EstadosBrazil.values()));
