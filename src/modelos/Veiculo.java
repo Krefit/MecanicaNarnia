@@ -23,6 +23,7 @@ public class Veiculo {
     private String placa;
     private int anoFabricacao;
     private int anoModelo;
+    private int quilometragem;
 
     private int idDonoVeiculo;
 
@@ -30,7 +31,7 @@ public class Veiculo {
     }
 
     public Veiculo(int idModelo, int idMarca, String chassi, String renavam,
-            String tipoVeiculo, String placa, int anoFabricacao, int anoModelo, int idDonoVeiculo) {
+            String tipoVeiculo, String placa, int anoFabricacao, int anoModelo, int quilometragem, int idDonoVeiculo) {
         this.idModelo = idModelo;
         this.idMarca = idMarca;
         this.chassi = chassi;
@@ -39,6 +40,7 @@ public class Veiculo {
         this.placa = placa;
         this.anoFabricacao = anoFabricacao;
         this.anoModelo = anoModelo;
+        this.quilometragem = quilometragem;
         this.idDonoVeiculo = idDonoVeiculo;
     }
 
@@ -114,6 +116,14 @@ public class Veiculo {
         this.anoModelo = anoModelo;
     }
 
+    public int getQuilometragem() {
+        return quilometragem;
+    }
+
+    public void setQuilometragem(int quilometragem) {
+        this.quilometragem = quilometragem;
+    }
+
     public int getIdDonoVeiculo() {
         return idDonoVeiculo;
     }
@@ -125,7 +135,7 @@ public class Veiculo {
     @Override
     public String toString() {
         return idModelo + ";" + idMarca + ";" + chassi + ";" + renavam + ";" + tipoVeiculo + ";" + placa + ";" + anoFabricacao
-                + ";" + anoModelo + ";" + idDonoVeiculo;
+                + ";" + anoModelo + ";" + quilometragem + ";" + idDonoVeiculo;
     }
 
 }

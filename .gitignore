@@ -2,3 +2,4 @@
 *.class
 *.xml
 *.properties
+/dist/

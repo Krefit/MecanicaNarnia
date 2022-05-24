@@ -17,7 +17,7 @@ import persistencia.ManipulaBancoModelos;
 import persistencia.ManipulaBancoPessoaFisica;
 
 public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
-    
+
     public TelaCadastroDeVeiculo() {
         initComponents();
         setLocationRelativeTo(null);
@@ -32,7 +32,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jTextFieldModelo.setEditable(false);
         jButtonCadastrarVeiculo.setVisible(true);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -63,6 +63,8 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jButtonCadastrarVeiculo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jTextFieldQuilometragem = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -97,8 +99,8 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         getContentPane().add(jTextFieldAnoDoModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 278, 73, -1));
 
         jLabel10.setText("DONO DO VEÍCULO");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 321, -1, -1));
-        getContentPane().add(jTextFieldDonoDoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 318, 210, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+        getContentPane().add(jTextFieldDonoDoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 210, -1));
 
         jButtonCadastrarCliente.setText("CADASTRAR CLIENTE");
         jButtonCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +108,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
                 jButtonCadastrarClienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonCadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 377, -1, -1));
+        getContentPane().add(jButtonCadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
 
         jComboBoxModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxModelos.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +160,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
                 jButtonCadastrarVeiculoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonCadastrarVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 380, 260, -1));
+        getContentPane().add(jButtonCadastrarVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, 260, -1));
 
         jButton2.setText("Cadastrar novo modelo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +178,10 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 630, -1, -1));
 
+        jLabel11.setText("QUILOMETRAGEM");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+        getContentPane().add(jTextFieldQuilometragem, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 210, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -189,10 +195,10 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
             }
             jComboBoxModelos.setModel(new DefaultComboBoxModel<>(nomeModelos));
         } catch (Exception e) {
-            
+
         }
     }
-    
+
     private void loadComboBoxMarcas() {
         try {
             ArrayList<MarcaVeiculo> listaModelos = new ManipulaBancoMarca().buscarTodos();
@@ -206,7 +212,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     private void loadTableClientes() {
         try {
             ArrayList<PessoaFisica> listaPessoas = new ManipulaBancoPessoaFisica().buscarTodos();
@@ -217,7 +223,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
                 dados[i][2] = listaPessoas.get(i).getTelefone()[0];
                 dados[i][3] = listaPessoas.get(i).getEmail();
             }
-            
+
             jTable1.setModel(new DefaultTableModel(dados, new Object[]{"Nome", "CPF", "Telefone", "Email"}));
         } catch (Exception e) {
             e.printStackTrace();
@@ -226,25 +232,27 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private void jButtonCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarVeiculoActionPerformed
         try {
             String cpf = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1));
-            
+
             ManipulaBancoPessoaFisica mb = new ManipulaBancoPessoaFisica();
             int idDonoVeiculo = mb.buscar(cpf);
-            
+ 
             ManipulaBancoMarca mbd = new ManipulaBancoMarca();
             int idMarca = mbd.buscar(jTextFieldMarca.getText());
-            
+
             ManipulaBancoModelos mbm = new ManipulaBancoModelos();
             int idModelo = mbm.buscar(jTextFieldModelo.getText());
-            
+
             String chassi = jTextFieldChassi.getText();
             String renavam = jTextFieldRenavam.getText();
             String tipoDoVeiculo = jTextFieldTipoDoVeiculo.getText();
             String placa = jTextFieldPlaca.getText();
             int anoDeFabricacao = Integer.parseInt(jTextFieldAnoDeFabricacao.getText());
             int anoDoModelo = Integer.parseInt(jTextFieldAnoDoModelo.getText());
-            
-            Veiculo veiculoNovo = new Veiculo(idModelo, idMarca, chassi, renavam, tipoDoVeiculo, placa, anoDeFabricacao, anoDoModelo, idDonoVeiculo);
-            
+            int quilometragem = Integer.parseInt(jTextFieldQuilometragem.getText());
+
+            Veiculo veiculoNovo = new Veiculo(idModelo, idMarca, chassi, renavam, tipoDoVeiculo,
+                    placa, anoDeFabricacao, anoDoModelo, quilometragem, idDonoVeiculo);
+
             new ManipulaBancoVeiculo().incluir(veiculoNovo);
             JOptionPane.showMessageDialog(null, "VEÍCULO CADASTRADO!");
         } catch (Exception erro) {
@@ -281,7 +289,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTable1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyTyped
-        
+
         JOptionPane.showMessageDialog(this, "Ordenação da tabela não está pronto pra ser usado ainda!");
 
     }//GEN-LAST:event_jTable1KeyTyped
@@ -350,6 +358,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxModelos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -365,6 +374,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldMarca;
     private javax.swing.JTextField jTextFieldModelo;
     private javax.swing.JTextField jTextFieldPlaca;
+    private javax.swing.JTextField jTextFieldQuilometragem;
     private javax.swing.JTextField jTextFieldRenavam;
     private javax.swing.JTextField jTextFieldTipoDoVeiculo;
     // End of variables declaration//GEN-END:variables

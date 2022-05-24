@@ -31,7 +31,7 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
 
     @Override
     public void incluir(Veiculo obj) throws Exception {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(Veiculo.getNomeArquivoDisco(), true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Veiculo.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(Veiculo.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
@@ -40,7 +40,7 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
 
     @Override
     public int buscar(Veiculo obj) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
@@ -54,7 +54,7 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
     }
 
     public int buscar(String dado) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.contains(dado)) {
@@ -69,16 +69,18 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
 
     @Override
     public Veiculo buscar(int id) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {
                     String[] dadosVeiculo = linha.substring(0, linha.indexOf("[")).split(";");//não ler dadosVeiculo das OSs
-                    if (dadosVeiculo.length != 10) {
+                    if (dadosVeiculo.length != 11) {
                         throw new Exception("Dados incorretos");
                     }
 
-                    Veiculo veiculo = new Veiculo(Integer.parseInt(dadosVeiculo[1]), Integer.parseInt(dadosVeiculo[2]), dadosVeiculo[3], dadosVeiculo[4], dadosVeiculo[5], dadosVeiculo[6], Integer.parseInt(dadosVeiculo[7]), Integer.parseInt(dadosVeiculo[8]), Integer.parseInt(dadosVeiculo[9]));
+                    Veiculo veiculo = new Veiculo(Integer.parseInt(dadosVeiculo[1]), Integer.parseInt(dadosVeiculo[2]),
+                            dadosVeiculo[3], dadosVeiculo[4], dadosVeiculo[5], dadosVeiculo[6], Integer.parseInt(dadosVeiculo[7]),
+                            Integer.parseInt(dadosVeiculo[8]), Integer.parseInt(dadosVeiculo[9]), Integer.parseInt(dadosVeiculo[10]));
 
                     String[] dadosTodasAsOSs = linha.substring(linha.indexOf("[") + 1, linha.length() - 1).split(",");//ignorar []
                     for (String dadosOSAtual : dadosTodasAsOSs) {//pegando cada OS
@@ -107,17 +109,17 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
     @Override
     public ArrayList<Veiculo> buscarTodos() throws Exception {
         ArrayList<Veiculo> listaVeiculos = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dadosVeiculo = linha.split(";");
-                if (dadosVeiculo.length != 10) {
+                if (dadosVeiculo.length != 11) {
                     throw new Exception("Dados incorretos");
                 }
 
                 Veiculo veiculo = new Veiculo(Integer.parseInt(dadosVeiculo[1]), Integer.parseInt(dadosVeiculo[2]),
                         dadosVeiculo[3], dadosVeiculo[4], dadosVeiculo[5], dadosVeiculo[6], Integer.parseInt(dadosVeiculo[7]),
-                        Integer.parseInt(dadosVeiculo[8]), Integer.parseInt(dadosVeiculo[9]));
+                        Integer.parseInt(dadosVeiculo[8]), Integer.parseInt(dadosVeiculo[9]), Integer.parseInt(dadosVeiculo[10]));
 
                 listaVeiculos.add(veiculo);
                 linha = br.readLine();
