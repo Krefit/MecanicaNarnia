@@ -14,6 +14,7 @@ public class Pessoa {
     protected String[] telefone = new String[3];
     protected String email;
     protected Endereco endereco;
+    protected boolean cadastroAtivo;
 
     public Pessoa() {
     }
@@ -31,6 +32,15 @@ public class Pessoa {
         this.telefone[2] = formataTelefone(telefone[2]);
         this.email = email;
         this.endereco = endereco;
+        this.cadastroAtivo = true;
+    }
+
+    public boolean isCadastroAtivo() {
+        return cadastroAtivo;
+    }
+
+    public void setCadastroAtivo(boolean cadastroAtivo) {
+        this.cadastroAtivo = cadastroAtivo;
     }
 
     public String[] getTelefone() {
@@ -62,12 +72,8 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    @Override
-    public String toString() {
-        return Arrays.toString(telefone) + ";" + email + ";" + endereco.toString();
-    }
-
     public boolean validaTelefone(String telefoneParaValidar) {
+        telefoneParaValidar = telefoneParaValidar.trim();
         if (telefoneParaValidar.matches("^\\([1-9]{2}\\) 9[7-9]{1}[0-9]{3}\\-[0-9]{4}$")) {
             return true;
         } else {
@@ -90,4 +96,8 @@ public class Pessoa {
         return String.valueOf(telefoneFormatado);
     }
 
+    @Override
+    public String toString() {
+        return Arrays.toString(telefone) + ";" + email + ";" + endereco.toString() + ";" + cadastroAtivo;
+    }
 }
