@@ -1,6 +1,5 @@
-33;13;6;chassis;Renavan;Passeio;asd9012;2002;2001;52
-34;14;8;asda;asdasdas;asdasd;asdasd;2000;2003;52
-35;13;7;asda;1231231;Passeio;hog0999;2000;2003;52
-36;14;7;asdad';123131;sem tipo;asda1231;2000;2100;0;52
-37;13;7;asdad;12312;sem tipo;pl1ka;2003;2003;0;51
-38;14;7;ASDA;ASDAD;adada;adadas;2003;2004;0;53
+37;13;7;asdad;12312;sem tipo;pl1ka;2003;2003;0;51;true
+38;14;7;ASDA;ASDAD;adada;adadas;2003;2004;0;53;true
+39;13;7;sdas;12312;asda;12312eqwaw;12233;3121;0;52;true
+40;13;7;asda;asdaweq';asdaw;dfadqa;2000;23121;3;54;true
+36;14;7;asdad';123131;sem tipo;asda1231;2000;2100;0;52;false
