@@ -24,8 +24,8 @@ public class Veiculo {
     private int anoFabricacao;
     private int anoModelo;
     private int quilometragem;
-
     private int idDonoVeiculo;
+    private boolean cadastroAtivo;
 
     public Veiculo() {
     }
@@ -42,6 +42,15 @@ public class Veiculo {
         this.anoModelo = anoModelo;
         this.quilometragem = quilometragem;
         this.idDonoVeiculo = idDonoVeiculo;
+        this.cadastroAtivo = true;
+    }
+
+    public boolean isCadastroAtivo() {
+        return cadastroAtivo;
+    }
+
+    public void setCadastroAtivo(boolean cadastroAtivo) {
+        this.cadastroAtivo = cadastroAtivo;
     }
 
     public static String getNomeArquivoDisco() {
@@ -135,7 +144,7 @@ public class Veiculo {
     @Override
     public String toString() {
         return idModelo + ";" + idMarca + ";" + chassi + ";" + renavam + ";" + tipoVeiculo + ";" + placa + ";" + anoFabricacao
-                + ";" + anoModelo + ";" + quilometragem + ";" + idDonoVeiculo;
+                + ";" + anoModelo + ";" + quilometragem + ";" + idDonoVeiculo + ";" + cadastroAtivo;
     }
 
 }

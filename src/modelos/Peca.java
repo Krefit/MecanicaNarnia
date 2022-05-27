@@ -19,6 +19,7 @@ public class Peca {
     private int quantidadeNoEstoque;
     private int quantidadeReservadas;
     private int estoquequantidadeMinima;
+    private boolean cadastroAtivo;
 
     public Peca() {
     }
@@ -27,6 +28,7 @@ public class Peca {
         this.codigoPeca = codigoPeca;
         this.descricao = descricao;
         this.valorPeca = valorPeca;
+        this.cadastroAtivo = true;
     }
 
     public Peca(String codigoPeca, String descricao, float valorPeca, int quantidadeNoEstoque, int estoquequantidadeMinima) {
@@ -35,6 +37,7 @@ public class Peca {
         this.valorPeca = valorPeca;
         this.quantidadeNoEstoque = quantidadeNoEstoque;
         this.estoquequantidadeMinima = estoquequantidadeMinima;
+        this.cadastroAtivo = true;
     }
 
     public Peca(String codigoPeca, String descricao, float valorPeca, int estoquequantidadeMinima) {
@@ -42,6 +45,15 @@ public class Peca {
         this.descricao = descricao;
         this.valorPeca = valorPeca;
         this.estoquequantidadeMinima = estoquequantidadeMinima;
+        this.cadastroAtivo = true;
+    }
+
+    public boolean isCadastroAtivo() {
+        return cadastroAtivo;
+    }
+
+    public void setCadastroAtivo(boolean cadastroAtivo) {
+        this.cadastroAtivo = cadastroAtivo;
     }
 
     public static String getNomeArquivoDisco() {
@@ -102,7 +114,8 @@ public class Peca {
 
     @Override
     public String toString() {
-        return codigoPeca + ";" + descricao + ";" + String.format("%.2f", valorPeca) + ";" + quantidadeNoEstoque + ";" + quantidadeReservadas + ";" + estoquequantidadeMinima;
+        return codigoPeca + ";" + descricao + ";" + String.format("%.2f", valorPeca) + ";" + quantidadeNoEstoque + ";"
+                + quantidadeReservadas + ";" + estoquequantidadeMinima + ";" + cadastroAtivo;
     }
 
 }

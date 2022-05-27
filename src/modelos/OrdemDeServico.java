@@ -34,6 +34,8 @@ public class OrdemDeServico {
     private double valorUnitarioPeca;//apenas se usar peca
     private int idVeiculo;
 
+    private boolean cadastroAtivo;//    * não foi excluido
+
     public OrdemDeServico() {
     }
 
@@ -46,6 +48,7 @@ public class OrdemDeServico {
         this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.idVeiculo = idVeiculo;
         situacao = SitucaoOrdemServico.EM_ABERTO;
+        this.cadastroAtivo = true;
     }
 
     public OrdemDeServico(String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
@@ -60,6 +63,15 @@ public class OrdemDeServico {
         this.idVeiculo = idVeiculo;
         this.valorUnitarioPeca = valorUnitarioDaPeca;
         situacao = SitucaoOrdemServico.EM_ABERTO;
+        this.cadastroAtivo = true;
+    }
+
+    public boolean isCadastroAtivo() {
+        return cadastroAtivo;
+    }
+
+    public void setCadastroAtivo(boolean cadastroAtivo) {
+        this.cadastroAtivo = cadastroAtivo;
     }
 
     public static String getNomeArquivoDisco() {
@@ -167,10 +179,10 @@ public class OrdemDeServico {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (dataSaida != null) {
             return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra) + ";" + sdf.format(dataEntrada) + ";" + sdf.format(dataSaida) + ";" + situacao
-                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca) + ";" + idVeiculo;
+                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca) + ";" + idVeiculo + ";" + cadastroAtivo;
         } else {
             return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra) + ";" + sdf.format(dataEntrada) + ";" + null + ";" + situacao
-                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca) + ";" + idVeiculo;
+                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca) + ";" + idVeiculo + ";" + cadastroAtivo;
         }
     }
 }

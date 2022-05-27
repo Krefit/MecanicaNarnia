@@ -15,6 +15,7 @@ public class Servico {
 
     private String nomeServico;
     private double valorMaoDeObra;
+    private boolean cadastroAtivo;
 
     public Servico() {
     }
@@ -22,6 +23,15 @@ public class Servico {
     public Servico(String nomeServico, double valorMaoDeObra) {
         this.nomeServico = nomeServico;
         this.valorMaoDeObra = valorMaoDeObra;
+        this.cadastroAtivo = true;
+    }
+
+    public boolean isCadastroAtivo() {
+        return cadastroAtivo;
+    }
+
+    public void setCadastroAtivo(boolean cadastroAtivo) {
+        this.cadastroAtivo = cadastroAtivo;
     }
 
     public static String getNomeArquivoDisco() {
@@ -50,7 +60,7 @@ public class Servico {
 
     @Override
     public String toString() {
-        return nomeServico + ";" + String.format("%.2f", valorMaoDeObra);
+        return nomeServico + ";" + String.format("%.2f", valorMaoDeObra) + ";" + cadastroAtivo;
     }
 
 }
