@@ -25,12 +25,12 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id
                 }
                 linha = br.readLine();
             }
         }
-        return 0;
+        return 0;//  * objeto não encontrado
     }
 
     public int buscar(String dado) throws Exception {
@@ -40,8 +40,12 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
         try ( BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.contains(dado)) {
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                if (linha.contains(dado)) {//  * encontrou o objeto
+                    if (linha.split(";")[3].equals("true")) {
+                        return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                    } else {
+                        //  * pass
+                    }
                 }
                 linha = br.readLine();
             }
@@ -56,16 +60,22 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
             while (linha != null) {
                 if (linha.startsWith(String.valueOf(id))) {
                     String[] dados = linha.split(";");
-                    if (dados.length != 3) {
+//  * id, nome do modelo, id da marca, cadastro está ativo
+
+                    if (dados.length != 4) {
                         throw new Exception("Dados incorretos");
                     }
 
-                    return new ModeloVeiculo(dados[1], Integer.parseInt(dados[2]));
+                    if (dados[3].equals("true")) {//  * o cadastro está ativo
+                        return new ModeloVeiculo(dados[1], Integer.parseInt(dados[2]));
+                    } else {
+//  * pass
+                    }
                 }
                 linha = br.readLine();
             }
         }
-        return null;
+        return null;//  * objeto não encontrado
     }
 
     @Override
@@ -75,16 +85,21 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
-                if (dados.length != 3) {
+//  * id, nome do modelo, id da marca, cadastro está ativo
+
+                if (dados.length != 4) {
                     throw new Exception("Dados incorretos");
                 }
-
-                listaModelos.add(new ModeloVeiculo(dados[1], Integer.parseInt(dados[2])));
+                if (dados[3].equals("true")) {//encontrou o objeto
+                    listaModelos.add(new ModeloVeiculo(dados[1], Integer.parseInt(dados[2])));
+                } else {
+//  * pass
+                }
                 linha = br.readLine();
             }
         }
 
-        return listaModelos;
+        return listaModelos;//  * retornando lista com todos os modelos
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import modelos.Funcionario;
 import modelos.OrdemDeServico;
@@ -40,7 +41,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//    * retornando o ID
                 }
                 linha = br.readLine();
             }
@@ -53,8 +54,12 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
         try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.contains(dado)) {//ignorando o iD, pois isso não fica salvo no objeto
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                if (linha.contains(dado)) {//   * conferindo se o dado está em qualquer parte do objeto
+                    if (linha.split(";")[7].equals("true")) {//    * se o cadastro está ativo
+                        return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                    } else {
+                        //  * pass
+                    }
                 }
                 linha = br.readLine();
             }
@@ -69,23 +74,49 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
         try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.startsWith(String.valueOf(id))) {
-                    String[] dadosFuncionario = linha.split(";");
-                    if (dadosFuncionario.length != 11) {
-                        throw new Exception("Dados incorretos");
-                    }
-                    String[] dadosEndereco = dadosFuncionario[6].split(",");
-                    if (dadosEndereco.length != 8) {
-                        throw new Exception("Dados incorretos");
-                    }
+                if (linha.startsWith(String.valueOf(id))) {//    * encontrou o objeto
+                    String[] dados = linha.split(";");
+//  * id, nome, cpf,data de nascimento(dd/MM/yyyy),  array de telefones,
+//    * email, endereco,isCadastroAtivo, especialidade,
+//    * salario mensal, salario/hora, numero da matricula
 
-                    Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3],
-                            dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
+                    if (dados[7].equals("true")) {//    * só ler se o cadastro ainda estiver ativo
 
-                    f = new Funcionario(dadosFuncionario[7], Double.parseDouble(dadosFuncionario[8]),
-                            Double.parseDouble(dadosFuncionario[9]), Integer.parseInt(dadosFuncionario[10]), dadosFuncionario[1], dadosFuncionario[2],
-                            new SimpleDateFormat("dd/MM/yyyy").parse(dadosFuncionario[3]), dadosFuncionario[5], endereco, dadosFuncionario[4]);
-                    break;
+                        if (dados.length != 12) {
+                            System.out.println(linha);
+                            System.out.println(dados.length);
+                            throw new Exception("Dados incorretos");
+                        }
+                        String[] dadosEndereco = dados[6].split(",");
+//  * tipo de logradouro, logradouro, numero da casa, complemento, bairo, cidade, estado, cep
+
+                        if (dadosEndereco.length != 8) {
+                            throw new Exception("Dados incorretos");
+                        }
+
+                        Endereco endereco = new Endereco(dadosEndereco[0],//    * tipo de logradouro
+                                dadosEndereco[1],//    * logradouro
+                                dadosEndereco[2],//    * numero
+                                dadosEndereco[3],//    * complemento
+                                dadosEndereco[4],//    * bairro
+                                dadosEndereco[5],//    * cidade
+                                Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]),//    * estado, seguindo o Enum
+                                dadosEndereco[7]);//    * cep
+
+                        f = new Funcionario(dados[8],//    * especialidade
+                                Double.parseDouble(dados[9]),//    * salario mensal
+                                Double.parseDouble(dados[10]),//    * salario hora
+                                Integer.parseInt(dados[11]),//    * numero da matricula
+                                dados[1],//    * nome 
+                                dados[2],//    * CPF
+                                new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]),//    * data de nascimento
+                                dados[5],//    * email
+                                endereco,//    * endereço
+                                dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(","));//    * telefones, ignorando [] do array
+                        break;//    * já encontrou o objeto
+                    } else {
+                        //  * pass
+                    }
                 }
                 linha = br.readLine();
             }
@@ -96,37 +127,61 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
     @Override
     public ArrayList<Funcionario> buscarTodos() throws Exception {
-        ArrayList<Funcionario> listaFuncionarios = new ArrayList<Funcionario>();
+        ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
 
         try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
-
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
-//   * id, nome, cpf, dataNascimento, telefones, email, endereco, especialidade, salarioMes, salarioHora, matriculaFuncionario
+//    * id, nome, cpf, dataNascimento,
+//    * telefones, email, endereco,cadastroAtivo,
+//    * especialidade, salarioMes, salarioHora, matriculaFuncionario
 
-                if (dados.length != 11) {
+                if (dados.length != 12) {
+                    System.out.println(linha);
+                    System.out.println(Arrays.toString(dados));
+                    System.out.println(dados.length);
                     throw new Exception("Dados do funcionario incorretos");
                 }
 
-                String[] dadosEndereco = dados[6].split(",");
-                if (dadosEndereco.length != 8) {
-                    throw new Exception("Dados de endereço do funcionario incorretos");
-                }
-                String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");// * ignorando "[]"
-                for (int i = 0; i < telefones.length; i++) {
-                    telefones[i] = telefones[i].trim();//   * tirando espaços em branco
-                }
-                if (telefones.length != 3) {
-                    throw new Exception("Telefones incorretos");
-                }
-                Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3],
-                        dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
+                if (dados[7].equals("true")) {//    * só ler se não tiver sido excluido
+                    String[] dadosEndereco = dados[6].split(",");
+//  * tipo de logradouro, logradouro, numero da casa, complemento, bairo, cidade, estado, cep
 
-                Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                Funcionario f = new Funcionario(dados[7], Double.parseDouble(dados[8]), Double.parseDouble(dados[9]),
-                        Integer.parseInt(dados[10]), dados[1], dados[2], dataNascimento, dados[5], endereco, telefones);
-                listaFuncionarios.add(f);
+                    if (dadosEndereco.length != 8) {
+                        throw new Exception("Dados de endereço do funcionario incorretos");
+                    }
+                    String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");// * ignorando "[]"
+                    for (int i = 0; i < telefones.length; i++) {
+                        telefones[i] = telefones[i].trim();//   * tirando espaços em branco
+                    }
+                    if (telefones.length != 3) {
+                        throw new Exception("Telefones incorretos");
+                    }
+                    Endereco endereco = new Endereco(dadosEndereco[0],//    * tipo de logradouro
+                            dadosEndereco[1],//    * logradouro
+                            dadosEndereco[2],//    * numero
+                            dadosEndereco[3],//    * complemento
+                            dadosEndereco[4],//    * bairro
+                            dadosEndereco[5],//    * cidade
+                            Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]),//    * estado, seguindo o Enum
+                            dadosEndereco[7]);//    * cep
+
+                    Funcionario f = new Funcionario(dados[8],//    * especialidade
+                            Double.parseDouble(dados[9]),//    * salario mensal
+                            Double.parseDouble(dados[10]),//    * salario hora
+                            Integer.parseInt(dados[11]),//    * numero da matricula
+                            dados[1],//    * nome 
+                            dados[2],//    * CPF
+                            new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]),//    * data de nascimento
+                            dados[5],//    * email
+                            endereco,//    * endereço
+                            dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(","));//    * telefones, ignorando [] do array
+
+                    listaFuncionarios.add(f);
+                } else {
+                    //  * pass
+                }
                 linha = br.readLine();
             }
         }
@@ -135,13 +190,53 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
     @Override
     public void remover(Funcionario obj) throws Exception {
-        throw new UnsupportedOperationException("Não implementado ainda");
+        int id = buscar(obj);
+        Funcionario f = buscar(id);
+        if (f == null) {
+            System.out.println(buscar(obj));
+            System.out.println(buscar(buscar(obj)));
+        } else {
+
+            String banco = "";//    * todas as informações do banco
+            try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+                String linha = br.readLine();
+                while (linha != null) {
+                    if (!linha.endsWith(obj.toString())) {//  * não salvar o dado que será excluido
+                        banco += linha + "\n";//    * adicionando nova linha de dados, que serão salvas no banco de dados
+                    } else {
+//  *   pass
+                    }
+                    linha = br.readLine();
+                }
+            }
+            try ( BufferedWriter br = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), false))) {
+                f.setCadastroAtivo(false);
+                br.write(banco + "\n"
+                        + id + ";" + f.toString());
+            }
+        }
     }
 
     @Override
     public void remover(int id) throws Exception {
-        throw new UnsupportedOperationException("Não implementado ainda");
+        Funcionario f = buscar(id);
 
+        StringBuffer banco = new StringBuffer();//    * todas as informações do banco
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                if (!linha.startsWith(String.valueOf(id))) {//  * não salvar o dado que será excluido
+                    banco.append(linha).append("\n");
+                } else {
+//  *   pass
+                }
+                linha = br.readLine();
+            }
+        }
+        try ( BufferedWriter br = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), false))) {
+            f.setCadastroAtivo(false);
+            br.write(banco + "\n" + id + f.toString());
+        }
     }
 
     @Override

@@ -39,7 +39,7 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id 
                 }
                 linha = br.readLine();
             }
@@ -52,13 +52,16 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
         try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.startsWith(String.valueOf(id))) {
+                if (linha.startsWith(String.valueOf(id))) {//  * achou o objeto
                     String[] dados = linha.split(";");
-                    if (dados.length != 2) {
+//  * id, nome da marca, cadastro está ativo
+
+                    if (dados.length != 3) {
                         throw new Exception("Dados incorretos");
                     }
-
-                    return new MarcaVeiculo(dados[1]);
+                    if (dados[2].equals("true")) {
+                        return new MarcaVeiculo(dados[1]);
+                    }
                 }
                 linha = br.readLine();
             }
@@ -69,19 +72,24 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
 
     public int buscar(String nome) throws Exception {
         if (nome.equals("")) {
-            throw new Exception("Modelo inválido");
+            throw new Exception("Marca inválida");
         }
         try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.contains(nome)) {
+                if (linha.contains(nome)) {//   * caso tenha encontrado o objeto
                     String[] dados = linha.split(";");
-                    return Integer.parseInt(dados[0]);
+//  * id, nome da marca, cadastro está ativo
+                    if (dados[2].equals("true")) {
+                        return Integer.parseInt(dados[0]);//   * retornando o id
+                    } else {
+//  * pass
+                    }
                 }
                 linha = br.readLine();
             }
         }
-        return 0;
+        return 0;//   * não encontrado
     }
 
     @Override
@@ -92,16 +100,22 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
-                if (dados.length != 2) {
+//  * id, nome da marca, cadastro está ativo
+
+                if (dados.length != 3) {
+                    System.out.println(linha);
+                    System.out.println(dados.length);
                     throw new Exception("Dados incorretos");
                 }
 
-                MarcaVeiculo m = new MarcaVeiculo(dados[1]);
-                listaMarcas.add(m);
+                if (dados[2].equals("true")) {//    * só adicionar se o cadastro estiver ativo
+                    MarcaVeiculo m = new MarcaVeiculo(dados[1]);
+                    listaMarcas.add(m);
+                }
                 linha = br.readLine();
             }
         }
-        return listaMarcas;
+        return listaMarcas;//   * retornando lista com todas as marcas
     }
 
     @Override
