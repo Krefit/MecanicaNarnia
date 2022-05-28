@@ -23,7 +23,7 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
 
     @Override
     public void incluir(Peca obj) throws Exception {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(Peca.getNomeArquivoDisco(), true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Peca.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(Peca.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
         }//fecha arquivo
@@ -31,51 +31,60 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
 
     @Override
     public int buscar(Peca obj) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                if (linha.endsWith(obj.toString()) && linha.split(";")[7].equals("true")) {//ignorando o iD, pois isso não fica salvo no objeto
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o Id do objeto
                 }
 
                 linha = br.readLine();
             }
         }
-        return 0;
+        return 0;// * objeto não encontrado
     }
 
     public int buscar(String dado) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.contains(dado)) {
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                if (linha.contains(dado) && linha.split(";")[7].equals("true")) {
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));// * retornando o id doobjeto
                 }
 
                 linha = br.readLine();
             }
         }
-        return 0;
+        return 0;// * objeto não encontrado
     }
 
     @Override
     public Peca buscar(int id) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.startsWith(String.valueOf(id))) {//ignorando o iD, pois isso não fica salvo no objeto
-                    String[] dados = linha.split(";");
-                    if (dados.length != 7) {
-                        throw new Exception("Dados incorretos");
+                String[] dados = linha.split(";");
+// * id, código da peça, nome da peça, valor unitário, quantidade no estoque, quantidade de peças reservadas, estoque minimo, cadastro está ativo;
+
+                if (linha.startsWith(String.valueOf(id)) && dados[7].equals("true")) {
+                    // * ignorando o iD, pois isso não fica salvo no objeto
+                    // * lendo apenas os dados que estão ativos
+
+                    if (dados.length != 8) {
+                        throw new Exception("Dados incorretos, de peças");
                     }
 
-                    return new Peca(dados[1], dados[2], Float.parseFloat(dados[3]), Integer.parseInt(dados[4]), Integer.parseInt(dados[6]));
+                    return new Peca(dados[1],// * codigo da peça
+                            dados[2],// * nome da peça
+                            Float.parseFloat(dados[3]),// * valor unitario
+                            Integer.parseInt(dados[4]),// * quantidade no estoque
+                            Integer.parseInt(dados[6]));// * estoque minimo
                 }
 
                 linha = br.readLine();
             }
         }
-        return null;
+        return null;// * objeto não encontrado
 
     }
 
@@ -83,19 +92,27 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
     public ArrayList<Peca> buscarTodos() throws Exception {
 
         ArrayList<Peca> listaPecas = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Peca.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
-                if (dados.length != 7) {
+// * id, código da peça, nome da peça, valor unitário, quantidade no estoque, quantidade de peças reservadas, estoque minimo, cadastro está ativo;
+
+                if (dados.length != 8) {
                     throw new Exception("Dados incorretos");
                 }
 
-                listaPecas.add(new Peca(dados[1], dados[2], Float.parseFloat(dados[3]), Integer.parseInt(dados[4]), Integer.parseInt(dados[6])));
+                if (dados[7].equals("true")) {
+                    listaPecas.add(new Peca(dados[1],// * codigo da peça
+                            dados[2], // * nome da peça
+                            Float.parseFloat(dados[3]),// * valor unitario
+                            Integer.parseInt(dados[4]),// * quantidade no estoque
+                            Integer.parseInt(dados[6])));// * estoque minimo
+                }
                 linha = br.readLine();
             }
         }
-        return listaPecas;
+        return listaPecas;//    * retornando lista contendo todas as peças com cadastro ativo
     }
 
     @Override

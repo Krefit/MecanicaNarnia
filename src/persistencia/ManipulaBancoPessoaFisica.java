@@ -26,7 +26,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
     public void incluir(PessoaFisica obj) throws Exception {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(PessoaFisica.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
@@ -35,42 +35,48 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
     public int buscar(PessoaFisica obj) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
 
                     System.out.println(linha);
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id do objeto
                 }
 
                 linha = br.readLine();
             }
         }
-        return 0;
+        return 0;//  * objeto não encontrado
     }
 
     public int buscar(String cpf) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.contains(cpf)) {
-                    String[] dados = linha.split(";");
-                    return Integer.parseInt(dados[0]);
+                String[] dados = linha.split(";");
+                if (linha.contains(cpf) && dados[7].equals("true")) {
+//  * id, nome, cpf, data de nascimento (dd/MM/yyyy),
+//  * array de telefones, email, endereco, cadastro está ativo
+
+                    return Integer.parseInt(dados[0]);//  * retornando o id do objeto
                 }
 
                 linha = br.readLine();
             }
         }
-        return 0;
+        return 0;//  * objeto não encontrado
     }
 
     public PessoaFisica buscar(int id) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.startsWith(String.valueOf(id))) {
-                    String[] dados = linha.split(";");
+                String[] dados = linha.split(";");
+                if (linha.startsWith(String.valueOf(id)) && dados[7].equals("true")) {
+//  * id, nome, cpf, data de nascimento (dd/MM/yyyy),
+//  * array de telefones, email, endereco, cadastro está ativo
+
                     if (dados.length != 8) {
                         throw new Exception("Dados incorretos");
                     }
@@ -80,25 +86,42 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                         throw new Exception("Dados incorretos");
                     }
 
-                    Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
+                    Endereco endereco = new Endereco(dadosEndereco[0],//    * tipo de logradouro
+                            dadosEndereco[1],//    * logradouro
+                            dadosEndereco[2],//    * numero
+                            dadosEndereco[3],//    * complemento
+                            dadosEndereco[4],//    * bairro
+                            dadosEndereco[5],//    * cidade
+                            Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]),//    * estado, seguindo o Enum
+                            dadosEndereco[7]);//    * cep
 
-                    Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                    return new PessoaFisica(dados[1], dados[2], data, dados[5], endereco, dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(","));
+                    Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
+                    String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");
+
+                    return new PessoaFisica(dados[1],// * nome
+                            dados[2],// * CPF
+                            dataNascimento,// * data de nascimento
+                            dados[5],// * email
+                            endereco,// * endereco
+                            telefones);// * telefones
                 }
 
                 linha = br.readLine();
             }
         }
-        return null;
+        return null;// * objeto não encontrado
     }
 
     @Override
     public ArrayList<PessoaFisica> buscarTodos() throws Exception {
         ArrayList<PessoaFisica> listaPessoasFisicas = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
+//  * id, nome, cpf, data de nascimento (dd/MM/yyyy),
+//  * array de telefones, email, endereco, cadastro está ativo
+
                 if (dados.length != 8) {
                     throw new Exception("Dados incorretos");
                 }
@@ -107,22 +130,30 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                 if (dadosEndereco.length != 8) {
                     throw new Exception("Dados incorretos");
                 }
+                Endereco endereco = new Endereco(dadosEndereco[0],//    * tipo de logradouro
+                        dadosEndereco[1],//    * logradouro
+                        dadosEndereco[2],//    * numero
+                        dadosEndereco[3],//    * complemento
+                        dadosEndereco[4],//    * bairro
+                        dadosEndereco[5],//    * cidade
+                        Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]),//    * estado, seguindo o Enum
+                        dadosEndereco[7]);//    * cep
 
-                Endereco endereco = new Endereco(dadosEndereco[0], dadosEndereco[1], dadosEndereco[2], dadosEndereco[3], dadosEndereco[4], dadosEndereco[5], Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]), dadosEndereco[7]);
+                Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
 
-                Date data = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                listaPessoasFisicas.add(new PessoaFisica(dados[1]/*NomePessoa*/,
-                        dados[2]/*CPF*/,
-                        data/*DataNascimento*/,
-                        dados[5]/*Email*/,
-                        endereco/*Endereco*/,
-                        dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",")/*Telefones*/));
-                //  * ignorando os [] do array de telefones.
+                String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");
+
+                listaPessoasFisicas.add(new PessoaFisica(dados[1],// * nome
+                        dados[2],// * CPF
+                        dataNascimento,// * data de nascimento
+                        dados[5],// * email
+                        endereco,// * endereco
+                        telefones));// * telefones
 
                 linha = br.readLine();
             }
         }
-        return listaPessoasFisicas;
+        return listaPessoasFisicas;//   * retornando lista com todas as pessoas fisicas com cadastro ativo
     }
 
     @Override

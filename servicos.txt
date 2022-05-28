@@ -1,4 +1,4 @@
-2;Pintura;653.79
-3;Troca de óleo;50.43
-4;troca de pneus;87.5
-5;retífica de motor;2533.99
+2;Pintura;653.79;true
+3;Troca de óleo;50.43;true
+4;troca de pneus;87.5;true
+5;retífica de motor;2533.99;true

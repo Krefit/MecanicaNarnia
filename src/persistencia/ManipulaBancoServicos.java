@@ -20,85 +20,90 @@ public class ManipulaBancoServicos implements IManipulaBanco<Servico> {
 
     @Override
     public void incluir(Servico obj) throws Exception {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(Servico.getNomeArquivoDisco(), true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Servico.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(Servico.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
-            //fecha arquivo
-        }
+        }//fecha arquivo
     }
 
     @Override
     public int buscar(Servico obj) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.endsWith(obj.toString())) {
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                String[] dados = linha.split(";");
+//  * id, nome do serviço, valor da mão de obra,cadastro está ativo 
+                if (dados.length != 4) {
+                    if (linha.endsWith(obj.toString()) && dados[3].equals("true")) {
+                        return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                    } else {
+//  * pass
+                    }
                 }
                 linha = br.readLine();
             }
         }
-        return 0;
+        return 0;// * objeto não encontrado
     }
 
     @Override
     public Servico buscar(int id) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.startsWith(String.valueOf(id))) {
-                    String[] dados = linha.split(";");
-// * id, nomeServico, valorMaoDeObra
-                    if (dados.length != 3) {
-                        throw new Exception("Dados incorretos");
-                    }
+                String[] dados = linha.split(";");
+//  * id, nome do serviço, valor da mão de obra,cadastro está ativo 
 
+                if (dados.length != 4) {
+                    throw new Exception("Dados incorretos, no serviço");
+                }
+                if (linha.startsWith(String.valueOf(id)) && dados[3].equals("true")) {
                     return new Servico(dados[1], Double.parseDouble(dados[2]));
                 }
                 linha = br.readLine();
             }
         }
-        return null;
+        return null;//  * objeto não encontrado
 
     }
 
     public int buscar(String nome) throws Exception {
-        if (nome.equals("")) {
-            throw new Exception("Modelo inválido");
-        }
-        try ( BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.contains(nome)) {
-                    String[] dados = linha.split(";");
-// * id, nomeServico, valorMaoDeObra
-
-                    return Integer.parseInt(dados[0]);
+                String[] dados = linha.split(";");
+// * id, nomeServico, valorMaoDeObra, cadastro está ativo
+                if (dados.length != 4) {
+                    throw new Exception("Dados incorretos");
+                }
+                if (linha.contains(nome) && dados[3].equals("true")) {
+                    return Integer.parseInt(dados[0]);//    * retornando o id do objeto
                 }
                 linha = br.readLine();
             }
         }
-        return 0;
+        return 0;// * objeto não encontrado
     }
 
     @Override
     public ArrayList<Servico> buscarTodos() throws Exception {
 
-        ArrayList<Servico> listaMarcas = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
+        ArrayList<Servico> listaServicos = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 String[] dados = linha.split(";");
-// * id, nomeServico, valorMaoDeObra
-                if (dados.length != 3) {
+// * id, nomeServico, valorMaoDeObra, cadastro está ativo
+                if (dados.length != 4) {
                     throw new Exception("Dados incorretos");
                 }
-
-                listaMarcas.add(new Servico(dados[1], Double.parseDouble(dados[2])));
+                if (dados[3].equals("true")) {
+                    listaServicos.add(new Servico(dados[1], Double.parseDouble(dados[2])));
+                }
                 linha = br.readLine();
             }
         }
-        return listaMarcas;
+        return listaServicos;//   * retornando a lista com todos os serviços com cadastro ativo
     }
 
     @Override
