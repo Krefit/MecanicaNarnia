@@ -1,5 +1,5 @@
-5;Arranhado na porta do motorista;2;653.79;22/05/2022;null;EM_ABERTO;5;0;0;0.0;33;true
-6;Arranhado na porta do motorista;2;653.79;22/05/2022;null;EM_ABERTO;5;0;0;0.0;33;true
+5;Arranhado na porta do motorista;2;653.79;22/05/2022;null;EM_ABERTO;5;0;0;0.0;36;true
+6;Arranhado na porta do motorista;2;653.79;22/05/2022;null;EM_ABERTO;5;0;0;0.0;39;true
 7;pintura para a cor azul;2;653.79;22/04/2022;null;EM_ABERTO;5;0;0;0.0;34;true
-8;Pneu furado;4;87.50;19/05/2022;null;EM_ABERTO;5;9;4;150.00;33;true
-9;problema no motor;5;2533.99;17/05/2022;null;EM_ABERTO;5;10;1;1000.00;33;true
+8;Pneu furado;4;87.50;19/05/2022;null;EM_ABERTO;5;9;4;150.00;38;true
+9;problema no motor;5;2533.99;17/05/2022;null;EM_ABERTO;5;10;1;1000.00;40;true

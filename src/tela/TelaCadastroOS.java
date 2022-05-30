@@ -24,7 +24,6 @@ import modelos.auxiliares.ModeloVeiculo;
 import persistencia.IManipulaBanco;
 import persistencia.ManipulaBancoFuncionario;
 import persistencia.ManipulaBancoMarca;
-import persistencia.ManipulaBancoMarcaVeiculo;
 import persistencia.ManipulaBancoModelos;
 import persistencia.ManipulaBancoOrdemServico;
 import persistencia.ManipulaBancoPecas;
