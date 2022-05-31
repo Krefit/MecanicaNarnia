@@ -46,12 +46,13 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
                 if (v.getPlaca().contains(busca)) {//   * filtrando a busca
                     MarcaVeiculo marca = mbMarca.buscar(v.getIdMarca());
                     ModeloVeiculo modelo = mbModelo.buscar(v.getIdModelo());
-                    PessoaFisica pf = mbPf.buscar(v.getIdDonoVeiculo());
                     if (marca != null && modelo != null) {//    * conferindo se a marca e o modelo existem
+                        PessoaFisica pf = mbPf.buscar(v.getIdDonoVeiculo());
                         if (pf != null) {//  * vendo se é uma pessoa física
+                            System.out.println(listaVeiculos.size());
                             table.addRow(new Object[]{pf.getNome(), v.getPlaca(), v.getChassi(), marca.getNomeMarca(), v.getRenavam(),
                                 v.getTipoVeiculo(), v.getAnoFabricacao(), v.getAnoModelo(), modelo.getNomeModelo()});
-                        } else {
+                        } else {//  * tentar procurar por pessoa juridica
                             PessoaJuridica pj = mbPj.buscar(v.getIdDonoVeiculo());
                             if (pj != null) {//  * caso todos os dados estejam corretos
                                 table.addRow(new Object[]{pj.getNomeFantasia(), v.getPlaca(), v.getChassi(), marca.getNomeMarca(), v.getRenavam(),
