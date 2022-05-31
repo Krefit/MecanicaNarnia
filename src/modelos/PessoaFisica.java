@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import modelos.auxiliares.Endereco;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.Objects;
 
 /**
  *
@@ -131,6 +132,31 @@ public class PessoaFisica extends Pessoa {
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
 
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.cpf);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PessoaFisica other = (PessoaFisica) obj;
+        return Objects.equals(this.cpf, other.cpf);
+    }
+
+
+    
 
     @Override
     public String toString() {
