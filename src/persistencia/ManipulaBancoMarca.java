@@ -4,18 +4,12 @@
  */
 package persistencia;
 
-import enumerations.EstadosBrazil;
 import geradorId.GeradorId;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import modelos.Funcionario;
-import modelos.PessoaFisica;
-import modelos.auxiliares.Endereco;
 import modelos.auxiliares.MarcaVeiculo;
 
 /**
@@ -38,13 +32,14 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
         try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.endsWith(obj.toString())) {
+                MarcaVeiculo marca = parse(linha);
+                if (linha.endsWith(obj.toString()) && marca.isCadastroAtivo()) {
                     return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id 
                 }
                 linha = br.readLine();
             }
         }
-        return 0;
+        return 0;// * objeto não enccontrado
     }
 
     @Override
@@ -52,44 +47,29 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
         try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.startsWith(String.valueOf(id))) {//  * achou o objeto
-                    String[] dados = linha.split(";");
-//  * id, nome da marca, cadastro está ativo
-
-                    if (dados.length != 3) {
-                        throw new Exception("Dados incorretos");
-                    }
-                    if (dados[2].equals("true")) {
-                        return new MarcaVeiculo(dados[1]);
-                    }
+                MarcaVeiculo marca = parse(linha);
+                if (linha.startsWith(String.valueOf(id)) && marca.isCadastroAtivo()) {//  * achou o objeto
+                    return marca;
                 }
                 linha = br.readLine();
             }
         }
-        return null;
+        return null;//  * objeto não encontrado
 
     }
 
     public int buscar(String nome) throws Exception {
-        if (nome.equals("")) {
-            throw new Exception("Marca inválida");
-        }
         try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.contains(nome)) {//   * caso tenha encontrado o objeto
-                    String[] dados = linha.split(";");
-//  * id, nome da marca, cadastro está ativo
-                    if (dados[2].equals("true")) {
-                        return Integer.parseInt(dados[0]);//   * retornando o id
-                    } else {
-//  * pass
-                    }
+                MarcaVeiculo marca = parse(linha);
+                if (marca.getNomeMarca().equals(nome) && marca.isCadastroAtivo()) {//   * caso tenha encontrado o objeto
+                    return Integer.parseInt(linha.split(";")[0]);//   * retornando o id
                 }
                 linha = br.readLine();
             }
         }
-        return 0;//   * não encontrado
+        return 0;//   * objeto não encontrado
     }
 
     @Override
@@ -99,18 +79,9 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
         try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                String[] dados = linha.split(";");
-//  * id, nome da marca, cadastro está ativo
-
-                if (dados.length != 3) {
-                    System.out.println(linha);
-                    System.out.println(dados.length);
-                    throw new Exception("Dados incorretos");
-                }
-
-                if (dados[2].equals("true")) {//    * só adicionar se o cadastro estiver ativo
-                    MarcaVeiculo m = new MarcaVeiculo(dados[1]);
-                    listaMarcas.add(m);
+                MarcaVeiculo marca = parse(linha);
+                if (marca.isCadastroAtivo()) {//    * só adicionar se o cadastro estiver ativo
+                    listaMarcas.add(marca);
                 }
                 linha = br.readLine();
             }
@@ -120,22 +91,79 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
 
     @Override
     public void remover(MarcaVeiculo obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int id = buscar(obj);
+        MarcaVeiculo marca = buscar(id);//  * para saber se existe no banco de dados
+        if (marca == null) {//  * não achou a marca
+            throw new Exception("Marca não encontrada");
+        }
+
+        StringBuilder banco = new StringBuilder();//    * todas as informações do banco
+        try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                marca = parse(linha);
+                if (marca.equals(obj)) {//  * desativar antes de salvar
+                    marca.setCadastroAtivo(false);
+                }
+                banco.append(marca.toString()).append("\n");//    * adicionando nova linha de dados, que serão salvas no banco de dados
+                linha = br.readLine();
+            }
+        }
+        try ( BufferedWriter br = new BufferedWriter(new FileWriter(MarcaVeiculo.getNomeArquivoDisco(), false))) {
+            br.write(banco.toString());//   * reescrevendo todo o banco
+        }
     }
 
     @Override
     public void remover(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        MarcaVeiculo marcaParaRemover = buscar(id);//  * para saber se existe no banco de dados
+        if (marcaParaRemover == null) {//  * não achou a marca
+            throw new Exception("Marca não encontrada");
+        }
+
+        StringBuilder banco = new StringBuilder();//    * todas as informações do banco
+        try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                MarcaVeiculo marca = parse(linha);
+                if (marca.equals(marcaParaRemover)) {//  * desativar antes de salvar
+                    marca.setCadastroAtivo(false);
+                }
+                banco.append(marca.toString()).append("\n");//    * adicionando nova linha de dados, que serão salvas no banco de dados
+                linha = br.readLine();
+            }
+        }
+        try ( BufferedWriter br = new BufferedWriter(new FileWriter(MarcaVeiculo.getNomeArquivoDisco(), false))) {
+            br.write(banco.toString());//   * reescrevendo todo o banco
+        }
     }
 
     @Override
     public void editar(MarcaVeiculo objParaRemover, MarcaVeiculo objParaAdicionar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        remover(objParaRemover);
+        incluir(objParaAdicionar);
     }
 
     @Override
     public void editar(int idObjParaRemover, MarcaVeiculo objParaAdicionar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        remover(idObjParaRemover);
+        incluir(objParaAdicionar);
     }
 
+    private MarcaVeiculo parse(String dadosCompletos) throws Exception {
+        MarcaVeiculo marca = null;
+        String[] dados = dadosCompletos.split(";");
+//  * id, nome da marca, cadastro está ativo
+
+        if (dados.length != 3) {
+            System.out.println(dados.length);
+            System.out.println(dadosCompletos);
+            throw new Exception("Dados incorretos");
+        }
+        marca = new MarcaVeiculo(dados[1]);
+        if (dados[2].equals("false")) {
+            marca.setCadastroAtivo(false);
+        }
+        return marca;
+    }
 }

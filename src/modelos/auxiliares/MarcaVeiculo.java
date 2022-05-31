@@ -1,4 +1,3 @@
-
 package modelos.auxiliares;
 
 public class MarcaVeiculo {
@@ -7,8 +6,13 @@ public class MarcaVeiculo {
     private static String arquivoID = "idGeradoMarcas.txt";
 
     private String nomeMarca;
+    private boolean cadastroAtivo = true;
 
     public MarcaVeiculo() {
+    }
+
+    public MarcaVeiculo(String nomeMarca) {
+        this.nomeMarca = nomeMarca;
     }
 
     public static String getNomeArquivoDisco() {
@@ -27,8 +31,12 @@ public class MarcaVeiculo {
         MarcaVeiculo.arquivoID = arquivoID;
     }
 
-    public MarcaVeiculo(String nomeMarca) {
-        this.nomeMarca = nomeMarca;
+    public boolean isCadastroAtivo() {
+        return cadastroAtivo;
+    }
+
+    public void setCadastroAtivo(boolean cadastroAtivo) {
+        this.cadastroAtivo = cadastroAtivo;
     }
 
     public String getNomeMarca() {

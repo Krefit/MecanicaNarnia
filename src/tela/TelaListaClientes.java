@@ -30,11 +30,11 @@ public class TelaListaClientes extends javax.swing.JFrame {
         loadComboBox();
         loadTableClientes();
     }
-    
+
     private void loadComboBox() {
         cb_Estado.setModel(new DefaultComboBoxModel<>(EstadosBrazil.values()));
     }
-    
+
     private void loadTableClientes() {
         try {
             DefaultTableModel table = (DefaultTableModel) jTableClientes.getModel();
@@ -50,10 +50,10 @@ public class TelaListaClientes extends javax.swing.JFrame {
                 dados[5] = new SimpleDateFormat("dd/MM/yyyy").format(p.getDataNascimento());
                 dados[6] = p.getEmail();
                 dados[7] = "" + new ManipulaBancoVeiculo().getQuantidadeVeiculos(new ManipulaBancoPessoaFisica().buscar(p));
-                
+
                 table.addRow(dados);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -379,7 +379,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
             if (indexTabela < 0) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual cliente deseja editar");
             } else {
-                
+
                 excluirPessoaFisica();
                 adicionarPessoaFisica();
                 loadTableClientes();
@@ -389,7 +389,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jButtonEditarActionPerformed
-    
+
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         try {
@@ -415,11 +415,12 @@ public class TelaListaClientes extends javax.swing.JFrame {
 
     private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
         try {
+
             int indexSelecionado = jTableClientes.getSelectedRow();
             if (indexSelecionado >= 0) {//   * o clique foi válido
                 String cpfClienteEscolhido = String.valueOf(jTableClientes.getValueAt(indexSelecionado, 1));
                 PessoaFisica pessoaEscolhida = new ManipulaBancoPessoaFisica().buscar(new ManipulaBancoPessoaFisica().buscar(cpfClienteEscolhido));
-                
+
                 if (pessoaEscolhida != null) {
                     tField_nome.setText(pessoaEscolhida.getNome());
                     tField_email.setText(pessoaEscolhida.getEmail());
@@ -428,7 +429,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
                     tField_telefone2.setText(pessoaEscolhida.getTelefone()[2]);
                     tField_DataNascimento.setText(new SimpleDateFormat("dd/MM/yyyy").format(pessoaEscolhida.getDataNascimento()));
                     tField_cpf_cnpj.setText(pessoaEscolhida.getCpf());
-                    
+
                     Endereco e = pessoaEscolhida.getEndereco();
                     tField_Bairro.setText(e.getBairro());
                     tField_CEP.setText(e.getCEP());
@@ -438,7 +439,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
                     tField_Numero.setText(e.getNumero());
                     tField_TipoLogradouro.setText(e.getTipoLogradouro());
                     cb_Estado.setSelectedItem(e.getEstado());
-                    
+
                 }
             }
         } catch (Exception e) {
@@ -538,7 +539,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }
-    
+
     private void adicionarPessoaFisica() {
         try {
             String nome = tField_nome.getText();
@@ -556,12 +557,12 @@ public class TelaListaClientes extends javax.swing.JFrame {
             String CEP = tField_CEP.getText();
             String email = tField_email.getText();
             EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class, estado);
-            
+
             Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
             if (jRadioButton_PessoaFisica.isSelected()) {
                 String cpf = tField_cpf_cnpj.getText();
                 Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(tField_DataNascimento.getText());
-                
+
                 PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, email, endereco, telefone);
                 new ManipulaBancoPessoaFisica().incluir(clPF);
             } else if (jRadioButton_PessoaJuridica.isSelected()) {
@@ -571,8 +572,8 @@ public class TelaListaClientes extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            
+
         }
     }
-    
+
 }

@@ -103,11 +103,12 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
         try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {//  * enquanto existir uma linha para ser escrita
+                int id = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
                 PessoaFisica ClienteAtual = parse(linha);//    * pegando cliente do banco
                 if (ClienteAtual.equals(obj) && ClienteAtual.isCadastroAtivo()) {//   * caso tenha encontrado uma correspondencia
                     ClienteAtual.setCadastroAtivo(false);//    * desativando cadastro
                 }
-                bancoCompleto.append(ClienteAtual.toString()).append("\n");//  * adicionando nova linha do banco
+                bancoCompleto.append(id).append(ClienteAtual.toString()).append("\n");//  * adicionando nova linha do banco
                 linha = br.readLine();//    * lendo nova linha
             }
         }
@@ -125,10 +126,11 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
         try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {//  * enquanto existir uma linha para ser escrita
+                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
                 if (linha.startsWith("" + id)) {//    * caso tenha encontrado o objeto
                     linha = linha.replace("true", "false");
                 }
-                bancoCompleto.append(linha).append("\n");//  * adicionando nova linha do banco
+                bancoCompleto.append(idObjAtual).append(linha).append("\n");//  * adicionando nova linha do banco
                 linha = br.readLine();//    * lendo nova linha
             }
 //  * leu todos os dados do banco
