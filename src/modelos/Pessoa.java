@@ -27,9 +27,9 @@ public class Pessoa {
             System.out.println(telefone[0] + "\t" + telefone[1] + "\t" + telefone[2]);
             throw new InputMismatchException("Telefone inválido");
         }
-        this.telefone[0] = telefone[0];
-        this.telefone[1] = telefone[1];
-        this.telefone[2] = telefone[2];
+        this.telefone[0] = telefone[0].trim();//    * retirando espaços em branco
+        this.telefone[1] = telefone[1].trim();//    * retirando espaços em branco
+        this.telefone[2] = telefone[2].trim();//    * retirando espaços em branco
         this.email = email;
         this.endereco = endereco;
         this.cadastroAtivo = true;
