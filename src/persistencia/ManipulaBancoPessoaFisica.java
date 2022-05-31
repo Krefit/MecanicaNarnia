@@ -27,6 +27,9 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     @Override
     public void incluir(PessoaFisica obj) throws Exception {
         try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), true))) {
+            if (buscar(obj.getCpf()) != 0) {//  * caso já exista alguém com esse CPF no banco
+                throw new IllegalArgumentException("este CPF já está cadastrado no banco");
+            }
             int id = GeradorId.getID(PessoaFisica.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
@@ -38,10 +41,10 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
         try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
+                PessoaFisica p = parse(linha);
+                if (p.equals(obj) && p.isCadastroAtivo()) {//   * achou
                     return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id do objeto
                 }
-
                 linha = br.readLine();
             }
         }
@@ -52,18 +55,14 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
         try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                String[] dados = linha.split(";");
-                if (linha.contains(cpf) && dados[7].equals("true")) {
-//  * id, nome, cpf, data de nascimento (dd/MM/yyyy),
-//  * array de telefones, email, endereco, cadastro está ativo
-
-                    return Integer.parseInt(dados[0]);//  * retornando o id do objeto
+                PessoaFisica p = parse(linha);
+                if (p.getCpf().equals(cpf) && p.isCadastroAtivo()) {// * achou
+                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id do objeto
                 }
-
-                linha = br.readLine();
             }
+            linha = br.readLine();
         }
-        return 0;//  * objeto não encontrado
+        return 0;
     }
 
     @Override
@@ -71,38 +70,9 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
         try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                String[] dados = linha.split(";");
-                if (linha.startsWith(String.valueOf(id)) && dados[7].equals("true")) {
-//  * id, nome, cpf, data de nascimento (dd/MM/yyyy),
-//  * array de telefones, email, endereco, cadastro está ativo
-
-                    if (dados.length != 8) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    String[] dadosEndereco = dados[6].split(",");
-                    if (dadosEndereco.length != 8) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    Endereco endereco = new Endereco(dadosEndereco[0],//    * tipo de logradouro
-                            dadosEndereco[1],//    * logradouro
-                            dadosEndereco[2],//    * numero
-                            dadosEndereco[3],//    * complemento
-                            dadosEndereco[4],//    * bairro
-                            dadosEndereco[5],//    * cidade
-                            Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]),//    * estado, seguindo o Enum
-                            dadosEndereco[7]);//    * cep
-
-                    Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-                    String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");
-
-                    return new PessoaFisica(dados[1],// * nome
-                            dados[2],// * CPF
-                            dataNascimento,// * data de nascimento
-                            dados[5],// * email
-                            endereco,// * endereco
-                            telefones);// * telefones
+                PessoaFisica p = parse(linha);
+                if (linha.startsWith(String.valueOf(id)) && p.isCadastroAtivo()) {
+                    return p;
                 }
 
                 linha = br.readLine();
@@ -117,39 +87,9 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
         try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                String[] dados = linha.split(";");
-//  * id, nome, cpf, data de nascimento (dd/MM/yyyy),
-//  * array de telefones, email, endereco, cadastro está ativo
-                if (dados.length != 8) {
-                    throw new Exception("Dados incorretos");
-                }
-                if (dados[7].equals("true")) {
-                    String[] dadosEndereco = dados[6].split(",");
-                    if (dadosEndereco.length != 8) {
-                        throw new Exception("Dados incorretos");
-                    }
-                    Endereco endereco = new Endereco(dadosEndereco[0],//    * tipo de logradouro
-                            dadosEndereco[1],//    * logradouro
-                            dadosEndereco[2],//    * numero
-                            dadosEndereco[3],//    * complemento
-                            dadosEndereco[4],//    * bairro
-                            dadosEndereco[5],//    * cidade
-                            Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]),//    * estado, seguindo o Enum
-                            dadosEndereco[7]);//    * cep
-
-                    Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-
-                    String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");
-                    for (int i = 0; i < telefones.length; i++) {
-                        telefones[i] = telefones[i].trim();//   * apagando espaços em branco do telefone
-                    }
-
-                    listaPessoasFisicas.add(new PessoaFisica(dados[1],// * nome
-                            dados[2],// * CPF
-                            dataNascimento,// * data de nascimento
-                            dados[5],// * email
-                            endereco,// * endereco
-                            telefones));// * telefones
+                PessoaFisica p = parse(linha);
+                if (p.isCadastroAtivo()) {
+                    listaPessoasFisicas.add(p);//   * adicionando na lista
                 }
                 linha = br.readLine();
             }
@@ -159,28 +99,28 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
     public void remover(PessoaFisica obj) throws Exception {//  * não está conseguindo remover do banco, está passando pelo método sem fazer nada
-        throw new UnsupportedOperationException("não implementado");
-//        obj.setCadastroAtivo(true);
-//        StringBuilder bancoCompleto = new StringBuilder();//  * vai guardar todos os dados do banco
-//        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-//            String linha = br.readLine();
-//            while (linha != null) {//  * enquanto existir uma linha para ser escrita
-//                if (linha.endsWith(obj.toString())) {//    * caso tenha encontrado o objeto
-//                    linha = linha.replace("true", "false");//   * desativando registro
-//                }
-//                bancoCompleto.append(linha).append("\n");//  * adicionando nova linha do banco
-//                linha = br.readLine();//    * lendo nova linha
-//            }
-////  * leu todos os dados do banco
-//
-//            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
-//                bw.write(bancoCompleto.toString());//   * reescrevendo banco completo
-//            }
-//        }
+        StringBuilder bancoCompleto = new StringBuilder();//  * vai guardar todos os dados do banco
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {//  * enquanto existir uma linha para ser escrita
+                PessoaFisica ClienteAtual = parse(linha);//    * pegando cliente do banco
+                if (ClienteAtual.equals(obj) && ClienteAtual.isCadastroAtivo()) {//   * caso tenha encontrado uma correspondencia
+                    ClienteAtual.setCadastroAtivo(false);//    * desativando cadastro
+                }
+                bancoCompleto.append(ClienteAtual.toString()).append("\n");//  * adicionando nova linha do banco
+                linha = br.readLine();//    * lendo nova linha
+            }
+        }
+//  * leu todos os dados do banco
+
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
+            bw.write(bancoCompleto.toString());//   * reescrevendo banco completo
+        }
+
     }
 
     @Override
-    public void remover(int id) throws Exception {
+    public void remover(int id) throws Exception {//    * não tá validando, caso tenha tentado excluir algo que não existe
         StringBuilder bancoCompleto = new StringBuilder();//  * vai guardar todos os dados do banco
         try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
@@ -202,19 +142,54 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
     public void editar(PessoaFisica objParaRemover, PessoaFisica objParaAdicionar) throws Exception {
-//
-//        remover(objParaRemover);//caso o objeto não exista, vai dar um erro nesse método, esta é a validacao
-//        incluir(objParaAdicionar);
-        throw new UnsupportedOperationException("Não implementado ainda");
 
+        remover(objParaRemover);
+        incluir(objParaAdicionar);
     }
 
     @Override
     public void editar(int idObjParaRemover, PessoaFisica objParaAdicionar) throws Exception {
-//        remover(idObjParaRemover);
-//        incluir(objParaAdicionar);
-        throw new UnsupportedOperationException("Não implementado ainda");
+        remover(idObjParaRemover);
+        incluir(objParaAdicionar);
 
     }
 
+    private PessoaFisica parse(String dadosCompletos) throws Exception {
+        String[] dados = dadosCompletos.split(";");
+//  * id, nome, cpf, data de nascimento (dd/MM/yyyy),
+//  * array de telefones, email, endereco, cadastro está ativo
+        if (dados.length != 8) {
+            throw new Exception("Dados incorretos");
+        }
+        String[] dadosEndereco = dados[6].split(",");
+        if (dadosEndereco.length != 8) {
+            throw new Exception("Dados incorretos, de endereço");
+
+        }
+        Endereco endereco = new Endereco(dadosEndereco[0],//    * tipo de logradouro
+                dadosEndereco[1],//    * logradouro
+                dadosEndereco[2],//    * numero
+                dadosEndereco[3],//    * complemento
+                dadosEndereco[4],//    * bairro
+                dadosEndereco[5],//    * cidade
+                Enum.valueOf(EstadosBrazil.class,
+                        dadosEndereco[6]),//    * estado, seguindo o Enum
+                dadosEndereco[7]);//    * cep
+
+        Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
+
+        String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");
+
+        PessoaFisica p = new PessoaFisica(dados[1],// * nome
+                dados[2],// * CPF
+                dataNascimento,// * data de nascimento
+                dados[5],// * email
+                endereco,// * endereco
+                telefones);
+
+        if (dados[7].equals(String.valueOf(false))) {
+            p.setCadastroAtivo(false);
+        }
+        return p;
+    }
 }
