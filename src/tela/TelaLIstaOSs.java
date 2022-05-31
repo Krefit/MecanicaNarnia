@@ -36,50 +36,113 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
 
     private void loadTableOSs() {
         try {
-            DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
-            ArrayList<OrdemDeServico> listaOSs = null;
-            if (idVeiculo == 0) {
-                listaOSs = new ManipulaBancoOrdemServico().buscarTodos();
+            if (this.idVeiculo == 0) {
+                loadTableOSsTodos();
             } else {
-                listaOSs = new ManipulaBancoOrdemServico().buscarTodos(idVeiculo);
+                loadTableOSsEspecifica();
             }
-            if (!listaOSs.isEmpty()) {
-                System.out.println("iniciou repeticao");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }
+
+    private void loadTableOSsEspecifica() throws Exception {
+
+        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+        ArrayList<OrdemDeServico> listaOSs = null;
+        if (idVeiculo == 0) {// * mostrar todas as OSs do banco
+            loadTableOSsTodos();
+        } else {
+            listaOSs = new ManipulaBancoOrdemServico().buscarTodos(this.idVeiculo);
+
+            if (!listaOSs.isEmpty()) {//    * caso exista alguma OS para mostrar
                 for (OrdemDeServico os : listaOSs) {
                     Servico servico = new ManipulaBancoServicos().buscar(os.getIdServico());
                     Peca peca = new ManipulaBancoPecas().buscar(os.getIdPeca());
-                    String dados[] = new String[9];
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String dados[] = new String[9];
+//  * nome do serviço, valor da mão de obra, data de entrada, data de saída,
+//  * código da peça usada, descrição da peça usada, quantidade de peças usada, valor unitário, valor total da nota
 
                     dados[0] = servico.getNomeServico();
                     dados[1] = String.format("%.2f", servico.getValorMaoDeObra());
                     dados[2] = sdf.format(os.getDataEntrada());
-                    if (os.getDataSaida() != null) {
+                    if (os.getDataSaida() != null) {//  * caso a ordem já tenha sido cumprida
                         dados[3] = sdf.format(os.getDataSaida());
-                    } else {
+
+                    } else {//  * caso a ordem não tenha sido cumprida
                         dados[3] = "Em aberto";
+
                     }
-                    if (peca != null) {
+                    if (peca != null) {//   * caso alguma peça tenha sido utilizada
                         dados[4] = peca.getCodigoPeca();
                         dados[5] = peca.getDescricao();
                         dados[6] = "" + os.getQuantidadePeca();
                         dados[7] = String.format("%.2f", peca.getValorPeca());
                         dados[8] = String.format("%.2f", servico.getValorMaoDeObra() + (os.getQuantidadePeca() * peca.getValorPeca()));
-                    } else {
+
+                    } else {//   * caso neenhuma peça tenha sido utilizada
                         dados[4] = "0";
                         dados[5] = "0";
                         dados[6] = "0";
                         dados[7] = "0";
                         dados[8] = String.format("%.2f", servico.getValorMaoDeObra());
+
                     }
                     table.addRow(dados);
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "nenhuma ordem de serviço encontrada!");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+
+        }
+
+    }
+
+    private void loadTableOSsTodos() throws Exception {
+        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+
+        ArrayList<OrdemDeServico> listaOSs = new ManipulaBancoOrdemServico().buscarTodos();
+
+        if (!listaOSs.isEmpty()) {//    * caso exista alguma OS para mostrar
+            for (OrdemDeServico os : listaOSs) {
+                Servico servico = new ManipulaBancoServicos().buscar(os.getIdServico());
+                Peca peca = new ManipulaBancoPecas().buscar(os.getIdPeca());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String dados[] = new String[9];
+//  * nome do serviço, valor da mão de obra, data de entrada, data de saída,
+//  * código da peça usada, descrição da peça usada, quantidade de peças usada, valor unitário, valor total da nota
+
+                dados[0] = servico.getNomeServico();
+                dados[1] = String.format("%.2f", servico.getValorMaoDeObra());
+                dados[2] = sdf.format(os.getDataEntrada());
+                if (os.getDataSaida() != null) {//  * caso a ordem já tenha sido cumprida
+                    dados[3] = sdf.format(os.getDataSaida());
+
+                } else {//  * caso a ordem não tenha sido cumprida
+                    dados[3] = "Em aberto";
+
+                }
+                if (peca != null) {//   * caso alguma peça tenha sido utilizada
+                    dados[4] = peca.getCodigoPeca();
+                    dados[5] = peca.getDescricao();
+                    dados[6] = "" + os.getQuantidadePeca();
+                    dados[7] = String.format("%.2f", peca.getValorPeca());
+                    dados[8] = String.format("%.2f", servico.getValorMaoDeObra() + (os.getQuantidadePeca() * peca.getValorPeca()));
+
+                } else {//   * caso neenhuma peça tenha sido utilizada
+                    dados[4] = "0";
+                    dados[5] = "0";
+                    dados[6] = "0";
+                    dados[7] = "0";
+                    dados[8] = String.format("%.2f", servico.getValorMaoDeObra());
+
+                }
+                table.addRow(dados);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "nenhuma ordem de serviço encontrada!");
         }
     }
 
@@ -102,14 +165,14 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Serviço feito", "mão de obra", "Data de abertura", "Data de fechamento", "código da peça", "Peça usada", "Quantidade usada", "Valor unitário", "Valor Total"
+                "Serviço feito", "mão de obra", "Data de abertura", "Data de fechamento", "Peça usada", "Quantidade usada", "Valor unitário", "Valor Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -128,14 +191,14 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 892, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 23, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,16 +218,24 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLIstaOSs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLIstaOSs.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLIstaOSs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLIstaOSs.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLIstaOSs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLIstaOSs.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLIstaOSs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLIstaOSs.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

@@ -157,7 +157,7 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             int indexLinhaSelecionadaNaTabela = jTableVeiculos.getSelectedRow();
-            String placaVeiculo = "";
+            String placaVeiculo = "null";
             if (indexLinhaSelecionadaNaTabela >= 0) {
                 placaVeiculo = String.valueOf(jTableVeiculos.getValueAt(indexLinhaSelecionadaNaTabela, 1));
             }

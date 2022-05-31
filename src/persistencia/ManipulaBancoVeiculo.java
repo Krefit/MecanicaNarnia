@@ -212,23 +212,18 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
 
     }
 
-//    private void setOSs(Veiculo veiculo, String dadosOSs) throws Exception {
-//        String[] dadosTodasAsOSs = dadosOSs.substring(dadosOSs.indexOf("[") + 1, dadosOSs.length() - 1).split(",");//ignorar []
-//
-//        for (String dadosOSAtual : dadosTodasAsOSs) {//pegando cada OS
-//            String[] dados = dadosOSAtual.split(";");
-//            if (dados.length != 1) {//caso exista alguma OS
-//                for (int i = 0; i < dados.length; i++) {
-//                    dados[i] = dados[i].trim();//tirando espaços em branco antes e depois de cada String
-//                }
-//                if (dados[5].equals("null")) {
-//                    Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(dados[4]);
-//                    veiculo.adicionaItemListaOS(new OrdemDeServico(dados[0], dados[1],
-//                            Integer.parseInt(dados[2]), Float.parseFloat(dados[3]), dataEntrada,
-//                            Enum.valueOf(OrdemDeServico.SitucaoOrdemServico.class, dados[6]),
-//                            Integer.parseInt(dados[7]), Integer.parseInt(dados[8])));
-//                }
-//            }
-//        }
-//    }
+    public int getQuantidadeVeiculos() throws Exception {
+        return buscarTodos().size();
+    }
+
+    public int getQuantidadeVeiculos(int idDono) throws Exception {
+        ArrayList<Veiculo> lista = buscarTodos();
+        int quantidade = 0;
+        for (Veiculo v : lista) {
+            if (v.getIdDonoVeiculo() == idDono) {
+                quantidade++;
+            }
+        }
+        return quantidade;
+    }
 }
