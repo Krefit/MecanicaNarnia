@@ -123,34 +123,34 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
                 if (dados.length != 8) {
                     throw new Exception("Dados incorretos");
                 }
+                if (dados[7].equals("true")) {
+                    String[] dadosEndereco = dados[6].split(",");
+                    if (dadosEndereco.length != 8) {
+                        throw new Exception("Dados incorretos");
+                    }
+                    Endereco endereco = new Endereco(dadosEndereco[0],//    * tipo de logradouro
+                            dadosEndereco[1],//    * logradouro
+                            dadosEndereco[2],//    * numero
+                            dadosEndereco[3],//    * complemento
+                            dadosEndereco[4],//    * bairro
+                            dadosEndereco[5],//    * cidade
+                            Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]),//    * estado, seguindo o Enum
+                            dadosEndereco[7]);//    * cep
 
-                String[] dadosEndereco = dados[6].split(",");
-                if (dadosEndereco.length != 8) {
-                    throw new Exception("Dados incorretos");
+                    Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
+
+                    String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");
+                    for (int i = 0; i < telefones.length; i++) {
+                        telefones[i] = telefones[i].trim();//   * apagando espaços em branco do telefone
+                    }
+
+                    listaPessoasFisicas.add(new PessoaFisica(dados[1],// * nome
+                            dados[2],// * CPF
+                            dataNascimento,// * data de nascimento
+                            dados[5],// * email
+                            endereco,// * endereco
+                            telefones));// * telefones
                 }
-                Endereco endereco = new Endereco(dadosEndereco[0],//    * tipo de logradouro
-                        dadosEndereco[1],//    * logradouro
-                        dadosEndereco[2],//    * numero
-                        dadosEndereco[3],//    * complemento
-                        dadosEndereco[4],//    * bairro
-                        dadosEndereco[5],//    * cidade
-                        Enum.valueOf(EstadosBrazil.class, dadosEndereco[6]),//    * estado, seguindo o Enum
-                        dadosEndereco[7]);//    * cep
-
-                Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]);
-
-                String[] telefones = dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(",");
-                for (int i = 0; i < telefones.length; i++) {
-                    telefones[i] = telefones[i].trim();//   * apagando espaços em branco do telefone
-                }
-
-                listaPessoasFisicas.add(new PessoaFisica(dados[1],// * nome
-                        dados[2],// * CPF
-                        dataNascimento,// * data de nascimento
-                        dados[5],// * email
-                        endereco,// * endereco
-                        telefones));// * telefones
-
                 linha = br.readLine();
             }
         }
@@ -158,63 +158,45 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     }
 
     @Override
-    public void remover(PessoaFisica obj) throws Exception {
-
+    public void remover(PessoaFisica obj) throws Exception {//  * não está conseguindo remover do banco, está passando pelo método sem fazer nada
+        throw new UnsupportedOperationException("não implementado");
+//        obj.setCadastroAtivo(true);
+//        StringBuilder bancoCompleto = new StringBuilder();//  * vai guardar todos os dados do banco
 //        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-//            boolean achou = false;
 //            String linha = br.readLine();
-//            StringBuilder lista = new StringBuilder();
-//
-//            while (linha != null) {
-//                if (!linha.endsWith(obj.toString())) {//ignorando o ID, pois o obj não tem id
-//                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
-//                } else {
-//                    achou = true;
+//            while (linha != null) {//  * enquanto existir uma linha para ser escrita
+//                if (linha.endsWith(obj.toString())) {//    * caso tenha encontrado o objeto
+//                    linha = linha.replace("true", "false");//   * desativando registro
 //                }
-//                linha = br.readLine();
+//                bancoCompleto.append(linha).append("\n");//  * adicionando nova linha do banco
+//                linha = br.readLine();//    * lendo nova linha
 //            }
+////  * leu todos os dados do banco
 //
-//            if (!achou) {
-//                throw new Exception("Cliente não encontrado");
-//            }
-//
-//            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
-//                if (lista.toString() != null) {
-//                    bw.write(lista.toString());
-//                }
+//            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
+//                bw.write(bancoCompleto.toString());//   * reescrevendo banco completo
 //            }
 //        }
-        throw new UnsupportedOperationException("Não implementado ainda");
-
     }
 
     @Override
     public void remover(int id) throws Exception {
-//        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-//            boolean achou = false;
-//            String linha = br.readLine();
-//            StringBuilder lista = new StringBuilder();
-//
-//            while (linha != null) {
-//                if (!linha.startsWith(String.valueOf(id))) {
-//                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
-//                } else {
-//                    achou = true;
-//                }
-//                linha = br.readLine();
-//            }
-//
-//            if (!achou) {
-//                throw new Exception("Cliente não encontrado");
-//            }
-//
-//            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), false))) {
-//                if (lista.toString() != null) {
-//                    bw.write(lista.toString());
-//                }
-//            }
-//        }
-        throw new UnsupportedOperationException("Não implementado ainda");
+        StringBuilder bancoCompleto = new StringBuilder();//  * vai guardar todos os dados do banco
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {//  * enquanto existir uma linha para ser escrita
+                if (linha.startsWith("" + id)) {//    * caso tenha encontrado o objeto
+                    linha = linha.replace("true", "false");
+                }
+                bancoCompleto.append(linha).append("\n");//  * adicionando nova linha do banco
+                linha = br.readLine();//    * lendo nova linha
+            }
+//  * leu todos os dados do banco
+
+            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
+                bw.write(bancoCompleto.toString());//   * reescrevendo banco completo
+            }
+        }
 
     }
 
