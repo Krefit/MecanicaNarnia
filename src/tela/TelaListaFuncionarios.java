@@ -24,9 +24,9 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
     public TelaListaFuncionarios() {
         initComponents();
         loadTableFuncionarios();
-
+        
     }
-
+    
     private void loadTableFuncionarios() {
         try {
             ArrayList<Funcionario> listaFuncionarios = new ManipulaBancoFuncionario().buscarTodos();
@@ -134,12 +134,24 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            int indexSelecionado = jTableFuncionarios.getSelectedRow();
+            int id = 0;
+            if (indexSelecionado >= 0) {
+                String Matricula = "" + jTableFuncionarios.getValueAt(jTableFuncionarios.getSelectedRow(), 0);
+                id = new ManipulaBancoFuncionario().buscar(Matricula);
+                new ManipulaBancoFuncionario().remover(id);
+            }
+            loadTableFuncionarios();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
