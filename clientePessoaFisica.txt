@@ -2,3 +2,4 @@
 5454;pedro silva;985.460.210-90;12/03/2003;[(55) 99823-4567, (55) 99823-4567, (55) 99823-4567];pedrosilva@email.com;Rua,Rua das constelações,403,,centro,petropolis,ES,2311;false
 6262;Mario;065.160.830-96;22/03/1998;[(62) 98642-2299, (62) 98642-2299, (62) 98642-2299];teste@gmail.com;ae1231ed,asdadasd,12,qwdqw,nomeBairro,Goiânia,GO,123123;true
 69;Pedro silva;985.460.210-90;12/03/2003;[(55) 99823-4567, (55) 99823-4567, (55) 99823-4567];pedrosilva@email.com;Rua,Rua das constelações,403,,centro,petropolis,ES,2311;true
+
