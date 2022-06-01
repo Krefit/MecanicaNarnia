@@ -26,7 +26,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
     public void incluir(PessoaFisica obj) throws Exception {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), true))) {
             if (buscar(obj.getCpf()) != 0) {//  * caso já exista alguém com esse CPF no banco
                 throw new IllegalArgumentException("este CPF já está cadastrado no banco");
             }
@@ -38,7 +38,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
     public int buscar(PessoaFisica obj) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 PessoaFisica p = parse(linha);
@@ -52,22 +52,22 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     }
 
     public int buscar(String cpf) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 PessoaFisica p = parse(linha);
                 if (p.getCpf().equals(cpf) && p.isCadastroAtivo()) {// * achou
                     return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id do objeto
                 }
+                linha = br.readLine();
             }
-            linha = br.readLine();
         }
         return 0;
     }
 
     @Override
     public PessoaFisica buscar(int id) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 PessoaFisica p = parse(linha);
@@ -84,7 +84,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     @Override
     public ArrayList<PessoaFisica> buscarTodos() throws Exception {
         ArrayList<PessoaFisica> listaPessoasFisicas = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 PessoaFisica p = parse(linha);
@@ -100,7 +100,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     @Override
     public void remover(PessoaFisica obj) throws Exception {//  * não está conseguindo remover do banco, está passando pelo método sem fazer nada
         StringBuilder bancoCompleto = new StringBuilder();//  * vai guardar todos os dados do banco
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {//  * enquanto existir uma linha para ser escrita
                 int id = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
@@ -114,7 +114,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
         }
 //  * leu todos os dados do banco
 
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
             bw.write(bancoCompleto.toString());//   * reescrevendo banco completo
         }
 
@@ -123,7 +123,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
     @Override
     public void remover(int id) throws Exception {//    * não tá validando, caso tenha tentado excluir algo que não existe
         StringBuilder bancoCompleto = new StringBuilder();//  * vai guardar todos os dados do banco
-        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {//  * enquanto existir uma linha para ser escrita
                 int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
@@ -135,7 +135,7 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
             }
 //  * leu todos os dados do banco
 
-            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
                 bw.write(bancoCompleto.toString());//   * reescrevendo banco completo
             }
         }
