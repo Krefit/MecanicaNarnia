@@ -29,17 +29,7 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
 
     @Override
     public int buscar(MarcaVeiculo obj) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                MarcaVeiculo marca = parse(linha);
-                if (linha.endsWith(obj.toString()) && marca.isCadastroAtivo()) {
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id 
-                }
-                linha = br.readLine();
-            }
-        }
-        return 0;// * objeto não enccontrado
+        return buscar(obj.getNomeMarca());//    * chamando a busca por nome
     }
 
     @Override
@@ -48,7 +38,8 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
             String linha = br.readLine();
             while (linha != null) {
                 MarcaVeiculo marca = parse(linha);
-                if (linha.startsWith(String.valueOf(id)) && marca.isCadastroAtivo()) {//  * achou o objeto
+                if (linha.substring(0, linha.indexOf(";")).equals(id)//  * caso o id seja igual
+                        && marca.isCadastroAtivo()) {//  * e o cadastro esteja ativo
                     return marca;
                 }
                 linha = br.readLine();
@@ -86,32 +77,16 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
                 linha = br.readLine();
             }
         }
+        if (listaMarcas.isEmpty()) {
+            return null;//  * banco vazio
+        }
         return listaMarcas;//   * retornando lista com todas as marcas
     }
 
     @Override
     public void remover(MarcaVeiculo obj) throws Exception {
         int id = buscar(obj);
-        MarcaVeiculo marca = buscar(id);//  * para saber se existe no banco de dados
-        if (marca == null) {//  * não achou a marca
-            throw new Exception("Marca não encontrada");
-        }
-
-        StringBuilder banco = new StringBuilder();//    * todas as informações do banco
-        try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                marca = parse(linha);
-                if (marca.equals(obj)) {//  * desativar antes de salvar
-                    marca.setCadastroAtivo(false);
-                }
-                banco.append(marca.toString()).append("\n");//    * adicionando nova linha de dados, que serão salvas no banco de dados
-                linha = br.readLine();
-            }
-        }
-        try ( BufferedWriter br = new BufferedWriter(new FileWriter(MarcaVeiculo.getNomeArquivoDisco(), false))) {
-            br.write(banco.toString());//   * reescrevendo todo o banco
-        }
+        remover(id);//  * usando a remoção por id
     }
 
     @Override
@@ -125,12 +100,14 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
         try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
+                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
                 MarcaVeiculo marca = parse(linha);
                 if (marca.equals(marcaParaRemover)) {//  * desativar antes de salvar
                     marca.setCadastroAtivo(false);
                 }
-                banco.append(marca.toString()).append("\n");//    * adicionando nova linha de dados, que serão salvas no banco de dados
-                linha = br.readLine();
+                banco.append(idObjAtual).append(";")//  * adicionando o id
+                        .append(marca.toString()).append("\n");//    * adicionando nova linha de dados, que serão salvas no banco de dados
+
             }
         }
         try ( BufferedWriter br = new BufferedWriter(new FileWriter(MarcaVeiculo.getNomeArquivoDisco(), false))) {
@@ -151,7 +128,6 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
     }
 
     private MarcaVeiculo parse(String dadosCompletos) throws Exception {
-        MarcaVeiculo marca = null;
         String[] dados = dadosCompletos.split(";");
 //  * id, nome da marca, cadastro está ativo
 
@@ -160,7 +136,7 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
             System.out.println(dadosCompletos);
             throw new Exception("Dados incorretos");
         }
-        marca = new MarcaVeiculo(dados[1]);
+        MarcaVeiculo marca = new MarcaVeiculo(dados[1]);
         if (dados[2].equals("false")) {
             marca.setCadastroAtivo(false);
         }

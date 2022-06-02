@@ -21,36 +21,22 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
 
     @Override
     public int buscar(ModeloVeiculo obj) throws Exception {
+        return buscar(obj.getNomeModelo());//   * usando a busca por nome do modelo
+    }
+
+    public int buscar(String nomeModelo) throws Exception {//   * não  está conferindo se a marca tammbém é igual
+
         try ( BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.endsWith(obj.toString())) {
+                ModeloVeiculo m = parse(linha);
+                if (m.getNomeModelo().equals(nomeModelo) && m.isCadastroAtivo()) {//  * encontrou o objeto
                     return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id
                 }
                 linha = br.readLine();
             }
         }
-        return 0;//  * objeto não encontrado
-    }
-
-    public int buscar(String dado) throws Exception {
-        if (dado.equals("")) {
-            throw new Exception("Modelo inválido");
-        }
-        try ( BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                if (linha.contains(dado)) {//  * encontrou o objeto
-                    if (linha.split(";")[3].equals("true")) {
-                        return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
-                    } else {
-                        //  * pass
-                    }
-                }
-                linha = br.readLine();
-            }
-        }
-        return 0;
+        return 0;// * objeto não encontrado
     }
 
     @Override
@@ -58,19 +44,10 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
         try ( BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.startsWith(String.valueOf(id))) {
-                    String[] dados = linha.split(";");
-//  * id, nome do modelo, id da marca, cadastro está ativo
-
-                    if (dados.length != 4) {
-                        throw new Exception("Dados incorretos");
-                    }
-
-                    if (dados[3].equals("true")) {//  * o cadastro está ativo
-                        return new ModeloVeiculo(dados[1], Integer.parseInt(dados[2]));
-                    } else {
-//  * pass
-                    }
+                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));//    * pegando id da linha
+                ModeloVeiculo m = parse(linha);//   * parsing linha
+                if (idObjAtual == id && m.isCadastroAtivo()) {//    * achou
+                    return m;
                 }
                 linha = br.readLine();
             }
@@ -84,42 +61,80 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
         try ( BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                String[] dados = linha.split(";");
-//  * id, nome do modelo, id da marca, cadastro está ativo
-
-                if (dados.length != 4) {
-                    throw new Exception("Dados incorretos");
-                }
-                if (dados[3].equals("true")) {//encontrou o objeto
-                    listaModelos.add(new ModeloVeiculo(dados[1], Integer.parseInt(dados[2])));
-                } else {
-//  * pass
+                ModeloVeiculo m = parse(linha);
+                if (m.isCadastroAtivo()) {//    * só adicionar cadastros ativos
+                    listaModelos.add(m);
                 }
                 linha = br.readLine();
             }
         }
-
+        if (listaModelos.isEmpty()) {
+            return null;//  * o banco está vazio
+        }
         return listaModelos;//  * retornando lista com todos os modelos
     }
 
     @Override
     public void remover(ModeloVeiculo obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int id = buscar(obj);// * pegando o id do objeto que será excluido
+        remover(id);//  * usando a remoção por id
     }
 
     @Override
     public void remover(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        ModeloVeiculo m = buscar(id);
+        if (m == null) {
+            System.out.println("id não encontrado: " + id);
+            throw new Exception("Modelo não encontrado");
+        }
+
+        StringBuilder bancoCompleto = new StringBuilder();
+        try ( BufferedReader br = new BufferedReader(new FileReader(ModeloVeiculo.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));//    * pegando id dessa linha
+                m = parse(linha);// * parsing linha atual
+
+                if (id == idObjAtual) {// * achou
+                    m.setCadastroAtivo(false);//  * desativando cadastro antes de salvar
+                }
+
+                bancoCompleto.append(idObjAtual).append(";").append(m.toString()).append("\n");//   * adicionando linha que será salva no banco
+                linha = br.readLine();
+            }
+//  *leu todo o banco de dados
+        }
+
+        try ( BufferedWriter br = new BufferedWriter(new FileWriter(ModeloVeiculo.getNomeArquivoDisco(), false))) {
+            br.write(bancoCompleto.toString());//   * reescrevendo todo o banco
+        }
     }
 
     @Override
     public void editar(ModeloVeiculo objParaRemover, ModeloVeiculo objParaAdicionar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        remover(objParaRemover);
+        incluir(objParaRemover);
     }
 
     @Override
     public void editar(int idObjParaRemover, ModeloVeiculo objParaAdicionar) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private ModeloVeiculo parse(String linha) throws Exception {
+        String[] dados = linha.split(";");
+//  * id, nome do modelo, id da marca, cadastro está ativo
+
+        if (dados.length != 4) {
+            throw new Exception("Dados incorretos");
+        }
+
+        ModeloVeiculo m = new ModeloVeiculo(dados[1], Integer.parseInt(dados[2]));
+        if (dados[3].equals(String.valueOf(false))) {//  * o cadastro está ativo
+            m.setCadastroAtivo(false);
+        }
+        return m;
     }
 
 }

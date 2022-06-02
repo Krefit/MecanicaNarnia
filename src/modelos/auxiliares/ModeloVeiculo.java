@@ -1,13 +1,15 @@
-
 package modelos.auxiliares;
+
+import java.util.Objects;
 
 public class ModeloVeiculo {
 
-    private static String NomeArquivoDisco = "Modelos.txt";
-    private static String arquivoID = "idGeradoModelos.txt";
+    private final static String NomeArquivoDisco = "Modelos.txt";
+    private final static String arquivoID = "idGeradoModelos.txt";
 
     private String NomeModelo;
     private int idMarca;
+    private boolean cadastroAtivo = true;
 
     public ModeloVeiculo() {
     }
@@ -21,16 +23,16 @@ public class ModeloVeiculo {
         return NomeArquivoDisco;
     }
 
-    public static void setNomeArquivoDisco(String NomeArquivoDisco) {
-        ModeloVeiculo.NomeArquivoDisco = NomeArquivoDisco;
-    }
-
     public static String getArquivoID() {
         return arquivoID;
     }
 
-    public static void setArquivoID(String arquivoID) {
-        ModeloVeiculo.arquivoID = arquivoID;
+    public boolean isCadastroAtivo() {
+        return cadastroAtivo;
+    }
+
+    public void setCadastroAtivo(boolean cadastroAtivo) {
+        this.cadastroAtivo = cadastroAtivo;
     }
 
     public String getNomeModelo() {
@@ -50,8 +52,34 @@ public class ModeloVeiculo {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.NomeModelo);
+        hash = 59 * hash + this.idMarca;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ModeloVeiculo other = (ModeloVeiculo) obj;
+        if (this.idMarca != other.idMarca) {
+            return false;
+        }
+        return Objects.equals(this.NomeModelo, other.NomeModelo);
+    }
+
+    @Override
     public String toString() {
-        return NomeModelo + ";" + idMarca;
+        return NomeModelo + ";" + idMarca + ";" + cadastroAtivo;
     }
 
 }

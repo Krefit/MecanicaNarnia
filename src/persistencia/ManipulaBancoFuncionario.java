@@ -28,7 +28,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
     @Override
     public void incluir(Funcionario obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), true))) {
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), true))) {
             int id = GeradorId.getID(Funcionario.getArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
             //fecha arquivo
@@ -37,7 +37,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
     @Override
     public int buscar(Funcionario obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 Funcionario f = parse(linha);
@@ -52,10 +52,9 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
     }
 
     public int buscar(String dado) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-
                 if (linha.contains(dado)) {//   * conferindo se o dado está em qualquer parte do objeto
                     if (linha.split(";")[7].equals("true")) {//    * se o cadastro está ativo
                         return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
@@ -72,7 +71,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
     @Override
     public Funcionario buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 Funcionario f = parse(linha);
@@ -90,7 +89,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
     public ArrayList<Funcionario> buscarTodos() throws Exception {
         ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 Funcionario f = parse(linha);
@@ -106,30 +105,6 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
     @Override
     public void remover(Funcionario obj) throws Exception {
         int id = buscar(obj);
-//        Funcionario f = buscar(id);
-//        if (f == null) {
-//            System.out.println(buscar(obj));
-//            System.out.println(buscar(buscar(obj)));
-//        } else {
-//
-//            String banco = "";//    * todas as informações do banco
-//            try (BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
-//                String linha = br.readLine();
-//                while (linha != null) {
-//                    if (!linha.endsWith(obj.toString())) {//  * não salvar o dado que será excluido
-//                        banco += linha + "\n";//    * adicionando nova linha de dados, que serão salvas no banco de dados
-//                    } else {
-////  *   pass
-//                    }
-//                    linha = br.readLine();
-//                }
-//            }
-//            try (BufferedWriter br = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), false))) {
-//                f.setCadastroAtivo(false);
-//                br.write(banco + "\n"
-//                        + id + ";" + f.toString());
-//            }
-//        }
         remover(id);
     }
 
@@ -139,12 +114,12 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
         if (f == null) {
             throw new Exception("Funcionario não encontrado");
         }
-        StringBuffer banco = new StringBuffer();//    * todas as informações do banco
-        try (BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+        StringBuilder banco = new StringBuilder();//    * todas as informações do banco
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                f = parse(linha);
-                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                f = parse(linha);// * parsing nova linha
+                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));//    * peganddo id da linha atual
                 if (idObjAtual == id) {//  * achou
                     f.setCadastroAtivo(false);//    * desativar cadastro antes de salvar
                 }
@@ -152,8 +127,8 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
                 linha = br.readLine();
             }
         }
-        try (BufferedWriter br = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), false))) {
-            br.write(banco.toString());
+        try ( BufferedWriter br = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), false))) {
+            br.write(banco.toString());//   * reescevendo todos os dados do banco
         }
     }
 
