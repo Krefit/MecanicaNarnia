@@ -161,7 +161,8 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 //  * id, nome, cpf, data de nascimento (dd/MM/yyyy),
 //  * array de telefones, email, endereco, cadastro está ativo
         if (dados.length != 8) {
-            throw new Exception("Dados incorretos");
+            System.out.println(dadosCompletos);
+            throw new Exception("Dados incorretos" + dadosCompletos);
         }
         String[] dadosEndereco = dados[6].split(",");
         if (dadosEndereco.length != 8) {

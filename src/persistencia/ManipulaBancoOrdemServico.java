@@ -32,19 +32,12 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
         try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.endsWith(obj.toString())) {//não usar o ID na comparacao, pq esse é um atributo do banco e não da classe
-                    String[] dados = linha.split(";");
-//  * id, defeito relatado, servico feito, Valor mao de obra, 
-//  * data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), situacao da OS, id do funcionario responsável, 
-//  * iD da peca usada, quantidade de pecas usadas, valor unitario da peca, id do veiculo, cadastro esta ativo
-
-                    if (dados.length != 13) {
-                        System.out.println(linha);
-                        System.out.println(dados.length);
-                        throw new Exception("Dados incompletos da ordem de serviço");
-                    }
-                    return Integer.parseInt(dados[0]);//  * retornando o id
+                OrdemDeServico os = parse(linha);
+                if (os.equals(obj) && os.isCadastroAtivo()) {// * achou
+                    int id = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                    return id;//  * retornando o id
                 }
+                linha = br.readLine();
             }
             return 0;//  * objeto não encontrado
         }
@@ -55,39 +48,15 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
         try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.startsWith(String.valueOf(id))) {//não usar o ID na comparacao, pq esse é um atributo do banco e não da classe
-                    String[] dados = linha.split(";");
-//  * id, defeito relatado, servico feito, Valor mao de obra, 
-//  * data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), situacao da OS, id do funcionario responsável, 
-//  * iD da peca usada, quantidade de pecas usadas, valor unitario da peca, id do veiculo, cadastro esta ativo
-
-                    if (dados.length != 13) {
-                        System.out.println(linha);
-                        System.out.println(dados.length);
-                        throw new Exception("Dados incompletos da ordem de serviço");
-                    }
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    Date DataAbertura = sdf.parse(dados[4]);
-                    Date dataFechamento = null;
-                    if (!dados[5].equals("null")) {//não tentar se o valor não for uma data
-                        dataFechamento = sdf.parse(dados[5]);
-                    } else {
-//  * pass
-                    }
-
-                    return new OrdemDeServico(dados[1], //  * defeito relatado
-                            Integer.parseInt(dados[2]), //  * id do serviço que será executado
-                            Double.parseDouble(dados[3]), //  * valor da mao de obra
-                            DataAbertura, //  * data de abertura da OS
-                            Integer.parseInt(dados[7]), //  * id do fincionario responsável
-                            Integer.parseInt(dados[8]), //  * id da peça que será usada(0 caso não tenha nenhuma)
-                            Integer.parseInt(dados[9]), //  * quantidade desta peça que serão usadas no veículo
-                            Double.parseDouble(dados[10]), //  * valor unitário da peça
-                            Integer.parseInt(dados[11])); //  * id do veiculo
+                OrdemDeServico os = parse(linha);
+                if (linha.substring(0, linha.indexOf(";")).equals(id)// * achou o id igual
+                        && os.isCadastroAtivo()) {//    * o cadastro está ativo
+                    return os;
                 }
+                linha = br.readLine();
             }
         }
-        return null; //  * objeto não encontrado
+        return null;//  * objeto não encontrado
     }
 
     @Override
@@ -96,38 +65,15 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
         try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                String[] dados = linha.split(";");
-//  * id, defeito relatado, servico feito, Valor mao de obra, 
-//  * data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), situacao da OS, id do funcionario responsável, 
-//  * iD da peca usada, quantidade de pecas usadas, valor unitario da peca, id do veiculo, cadastro esta ativo
-
-                if (dados.length != 13) {
-                    System.out.println(linha);
-                    System.out.println(dados.length);
-                    throw new Exception("Dados incompletos da ordem de serviço");
-                }
-
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date DataAbertura = sdf.parse(dados[4]);
-                Date dataFechamento = null;
-                if (!dados[5].equals("null")) {//não tentar se o valor não for uma data
-                    dataFechamento = sdf.parse(dados[5]);
-                }
-                if (dados[12].equals("true")) {
-                    listaOSs.add(new OrdemDeServico(dados[1], //  * defeito relatado
-                            Integer.parseInt(dados[2]), //  * id do serviço que será executado
-                            Double.parseDouble(dados[3]), //  * valor da mao de obra
-                            DataAbertura, //  * data de abertura da OS
-                            Integer.parseInt(dados[7]), //  * id do fincionario responsável
-                            Integer.parseInt(dados[8]), //  * id da peça que será usada(0 caso não tenha nenhuma)
-                            Integer.parseInt(dados[9]), //  * quantidade desta peça que serão usadas no veículo
-                            Double.parseDouble(dados[10]), //  * valor unitário da peça
-                            Integer.parseInt(dados[11]))); //  * id do veiculo
-                } else {//  * foi apagado do banco de dados
-//  * pass
+                OrdemDeServico os = parse(linha);
+                if (os.isCadastroAtivo()) {
+                    listaOSs.add(os);
                 }
                 linha = br.readLine();
             }
+        }
+        if (listaOSs.isEmpty()) {
+            return null;//  * o banco não tem nenhum cadastro ativo
         }
         return listaOSs;//  * retornando lista com todas as OSs ativas
     }
@@ -137,35 +83,11 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
         try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                String[] dados = linha.split(";");
-                if (dados[11].equals(String.valueOf(idVeiculo))) {
-//  * id, defeito relatado, servico feito, Valor mao de obra, 
-//  * data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), situacao da OS, id do funcionario responsável, 
-//  * iD da peca usada, quantidade de pecas usadas, valor unitario da peca, id do veiculo, cadastro esta ativo
-
-                    if (dados.length != 13) {
-                        System.out.println(linha);
-                        System.out.println(dados.length);
-                        throw new Exception("Dados incompletos da ordem de serviço");
-                    }
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    Date DataAbertura = sdf.parse(dados[4]);
-                    Date dataFechamento = null;
-                    if (!dados[5].equals("null")) {//não tentar se o valor não for uma data
-                        dataFechamento = sdf.parse(dados[5]);
-                    }
-
-                    listaOSs.add(new OrdemDeServico(dados[1], //  * defeito relatado
-                            Integer.parseInt(dados[2]), //  * id do serviço que será executado
-                            Double.parseDouble(dados[3]), //  * valor da mao de obra
-                            DataAbertura, //  * data de abertura da OS
-                            Integer.parseInt(dados[7]), //  * id do fincionario responsável
-                            Integer.parseInt(dados[8]), //  * id da peça que será usada(0 caso não tenha nenhuma)
-                            Integer.parseInt(dados[9]), //  * quantidade desta peça que serão usadas no veículo
-                            Double.parseDouble(dados[10]), //  * valor unitário da peça
-                            Integer.parseInt(dados[11]))); //  * id do veiculo
+                OrdemDeServico os = parse(linha);
+                if (os.isCadastroAtivo() && os.getIdVeiculo() == idVeiculo) {// * achou uma correspondencia
+                    listaOSs.add(os);// * adicionando os na lista que será retornada
                 }
+
                 linha = br.readLine();
             }
         }
@@ -174,22 +96,83 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
 
     @Override
     public void remover(OrdemDeServico obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int id = buscar(obj);// * pegando o id do iobjeto que será excluido
+        remover(id);//  * usando a remoção por id
     }
 
     @Override
     public void remover(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        OrdemDeServico os = buscar(id);
+        if (os == null) {
+            throw new Exception("Ordem de serviço não encontrada");
+        }
+
+        StringBuilder bancoCompleto = new StringBuilder();
+        try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                OrdemDeServico osAtual = parse(linha);
+                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                if (osAtual.equals(os)) {// * achou
+                    osAtual.setCadastroAtivo(false);//  * desativando antes de salvar
+                }
+                bancoCompleto.append(idObjAtual).append(";").append(osAtual).append("\n");//    * salvando dados da linha, que será reescrita no banco
+
+                linha = br.readLine();
+            }
+        }
+
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(OrdemDeServico.getNomeArquivoDisco(), false))) {
+            bw.write(bancoCompleto.toString());//   * reescrevendo todos os dados do banco
+        }
     }
 
     @Override
     public void editar(OrdemDeServico objParaRemover, OrdemDeServico objParaAdicionar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        remover(objParaRemover);
+        incluir(objParaRemover);
     }
 
     @Override
     public void editar(int idObjParaRemover, OrdemDeServico objParaAdicionar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        remover(idObjParaRemover);
+        incluir(objParaAdicionar);
     }
 
+    private OrdemDeServico parse(String dadosCompletos) throws Exception {
+        String[] dados = dadosCompletos.split(";");
+//  * id, defeito relatado, servico feito, Valor mao de obra, 
+//  * data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), situacao da OS, id do funcionario responsável, 
+//  * iD da peca usada, quantidade de pecas usadas, valor unitario da peca, id do veiculo, cadastro esta ativo
+
+        if (dados.length != 13) {
+            System.out.println(dadosCompletos);
+            System.out.println(dados.length);
+            throw new Exception("Dados incompletos da ordem de serviço");
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date DataAbertura = sdf.parse(dados[4]);
+        Date dataFechamento = null;
+        if (!dados[5].equals("null")) {//não tentar se o valor não for uma data
+            dataFechamento = sdf.parse(dados[5]);
+        } else {
+//  * pass
+        }
+
+        OrdemDeServico os = new OrdemDeServico(dados[1], //  * defeito relatado
+                Integer.parseInt(dados[2]), //  * id do serviço que será executado
+                Double.parseDouble(dados[3]), //  * valor da mao de obra
+                DataAbertura, //  * data de abertura da OS
+                Integer.parseInt(dados[7]), //  * id do fincionario responsável
+                Integer.parseInt(dados[8]), //  * id da peça que será usada(0 caso não tenha nenhuma)
+                Integer.parseInt(dados[9]), //  * quantidade desta peça que serão usadas no veículo
+                Double.parseDouble(dados[10]), //  * valor unitário da peça
+                Integer.parseInt(dados[11])); //  * id do veiculo   
+
+        if (dados[12].equals(String.valueOf(false))) {//    * caso o cadastro estivesse inativo
+            os.setCadastroAtivo(false);//   * inativando o cadastro que será retornado
+        }
+
+        return os;
+    }
 }

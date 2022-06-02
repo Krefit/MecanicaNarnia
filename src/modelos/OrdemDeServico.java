@@ -154,10 +154,6 @@ public class OrdemDeServico {
         this.situacao = situacao;
     }
 
-    public int getidVeiculo() {
-        return idVeiculo;
-    }
-
     public int getQuantidadePeca() {
         return quantidadePeca;
     }

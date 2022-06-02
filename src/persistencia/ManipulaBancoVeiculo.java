@@ -126,8 +126,9 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
                 Veiculo veiculo = new Veiculo(Integer.parseInt(dadosVeiculo[1]), Integer.parseInt(dadosVeiculo[2]),
                         dadosVeiculo[3], dadosVeiculo[4], dadosVeiculo[5], dadosVeiculo[6], Integer.parseInt(dadosVeiculo[7]),
                         Integer.parseInt(dadosVeiculo[8]), Integer.parseInt(dadosVeiculo[9]), Integer.parseInt(dadosVeiculo[10]));
-
-                listaVeiculos.add(veiculo);
+                if (veiculo.isCadastroAtivo()) {
+                    listaVeiculos.add(veiculo);
+                }
                 linha = br.readLine();
             }
 

@@ -38,7 +38,8 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
             String linha = br.readLine();
             while (linha != null) {
                 MarcaVeiculo marca = parse(linha);
-                if (linha.substring(0, linha.indexOf(";")).equals(id)//  * caso o id seja igual
+                int index = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                if (index == id//  * caso o id seja igual
                         && marca.isCadastroAtivo()) {//  * e o cadastro esteja ativo
                     return marca;
                 }
