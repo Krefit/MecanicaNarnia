@@ -5,6 +5,7 @@
 package modelos;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -139,6 +140,64 @@ public class Veiculo {
 
     public void setIdDonoVeiculo(int idDonoVeiculo) {
         this.idDonoVeiculo = idDonoVeiculo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + this.idModelo;
+        hash = 37 * hash + this.idMarca;
+        hash = 37 * hash + Objects.hashCode(this.chassi);
+        hash = 37 * hash + Objects.hashCode(this.renavam);
+        hash = 37 * hash + Objects.hashCode(this.tipoVeiculo);
+        hash = 37 * hash + Objects.hashCode(this.placa);
+        hash = 37 * hash + this.anoFabricacao;
+        hash = 37 * hash + this.anoModelo;
+        hash = 37 * hash + this.quilometragem;
+        hash = 37 * hash + this.idDonoVeiculo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Veiculo other = (Veiculo) obj;
+        if (this.idModelo != other.idModelo) {
+            return false;
+        }
+        if (this.idMarca != other.idMarca) {
+            return false;
+        }
+        if (this.anoFabricacao != other.anoFabricacao) {
+            return false;
+        }
+        if (this.anoModelo != other.anoModelo) {
+            return false;
+        }
+        if (this.quilometragem != other.quilometragem) {
+            return false;
+        }
+        if (this.idDonoVeiculo != other.idDonoVeiculo) {
+            return false;
+        }
+        if (!Objects.equals(this.chassi, other.chassi)) {
+            return false;
+        }
+        if (!Objects.equals(this.renavam, other.renavam)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipoVeiculo, other.tipoVeiculo)) {
+            return false;
+        }
+        return Objects.equals(this.placa, other.placa);
     }
 
     @Override

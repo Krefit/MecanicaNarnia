@@ -7,6 +7,7 @@ package modelos;
 
 import modelos.auxiliares.Endereco;
 import java.util.InputMismatchException;
+import java.util.Objects;
 
 /**
  *
@@ -73,11 +74,6 @@ public class PessoaJuridica extends Pessoa {
 
     public void setNomeFantasia(String nomeFantasia) {
         this.nomeFantasia = nomeFantasia;
-    }
-
-    @Override
-    public String toString() {
-        return nomeFantasia + ';' + cnpj + ';' + razaoSocial + ';' + super.toString();
     }
 
     public static boolean validaCNPJ(String CNPJ) {
@@ -162,4 +158,32 @@ public class PessoaJuridica extends Pessoa {
 
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.cnpj);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PessoaJuridica other = (PessoaJuridica) obj;
+        return Objects.equals(this.cnpj, other.cnpj);
+    }
+
+
+
+    @Override
+    public String toString() {
+        return nomeFantasia + ';' + cnpj + ';' + razaoSocial + ';' + super.toString();
+    }
 }

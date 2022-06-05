@@ -4,6 +4,8 @@
  */
 package modelos;
 
+import java.util.Objects;
+
 /**
  *
  * @author ALUNO
@@ -110,6 +112,28 @@ public class Peca {
 
     public void setEstoquequantidadeMinima(int estoquequantidadeMinima) {
         this.estoquequantidadeMinima = estoquequantidadeMinima;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.codigoPeca);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Peca other = (Peca) obj;
+        return Objects.equals(this.codigoPeca, other.codigoPeca);
     }
 
     @Override

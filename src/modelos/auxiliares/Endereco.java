@@ -6,6 +6,7 @@
 package modelos.auxiliares;
 
 import enumerations.EstadosBrazil;
+import java.util.Objects;
 
 /**
  *
@@ -98,6 +99,56 @@ public class Endereco {
 
     public void setCEP(String CEP) {
         this.CEP = CEP;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.tipoLogradouro);
+        hash = 73 * hash + Objects.hashCode(this.logradouro);
+        hash = 73 * hash + Objects.hashCode(this.numero);
+        hash = 73 * hash + Objects.hashCode(this.complemento);
+        hash = 73 * hash + Objects.hashCode(this.bairro);
+        hash = 73 * hash + Objects.hashCode(this.cidade);
+        hash = 73 * hash + Objects.hashCode(this.estado);
+        hash = 73 * hash + Objects.hashCode(this.CEP);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Endereco other = (Endereco) obj;
+        if (!Objects.equals(this.tipoLogradouro, other.tipoLogradouro)) {
+            return false;
+        }
+        if (!Objects.equals(this.logradouro, other.logradouro)) {
+            return false;
+        }
+        if (!Objects.equals(this.numero, other.numero)) {
+            return false;
+        }
+        if (!Objects.equals(this.complemento, other.complemento)) {
+            return false;
+        }
+        if (!Objects.equals(this.bairro, other.bairro)) {
+            return false;
+        }
+        if (!Objects.equals(this.cidade, other.cidade)) {
+            return false;
+        }
+        if (!Objects.equals(this.CEP, other.CEP)) {
+            return false;
+        }
+        return this.estado == other.estado;
     }
 
     @Override

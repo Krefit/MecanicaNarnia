@@ -170,15 +170,21 @@ public class OrdemDeServico {
         this.valorUnitarioPeca = valorUnitarioPeca;
     }
 
+    public double calcularValorTotal() {
+        return this.valorMaoDeObra + (this.quantidadePeca * this.valorUnitarioPeca);
+    }
+
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (dataSaida != null) {
-            return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra) + ";" + sdf.format(dataEntrada) + ";" + sdf.format(dataSaida) + ";" + situacao
-                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca) + ";" + idVeiculo + ";" + cadastroAtivo;
+            return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
+                    + sdf.format(dataSaida) + ";" + situacao + ";" + idFuncionarioResponsavel + ";" + idPeca + ";"
+                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo;
         } else {
-            return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra) + ";" + sdf.format(dataEntrada) + ";" + null + ";" + situacao
-                    + ";" + idFuncionarioResponsavel + ";" + idPeca + ";" + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca) + ";" + idVeiculo + ";" + cadastroAtivo;
+            return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
+                    + null + ";" + situacao + ";" + idFuncionarioResponsavel + ";" + idPeca + ";"
+                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo;
         }
     }
 }
