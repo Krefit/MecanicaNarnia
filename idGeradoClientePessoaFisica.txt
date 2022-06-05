@@ -1,5 +1,2 @@
-<<<<<<< Updated upstream
 71
-=======
-70
->>>>>>> Stashed changes
+

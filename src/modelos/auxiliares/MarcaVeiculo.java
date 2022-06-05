@@ -73,7 +73,7 @@ public class MarcaVeiculo {
 
     @Override
     public String toString() {
-        return nomeMarca;
+        return nomeMarca + ";" + isCadastroAtivo();
     }
 
 }

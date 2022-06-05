@@ -19,26 +19,32 @@ import modelos.Servico;
 public class ManipulaBancoServicos implements IManipulaBanco<Servico> {
 
     @Override
-    public void incluir(Servico obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Servico.getNomeArquivoDisco(), true))) {
-            int id = GeradorId.getID(Servico.getArquivoID());
-            bw.write(id + ";" + obj.toString() + "\n");
-        }//fecha arquivo
+    public Servico parse(String dados) throws Exception {
+        String[] dadosServico = dados.split(";");
+// * id, nomeServico, valorMaoDeObra, cadastro está ativo
+        if (dadosServico.length != 4) {
+            throw new Exception("Dados incorretos");
+        }
+        Servico s = new Servico(dadosServico[1], Double.parseDouble(dadosServico[2]));
+        if (dadosServico[3].equals(String.valueOf(false))) {
+            s.setCadastroAtivo(false);
+        }
+        return s;
     }
 
     @Override
-    public int buscar(Servico obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
+    public String getNomeDoArquivoNoDisco() {
+        return Servico.getNomeArquivoDisco();
+    }
+
+    @Override
+    public int getID(Servico obj) throws Exception {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                String[] dados = linha.split(";");
-//  * id, nome do serviço, valor da mão de obra,cadastro está ativo 
-                if (dados.length != 4) {
-                    if (linha.endsWith(obj.toString()) && dados[3].equals("true")) {
-                        return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
-                    } else {
-//  * pass
-                    }
+                Servico s = parse(linha);// * parsing linha
+                if (s.equals(obj) && s.isCadastroAtivo()) {//  * encontrou
+                    return Integer.parseInt(linha.split(";")[0]);// * retornando o id
                 }
                 linha = br.readLine();
             }
@@ -47,83 +53,30 @@ public class ManipulaBancoServicos implements IManipulaBanco<Servico> {
     }
 
     @Override
-    public Servico buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                String[] dados = linha.split(";");
-//  * id, nome do serviço, valor da mão de obra,cadastro está ativo 
-
-                if (dados.length != 4) {
-                    throw new Exception("Dados incorretos, no serviço");
-                }
-                if (linha.startsWith(String.valueOf(id)) && dados[3].equals("true")) {
-                    return new Servico(dados[1], Double.parseDouble(dados[2]));
-                }
-                linha = br.readLine();
-            }
-        }
-        return null;//  * objeto não encontrado
-
+    public String getNomeArquivoID() {
+        return Servico.getArquivoID();
     }
 
-    public int buscar(String nome) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                String[] dados = linha.split(";");
-// * id, nomeServico, valorMaoDeObra, cadastro está ativo
-                if (dados.length != 4) {
-                    throw new Exception("Dados incorretos");
-                }
-                if (linha.contains(nome) && dados[3].equals("true")) {
-                    return Integer.parseInt(dados[0]);//    * retornando o id do objeto
-                }
-                linha = br.readLine();
+    @Override
+    public boolean isCadastroAtivo(Servico obj) {
+        return obj.isCadastroAtivo();
+    }
+
+    @Override
+    public Servico setCadastroAtivo(Servico obj, boolean flag) {
+        obj.setCadastroAtivo(flag);
+        return obj;
+    }
+
+    @Override
+    public int buscar(String dado) throws Exception {
+        ArrayList<Servico> listaServicos = buscarTodos();
+        for (Servico s : listaServicos) {
+            if (s.getNomeServico().equals(dado)) {//  * encontrou
+                return getID(s);//  * retornando o id
             }
         }
         return 0;// * objeto não encontrado
-    }
-
-    @Override
-    public ArrayList<Servico> buscarTodos() throws Exception {
-
-        ArrayList<Servico> listaServicos = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(Servico.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                String[] dados = linha.split(";");
-// * id, nomeServico, valorMaoDeObra, cadastro está ativo
-                if (dados.length != 4) {
-                    throw new Exception("Dados incorretos");
-                }
-                if (dados[3].equals("true")) {
-                    listaServicos.add(new Servico(dados[1], Double.parseDouble(dados[2])));
-                }
-                linha = br.readLine();
-            }
-        }
-        return listaServicos;//   * retornando a lista com todos os serviços com cadastro ativo
-    }
-
-    @Override
-    public void remover(Servico obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void remover(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void editar(Servico objParaRemover, Servico objParaAdicionar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void editar(int idObjParaRemover, Servico objParaAdicionar) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

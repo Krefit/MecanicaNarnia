@@ -30,187 +30,79 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
     }
 
     @Override
-    public void incluir(Veiculo obj) throws Exception {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(Veiculo.getNomeArquivoDisco(), true))) {
-            int id = GeradorId.getID(Veiculo.getArquivoID());
-            bw.write(id + ";" + obj.toString() + "\n");
-            //fecha arquivo
+    public Veiculo parse(String dados) throws Exception {
+        String[] dadosVeiculo = dados.split(";");
+//  * id, id do modelo, id da marca, chassi,
+//  * renavan, tipo do veiculo, placa, ano de fabricação(dd/MM/yyyy), 
+//  * ano do modelo(dd/MM/yyyy), quilometragem, id do dono, cadastro está ativo
+
+        if (dadosVeiculo.length != 12) {
+            System.out.println(dados);
+            throw new Exception("Dados incorretos");
         }
+
+        Veiculo veiculo = new Veiculo(Integer.parseInt(dadosVeiculo[1]),//  * id do modelo
+                Integer.parseInt(dadosVeiculo[2]),//    * id da marca
+                dadosVeiculo[3],//  * chassi
+                dadosVeiculo[4],//  * renavan
+                dadosVeiculo[5],//  * tipo do veiculo
+                dadosVeiculo[6],//  * placa
+                Integer.parseInt(dadosVeiculo[7]),//    * ano de fabricação
+                Integer.parseInt(dadosVeiculo[8]),//    * ano do modelo
+                Integer.parseInt(dadosVeiculo[9]),//    * quilometragem
+                Integer.parseInt(dadosVeiculo[10]));//  * id do dono
+
+        if (dadosVeiculo[11].equals(String.valueOf(false))) {
+            veiculo.setCadastroAtivo(false);
+        }
+        return veiculo;
     }
 
     @Override
-    public int buscar(Veiculo obj) throws Exception {
+    public String getNomeDoArquivoNoDisco() {
+        return Veiculo.getNomeArquivoDisco();
+    }
+
+    @Override
+    public int getID(Veiculo obj) throws Exception {
         try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
-                if (linha.endsWith(obj.toString())) {//ignorando o iD, pois isso não fica salvo no objeto
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
+                Veiculo v = parse(linha);// * parsing linha
+                if (v.equals(obj) && v.isCadastroAtivo()) {//  * encontrou
+                    return Integer.parseInt(linha.split(";")[0]);// * retornando o id
                 }
                 linha = br.readLine();
             }
-
         }
-        return 0;
+        return 0;// * objeto não encontrado
     }
 
+    @Override
+    public String getNomeArquivoID() {
+        return Veiculo.getArquivoID();
+    }
+
+    @Override
+    public boolean isCadastroAtivo(Veiculo obj) {
+        return obj.isCadastroAtivo();
+    }
+
+    @Override
+    public Veiculo setCadastroAtivo(Veiculo obj, boolean flag) {
+        obj.setCadastroAtivo(flag);
+        return obj;
+    }
+
+    @Override
     public int buscar(String dado) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                if (linha.contains(dado)) {
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
-                }
-                linha = br.readLine();
-            }
-
-        }
-        return 0;
-    }
-
-    @Override
-    public Veiculo buscar(int id) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                if (linha.startsWith(String.valueOf(id))) {
-                    String[] dadosVeiculo = linha.split(";");
-                    if (dadosVeiculo.length != 12) {
-                        System.out.println(dadosVeiculo.length);
-                        System.out.println(linha);
-                        throw new Exception("Dados incorretos");
-                    }
-                    if (dadosVeiculo[11].equals("true")) {
-
-                        Veiculo veiculo = new Veiculo(Integer.parseInt(dadosVeiculo[1]), Integer.parseInt(dadosVeiculo[2]),
-                                dadosVeiculo[3], dadosVeiculo[4], dadosVeiculo[5], dadosVeiculo[6], Integer.parseInt(dadosVeiculo[7]),
-                                Integer.parseInt(dadosVeiculo[8]), Integer.parseInt(dadosVeiculo[9]), Integer.parseInt(dadosVeiculo[10]));
-
-                        String[] dadosTodasAsOSs = linha.substring(linha.indexOf("[") + 1, linha.length() - 1).split(",");//ignorar []
-                        for (String dadosOSAtual : dadosTodasAsOSs) {//pegando cada OS
-                            String[] dados = dadosOSAtual.split(";");
-                            for (int i = 0; i < dados.length; i++) {
-                                dados[i] = dados[i].trim();//tirando espaços em branco antes e depois de cada String
-                            }
-                            if (dados[5].equals("null")) {
-                                Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(dados[4]);
-//                            veiculo.adicionaItemListaOS(new OrdemDeServico(dados[0], dados[1],
-//                                    Integer.parseInt(dados[2]), Float.parseFloat(dados[3]), dataEntrada,
-//                                    Enum.valueOf(OrdemDeServico.SitucaoOrdemServico.class, dados[6]),
-//                                    Integer.parseInt(dados[7]), Integer.parseInt(dados[8])));
-//o veiculo não vai mais armazenar os dados das OSs
-                            }
-                        }
-                        return veiculo;
-                    } else {
-                        //  * pass
-                    }
-                }
-                linha = br.readLine();
+        ArrayList<Veiculo> listaVeiculos = buscarTodos();
+        for (Veiculo v : listaVeiculos) {
+            if (v.getPlaca().equals(dado)) {//  * achou
+                return getID(v);
             }
         }
-        return null;
-    }
-
-    @Override
-    public ArrayList<Veiculo> buscarTodos() throws Exception {
-        ArrayList<Veiculo> listaVeiculos = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                String[] dadosVeiculo = linha.split(";");
-                if (dadosVeiculo.length != 12) {
-                    System.out.println(linha);
-                    throw new Exception("Dados incorretos");
-                }
-
-                Veiculo veiculo = new Veiculo(Integer.parseInt(dadosVeiculo[1]), Integer.parseInt(dadosVeiculo[2]),
-                        dadosVeiculo[3], dadosVeiculo[4], dadosVeiculo[5], dadosVeiculo[6], Integer.parseInt(dadosVeiculo[7]),
-                        Integer.parseInt(dadosVeiculo[8]), Integer.parseInt(dadosVeiculo[9]), Integer.parseInt(dadosVeiculo[10]));
-                if (veiculo.isCadastroAtivo()) {
-                    listaVeiculos.add(veiculo);
-                }
-                linha = br.readLine();
-            }
-
-        }
-        return listaVeiculos;
-    }
-
-    @Override
-    public void remover(Veiculo obj) throws Exception {
-        int id = buscar(obj);//    * id novo objeto
-        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
-            boolean achou = false;
-            String linha = br.readLine();
-            StringBuilder lista = new StringBuilder();
-            while (linha != null) {
-                if (linha.endsWith(obj.toString())) {//ignorando o ID, pois o obj não tem id
-                    achou = true;
-                } else {
-                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
-                }
-                linha = br.readLine();
-            }
-
-            if (!achou) {
-                throw new Exception("Veiculo não encontrado");
-            }
-            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(Veiculo.getNomeArquivoDisco(), false))) {
-                if (lista.toString() != null) {
-                    System.out.println(obj.isCadastroAtivo());
-                    obj.setCadastroAtivo(false);//  * apagando atributo de ativo
-                    bw.write(lista.toString() //  * reescrevendo dados que não serão modificados
-                            + id + ";" + obj.toString());//    * colocando dado alterado
-                }
-            }
-        }
-    }
-
-    @Override
-    public void remover(int id) throws Exception {
-        Veiculo v = buscar(id);
-        if (v == null) {
-            throw new Exception("Veiculo não encontrado");
-        }
-        v.setCadastroAtivo(false);
-        try ( BufferedReader br = new BufferedReader(new FileReader(Veiculo.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            StringBuilder lista = new StringBuilder();
-
-            while (linha != null) {
-                if (!linha.startsWith(String.valueOf(id))) {//ignorando o ID, pois o obj não tem id
-                    //  * pass
-                } else {
-                    lista.append(linha).append("\n");//salvando dados que serão reescritos no banco
-                }
-                linha = br.readLine();
-            }
-
-            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(Veiculo.getNomeArquivoDisco(), false))) {
-                if (lista.toString() != null) {
-                    bw.write(lista.toString()
-                            + id + v.toString());
-                }
-            }
-        }
-        throw new UnsupportedOperationException("Não implementado ainda");
-
-    }
-
-    @Override
-    public void editar(Veiculo objParaRemover, Veiculo objParaAdicionar) throws Exception {
-//        remover(objParaRemover);
-//        incluir(objParaAdicionar);
-        throw new UnsupportedOperationException("Não implementado ainda");
-
-    }
-
-    @Override
-    public void editar(int idObjParaRemover, Veiculo objParaAdicionar) throws Exception {
-//        remover(idObjParaRemover);
-//        incluir(objParaAdicionar);
-        throw new UnsupportedOperationException("Não implementado ainda");
-
+        return 0;// * objeto não encontrado
     }
 
     public int getQuantidadeVeiculos() throws Exception {

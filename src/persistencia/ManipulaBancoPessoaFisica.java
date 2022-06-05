@@ -25,138 +25,7 @@ import modelos.auxiliares.Endereco;
 public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
 
     @Override
-    public void incluir(PessoaFisica obj) throws Exception {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco(), true))) {
-            if (buscar(obj.getCpf()) != 0) {//  * caso já exista alguém com esse CPF no banco
-                throw new IllegalArgumentException("este CPF já está cadastrado no banco");
-            }
-            int id = GeradorId.getID(PessoaFisica.getArquivoID());
-            bw.write(id + ";" + obj.toString() + "\n");
-            //fecha arquivo
-        }
-    }
-
-    @Override
-    public int buscar(PessoaFisica obj) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                PessoaFisica p = parse(linha);
-                if (p.equals(obj) && p.isCadastroAtivo()) {//   * achou
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id do objeto
-                }
-                linha = br.readLine();
-            }
-        }
-        return 0;//  * objeto não encontrado
-    }
-
-    public int buscar(String cpf) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                PessoaFisica p = parse(linha);
-                if (p.getCpf().equals(cpf) && p.isCadastroAtivo()) {// * achou
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//  * retornando o id do objeto
-                }
-                linha = br.readLine();
-            }
-        }
-        return 0;
-    }
-
-    @Override
-    public PessoaFisica buscar(int id) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                PessoaFisica p = parse(linha);
-                if (linha.startsWith(String.valueOf(id)) && p.isCadastroAtivo()) {
-                    return p;
-                }
-
-                linha = br.readLine();
-            }
-        }
-        return null;// * objeto não encontrado
-    }
-
-    @Override
-    public ArrayList<PessoaFisica> buscarTodos() throws Exception {
-        ArrayList<PessoaFisica> listaPessoasFisicas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                PessoaFisica p = parse(linha);
-                if (p.isCadastroAtivo()) {
-                    listaPessoasFisicas.add(p);//   * adicionando na lista
-                }
-                linha = br.readLine();
-            }
-        }
-        return listaPessoasFisicas;//   * retornando lista com todas as pessoas fisicas com cadastro ativo
-    }
-
-    @Override
-    public void remover(PessoaFisica obj) throws Exception {//  * não está conseguindo remover do banco, está passando pelo método sem fazer nada
-        StringBuilder bancoCompleto = new StringBuilder();//  * vai guardar todos os dados do banco
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {//  * enquanto existir uma linha para ser escrita
-                int id = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
-                PessoaFisica ClienteAtual = parse(linha);//    * pegando cliente do banco
-                if (ClienteAtual.equals(obj) && ClienteAtual.isCadastroAtivo()) {//   * caso tenha encontrado uma correspondencia
-                    ClienteAtual.setCadastroAtivo(false);//    * desativando cadastro
-                }
-                bancoCompleto.append(id).append(ClienteAtual.toString()).append("\n");//  * adicionando nova linha do banco
-                linha = br.readLine();//    * lendo nova linha
-            }
-        }
-//  * leu todos os dados do banco
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
-            bw.write(bancoCompleto.toString());//   * reescrevendo banco completo
-        }
-
-    }
-
-    @Override
-    public void remover(int id) throws Exception {//    * não tá validando, caso tenha tentado excluir algo que não existe
-        StringBuilder bancoCompleto = new StringBuilder();//  * vai guardar todos os dados do banco
-        try (BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {//  * enquanto existir uma linha para ser escrita
-                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
-                if (linha.startsWith("" + id)) {//    * caso tenha encontrado o objeto
-                    linha = linha.replace("true", "false");
-                }
-                bancoCompleto.append(idObjAtual).append(linha).append("\n");//  * adicionando nova linha do banco
-                linha = br.readLine();//    * lendo nova linha
-            }
-//  * leu todos os dados do banco
-
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(PessoaFisica.getNomeArquivoDisco()))) {
-                bw.write(bancoCompleto.toString());//   * reescrevendo banco completo
-            }
-        }
-
-    }
-
-    @Override
-    public void editar(PessoaFisica objParaRemover, PessoaFisica objParaAdicionar) throws Exception {
-
-        remover(objParaRemover);
-        incluir(objParaAdicionar);
-    }
-
-    @Override
-    public void editar(int idObjParaRemover, PessoaFisica objParaAdicionar) throws Exception {
-        remover(idObjParaRemover);
-        incluir(objParaAdicionar);
-
-    }
-
-    private PessoaFisica parse(String dadosCompletos) throws Exception {
+    public PessoaFisica parse(String dadosCompletos) throws Exception {
         String[] dados = dadosCompletos.split(";");
 //  * id, nome, cpf, data de nascimento (dd/MM/yyyy),
 //  * array de telefones, email, endereco, cadastro está ativo
@@ -195,4 +64,52 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
         }
         return p;
     }
+
+    @Override
+    public String getNomeDoArquivoNoDisco() {
+        return PessoaFisica.getNomeArquivoDisco();
+    }
+
+    @Override
+    public int getID(PessoaFisica obj) throws Exception {
+        try ( BufferedReader br = new BufferedReader(new FileReader(PessoaFisica.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                PessoaFisica v = parse(linha);// * parsing linha
+                if (v.equals(obj) && v.isCadastroAtivo()) {//  * encontrou
+                    return Integer.parseInt(linha.split(";")[0]);// * retornando o id
+                }
+                linha = br.readLine();
+            }
+        }
+        return 0;// * objeto não encontrado
+    }
+
+    @Override
+    public String getNomeArquivoID() {
+        return PessoaFisica.getArquivoID();
+    }
+
+    @Override
+    public boolean isCadastroAtivo(PessoaFisica obj) {
+        return obj.isCadastroAtivo();
+    }
+
+    @Override
+    public PessoaFisica setCadastroAtivo(PessoaFisica obj, boolean flag) {
+        obj.setCadastroAtivo(flag);
+        return obj;
+    }
+
+    @Override
+    public int buscar(String dado) throws Exception {
+        ArrayList<PessoaFisica> listaPessoas = buscarTodos();
+        for (PessoaFisica p : listaPessoas) {
+            if (p.getCpf().equals(dado) && p.isCadastroAtivo()) {//    * encontrou
+                return getID(p);//  * retornando o id
+            }
+        }
+        return 0;// * objetoo não encontrado
+    }
+
 }

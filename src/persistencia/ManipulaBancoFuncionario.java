@@ -5,18 +5,11 @@
 package persistencia;
 
 import enumerations.EstadosBrazil;
-import geradorId.GeradorId;
-import java.awt.List;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import modelos.Funcionario;
-import modelos.OrdemDeServico;
 import modelos.Funcionario;
 import modelos.auxiliares.Endereco;
 
@@ -27,124 +20,7 @@ import modelos.auxiliares.Endereco;
 public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
 
     @Override
-    public void incluir(Funcionario obj) throws Exception {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), true))) {
-            int id = GeradorId.getID(Funcionario.getArquivoID());
-            bw.write(id + ";" + obj.toString() + "\n");
-            //fecha arquivo
-        }
-    }
-
-    @Override
-    public int buscar(Funcionario obj) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                Funcionario f = parse(linha);
-                if (f.equals(obj) && f.isCadastroAtivo()) {//  * achou
-                    return Integer.parseInt(linha.substring(0, linha.indexOf(";")));//    * retornando o ID
-                }
-                linha = br.readLine();
-            }
-
-        }
-        return 0;//Funcionario não encontrado
-    }
-
-    public int buscar(String dado) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                if (linha.contains(dado)) {//   * conferindo se o dado está em qualquer parte do objeto
-                    if (linha.split(";")[7].equals("true")) {//    * se o cadastro está ativo
-                        return Integer.parseInt(linha.substring(0, linha.indexOf(";")));
-                    } else {
-                        //  * pass
-                    }
-                }
-                linha = br.readLine();
-            }
-
-        }
-        return 0;//Funcionario não encontrado
-    }
-
-    @Override
-    public Funcionario buscar(int id) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                Funcionario f = parse(linha);
-                if (f.isCadastroAtivo() && linha.substring(0, linha.indexOf(";")).equals(String.valueOf(id))) {//    * encontrou o objeto
-                    return f;
-                }
-                linha = br.readLine();
-            }
-
-        }
-        return null;
-    }
-
-    @Override
-    public ArrayList<Funcionario> buscarTodos() throws Exception {
-        ArrayList<Funcionario> listaFuncionarios = new ArrayList<>();
-
-        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                Funcionario f = parse(linha);
-                if (f.isCadastroAtivo()) {//    * só adicionar cadastros ativos
-                    listaFuncionarios.add(f);
-                }
-                linha = br.readLine();
-            }
-        }
-        return listaFuncionarios;
-    }
-
-    @Override
-    public void remover(Funcionario obj) throws Exception {
-        int id = buscar(obj);
-        remover(id);
-    }
-
-    @Override
-    public void remover(int id) throws Exception {
-        Funcionario f = buscar(id);
-        if (f == null) {
-            throw new Exception("Funcionario não encontrado");
-        }
-        StringBuilder banco = new StringBuilder();//    * todas as informações do banco
-        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                f = parse(linha);// * parsing nova linha
-                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));//    * peganddo id da linha atual
-                if (idObjAtual == id) {//  * achou
-                    f.setCadastroAtivo(false);//    * desativar cadastro antes de salvar
-                }
-                banco.append(idObjAtual).append(";").append(f.toString()).append("\n");
-                linha = br.readLine();
-            }
-        }
-        try ( BufferedWriter br = new BufferedWriter(new FileWriter(Funcionario.getNomeArquivoDisco(), false))) {
-            br.write(banco.toString());//   * reescevendo todos os dados do banco
-        }
-    }
-
-    @Override
-    public void editar(Funcionario objParaRemover, Funcionario objParaAdicionar) throws Exception {
-        remover(objParaRemover);
-        incluir(objParaAdicionar);
-    }
-
-    @Override
-    public void editar(int idObjParaRemover, Funcionario objParaAdicionar) throws Exception {
-        remover(idObjParaRemover);
-        incluir(objParaAdicionar);
-    }
-
-    private Funcionario parse(String dadosCompletos) throws Exception {
+    public Funcionario parse(String dadosCompletos) throws Exception {
         String[] dados = dadosCompletos.split(";");
 //    * id, nome, cpf, dataNascimento,
 //    * telefones, email, endereco,cadastroAtivo,
@@ -190,5 +66,55 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
             f.setCadastroAtivo(false);
         }
         return f;
+    }
+
+    @Override
+    public String getNomeArquivoID() {
+        return Funcionario.getArquivoID();
+    }
+
+    @Override
+    public String getNomeDoArquivoNoDisco() {
+        return Funcionario.getNomeArquivoDisco();
+    }
+
+    @Override
+    public int getID(Funcionario obj) throws Exception {
+        try ( BufferedReader br = new BufferedReader(new FileReader(Funcionario.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                Funcionario f = parse(linha);// * parsing linha
+                if (f.equals(obj)) {// * encontrou
+                    return Integer.parseInt(linha.split(";")[0]);// * retornando o id
+                }
+                linha = br.readLine();
+            }
+        }
+
+        return 0;// * objeto não encontrados
+
+    }
+
+    @Override
+    public boolean isCadastroAtivo(Funcionario f) {
+        return f.isCadastroAtivo();
+    }
+
+    @Override
+    public Funcionario setCadastroAtivo(Funcionario obj, boolean flag) {
+        obj.setCadastroAtivo(flag);
+        return obj;
+    }
+
+    @Override
+    public int buscar(String dado) throws Exception {
+        ArrayList<Funcionario> listaFunc = buscarTodos();
+
+        for (Funcionario f : listaFunc) {
+            if (f.getCpf().equals(dado)) {
+                return getID(f);
+            }
+        }
+        return 0;
     }
 }

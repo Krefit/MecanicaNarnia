@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import modelos.OrdemDeServico;
+import modelos.Veiculo;
 
 /**
  *
@@ -21,125 +22,7 @@ import modelos.OrdemDeServico;
 public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico> {
 
     @Override
-    public void incluir(OrdemDeServico obj) throws Exception {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(OrdemDeServico.getNomeArquivoDisco(), true))) {
-            bw.write(GeradorId.getID(OrdemDeServico.getArquivoID()) + ";" + obj.toString() + "\n");
-        }//  * fechando o arquivo
-    }
-
-    @Override
-    public int buscar(OrdemDeServico obj) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                OrdemDeServico os = parse(linha);
-                if (os.equals(obj) && os.isCadastroAtivo()) {// * achou
-                    int id = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
-                    return id;//  * retornando o id
-                }
-                linha = br.readLine();
-            }
-            return 0;//  * objeto não encontrado
-        }
-    }
-
-    @Override
-    public OrdemDeServico buscar(int id) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                OrdemDeServico os = parse(linha);
-                if (linha.substring(0, linha.indexOf(";")).equals(id)// * achou o id igual
-                        && os.isCadastroAtivo()) {//    * o cadastro está ativo
-                    return os;
-                }
-                linha = br.readLine();
-            }
-        }
-        return null;//  * objeto não encontrado
-    }
-
-    @Override
-    public ArrayList<OrdemDeServico> buscarTodos() throws Exception {
-        ArrayList<OrdemDeServico> listaOSs = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                OrdemDeServico os = parse(linha);
-                if (os.isCadastroAtivo()) {
-                    listaOSs.add(os);
-                }
-                linha = br.readLine();
-            }
-        }
-        if (listaOSs.isEmpty()) {
-            return null;//  * o banco não tem nenhum cadastro ativo
-        }
-        return listaOSs;//  * retornando lista com todas as OSs ativas
-    }
-
-    public ArrayList<OrdemDeServico> buscarTodos(int idVeiculo) throws Exception {
-        ArrayList<OrdemDeServico> listaOSs = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                OrdemDeServico os = parse(linha);
-                if (os.isCadastroAtivo() && os.getIdVeiculo() == idVeiculo) {// * achou uma correspondencia
-                    listaOSs.add(os);// * adicionando os na lista que será retornada
-                }
-
-                linha = br.readLine();
-            }
-        }
-        return listaOSs;//  * retornando lista com todas as OSs ativas deste veiculo
-    }
-
-    @Override
-    public void remover(OrdemDeServico obj) throws Exception {
-        int id = buscar(obj);// * pegando o id do iobjeto que será excluido
-        remover(id);//  * usando a remoção por id
-    }
-
-    @Override
-    public void remover(int id) throws Exception {
-        OrdemDeServico os = buscar(id);
-        if (os == null) {
-            throw new Exception("Ordem de serviço não encontrada");
-        }
-
-        StringBuilder bancoCompleto = new StringBuilder();
-        try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
-            String linha = br.readLine();
-            while (linha != null) {
-                OrdemDeServico osAtual = parse(linha);
-                int idObjAtual = Integer.parseInt(linha.substring(0, linha.indexOf(";")));
-                if (osAtual.equals(os)) {// * achou
-                    osAtual.setCadastroAtivo(false);//  * desativando antes de salvar
-                }
-                bancoCompleto.append(idObjAtual).append(";").append(osAtual).append("\n");//    * salvando dados da linha, que será reescrita no banco
-
-                linha = br.readLine();
-            }
-        }
-
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(OrdemDeServico.getNomeArquivoDisco(), false))) {
-            bw.write(bancoCompleto.toString());//   * reescrevendo todos os dados do banco
-        }
-    }
-
-    @Override
-    public void editar(OrdemDeServico objParaRemover, OrdemDeServico objParaAdicionar) throws Exception {
-        remover(objParaRemover);
-        incluir(objParaRemover);
-    }
-
-    @Override
-    public void editar(int idObjParaRemover, OrdemDeServico objParaAdicionar) throws Exception {
-        remover(idObjParaRemover);
-        incluir(objParaAdicionar);
-    }
-
-    private OrdemDeServico parse(String dadosCompletos) throws Exception {
+    public OrdemDeServico parse(String dadosCompletos) throws Exception {
         String[] dados = dadosCompletos.split(";");
 //  * id, defeito relatado, servico feito, Valor mao de obra, 
 //  * data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), situacao da OS, id do funcionario responsável, 
@@ -174,5 +57,68 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
         }
 
         return os;
+    }
+
+    @Override
+    public String getNomeDoArquivoNoDisco() {
+        return OrdemDeServico.getNomeArquivoDisco();
+    }
+
+    @Override
+    public int getID(OrdemDeServico obj) throws Exception {
+        try ( BufferedReader br = new BufferedReader(new FileReader(OrdemDeServico.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                OrdemDeServico os = parse(linha);// * parsing linha
+                if (os.equals(obj) && os.isCadastroAtivo()) {//  * encontrou
+                    return Integer.parseInt(linha.split(";")[0]);// * retornando o id
+                }
+                linha = br.readLine();
+            }
+        }
+        return 0;// * objeto não encontrado
+    }
+
+    @Override
+    public String getNomeArquivoID() {
+        return OrdemDeServico.getArquivoID();
+    }
+
+    @Override
+    public boolean isCadastroAtivo(OrdemDeServico obj) {
+        return obj.isCadastroAtivo();
+    }
+
+    @Override
+    public OrdemDeServico setCadastroAtivo(OrdemDeServico obj, boolean flag) {
+        obj.setCadastroAtivo(flag);
+        return obj;
+    }
+
+    @Override
+    public int buscar(String dado) throws Exception {
+        ArrayList<OrdemDeServico> listaOSs = buscarTodos();
+        for (OrdemDeServico os : listaOSs) {
+            if (os.getDefeitoRelatado().equals(dado)) {//   * encontrou
+                return getID(os);// * retornando o id
+            }
+        }
+        return 0;// * objeto não encontrado
+    }
+
+    public ArrayList<OrdemDeServico> buscarTodos(int idVeiculo) throws Exception {
+        ArrayList<OrdemDeServico> listaOSsCompleta = buscarTodos();//   * todas as OSs ativas no sistema
+        ArrayList<OrdemDeServico> listaOSsDesteDono = new ArrayList<>();//  *OSs do cliente que está sendo buscado
+        for (OrdemDeServico osAtual : listaOSsCompleta) {
+            if (osAtual.getIdVeiculo() == idVeiculo) {// * encontrou uma OS deste dono
+                listaOSsDesteDono.add(osAtual);//   * addicionando na lista
+            }
+        }
+
+        if (listaOSsDesteDono.isEmpty()) {//    * não existe nenhuma OS deste veiculo
+            return null;
+        } else {//  * existe alguma OS deste veiculo
+            return listaOSsDesteDono;
+        }
     }
 }
