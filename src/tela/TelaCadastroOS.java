@@ -50,7 +50,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
         jFormattedTextFieldQuantidadePecas.setVisible(false);
         jLabelQuantidadePecas.setVisible(false);
     }
-    
+
     private void loadTableVeiculos(String busca) {
         try {
             ArrayList<Veiculo> listaVeiculos = new ManipulaBancoVeiculo().buscarTodos();
@@ -84,13 +84,13 @@ public class TelaCadastroOS extends javax.swing.JFrame {
                     }
                 }
             }
-            
+
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
         }
     }
-    
+
     private void loadTableServicos(String busca) {
         try {
             DefaultTableModel table = (DefaultTableModel) jTableServicos.getModel();
@@ -107,7 +107,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     private void loadComboBoxFuncionarios() {
         try {
             ArrayList<Funcionario> listaFunc = new ManipulaBancoFuncionario().buscarTodos();
@@ -115,15 +115,15 @@ public class TelaCadastroOS extends javax.swing.JFrame {
             for (Funcionario f : listaFunc) {
                 listaNomesFuncionarios.add(f.getNome());
             }
-            
+
             jComboBox1.setModel(new DefaultComboBoxModel(listaNomesFuncionarios.toArray()));
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
+
     }
-    
+
     private void loadTablePecas() {
         try {
             DefaultTableModel table = (DefaultTableModel) jTablePecas.getModel();
@@ -490,21 +490,21 @@ public class TelaCadastroOS extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelaCadastroOS.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(TelaCadastroOS.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaCadastroOS.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaCadastroOS.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

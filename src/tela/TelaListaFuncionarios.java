@@ -5,6 +5,7 @@
 package tela;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelos.Funcionario;
@@ -24,16 +25,15 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
     public TelaListaFuncionarios() {
         initComponents();
         loadTableFuncionarios();
-        
+
     }
-    
+
     private void loadTableFuncionarios() {
         try {
             ArrayList<Funcionario> listaFuncionarios = new ManipulaBancoFuncionario().buscarTodos();
             DefaultTableModel table = (DefaultTableModel) jTableFuncionarios.getModel();
             table.setRowCount(0);// * apagando linhas para não duplicar os dados da tabela
 
-            System.out.println(listaFuncionarios.size());
             for (Funcionario f : listaFuncionarios) {
                 String[] dados = new String[jTableFuncionarios.getColumnCount()];
                 dados[0] = "" + f.getMatricula();
@@ -60,7 +60,7 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableFuncionarios = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonRemover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,10 +96,10 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Remover");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRemover.setText("Remover");
+        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonRemoverActionPerformed(evt);
             }
         });
 
@@ -111,7 +111,7 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -126,7 +126,7 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
 
@@ -134,17 +134,17 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         try {
             int indexSelecionado = jTableFuncionarios.getSelectedRow();
             int id = 0;
             if (indexSelecionado >= 0) {
-                String Matricula = "" + jTableFuncionarios.getValueAt(jTableFuncionarios.getSelectedRow(), 0);
-                id = new ManipulaBancoFuncionario().buscar(Matricula);
+                String cpf = "" + jTableFuncionarios.getValueAt(jTableFuncionarios.getSelectedRow(), 2);
+                id = new ManipulaBancoFuncionario().buscar(cpf);
                 new ManipulaBancoFuncionario().remover(id);
             }
             loadTableFuncionarios();
@@ -152,7 +152,7 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,7 +191,7 @@ public class TelaListaFuncionarios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonRemover;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableFuncionarios;
     // End of variables declaration//GEN-END:variables

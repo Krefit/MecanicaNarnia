@@ -35,7 +35,14 @@ public class TelaCadastroModelo extends javax.swing.JFrame {
             ArrayList<ModeloVeiculo> listaModelos = new ManipulaBancoModelos().buscarTodos();
 
             for (ModeloVeiculo m : listaModelos) {
-                table.addRow(new Object[]{m.getNomeModelo(), new ManipulaBancoMarca().buscar(m.getIdMarca()).toString()});
+                System.out.println(m.getIdMarca());
+                MarcaVeiculo marca = new ManipulaBancoMarca().buscar(m.getIdMarca());
+                if (marca != null) {
+                    table.addRow(new Object[]{m.getNomeModelo(), marca.getNomeMarca()});
+                } else {
+                    System.out.println("marca não encontrada");
+//  * marca não encontrada
+                }
             }
 
             jTableModelos.setModel(table);
@@ -191,8 +198,8 @@ public class TelaCadastroModelo extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxMarcasActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-            new TelaCadastroDeVeiculo().setVisible(true);
-            dispose();
+        new TelaCadastroDeVeiculo().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**

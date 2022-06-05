@@ -121,4 +121,19 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
             return listaOSsDesteDono;
         }
     }
+
+    public ArrayList<OrdemDeServico> BuscarTodosOrcamentos() throws Exception {
+        ArrayList<OrdemDeServico> listaOSsCompleta = buscarTodos();//   * todas as OSs ativas no sistema
+        ArrayList<OrdemDeServico> listaOrcamentos = new ArrayList<>();//    * todos os orcamentos que ainda não foram aprovados
+        for (OrdemDeServico os : listaOSsCompleta) {
+            if (os.getSituacao() == OrdemDeServico.SitucaoOrdemServico.EM_ABERTO) {//   * é um orcamento
+                listaOrcamentos.add(os);//  * adicionar orcamento na lista
+            }
+        }
+        if (listaOrcamentos.isEmpty()) {//  * nenhum orcamento em aberto
+            return null;
+        } else {
+            return listaOrcamentos;//   *  retornando lista com todos os orcamentos
+        }
+    }
 }

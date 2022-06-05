@@ -57,10 +57,14 @@ public interface IManipulaBanco<T> {
     public int buscar(String dado) throws Exception;
 
     public default T buscar(int id) throws Exception {
+        if (id == 0) {
+            return null;
+        }
         try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 T obj = parse(linha);// * parsing linha
+                int idAtual = getID(obj);
                 if (getID(obj) == id && isCadastroAtivo(obj)) {// * encontrou
                     return obj;
                 }

@@ -42,13 +42,16 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
 
     @Override
     public int getID(MarcaVeiculo obj) throws Exception {
-        ArrayList<MarcaVeiculo> listaMarcas = new ArrayList<>();
-        for (MarcaVeiculo marca : listaMarcas) {
-            if (marca.equals(obj)) {//  * encontrou
-                return getID(marca);//  * retornando o id
+        try ( BufferedReader br = new BufferedReader(new FileReader(MarcaVeiculo.getNomeArquivoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                MarcaVeiculo v = parse(linha);// * parsing linha
+                if (v.equals(obj) && v.isCadastroAtivo()) {//  * encontrou
+                    return Integer.parseInt(linha.split(";")[0]);// * retornando o id
+                }
+                linha = br.readLine();
             }
         }
-
         return 0;// * objeto não encontrado
     }
 
@@ -70,7 +73,7 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
 
     @Override
     public int buscar(String dado) throws Exception {
-        ArrayList<MarcaVeiculo> listaMarcas = new ArrayList<>();
+        ArrayList<MarcaVeiculo> listaMarcas = buscarTodos();
         for (MarcaVeiculo marca : listaMarcas) {
             if (marca.getNomeMarca().equals(dado)) {//  * encontrou
                 return getID(marca);//  * retornando o id

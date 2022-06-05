@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package tela;
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -141,9 +142,9 @@ public class TelaCadastroDeMarca extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonIncluirMarcaActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-            TelaCadastroDeVeiculo janelaNova = new TelaCadastroDeVeiculo();
-            janelaNova.setVisible(true);
-            dispose();
+        TelaCadastroDeVeiculo janelaNova = new TelaCadastroDeVeiculo();
+        janelaNova.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**
@@ -180,12 +181,12 @@ public class TelaCadastroDeMarca extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void loadTableMarcas() throws Exception {
         DefaultTableModel dtb = new DefaultTableModel(new Object[]{"Marcas existentes: "}, 0);
         ArrayList<MarcaVeiculo> listaMarcas = new ManipulaBancoMarca().buscarTodos();
         for (MarcaVeiculo m : listaMarcas) {
-            dtb.addRow(new Object[]{m});
+            dtb.addRow(new Object[]{m.getNomeMarca()});
         }
         jTableMarcasExistentes.setModel(dtb);
     }

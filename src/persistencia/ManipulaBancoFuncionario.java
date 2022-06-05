@@ -111,7 +111,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
         ArrayList<Funcionario> listaFunc = buscarTodos();
 
         for (Funcionario f : listaFunc) {
-            if (f.getCpf().equals(dado)) {
+            if (f.getNome().equals(dado)) {
                 return getID(f);
             }
         }

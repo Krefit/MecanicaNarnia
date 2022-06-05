@@ -58,10 +58,16 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
                                 table.addRow(new Object[]{pj.getNomeFantasia(), v.getPlaca(), v.getChassi(), marca.getNomeMarca(), v.getRenavam(),
                                     v.getTipoVeiculo(), v.getAnoFabricacao(), v.getAnoModelo(), modelo.getNomeModelo()});
                             } else {
+                                table.addRow(new Object[]{"veiculo sem dono", v.getPlaca(), v.getChassi(), marca.getNomeMarca(), v.getRenavam(),
+                                    v.getTipoVeiculo(), v.getAnoFabricacao(), v.getAnoModelo(), modelo.getNomeModelo()});
+                                System.out.println("veiculo sem dono: " + v);
 // falha, o dono do veiculo não consta no banco de dados
                             }
                         }
                     } else {
+                        table.addRow(new Object[]{"veiculo sem dono", v.getPlaca(), v.getChassi(), "marca não encontrada", v.getRenavam(),
+                            v.getTipoVeiculo(), v.getAnoFabricacao(), v.getAnoModelo(), "modelo não encontrado"});
+                        System.out.println("MArca/modelo não encontrado" + v.toString());
 // falha, o modelo ou a marca não consta no banco de dados
                     }
                 }
