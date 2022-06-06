@@ -25,6 +25,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButtonListaVeiculos = new javax.swing.JButton();
         jButtonListaClientes = new javax.swing.JButton();
+        jButtonListaPecas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,21 +78,32 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jButtonListaPecas.setText("Lista peças");
+        jButtonListaPecas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListaPecasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_CadastroCliente)
-                            .addComponent(jButtonCadastroDePeca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButtonCadastroDePeca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jButtonListaPecas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButtonListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -119,7 +131,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonListaClientes)
                     .addComponent(jButtonListaVeiculos))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonListaPecas)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,6 +174,11 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jButtonListaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListaClientesActionPerformed
         new TelaListaClientes().setVisible(true);
         this.dispose();    }//GEN-LAST:event_jButtonListaClientesActionPerformed
+
+    private void jButtonListaPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListaPecasActionPerformed
+        new TelaListaPecas().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonListaPecasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,6 +222,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCadastroDePeca;
     private javax.swing.JButton jButtonCadastroDeVeiculo;
     private javax.swing.JButton jButtonListaClientes;
+    private javax.swing.JButton jButtonListaPecas;
     private javax.swing.JButton jButtonListaVeiculos;
     // End of variables declaration//GEN-END:variables
 }

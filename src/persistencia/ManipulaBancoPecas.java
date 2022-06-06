@@ -36,7 +36,7 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
                 Float.parseFloat(dadosPeca[3]),// * valor unitario
                 Integer.parseInt(dadosPeca[4]),// * quantidade no estoque
                 Integer.parseInt(dadosPeca[6]));// * estoque minimo
-        if (dadosPeca[6].equals(String.valueOf(false))) {
+        if (dadosPeca[7].equals(String.valueOf(false))) {
             p.setCadastroAtivo(false);
         }
         return p;

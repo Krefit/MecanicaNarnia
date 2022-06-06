@@ -1,3 +1,16 @@
-9;1057;PNEU ARO 16;150.0;0;0;0;true
-10;1059;CABEÇOTE;1000.0;0;0;0;true
-11;1060;FREIO;300.0;0;0;0;true
+0;1057;PNEU ARO 16;150.00;0;0;0;false
+10;1059;CABEÇOTE;1000.00;0;0;0;true
+11;1060;FREIO;300.00;0;0;0;true
+12;1071;Tinta azul;120.00;20;0;0;true
+13;1072;Tinta Vermelha;120.00;20;0;0;false
+22;1073;Tinta verde;1200.00;20;0;0;false
+0;1057;PNEU ARO 16;1500.00;2;0;0;false
+0;1057;Pneu aro 13;150.00;2;0;0;false
+0;1057;Pneu aro 16;1500.00;2;0;0;false
+0;1057;Pneu aro 16;15000.00;7;0;0;false
+22;1073;Tinta verde;1200.00;20;0;0;false
+22;1073;Tinta verde;12000.00;20;0;0;false
+22;1073;Tinta verde;120.00;20;0;0;false
+22;1073;Tinta verde;120.00;20;0;0;true
+23;1072;Tinta Vermelha;120.00;20;0;0;true
+24;1077;Óleo de motor 20W70;125.00;25;0;0;true

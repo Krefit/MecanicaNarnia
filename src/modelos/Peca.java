@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import java.security.InvalidParameterException;
 import java.util.Objects;
 
 /**
@@ -18,8 +19,8 @@ public class Peca {
     private String codigoPeca;
     private String descricao;
     private float valorPeca;
-    private int quantidadeNoEstoque;
-    private int quantidadeReservadas;
+    private int quantidadeNoEstoque;//  * quantas peças tem no estoque, incluindo a quantidade reservada
+    private int quantidadeReservadas;// * a quantidade de peças reservadas para fazer algum serviço mas que ainda não foram usadas
     private int estoquequantidadeMinima;
     private boolean cadastroAtivo;
 
@@ -114,6 +115,49 @@ public class Peca {
         this.estoquequantidadeMinima = estoquequantidadeMinima;
     }
 
+    public void retirarDoEstoque(int quantidadeAhSerRetirada) throws Exception {
+        if (quantidadeAhSerRetirada < 0) {//   * valor negativo
+            throw new InvalidParameterException("A quantidade de peças a ser retirada do estoque não pode ser um valor negativo.");
+        }
+        if (quantidadeAhSerRetirada == 0) {//  * não fazer nada
+            return;//   * finalizando o método
+        }
+        if (quantidadeAhSerRetirada > quantidadeNoEstoque) {//   * não existem peças o suficiente no estoque
+            throw new Exception("foram reservadas apenas: " + quantidadeReservadas + " peças, informe um valor inferior ou igual a isso!");
+        }
+//  * tudo certo
+        this.quantidadeReservadas -= quantidadeAhSerRetirada;// * não está mais reservada, pois já foi utilizada
+        this.quantidadeNoEstoque -= quantidadeAhSerRetirada;//  * retirando do estoque
+    }
+
+    public void cancelarReservarPecas(int quantidadeAhSerRetiradaDaReserva) throws Exception {
+        if (quantidadeAhSerRetiradaDaReserva < 0) {//   * valor negativo
+            throw new InvalidParameterException("A quantidade de peças a ser cancelada da reserva não pode ser um valor negativo.");
+        }
+        if (quantidadeAhSerRetiradaDaReserva == 0) {//  * não fazer nada
+            return;//   * finalizando o método
+        }
+        if (quantidadeAhSerRetiradaDaReserva > quantidadeReservadas) {//   * não existem peças o suficiente reservadas
+            throw new Exception("foram reservadas apenas: " + quantidadeReservadas + " peças, informe um valor inferior ou igual a isso!");
+        }
+//  * tudo certo
+        this.quantidadeReservadas -= quantidadeAhSerRetiradaDaReserva;
+    }
+
+    public void reservarPecas(int quantidadeAhSerReservada) throws Exception {
+        if (quantidadeAhSerReservada < 0) {//   * valor negativo
+            throw new InvalidParameterException("A quantidade de peças a ser reservada não pode ser um valor negativo.");
+        }
+        if (quantidadeAhSerReservada == 0) {//  * não fazer nada
+            return;//   * finalizando o método
+        }
+        if (quantidadeAhSerReservada > quantidadeNoEstoque) {//   * faltam peças no estoque
+            throw new Exception("Estoque insuficiente! O estoque possui apenas " + quantidadeNoEstoque + " peças");
+        }
+//  * tudo certo
+        this.quantidadeReservadas += quantidadeAhSerReservada;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -138,7 +182,7 @@ public class Peca {
 
     @Override
     public String toString() {
-        return codigoPeca + ";" + descricao + ";" + String.format("%.2f", valorPeca) + ";" + quantidadeNoEstoque + ";"
+        return codigoPeca + ";" + descricao + ";" + String.format("%.2f", valorPeca).replace(",", ".") + ";" + quantidadeNoEstoque + ";"
                 + quantidadeReservadas + ";" + estoquequantidadeMinima + ";" + cadastroAtivo;
     }
 
