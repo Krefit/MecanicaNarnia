@@ -6,6 +6,7 @@ package modelos;
 
 import java.security.InvalidParameterException;
 import java.util.Objects;
+import persistencia.ManipulaBancoPecas;
 
 /**
  *
@@ -126,8 +127,10 @@ public class Peca {
             throw new Exception("foram reservadas apenas: " + quantidadeReservadas + " peças, informe um valor inferior ou igual a isso!");
         }
 //  * tudo certo
+        Peca valorAntigo = new Peca(codigoPeca, descricao, valorPeca, quantidadeNoEstoque, estoquequantidadeMinima);
         this.quantidadeReservadas -= quantidadeAhSerRetirada;// * não está mais reservada, pois já foi utilizada
         this.quantidadeNoEstoque -= quantidadeAhSerRetirada;//  * retirando do estoque
+        new ManipulaBancoPecas().editar(valorAntigo, this);
     }
 
     public void cancelarReservarPecas(int quantidadeAhSerRetiradaDaReserva) throws Exception {
@@ -141,7 +144,9 @@ public class Peca {
             throw new Exception("foram reservadas apenas: " + quantidadeReservadas + " peças, informe um valor inferior ou igual a isso!");
         }
 //  * tudo certo
+        Peca valorAntigo = new Peca(codigoPeca, descricao, valorPeca, quantidadeNoEstoque, estoquequantidadeMinima);
         this.quantidadeReservadas -= quantidadeAhSerRetiradaDaReserva;
+        new ManipulaBancoPecas().editar(valorAntigo, this);
     }
 
     public void reservarPecas(int quantidadeAhSerReservada) throws Exception {
@@ -155,7 +160,9 @@ public class Peca {
             throw new Exception("Estoque insuficiente! O estoque possui apenas " + quantidadeNoEstoque + " peças");
         }
 //  * tudo certo
+        Peca valorAntigo = new Peca(codigoPeca, descricao, valorPeca, quantidadeNoEstoque, estoquequantidadeMinima);
         this.quantidadeReservadas += quantidadeAhSerReservada;
+        new ManipulaBancoPecas().editar(valorAntigo, this);
     }
 
     @Override

@@ -128,7 +128,7 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
         ArrayList<OrdemDeServico> listaOSsCompleta = buscarTodos();//   * todas as OSs ativas no sistema
         ArrayList<OrdemDeServico> listaOrcamentos = new ArrayList<>();//    * todos os orcamentos que ainda não foram aprovados
         for (OrdemDeServico os : listaOSsCompleta) {
-            if (os.getSituacao() == OrdemDeServico.SitucaoOrdemServico.EM_ABERTO) {//   * é um orcamento
+            if (os.getSituacao() == OrdemDeServico.SituacaoOrdemServico.EM_ABERTO) {//   * é um orcamento
                 listaOrcamentos.add(os);//  * adicionar orcamento na lista
             }
         }

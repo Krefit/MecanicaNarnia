@@ -15,7 +15,7 @@ import persistencia.ManipulaBancoServicos;
  */
 public class OrdemDeServico {
 
-    public enum SitucaoOrdemServico {
+    public enum SituacaoOrdemServico {
         EM_ABERTO, EM_EXECUCAO, CONCLUIDA, CANCELADA;
     }
 
@@ -29,7 +29,7 @@ public class OrdemDeServico {
     private double valorMaoDeObra;
     private Date dataEntrada;
     private Date dataSaida = null;//só colocar depois de o serviço ser concluido
-    private SitucaoOrdemServico situacao;
+    private SituacaoOrdemServico situacao;
     private int idFuncionarioResponsavel;
     private int idPeca; //opcional
     private int quantidadePeca; //opciona
@@ -50,12 +50,17 @@ public class OrdemDeServico {
         this.dataEntrada = dataEntrada;
         this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.idVeiculo = idVeiculo;
-        situacao = SitucaoOrdemServico.EM_ABERTO;
+        situacao = SituacaoOrdemServico.EM_ABERTO;
         this.cadastroAtivo = true;
     }
 
     public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
             int idFuncionarioResponsavel, int idPeca, int quantidadePeca, double valorUnitarioDaPeca, int idVeiculo) throws Exception {
+        Peca p = new ManipulaBancoPecas().buscar(idPeca);
+        if (p == null) {
+            System.out.println(idPeca);
+            throw new Exception("A peça informada não existe no sistema!");
+        }
         this.codigo = codigo;
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
@@ -66,7 +71,8 @@ public class OrdemDeServico {
         this.quantidadePeca = quantidadePeca;
         this.idVeiculo = idVeiculo;
         this.valorUnitarioPeca = valorUnitarioDaPeca;
-        situacao = SitucaoOrdemServico.EM_ABERTO;
+        situacao = SituacaoOrdemServico.EM_ABERTO;
+        p.reservarPecas(quantidadePeca);//  * reservando peças, no estoque
         this.cadastroAtivo = true;
     }
 
@@ -162,12 +168,72 @@ public class OrdemDeServico {
         this.dataSaida = dataSaida;
     }
 
-    public SitucaoOrdemServico getSituacao() {
+    public SituacaoOrdemServico getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(SitucaoOrdemServico situacao) {//tem q fazer um monte de validacoes
-        this.situacao = situacao;
+    public void setSituacao(SituacaoOrdemServico situacao) throws Exception {
+        Peca p = new ManipulaBancoPecas().buscar(this.getIdPeca());
+        OUTER:
+        switch (this.situacao) {//  * situação em que a OS está
+            case EM_ABERTO:
+                // * orçamento 
+                if (situacao != null) {
+                    switch (situacao) {//   * para qual estado ela será mudada
+                        case EM_ABERTO:
+                            //   * transformar em orçamento
+                            throw new Exception("Já é um orçamento!");
+                        case EM_EXECUCAO:
+                            //    * tranformar em OS
+                            if (p != null) {//  * caso será usada alguma peça
+                                p.retirarDoEstoque(this.quantidadePeca);
+                            }
+                            this.situacao = SituacaoOrdemServico.EM_EXECUCAO;
+                        case CONCLUIDA:
+                            //  * concluir
+                            throw new Exception("O orçamento não foi aprovado, por isso não é possivel já ter sido concluido!");
+                        case CANCELADA:
+                            //  * cancelar
+                            if (p != null) {//  * caso tenha alguma peça reservada
+                                p.cancelarReservarPecas(quantidadePeca);
+                            }
+                            this.situacao = SituacaoOrdemServico.CANCELADA;
+                        default:
+                            break OUTER;
+                    }
+                }
+                break;
+            case EM_EXECUCAO:
+                // * orçamento aprovado
+                if (situacao != null) {
+                    switch (situacao) {//   * para qual estado ela será mudada
+                        case EM_ABERTO:
+                            //   * transformar em orçamento
+                            throw new Exception("Uma ordem de serviço não pode ser transformada em orçamento novamente!");
+                        case EM_EXECUCAO:
+                            //    * tranformar em OS
+                            throw new Exception("Esta ordem de serviço já está sendo executada");
+                        case CONCLUIDA:
+                            //  * concluir
+                            this.situacao = SituacaoOrdemServico.CONCLUIDA;
+                        case CANCELADA:
+                            //  * cancelar
+                            if (p != null) {//    * alguuma peça será usada
+                                p.cancelarReservarPecas(this.quantidadePeca);
+                            }
+                            this.situacao = SituacaoOrdemServico.CANCELADA;
+                        default:
+                            break OUTER;
+                    }
+                }
+            case CONCLUIDA:
+                // * orçamento aprovado
+                throw new Exception("Esta ordem de serviço já foi concluida!");
+            case CANCELADA:
+                throw new Exception("Este orçamento não foi aprovado!");
+            default:
+                throw new AssertionError("falha ao mudar status do Orçamento/Ordem de serviço/nota fiscal");
+        }
     }
 
     public int getQuantidadePeca() {

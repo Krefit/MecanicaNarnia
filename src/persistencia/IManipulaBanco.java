@@ -11,6 +11,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import modelos.OrdemDeServico;
+import modelos.Peca;
 
 /**
  *
@@ -107,6 +109,12 @@ public interface IManipulaBanco<T> {
             while (linha != null) {
                 T obj = parse(linha);// * parsing linha
                 if (getID(obj) == id) {//   * encontrou
+                    if (obj instanceof OrdemDeServico) {//  * caso seja uma Ordem de serviço
+                        Peca p = new ManipulaBancoPecas().buscar(((OrdemDeServico) obj).getIdPeca());// * pegadno a peça usada na OS que será excluida
+                        if (p != null) {
+                            p.cancelarReservarPecas(((OrdemDeServico) obj).getQuantidadePeca());//  * cancelando a reserva de peça, pois o serviço não sera mais executado
+                        }
+                    }
                     obj = setCadastroAtivo(obj, false);// * desativando o cadastro antes de reescrever
                 }
                 bancoCompleto.append(getID(obj)).append(";");// * salvando id do objeto
@@ -121,13 +129,15 @@ public interface IManipulaBanco<T> {
     }
 
     public default void editar(T objParaRemover, T objParaAdicionar) throws Exception {
-        remover(objParaRemover);
-        incluir(objParaAdicionar);
+        int id = getID(objParaRemover);//   * pegando o id do objeto que será excluido
+        editar(id, objParaAdicionar);// * chamando a edição por id
     }
 
     public default void editar(int idObjParaRemover, T objParaAdicionar) throws Exception {
-        remover(idObjParaRemover);
-        incluir(objParaAdicionar);
+        remover(idObjParaRemover);//    * removendo objeto antigo
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco(), true))) {
+            bw.write(idObjParaRemover + ";" + objParaAdicionar.toString() + "\n");//    * salvando novo valor no banco e mantendo o id
+        }
     }
 
 }
