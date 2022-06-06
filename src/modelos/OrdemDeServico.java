@@ -21,7 +21,9 @@ public class OrdemDeServico {
 
     private final static String nomeArquivoDisco = "ordensDeServicos.txt";
     private final static String arquivoID = "idGeradoOrdensDeServicos.txt";
+    private final static String arquivoCodigo = "codigoGeradoOrdensDeServico.txt";
 
+    private int codigo;
     private String defeitoRelatado;
     private int idServico;
     private double valorMaoDeObra;
@@ -39,8 +41,9 @@ public class OrdemDeServico {
     public OrdemDeServico() {
     }
 
-    public OrdemDeServico(String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
+    public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
             int idFuncionarioResponsavel, int idVeiculo) throws Exception {
+        this.codigo = codigo;
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
         this.valorMaoDeObra = valorMaoDeObra;
@@ -51,8 +54,9 @@ public class OrdemDeServico {
         this.cadastroAtivo = true;
     }
 
-    public OrdemDeServico(String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
+    public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
             int idFuncionarioResponsavel, int idPeca, int quantidadePeca, double valorUnitarioDaPeca, int idVeiculo) throws Exception {
+        this.codigo = codigo;
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
         this.valorMaoDeObra = valorMaoDeObra;
@@ -66,12 +70,8 @@ public class OrdemDeServico {
         this.cadastroAtivo = true;
     }
 
-    public boolean isCadastroAtivo() {
-        return cadastroAtivo;
-    }
-
-    public void setCadastroAtivo(boolean cadastroAtivo) {
-        this.cadastroAtivo = cadastroAtivo;
+    public static String getArquivoCodigo() {
+        return arquivoCodigo;
     }
 
     public static String getNomeArquivoDisco() {
@@ -80,6 +80,22 @@ public class OrdemDeServico {
 
     public static String getArquivoID() {
         return arquivoID;
+    }
+
+    public boolean isCadastroAtivo() {
+        return cadastroAtivo;
+    }
+
+    public void setCadastroAtivo(boolean cadastroAtivo) {
+        this.cadastroAtivo = cadastroAtivo;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getDefeitoRelatado() {
@@ -178,11 +194,11 @@ public class OrdemDeServico {
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (dataSaida != null) {
-            return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
+            return codigo + ";" + defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
                     + sdf.format(dataSaida) + ";" + situacao + ";" + idFuncionarioResponsavel + ";" + idPeca + ";"
                     + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo;
         } else {
-            return defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
+            return codigo + ";" + defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
                     + null + ";" + situacao + ";" + idFuncionarioResponsavel + ";" + idPeca + ";"
                     + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo;
         }

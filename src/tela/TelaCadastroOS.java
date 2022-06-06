@@ -435,12 +435,14 @@ public class TelaCadastroOS extends javax.swing.JFrame {
 
             if (!jCheckBox1.isSelected()) {
 //caso não vá usar peças
-                new ManipulaBancoOrdemServico().incluir(new OrdemDeServico(defeitoRelatado, idServico, valorMaoDeObra, dataEntrada, idFuncResponsavel, idVeiculo));
+                int codigoOS = geradorId.GeradorId.getID(OrdemDeServico.getArquivoCodigo());
+                new ManipulaBancoOrdemServico().incluir(new OrdemDeServico(codigoOS, defeitoRelatado, idServico, valorMaoDeObra, dataEntrada, idFuncResponsavel, idVeiculo));
             } else {
+                int codigoOS = geradorId.GeradorId.getID(OrdemDeServico.getArquivoCodigo());
                 int idPeca = new ManipulaBancoPecas().buscar(String.valueOf(jTablePecas.getValueAt(jTablePecas.getSelectedRow(), 0)));
                 int quantidadePecasUsadas = Integer.parseInt(jFormattedTextFieldQuantidadePecas.getText());
                 double valorUnitarioPeca = new ManipulaBancoPecas().buscar(idPeca).getValorPeca();//    * lendo o valor unitário da peça no banco de dados de peças
-                new ManipulaBancoOrdemServico().incluir(new OrdemDeServico(defeitoRelatado, idServico, valorMaoDeObra, dataEntrada,
+                new ManipulaBancoOrdemServico().incluir(new OrdemDeServico(codigoOS, defeitoRelatado, idServico, valorMaoDeObra, dataEntrada,
                         idFuncResponsavel, idPeca, quantidadePecasUsadas, valorUnitarioPeca, idVeiculo));
             }
             JOptionPane.showMessageDialog(rootPane, "Ordem de serviço cadastrada");

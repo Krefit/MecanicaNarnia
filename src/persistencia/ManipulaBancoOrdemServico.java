@@ -24,35 +24,37 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
     @Override
     public OrdemDeServico parse(String dadosCompletos) throws Exception {
         String[] dados = dadosCompletos.split(";");
-//  * id, defeito relatado, servico feito, Valor mao de obra, 
-//  * data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), situacao da OS, id do funcionario responsável, 
-//  * iD da peca usada, quantidade de pecas usadas, valor unitario da peca, id do veiculo, cadastro esta ativo
+//  * codigo, id, defeito relatado, servico feito,
+//  *  Valor mao de obra, data de criacao da OS (dd/MM/yyyy), data de finalizacao da OS(dd/MM/yyyy), 
+//  *  situacao da OS, id do funcionario responsável, iD da peca usada, quantidade de pecas usadas, 
+//  *  valor unitario da peca, id do veiculo, cadastro esta ativo
 
-        if (dados.length != 13) {
+        if (dados.length != 14) {
             System.out.println(dadosCompletos);
             System.out.println(dados.length);
             throw new Exception("Dados incompletos da ordem de serviço");
         }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date DataAbertura = sdf.parse(dados[4]);
+        Date DataAbertura = sdf.parse(dados[5]);
         Date dataFechamento = null;
-        if (!dados[5].equals("null")) {//não tentar se o valor não for uma data
-            dataFechamento = sdf.parse(dados[5]);
+        if (!dados[6].equals("null")) {//não tentar se o valor não for uma data
+            dataFechamento = sdf.parse(dados[6]);
         } else {
 //  * pass
         }
 
-        OrdemDeServico os = new OrdemDeServico(dados[1], //  * defeito relatado
-                Integer.parseInt(dados[2]), //  * id do serviço que será executado
-                Double.parseDouble(dados[3]), //  * valor da mao de obra
+        OrdemDeServico os = new OrdemDeServico(Integer.parseInt(dados[1]),//  * codigo da OS
+                dados[2], //  * defeito relatado
+                Integer.parseInt(dados[3]), //  * id do serviço que será executado
+                Double.parseDouble(dados[4]), //  * valor da mao de obra
                 DataAbertura, //  * data de abertura da OS
-                Integer.parseInt(dados[7]), //  * id do fincionario responsável
-                Integer.parseInt(dados[8]), //  * id da peça que será usada(0 caso não tenha nenhuma)
-                Integer.parseInt(dados[9]), //  * quantidade desta peça que serão usadas no veículo
-                Double.parseDouble(dados[10]), //  * valor unitário da peça
-                Integer.parseInt(dados[11])); //  * id do veiculo   
+                Integer.parseInt(dados[8]), //  * id do fincionario responsável
+                Integer.parseInt(dados[9]), //  * id da peça que será usada(0 caso não tenha nenhuma)
+                Integer.parseInt(dados[10]), //  * quantidade desta peça que serão usadas no veículo
+                Double.parseDouble(dados[11]), //  * valor unitário da peça
+                Integer.parseInt(dados[12])); //  * id do veiculo   
 
-        if (dados[12].equals(String.valueOf(false))) {//    * caso o cadastro estivesse inativo
+        if (dados[13].equals(String.valueOf(false))) {//    * caso o cadastro estivesse inativo
             os.setCadastroAtivo(false);//   * inativando o cadastro que será retornado
         }
 
@@ -99,7 +101,7 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
     public int buscar(String dado) throws Exception {
         ArrayList<OrdemDeServico> listaOSs = buscarTodos();
         for (OrdemDeServico os : listaOSs) {
-            if (os.getDefeitoRelatado().equals(dado)) {//   * encontrou
+            if (String.valueOf(os.getCodigo()).equals(dado)) {//   * encontrou
                 return getID(os);// * retornando o id
             }
         }

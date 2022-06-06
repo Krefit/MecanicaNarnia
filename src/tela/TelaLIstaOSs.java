@@ -60,37 +60,90 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                 for (OrdemDeServico os : listaOSs) {
                     Servico servico = new ManipulaBancoServicos().buscar(os.getIdServico());
                     Peca peca = new ManipulaBancoPecas().buscar(os.getIdPeca());
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    String dados[] = new String[9];
+                    String dataAbertura = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataEntrada());
+                    if (os.getDataSaida() == null) {//  * ainda não foi concluida
+                        if (peca == null) {//   * não usa nenhuma peça
+                            String dados[] = {String.valueOf(os.getCodigo()),// * código da OS
+                                servico.getNomeServico(),// * nome do serviço feito
+                                String.valueOf(servico.getValorMaoDeObra()),//  * valor da mão de obra
+                                dataAbertura,// * data de abertura da OS
+                                "em aberto",//  * data de fechamento da OS
+                                "-----",//  * código da peça usada
+                                String.valueOf("0"),//  * quantidade de peças  usadas
+                                String.valueOf("0"),//  * valor unitário da peça
+                                String.valueOf(os.calcularValorTotal())};// * valor total da OS
+
+                            table.addRow(dados);
+                        } else {//  * usa peças
+                            String dados[] = {String.valueOf(os.getCodigo()),// * código da OS
+                                servico.getNomeServico(),// * nome do serviço feito
+                                String.valueOf(servico.getValorMaoDeObra()),//  * valor da mão de obra
+                                dataAbertura,// * data de abertura da OS
+                                "em aberto",//  * data de fechamento da OS
+                                peca.getCodigoPeca(),//  * código da peça usada
+                                String.valueOf(os.getQuantidadePeca()),//  * quantidade de peças  usadas
+                                String.valueOf(peca.getValorPeca()),//  * valor unitário da peça
+                                String.valueOf(os.calcularValorTotal())};// * valor total da OS
+
+                            table.addRow(dados);
+                        }
+                    } else {//    * já foi finalizada
+                        String dataSaida = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataSaida());
+                        if (peca == null) {//   * não usa nenhuma peça
+                            String dados[] = {String.valueOf(os.getCodigo()),// * código da OS
+                                servico.getNomeServico(),// * nome do serviço feito
+                                String.valueOf(servico.getValorMaoDeObra()),//  * valor da mão de obra
+                                dataAbertura,// * data de abertura da OS
+                                dataSaida,//  * data de fechamento da OS
+                                "-----",//  * código da peça usada
+                                String.valueOf("0"),//  * quantidade de peças  usadas
+                                String.valueOf("0"),//  * valor unitário da peça
+                                String.valueOf(os.calcularValorTotal())};// * valor total da OS
+
+                            table.addRow(dados);
+                        } else {//  * usa peças
+                            String dados[] = {String.valueOf(os.getCodigo()),// * código da OS
+                                servico.getNomeServico(),// * nome do serviço feito
+                                String.valueOf(servico.getValorMaoDeObra()),//  * valor da mão de obra
+                                dataAbertura,// * data de abertura da OS
+                                dataSaida,//  * data de fechamento da OS
+                                peca.getCodigoPeca(),//  * código da peça usada
+                                String.valueOf(os.getQuantidadePeca()),//  * quantidade de peças  usadas
+                                String.valueOf(peca.getValorPeca()),//  * valor unitário da peça
+                                String.valueOf(os.calcularValorTotal())};// * valor total da OS
+
+                            table.addRow(dados);
+                        }
+                    }
 //  * nome do serviço, valor da mão de obra, data de entrada, data de saída,
 //  * código da peça usada, descrição da peça usada, quantidade de peças usada, valor unitário, valor total da nota
-
-                    dados[0] = servico.getNomeServico();
-                    dados[1] = String.format("%.2f", servico.getValorMaoDeObra());
-                    dados[2] = sdf.format(os.getDataEntrada());
-                    if (os.getDataSaida() != null) {//  * caso a ordem já tenha sido cumprida
-                        dados[3] = sdf.format(os.getDataSaida());
-
-                    } else {//  * caso a ordem não tenha sido cumprida
-                        dados[3] = "Em aberto";
-
-                    }
-                    if (peca != null) {//   * caso alguma peça tenha sido utilizada
-                        dados[4] = peca.getCodigoPeca();
-                        dados[5] = peca.getDescricao();
-                        dados[6] = "" + os.getQuantidadePeca();
-                        dados[7] = String.format("%.2f", peca.getValorPeca());
-                        dados[8] = String.format("%.2f", servico.getValorMaoDeObra() + (os.getQuantidadePeca() * peca.getValorPeca()));
-
-                    } else {//   * caso neenhuma peça tenha sido utilizada
-                        dados[4] = "0";
-                        dados[5] = "0";
-                        dados[6] = "0";
-                        dados[7] = "0";
-                        dados[8] = String.format("%.2f", servico.getValorMaoDeObra());
-
-                    }
-                    table.addRow(dados);
+//
+//                    dados[0] = servico.getNomeServico();
+//                    dados[1] = String.format("%.2f", servico.getValorMaoDeObra());
+////                    dados[2] = sdf.format(os.getDataEntrada());
+//                    if (os.getDataSaida() != null) {//  * caso a ordem já tenha sido cumprida
+//                        dados[3] = sdf.format(os.getDataSaida());
+//
+//                    } else {//  * caso a ordem não tenha sido cumprida
+//                        dados[3] = "Em aberto";
+//
+//                    }
+//                    if (peca != null) {//   * caso alguma peça tenha sido utilizada
+//                        dados[4] = peca.getCodigoPeca();
+//                        dados[5] = peca.getDescricao();
+//                        dados[6] = "" + os.getQuantidadePeca();
+//                        dados[7] = String.format("%.2f", peca.getValorPeca());
+//                        dados[8] = String.format("%.2f", servico.getValorMaoDeObra() + (os.getQuantidadePeca() * peca.getValorPeca()));
+//
+//                    } else {//   * caso neenhuma peça tenha sido utilizada
+//                        dados[4] = "0";
+//                        dados[5] = "0";
+//                        dados[6] = "0";
+//                        dados[7] = "0";
+//                        dados[8] = String.format("%.2f", servico.getValorMaoDeObra());
+//
+//                    }
+//                    table.addRow(dados);
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "nenhuma ordem de serviço encontrada!");
@@ -165,14 +218,14 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Serviço feito", "mão de obra", "Data de abertura", "Data de fechamento", "Peça usada", "Quantidade usada", "Valor unitário", "Valor Total"
+                "Código", "Serviço feito", "mão de obra", "Data de abertura", "Data de fechamento", "Peça usada", "Quantidade usada", "Valor unitário", "Valor Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

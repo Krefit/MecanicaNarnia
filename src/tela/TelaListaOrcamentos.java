@@ -32,7 +32,7 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
         initComponents();
         loadTableOrcamentoss();
     }
-    
+
     private void loadTableOrcamentoss() {
         try {
             ArrayList<OrdemDeServico> listaOrcamentos = new ManipulaBancoOrdemServico().BuscarTodosOrcamentos();
@@ -47,24 +47,26 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                 if (v != null && s != null && f != null) {//    * conseguiu buscar todos os dados sem erros
                     String[] dados = null;
                     if (p != null) {// * foi usado alguma peça
-                        String[] temp = {v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
+                        String[] temp = {String.valueOf(os.getCodigo()),
+                            v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
                             String.valueOf(s.getValorMaoDeObra()), p.getDescricao(), String.valueOf(os.getQuantidadePeca()), String.valueOf(p.getValorPeca()),
                             String.valueOf(os.calcularValorTotal())};
                         dados = temp;
                     } else {
-                        String[] temp = {v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
+                        String[] temp = {String.valueOf(os.getCodigo()),
+                            v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
                             String.valueOf(s.getValorMaoDeObra()), "0", "0", "0",
                             String.valueOf(os.calcularValorTotal())};
                         dados = temp;
                     }
-                    
+
                     table.addRow(dados);
                 } else {//  * perdeu algum dado
                     System.out.println("dado inválido da os: " + os.toString());
                     JOptionPane.showMessageDialog(rootPane, "Erro no banco de dados, contacte o suporte tecnico");
                 }
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -95,14 +97,14 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Placa do veiculo", "Servico feito", "Data de abertura", "Funcionario responsável", "Valor mão de obra", "Peça usada", "Quantidade de peças usada", "valor unitário das peças", "Valor total "
+                "Código", "Placa do veiculo", "Servico feito", "Data de abertura", "Funcionario responsável", "Valor mão de obra", "Peça usada", "Quantidade de peças usada", "valor unitário das peças", "Valor total "
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -184,21 +186,21 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
