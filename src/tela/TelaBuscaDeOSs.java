@@ -5,7 +5,6 @@
 package tela;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelos.OrdemDeServico;
@@ -26,32 +25,63 @@ public class TelaBuscaDeOSs extends javax.swing.JFrame {
      */
     public TelaBuscaDeOSs() {
         initComponents();
-        loadTableOSs(33);
+        loadTableOSs(0);
     }
 
     private void loadTableOSs(int idVeiculo) {
         try {
             DefaultTableModel table = (DefaultTableModel) jTableOss.getModel();
             table.setRowCount(0);// * zerando a tabela para não duplicar dados da tabela
-
-            ArrayList<OrdemDeServico> listaOrdensServicos = new ManipulaBancoOrdemServico().buscarTodos(33);
-            Arrays.toString(listaOrdensServicos.toArray());
-            for (OrdemDeServico os : listaOrdensServicos) {
-                Servico servicoFeito = new ManipulaBancoServicos().buscar(os.getIdServico());
-                double valorMaoDeObra = 0;
-                if (servicoFeito != null) {//validar se foi encontrado o serviço
-                    valorMaoDeObra = servicoFeito.getValorMaoDeObra();
+            if (idVeiculo != 0) {
+                ArrayList<OrdemDeServico> listaOrdensServicos = new ManipulaBancoOrdemServico().buscarTodos(idVeiculo);
+                if (listaOrdensServicos == null) {//    * caso não tenha nada para mostrar na telas
+                    return;//   * cancelar o método
                 }
-                Peca pecaUsada = new ManipulaBancoPecas().buscar(os.getIdPeca());
-                if (pecaUsada != null) {
-                    int quantidadePecaUsada = os.getQuantidadePeca();
-                    double valorPecas = pecaUsada.getValorPeca();
-                    double valorTotal = valorMaoDeObra + (valorPecas * quantidadePecaUsada);
-                    table.addRow(new Object[]{os.getDefeitoRelatado(), servicoFeito.getNomeServico(),
-                        valorMaoDeObra, pecaUsada.getDescricao(), quantidadePecaUsada, valorPecas, valorTotal});
-                } else {
-                    table.addRow(new Object[]{os.getDefeitoRelatado(), servicoFeito.getNomeServico(),
-                        valorMaoDeObra, "----", 0, 0, valorMaoDeObra});
+                for (OrdemDeServico os : listaOrdensServicos) {
+                    Servico servicoFeito = new ManipulaBancoServicos().buscar(os.getIdServico());
+                    double valorMaoDeObra = 0;
+                    if (servicoFeito == null) {//   * caso não tenha encontrado o serviço usado na OS
+                        JOptionPane.showMessageDialog(rootPane, "Falha no carregamento da tabela, uma Ordem de serviço foi encontrada sem ter um serviço conectado a ela");
+                        return;//   * cancelar o carregamento da tabela
+                    }
+                    valorMaoDeObra = servicoFeito.getValorMaoDeObra();
+                    Peca pecaUsada = new ManipulaBancoPecas().buscar(os.getIdPeca());
+                    if (pecaUsada != null) {
+                        int quantidadePecaUsada = os.getQuantidadePeca();
+                        double valorPecas = pecaUsada.getValorPeca();
+                        double valorTotal = valorMaoDeObra + (valorPecas * quantidadePecaUsada);
+                        table.addRow(new Object[]{os.getDefeitoRelatado(), servicoFeito.getNomeServico(),
+                            valorMaoDeObra, pecaUsada.getDescricao(), quantidadePecaUsada, valorPecas, valorTotal});
+                    } else {
+                        table.addRow(new Object[]{os.getDefeitoRelatado(), servicoFeito.getNomeServico(),
+                            valorMaoDeObra, "----", 0, 0, valorMaoDeObra});
+                    }
+                }
+            } else {
+                ArrayList<OrdemDeServico> listaOrdensServicos = new ManipulaBancoOrdemServico().buscarTodos();
+                if (listaOrdensServicos == null) {//    * caso não tenha nada para mostrar na telas
+                    return;//   * cancelar o método
+                }
+                for (OrdemDeServico os : listaOrdensServicos) {
+                    Servico servicoFeito = new ManipulaBancoServicos().buscar(os.getIdServico());
+                    double valorMaoDeObra = 0;
+                    if (servicoFeito == null) {//   * caso não tenha encontrado o serviço usado na OS
+                        JOptionPane.showMessageDialog(rootPane, "Falha no carregamento da tabela, uma Ordem de serviço foi encontrada sem ter um serviço conectado a ela");
+                        return;//   * cancelar o carregamento da tabela
+                    }
+                    valorMaoDeObra = servicoFeito.getValorMaoDeObra();
+
+                    Peca pecaUsada = new ManipulaBancoPecas().buscar(os.getIdPeca());
+                    if (pecaUsada != null) {
+                        int quantidadePecaUsada = os.getQuantidadePeca();
+                        double valorPecas = pecaUsada.getValorPeca();
+                        double valorTotal = valorMaoDeObra + (valorPecas * quantidadePecaUsada);
+                        table.addRow(new Object[]{os.getDefeitoRelatado(), servicoFeito.getNomeServico(),
+                            valorMaoDeObra, pecaUsada.getDescricao(), quantidadePecaUsada, valorPecas, valorTotal});
+                    } else {
+                        table.addRow(new Object[]{os.getDefeitoRelatado(), servicoFeito.getNomeServico(),
+                            valorMaoDeObra, "----", 0, 0, valorMaoDeObra});
+                    }
                 }
             }
         } catch (Exception e) {
@@ -71,6 +101,7 @@ public class TelaBuscaDeOSs extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOss = new javax.swing.JTable();
+        jButtonVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +130,13 @@ public class TelaBuscaDeOSs extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableOss);
 
+        jButtonVoltar.setText("Voltar");
+        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,17 +145,28 @@ public class TelaBuscaDeOSs extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 839, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(133, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonVoltar)
+                .addGap(143, 143, 143))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonVoltar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
+        new TelaInicial().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,6 +204,7 @@ public class TelaBuscaDeOSs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableOss;
     // End of variables declaration//GEN-END:variables
