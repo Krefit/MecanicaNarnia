@@ -124,12 +124,13 @@
         <Component class="javax.swing.JTable" name="jTableListaPecas">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="0">
+              <Table columnCount="7" rowCount="0">
                 <Column editable="false" title="C&#xf3;digo" type="java.lang.String"/>
                 <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.String"/>
                 <Column editable="false" title="Valor unit&#xe1;rio" type="java.lang.String"/>
                 <Column editable="false" title="quantidade total no estoque" type="java.lang.String"/>
                 <Column editable="false" title="quantidade reservadas" type="java.lang.String"/>
+                <Column editable="false" title="Quantidade dispon&#xed;vel" type="java.lang.String"/>
                 <Column editable="false" title="Estoque m&#xed;nimo" type="java.lang.String"/>
               </Table>
             </Property>

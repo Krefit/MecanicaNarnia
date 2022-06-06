@@ -32,7 +32,7 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
         initComponents();
         loadTableOrcamentoss();
     }
-
+    
     private void loadTableOrcamentoss() {
         try {
             ArrayList<OrdemDeServico> listaOrcamentos = new ManipulaBancoOrdemServico().BuscarTodosOrcamentos();
@@ -59,14 +59,14 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                             String.valueOf(os.calcularValorTotal())};
                         dados = temp;
                     }
-
+                    
                     table.addRow(dados);
                 } else {//  * perdeu algum dado
                     System.out.println("dado inválido da os: " + os.toString());
                     JOptionPane.showMessageDialog(rootPane, "Erro no banco de dados, contacte o suporte tecnico");
                 }
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -89,6 +89,7 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jButtonConfirmar = new javax.swing.JButton();
+        jButtonVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,13 +134,23 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
             }
         });
 
+        jButtonVoltar.setText("Voltar");
+        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jRadioButton3)
                         .addGap(33, 33, 33)
@@ -147,9 +158,10 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jRadioButton2)
                         .addGap(250, 250, 250)
-                        .addComponent(jButtonConfirmar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addComponent(jButtonConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonVoltar)
+                        .addGap(59, 59, 59))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +173,8 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3)
-                    .addComponent(jButtonConfirmar))
+                    .addComponent(jButtonConfirmar)
+                    .addComponent(jButtonVoltar))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
 
@@ -171,6 +184,11 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
 
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
+    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
+        new TelaInicial().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,21 +204,21 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -218,6 +236,7 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSituacao;
     private javax.swing.JButton jButtonConfirmar;
+    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;

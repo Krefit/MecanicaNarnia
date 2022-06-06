@@ -32,9 +32,10 @@ public class TelaListaPecas extends javax.swing.JFrame {
             for (Peca p : listaPecas) {
                 String[] dados = {String.valueOf(p.getCodigoPeca()),
                     String.valueOf(p.getDescricao()),
-                    String.valueOf(p.getValorPeca()),
+                    String.format("%.2f", p.getValorPeca()),
                     String.valueOf(p.getQuantidadeNoEstoque()),
                     String.valueOf(p.getQuantidadeReservadas()),
+                    String.valueOf(p.getQuantidadeNoEstoque() - p.getQuantidadeReservadas()),
                     String.valueOf(p.getEstoquequantidadeMinima())};
                 table.addRow(dados);
             }
@@ -79,14 +80,14 @@ public class TelaListaPecas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Valor unitário", "quantidade total no estoque", "quantidade reservadas", "Estoque mínimo"
+                "Código", "Descrição", "Valor unitário", "quantidade total no estoque", "quantidade reservadas", "Quantidade disponível", "Estoque mínimo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -277,15 +278,15 @@ public class TelaListaPecas extends javax.swing.JFrame {
 
     private void jTableListaPecasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaPecasMouseReleased
         try {
-            int indexItemSelecionado = jTableListaPecas.getSelectedRow();
+            int indexItemSelecionado = jTableListaPecas.getSelectedRow();// * peganod index do item que foi selecionado na tabela
             if (indexItemSelecionado >= 0) {//    * clique válido
-                String codigoPecaSelecionada = String.valueOf(jTableListaPecas.getValueAt(indexItemSelecionado, 0));
-                int idPeca = new ManipulaBancoPecas().buscar(codigoPecaSelecionada);
-                Peca p = new ManipulaBancoPecas().buscar(idPeca);
+                String codigoPecaSelecionada = String.valueOf(jTableListaPecas.getValueAt(indexItemSelecionado, 0));//  * pegando o código da peça, que será usado na consulta ao banco
+                int idPeca = new ManipulaBancoPecas().buscar(codigoPecaSelecionada);//  * pegando o id da peça selecionada
+                Peca p = new ManipulaBancoPecas().buscar(idPeca);// * pegando peça selecionada
 //  * pegou os dados da peça, agora preencher os campos
                 jTextFieldCodigo.setText(p.getCodigoPeca());
                 jTextFieldDescricao.setText(p.getDescricao());
-                jFormattedTextFieldValorUnitario.setText(("" + p.getValorPeca()).replace(".", ","));
+                jFormattedTextFieldValorUnitario.setText(String.format("%.2f", p.getValorPeca()));//    * formatando antes de mostrar na tela
                 jFormattedTextFieldQuantidadeEstoque.setText("" + p.getQuantidadeNoEstoque());
                 jFormattedTextFieldQuantidadeReservadas.setText("" + p.getQuantidadeReservadas());
                 jFormattedTextFieldQuantidadeEstoqueMinimo.setText("" + p.getEstoquequantidadeMinima());

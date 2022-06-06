@@ -91,6 +91,7 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableVeiculos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButtonVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +132,13 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
             }
         });
 
+        jButtonVoltar.setText("Voltar");
+        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,7 +150,9 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(220, 220, 220))
+                .addGap(131, 131, 131)
+                .addComponent(jButtonVoltar)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +160,9 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButtonVoltar))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -176,6 +188,11 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
+        new TelaInicial().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,6 +232,7 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableVeiculos;
     // End of variables declaration//GEN-END:variables

@@ -26,6 +26,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonListaVeiculos = new javax.swing.JButton();
         jButtonListaClientes = new javax.swing.JButton();
         jButtonListaPecas = new javax.swing.JButton();
+        jButtonListaOrcamentos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +86,13 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jButtonListaOrcamentos.setText("Lista orçamentos");
+        jButtonListaOrcamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListaOrcamentosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,7 +119,8 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonCadastroDeVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jButtonListaVeiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonListaVeiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonListaOrcamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(96, 96, 96))
         );
         layout.setVerticalGroup(
@@ -132,7 +141,9 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jButtonListaClientes)
                     .addComponent(jButtonListaVeiculos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonListaPecas)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonListaPecas)
+                    .addComponent(jButtonListaOrcamentos))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
 
@@ -180,6 +191,11 @@ public class TelaInicial extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonListaPecasActionPerformed
 
+    private void jButtonListaOrcamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListaOrcamentosActionPerformed
+        new TelaListaOrcamentos().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonListaOrcamentosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,6 +238,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCadastroDePeca;
     private javax.swing.JButton jButtonCadastroDeVeiculo;
     private javax.swing.JButton jButtonListaClientes;
+    private javax.swing.JButton jButtonListaOrcamentos;
     private javax.swing.JButton jButtonListaPecas;
     private javax.swing.JButton jButtonListaVeiculos;
     // End of variables declaration//GEN-END:variables

@@ -54,6 +54,7 @@
                       </Group>
                   </Group>
                   <Component id="jButtonListaVeiculos" max="32767" attributes="0"/>
+                  <Component id="jButtonListaOrcamentos" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
           </Group>
@@ -80,7 +81,10 @@
                   <Component id="jButtonListaVeiculos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButtonListaPecas" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButtonListaPecas" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonListaOrcamentos" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="108" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -149,6 +153,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonListaPecasActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonListaOrcamentos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Lista or&#xe7;amentos"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonListaOrcamentosActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
