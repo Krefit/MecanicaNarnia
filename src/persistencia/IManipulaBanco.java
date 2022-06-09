@@ -36,6 +36,16 @@ public interface IManipulaBanco<T> {
     public default void incluir(T obj) throws Exception {
         try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco(), true))) {
             int id = GeradorId.getID(getNomeArquivoID());
+            if (obj instanceof OrdemDeServico) {
+                OrdemDeServico os = (OrdemDeServico) obj;
+                int idPeca = os.getIdPeca();
+                Peca p = new ManipulaBancoPecas().buscar(idPeca);
+                if (p == null) {
+                    System.out.println(idPeca);
+                    throw new Exception("A peça informada não existe no sistema!");
+                }
+                p.reservarPecas(os.getQuantidadePeca());
+            }
             bw.write(id + ";" + obj.toString() + "\n");
         }
     }

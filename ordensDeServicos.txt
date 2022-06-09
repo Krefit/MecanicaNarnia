@@ -1,1 +1,6 @@
+17;9;Pneu traseiro esquerdo furado;4;87.50;06/06/1999;null;EM_ABERTO;5;26;1;120.00;41;false
+17;9;Pneu traseiro esquerdo furado;4;87.50;06/06/1999;null;EM_ABERTO;5;26;1;120.00;41;false
+17;9;Pneu traseiro esquerdo furado;4;87.50;06/06/1999;null;EM_ABERTO;5;26;1;120.00;41;false
 17;9;Pneu traseiro esquerdo furado;4;87.50;06/06/1999;null;EM_ABERTO;5;26;1;120.00;41;true
+18;11;;3;50.43;09/06/2022;null;EM_ABERTO;5;25;3;125.00;41;false
+18;11;;3;50.43;09/06/2022;null;CANCELADA;5;25;3;125.00;41;true

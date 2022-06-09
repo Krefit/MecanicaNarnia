@@ -72,6 +72,19 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }
+    
+    private OrdemDeServico getSelecctedItem() throws Exception {
+        int indexSelecionado = jTableOrcamentos.getSelectedRow();
+        OrdemDeServico OS = null;
+        if (indexSelecionado >= 0) {//    * clique válido
+            String codigoOS = String.valueOf(jTableOrcamentos.getValueAt(indexSelecionado, 0));//   * pegando  o código da OS
+            int idOS = new ManipulaBancoOrdemServico().buscar(codigoOS);//  *  pegando o id do objeto no banco
+            OS = new ManipulaBancoOrdemServico().buscar(idOS);//    * pegando os dados do objeto
+        } else {
+            throw new Exception("Selecione, na tabela, qual Orçamento deseja editar");
+        }
+        return OS;//    * retornando a OS, ou returnando null caso não tenha encontrado
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,9 +98,9 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
         buttonGroupSituacao = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOrcamentos = new javax.swing.JTable();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButtonEsperandoAprovacao = new javax.swing.JRadioButton();
+        jRadioButtonAprovado = new javax.swing.JRadioButton();
+        jRadioButtonCancelado = new javax.swing.JRadioButton();
         jButtonConfirmar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
 
@@ -118,14 +131,14 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableOrcamentos);
 
-        buttonGroupSituacao.add(jRadioButton1);
-        jRadioButton1.setText("Esperando aprovação");
+        buttonGroupSituacao.add(jRadioButtonEsperandoAprovacao);
+        jRadioButtonEsperandoAprovacao.setText("Esperando aprovação");
 
-        buttonGroupSituacao.add(jRadioButton2);
-        jRadioButton2.setText("Aprovado");
+        buttonGroupSituacao.add(jRadioButtonAprovado);
+        jRadioButtonAprovado.setText("Aprovado");
 
-        buttonGroupSituacao.add(jRadioButton3);
-        jRadioButton3.setText("Cancelado");
+        buttonGroupSituacao.add(jRadioButtonCancelado);
+        jRadioButtonCancelado.setText("Cancelado");
 
         jButtonConfirmar.setText("Confirmar");
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -152,11 +165,11 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1372, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton3)
+                        .addComponent(jRadioButtonCancelado)
                         .addGap(33, 33, 33)
-                        .addComponent(jRadioButton1)
+                        .addComponent(jRadioButtonEsperandoAprovacao)
                         .addGap(29, 29, 29)
-                        .addComponent(jRadioButton2)
+                        .addComponent(jRadioButtonAprovado)
                         .addGap(250, 250, 250)
                         .addComponent(jButtonConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,9 +183,9 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
+                    .addComponent(jRadioButtonEsperandoAprovacao)
+                    .addComponent(jRadioButtonAprovado)
+                    .addComponent(jRadioButtonCancelado)
                     .addComponent(jButtonConfirmar)
                     .addComponent(jButtonVoltar))
                 .addContainerGap(92, Short.MAX_VALUE))
@@ -182,7 +195,28 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-
+        try {
+            OrdemDeServico os = getSelecctedItem();
+            int id = new ManipulaBancoOrdemServico().buscar(os);
+            if (os != null) {//   * caso tenha conseguido buscar os dados
+                if (jRadioButtonCancelado.isSelected()) {
+                    os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CANCELADA);
+                } else if (jRadioButtonEsperandoAprovacao.isSelected()) {
+                    os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_ABERTO);
+                } else if (jRadioButtonAprovado.isSelected()) {
+                    os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);
+                } else {//    * nenhum botão foi selecionado
+//  * falha no sistema
+                    throw new IllegalStateException("um item foi selecionado na tabela e todos os dados foram pegos corretamente, mas a ordem de serviço não está com nenhum status válido, na OS: " + os);
+                }
+                new ManipulaBancoOrdemServico().editar(id, os);
+            } else {//  * falhou ao buscar os dados do objeto
+                System.out.println("OS não encontrada: " + os);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
@@ -237,9 +271,9 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupSituacao;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JButton jButtonVoltar;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButtonAprovado;
+    private javax.swing.JRadioButton jRadioButtonCancelado;
+    private javax.swing.JRadioButton jRadioButtonEsperandoAprovacao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableOrcamentos;
     // End of variables declaration//GEN-END:variables

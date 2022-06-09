@@ -141,7 +141,7 @@ public class Peca {
             return;//   * finalizando o método
         }
         if (quantidadeAhSerRetiradaDaReserva > quantidadeReservadas) {//   * não existem peças o suficiente reservadas
-            throw new Exception("foram reservadas apenas: " + quantidadeReservadas + " peças, informe um valor inferior ou igual a isso!");
+            throw new Exception("foram reservadas apenas: " + quantidadeReservadas + " peças, e está devolvendo: " + quantidadeAhSerRetiradaDaReserva + " ,informe um valor inferior ou igual a isso!");
         }
 //  * tudo certo
         Peca valorAntigo = new Peca(codigoPeca, descricao, valorPeca, quantidadeNoEstoque, estoquequantidadeMinima);
