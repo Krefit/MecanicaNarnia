@@ -120,9 +120,11 @@ public interface IManipulaBanco<T> {
                 T obj = parse(linha);// * parsing linha
                 if (getID(obj) == id) {//   * encontrou
                     if (obj instanceof OrdemDeServico) {//  * caso seja uma Ordem de serviço
-                        Peca p = new ManipulaBancoPecas().buscar(((OrdemDeServico) obj).getIdPeca());// * pegadno a peça usada na OS que será excluida
-                        if (p != null) {
-                            p.cancelarReservarPecas(((OrdemDeServico) obj).getQuantidadePeca());//  * cancelando a reserva de peça, pois o serviço não sera mais executado
+                        if (isCadastroAtivo(obj)) {//   * só mecher no estoque se o  cadastro estiver ativo
+                            Peca p = new ManipulaBancoPecas().buscar(((OrdemDeServico) obj).getIdPeca());// * pegadno a peça usada na OS que será excluida
+                            if (p != null && ((OrdemDeServico) obj).getSituacao() == OrdemDeServico.SituacaoOrdemServico.EM_ABERTO) {// * apenas orcamentos tem peças reservadas
+                                p.cancelarReservarPecas(((OrdemDeServico) obj).getQuantidadePeca());//  * cancelando a reserva de peça, pois o serviço não sera mais executado
+                            }
                         }
                     }
                     obj = setCadastroAtivo(obj, false);// * desativando o cadastro antes de reescrever

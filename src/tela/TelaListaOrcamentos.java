@@ -32,7 +32,7 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
         initComponents();
         loadTableOrcamentoss();
     }
-    
+
     private void loadTableOrcamentoss() {
         try {
             ArrayList<OrdemDeServico> listaOrcamentos = new ManipulaBancoOrdemServico().BuscarTodosOrcamentos();
@@ -59,20 +59,20 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                             String.valueOf(os.calcularValorTotal())};
                         dados = temp;
                     }
-                    
+
                     table.addRow(dados);
                 } else {//  * perdeu algum dado
                     System.out.println("dado inválido da os: " + os.toString());
                     JOptionPane.showMessageDialog(rootPane, "Erro no banco de dados, contacte o suporte tecnico");
                 }
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }
-    
+
     private OrdemDeServico getSelecctedItem() throws Exception {
         int indexSelecionado = jTableOrcamentos.getSelectedRow();
         OrdemDeServico OS = null;
@@ -205,6 +205,8 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                     os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_ABERTO);
                 } else if (jRadioButtonAprovado.isSelected()) {
                     os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);
+                    Peca p = new ManipulaBancoPecas().buscar(os.getIdPeca());// * pegando a peça que será usada no serviço
+                    p.retirarDoEstoque(os.getQuantidadePeca());//   * retirando do estoque a quantidade de peças correspondente
                 } else {//    * nenhum botão foi selecionado
 //  * falha no sistema
                     throw new IllegalStateException("um item foi selecionado na tabela e todos os dados foram pegos corretamente, mas a ordem de serviço não está com nenhum status válido, na OS: " + os);
@@ -238,21 +240,21 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
