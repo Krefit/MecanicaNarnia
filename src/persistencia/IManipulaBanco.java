@@ -34,14 +34,23 @@ public interface IManipulaBanco<T> {
     public T parse(String dados) throws Exception;
 
     public default void incluir(T obj) throws Exception {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco(), true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco(), true))) {
             int id = GeradorId.getID(getNomeArquivoID());
+            if (obj instanceof OrdemDeServico) {
+                OrdemDeServico os = (OrdemDeServico) obj;
+                int idPeca = os.getIdPeca();
+                Peca p = new ManipulaBancoPecas().buscar(idPeca);
+                if (p != null) {
+                    p.reservarPecas(os.getQuantidadePeca());
+                }
+            }
+
             bw.write(id + ";" + obj.toString() + "\n");
         }
     }
 
     public default int buscar(T obj) throws Exception {
-        try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 T objAtual = parse(linha);// * parsing linha
@@ -62,7 +71,7 @@ public interface IManipulaBanco<T> {
         if (id == 0) {
             return null;
         }
-        try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 T obj = parse(linha);// * parsing linha
@@ -79,7 +88,7 @@ public interface IManipulaBanco<T> {
 
     public default ArrayList<T> buscarTodos() throws Exception {
         ArrayList<T> listaCompleta = new ArrayList<>();
-        try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 T obj = parse(linha);// * parsing linha
@@ -104,17 +113,11 @@ public interface IManipulaBanco<T> {
 
     public default void remover(int id) throws Exception {
         StringBuilder bancoCompleto = new StringBuilder();//   * vai armazenar todos os dados do banco, para serem reescritos
-        try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
             String linha = br.readLine();
             while (linha != null) {
                 T obj = parse(linha);// * parsing linha
                 if (getID(obj) == id) {//   * encontrou
-                    if (obj instanceof OrdemDeServico) {//  * caso seja uma Ordem de serviço
-                        Peca p = new ManipulaBancoPecas().buscar(((OrdemDeServico) obj).getIdPeca());// * pegadno a peça usada na OS que será excluida
-                        if (p != null) {
-                            p.cancelarReservarPecas(((OrdemDeServico) obj).getQuantidadePeca());//  * cancelando a reserva de peça, pois o serviço não sera mais executado
-                        }
-                    }
                     obj = setCadastroAtivo(obj, false);// * desativando o cadastro antes de reescrever
                 }
                 bancoCompleto.append(getID(obj)).append(";");// * salvando id do objeto
@@ -122,7 +125,7 @@ public interface IManipulaBanco<T> {
                 linha = br.readLine();
             }
 //  * leu todos os dados do banco
-            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco()))) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco()))) {
                 bw.write(bancoCompleto.toString());//   * reescreveu todo o banco
             }
         }
@@ -135,7 +138,7 @@ public interface IManipulaBanco<T> {
 
     public default void editar(int idObjParaRemover, T objParaAdicionar) throws Exception {
         remover(idObjParaRemover);//    * removendo objeto antigo
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco(), true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco(), true))) {
             bw.write(idObjParaRemover + ";" + objParaAdicionar.toString() + "\n");//    * salvando novo valor no banco e mantendo o id
         }
     }

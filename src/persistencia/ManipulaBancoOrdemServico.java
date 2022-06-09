@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import modelos.OrdemDeServico;
+import modelos.Peca;
 import modelos.Veiculo;
 
 /**
@@ -54,6 +55,14 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
                 Double.parseDouble(dados[11]), //  * valor unitário da peça
                 Integer.parseInt(dados[12])); //  * id do veiculo   
 
+        if (dados[7].equals(String.valueOf(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO))) {//   * trocando o status da OS
+            os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);
+        } else if (dados[7].equals(String.valueOf(OrdemDeServico.SituacaoOrdemServico.CANCELADA))) {
+            os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CANCELADA);
+        } else if (dados[7].equals(String.valueOf(OrdemDeServico.SituacaoOrdemServico.CONCLUIDA))) {
+            os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);
+            os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CONCLUIDA);
+        }
         if (dados[13].equals(String.valueOf(false))) {//    * caso o cadastro estivesse inativo
             os.setCadastroAtivo(false);//   * inativando o cadastro que será retornado
         }
@@ -138,4 +147,54 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
             return listaOrcamentos;//   *  retornando lista com todos os orcamentos
         }
     }
+
+    @Override
+    public void remover(int id) throws Exception {
+        StringBuilder bancoCompleto = new StringBuilder();//   * vai armazenar todos os dados do banco, para serem reescritos
+        try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                OrdemDeServico os = parse(linha);// * parsing linha
+                if (getID(os) == id) {//   * encontrou
+                    Peca p = new ManipulaBancoPecas().buscar(os.getIdPeca());
+                    if (p != null) {//  * caso a OS use alguma peça
+                        p.cancelarReservarPecas(id);//  * cancelando a reserva da peça, pois a OS foi cancelada
+                    }
+                    os = setCadastroAtivo(os, false);// * desativando o cadastro antes de reescrever
+                }
+                bancoCompleto.append(getID(os)).append(";");// * salvando id do objeto
+                bancoCompleto.append(os).append("\n");//   * salvando dados para serem reescritos
+                linha = br.readLine();
+            }
+//  * leu todos os dados do banco
+            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco()))) {
+                bw.write(bancoCompleto.toString());//   * reescreveu todo o banco
+            }
+        }
+    }
+
+    @Override
+    public void editar(int idObjParaRemover, OrdemDeServico objParaAdicionar) throws Exception {
+        StringBuilder bancoCompleto = new StringBuilder();//   * vai armazenar todos os dados do banco, para serem reescritos
+        try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                OrdemDeServico os = parse(linha);// * parsing linha
+                if (getID(os) == idObjParaRemover) {//   * encontrou
+                    os = setCadastroAtivo(os, false);// * desativando o cadastro antes de reescrever
+                }
+                bancoCompleto.append(getID(os)).append(";");// * salvando id do objeto
+                bancoCompleto.append(os).append("\n");//   * salvando dados para serem reescritos
+                linha = br.readLine();
+            }
+//  * leu todos os dados do banco
+            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco()))) {
+                bw.write(bancoCompleto.toString());//   * reescreveu todo o banco
+            }
+        }
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco(), true))) {
+            bw.write(idObjParaRemover + ";" + objParaAdicionar.toString() + "\n");//    * salvando novo valor no banco e mantendo o id
+        }
+    }
+
 }
