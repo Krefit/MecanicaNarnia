@@ -21,9 +21,10 @@ public class TelaListaPecas extends javax.swing.JFrame {
      */
     public TelaListaPecas() {
         initComponents();
+        jFormattedTextFieldQuantidadeReservadas.setEditable(false);
         LoadTableListaPecas();
     }
-
+    
     private void LoadTableListaPecas() {
         try {
             DefaultTableModel table = (DefaultTableModel) jTableListaPecas.getModel();
@@ -250,14 +251,14 @@ public class TelaListaPecas extends javax.swing.JFrame {
             String descricaoPeca = jTextFieldDescricao.getText();
             float valorUnitario = Float.parseFloat(jFormattedTextFieldValorUnitario.getText().replace(".", "").replace(",", "."));
             Peca p = new Peca(codigoPeca, descricaoPeca, valorUnitario);
-
+            
             int quantidadeNoEstoque = Integer.parseInt(jFormattedTextFieldQuantidadeEstoque.getText());
             int quantidadeReservadas = Integer.parseInt(jFormattedTextFieldQuantidadeReservadas.getText());
             int quantidadeMinimaNoEstoque = Integer.parseInt(jFormattedTextFieldQuantidadeEstoqueMinimo.getText());
             p.setEstoquequantidadeMinima(quantidadeMinimaNoEstoque);
             p.setQuantidadeNoEstoque(quantidadeNoEstoque);
             p.setQuantidadeReservadas(quantidadeReservadas);
-
+            
             new ManipulaBancoPecas().incluir(p);//  * incluindo no banco de dados
 
             LoadTableListaPecas();
@@ -311,12 +312,12 @@ public class TelaListaPecas extends javax.swing.JFrame {
                 String codigoPecaSelecionada = String.valueOf(jTableListaPecas.getValueAt(indexItemSelecionado, 0));
                 int idPeca = new ManipulaBancoPecas().buscar(codigoPecaSelecionada);
                 Peca p = new ManipulaBancoPecas().buscar(idPeca);
-
+                
                 String codigo = jTextFieldCodigo.getText();
                 String descricao = jTextFieldDescricao.getText();
                 String valor = jFormattedTextFieldValorUnitario.getText().replace(".", "").replace(",", ".");
                 float valorUnitario = Float.parseFloat(jFormattedTextFieldValorUnitario.getText().replace(".", "").replace(",", "."));
-
+                
                 int quantidadeNoEstoque = Integer.parseInt(jFormattedTextFieldQuantidadeEstoque.getText());
                 int quantidadeReservadas = Integer.parseInt(jFormattedTextFieldQuantidadeReservadas.getText());
                 int quantidadeMinimaNoEstoque = Integer.parseInt(jFormattedTextFieldQuantidadeEstoqueMinimo.getText());
@@ -342,7 +343,7 @@ public class TelaListaPecas extends javax.swing.JFrame {
                 String codigoPecaSelecionada = String.valueOf(jTableListaPecas.getValueAt(indexItemSelecionado, 0));
                 int idPeca = new ManipulaBancoPecas().buscar(codigoPecaSelecionada);
                 Peca p = new ManipulaBancoPecas().buscar(idPeca);
-
+                
                 new ManipulaBancoPecas().remover(p);
                 LoadTableListaPecas();
             } else {
