@@ -14,7 +14,9 @@ import persistencia.ManipulaBancoVeiculo;
 import enumerations.EstadosBrazil;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import modelos.PessoaJuridica;
 import modelos.auxiliares.Endereco;
+import persistencia.ManipulaBancoPessoaJuridica;
 
 /**
  *
@@ -74,8 +76,8 @@ public class TelaListaClientes extends javax.swing.JFrame {
         jTableClientes = new javax.swing.JTable();
         jButtonEditar = new javax.swing.JButton();
         jButtonRemover = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        tField_nome = new javax.swing.JTextField();
+        jLabelNome_NomeFantasia = new javax.swing.JLabel();
+        tField_razaoSocial = new javax.swing.JTextField();
         jLabel_CPF_CNPJ = new javax.swing.JLabel();
         tField_cpf_cnpj = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -108,8 +110,10 @@ public class TelaListaClientes extends javax.swing.JFrame {
         jRadioButton_PessoaJuridica = new javax.swing.JRadioButton();
         jButtonAdicionar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
+        tField_nome = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,12 +145,15 @@ public class TelaListaClientes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableClientes);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 798, 275));
+
         jButtonEditar.setText("Editar");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 521, 149, 50));
 
         jButtonRemover.setText("Remover");
         jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
@@ -154,46 +161,89 @@ public class TelaListaClientes extends javax.swing.JFrame {
                 jButtonRemoverActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonRemover, new org.netbeans.lib.awtextra.AbsoluteConstraints(476, 521, 178, 50));
 
-        jLabel1.setText("Nome: ");
+        jLabelNome_NomeFantasia.setText("Nome: ");
+        getContentPane().add(jLabelNome_NomeFantasia, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 319, -1, 20));
+        getContentPane().add(tField_razaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 280, -1));
 
         jLabel_CPF_CNPJ.setText("CPF: ");
+        getContentPane().add(jLabel_CPF_CNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 319, -1, 20));
+        getContentPane().add(tField_cpf_cnpj, new org.netbeans.lib.awtextra.AbsoluteConstraints(584, 319, 150, -1));
 
         jLabel3.setText("Celular:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 348, -1, 20));
+        getContentPane().add(tField_telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 348, 150, -1));
 
         jLabel4.setText("Tipo Logradouro:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(256, 441, -1, 20));
+        getContentPane().add(tField_TipoLogradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 446, 106, -1));
 
         jLabel5.setText("Email:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(501, 377, -1, -1));
+        getContentPane().add(tField_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 377, 195, -1));
+        getContentPane().add(tField_DataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 145, -1));
 
         jLabel_DtNasc_RazSoc.setText("Data de Nascimento:");
+        getContentPane().add(jLabel_DtNasc_RazSoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 377, -1, -1));
 
         jLabel7.setText("Logradouro");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 441, -1, 32));
+        getContentPane().add(tField_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 446, 210, -1));
+        getContentPane().add(tField_Numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 470, 60, -1));
 
         jLabel8.setText("Nº:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 470, 18, -1));
 
         jLabel9.setText("Complemento:");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 489, -1, -1));
+        getContentPane().add(tField_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 486, 480, -1));
 
         jLabel10.setText("Bairro:");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 438, 36, -1));
 
         jLabel11.setText("Cidade:");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 406, -1, -1));
+        getContentPane().add(tField_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 435, 150, -1));
+        getContentPane().add(tField_Cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 406, 195, -1));
 
         jLabel12.setText("Estado:");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 406, 51, -1));
 
         cb_Estado.setAutoscrolls(true);
         cb_Estado.setPreferredSize(new java.awt.Dimension(7, 22));
+        getContentPane().add(cb_Estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 406, 147, -1));
 
         jLabel13.setText("CEP:");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 406, -1, -1));
+        getContentPane().add(tField_CEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 406, 110, -1));
 
         jLabel14.setText("Residencial:");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 348, -1, 20));
+        getContentPane().add(tField_telefone1, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 348, 193, -1));
 
         jLabel15.setText("Comercial:");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(504, 348, -1, 20));
+        getContentPane().add(tField_telefone2, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 348, 150, -1));
 
         buttonGroupTipoPessoa.add(jRadioButton_PessoaFisica);
         jRadioButton_PessoaFisica.setSelected(true);
         jRadioButton_PessoaFisica.setText("Pessoa Fisica");
+        jRadioButton_PessoaFisica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton_PessoaFisicaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jRadioButton_PessoaFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 291, -1, -1));
 
         buttonGroupTipoPessoa.add(jRadioButton_PessoaJuridica);
         jRadioButton_PessoaJuridica.setText("Pessoa Juridica");
+        jRadioButton_PessoaJuridica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton_PessoaJuridicaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jRadioButton_PessoaJuridica, new org.netbeans.lib.awtextra.AbsoluteConstraints(399, 291, -1, -1));
 
         jButtonAdicionar.setText("Adicionar");
         jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -201,6 +251,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
                 jButtonAdicionarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 521, 238, 50));
 
         jButtonVoltar.setText("Voltar");
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -208,176 +259,8 @@ public class TelaListaClientes extends javax.swing.JFrame {
                 jButtonVoltarActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(18, 18, 18)
-                                .addComponent(tField_CEP, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel11)
-                                .addGap(25, 25, 25)
-                                .addComponent(tField_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel_DtNasc_RazSoc)
-                                .addGap(4, 4, 4)
-                                .addComponent(tField_DataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5)
-                                .addGap(25, 25, 25)
-                                .addComponent(tField_email, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(69, 69, 69))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jRadioButton_PessoaFisica)
-                                .addGap(127, 127, 127)
-                                .addComponent(jRadioButton_PessoaJuridica)
-                                .addGap(318, 318, 318))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(tField_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tField_Complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(140, 140, 140))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(481, 481, 481)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tField_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(21, 21, 21)
-                                        .addComponent(tField_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tField_telefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel15)
-                                        .addGap(4, 4, 4)
-                                        .addComponent(tField_telefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(tField_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(jLabel4)
-                                        .addGap(8, 8, 8)
-                                        .addComponent(tField_TipoLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(22, 22, 22)
-                                        .addComponent(tField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(32, 32, 32)
-                                        .addComponent(jLabel_CPF_CNPJ)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(tField_cpf_cnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(12, 12, 12))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton_PessoaFisica)
-                    .addComponent(jRadioButton_PessoaJuridica))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tField_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_CPF_CNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tField_cpf_cnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tField_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tField_telefone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tField_telefone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(tField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_DtNasc_RazSoc)
-                    .addComponent(tField_DataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel11)
-                            .addComponent(tField_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tField_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(tField_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(tField_TipoLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tField_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tField_Complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)))))
-                    .addComponent(tField_CEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
-        );
+        getContentPane().add(jButtonVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(672, 521, 138, 50));
+        getContentPane().add(tField_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 320, 420, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -388,7 +271,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
             if (indexTabela < 0) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual cliente deseja editar");
             } else {
-
+                System.out.println("funcionou");
                 excluirPessoaFisica();
                 adicionarPessoaFisica();
                 loadTableClientes();
@@ -424,22 +307,21 @@ public class TelaListaClientes extends javax.swing.JFrame {
 
     private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
         try {
-
             int indexSelecionado = jTableClientes.getSelectedRow();
             if (indexSelecionado >= 0) {//   * o clique foi válido
                 String cpfClienteEscolhido = String.valueOf(jTableClientes.getValueAt(indexSelecionado, 1));
-                PessoaFisica pessoaEscolhida = new ManipulaBancoPessoaFisica().buscar(new ManipulaBancoPessoaFisica().buscar(cpfClienteEscolhido));
+                PessoaFisica pessoaFisica = new ManipulaBancoPessoaFisica().buscar(new ManipulaBancoPessoaFisica().buscar(cpfClienteEscolhido));
 
-                if (pessoaEscolhida != null) {
-                    tField_nome.setText(pessoaEscolhida.getNome());
-                    tField_email.setText(pessoaEscolhida.getEmail());
-                    tField_telefone.setText(pessoaEscolhida.getTelefone()[0]);
-                    tField_telefone1.setText(pessoaEscolhida.getTelefone()[1]);
-                    tField_telefone2.setText(pessoaEscolhida.getTelefone()[2]);
-                    tField_DataNascimento.setText(new SimpleDateFormat("dd/MM/yyyy").format(pessoaEscolhida.getDataNascimento()));
-                    tField_cpf_cnpj.setText(pessoaEscolhida.getCpf());
+                if (pessoaFisica != null) {//   * é uma pessoa fisica
+                    tField_nome.setText(pessoaFisica.getNome());
+                    tField_email.setText(pessoaFisica.getEmail());
+                    tField_telefone.setText(pessoaFisica.getTelefone()[0]);
+                    tField_telefone1.setText(pessoaFisica.getTelefone()[1]);
+                    tField_telefone2.setText(pessoaFisica.getTelefone()[2]);
+                    tField_DataNascimento.setText(new SimpleDateFormat("dd/MM/yyyy").format(pessoaFisica.getDataNascimento()));
+                    tField_cpf_cnpj.setText(pessoaFisica.getCpf());
 
-                    Endereco e = pessoaEscolhida.getEndereco();
+                    Endereco e = pessoaFisica.getEndereco();
                     tField_Bairro.setText(e.getBairro());
                     tField_CEP.setText(e.getCEP());
                     tField_Cidade.setText(e.getCidade());
@@ -448,6 +330,9 @@ public class TelaListaClientes extends javax.swing.JFrame {
                     tField_Numero.setText(e.getNumero());
                     tField_TipoLogradouro.setText(e.getTipoLogradouro());
                     cb_Estado.setSelectedItem(e.getEstado());
+
+                    jRadioButton_PessoaFisicaActionPerformed(null);
+                } else {//    * é uma pessoa jurídica
 
                 }
             }
@@ -458,13 +343,74 @@ public class TelaListaClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableClientesMouseClicked
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        new TelaCadastroCliente().setVisible(true);
+//        new TelaCadastroCliente().setVisible(true);
+        try {
+            String nome = tField_nome.getText();
+            /*
+            private String complemento;
+            private String bairro;
+            private String cidade;
+            private EstadosBrazil estado;
+            private String CEP;*/
+            String[] telefone = new String[3];
+            telefone[0] = tField_telefone.getText();
+            telefone[1] = tField_telefone.getText();
+            telefone[2] = tField_telefone.getText();
+            String tipoLogradouro = tField_TipoLogradouro.getText();
+            String logradoro = tField_Logradouro.getText();
+            String numero = tField_Numero.getText();
+            String complemento = tField_Complemento.getText();
+            String bairro = tField_Bairro.getText();
+            String cidade = tField_Cidade.getText();
+            String estado = cb_Estado.getSelectedItem().toString();
+            String CEP = tField_CEP.getText();
+            String email = tField_email.getText();
+            EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class, estado);
+
+            Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
+            if (jRadioButton_PessoaFisica.isSelected()) {
+                String cpf = tField_cpf_cnpj.getText();
+                String auxDataNascimento = tField_DataNascimento.getText();
+                String[] vetDataNascimento = auxDataNascimento.split("/");
+                Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2]) - 1900, Integer.parseInt(vetDataNascimento[1]) - 1, Integer.parseInt(vetDataNascimento[0]));
+
+                PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, email, endereco, telefone[0], telefone[1], telefone[2]);
+                new ManipulaBancoPessoaFisica().incluir(clPF);
+            } else if (jRadioButton_PessoaJuridica.isSelected()) {
+                String cnpj = tField_cpf_cnpj.getText();
+                String razaoSocial = tField_nome.getText();
+
+                PessoaJuridica clPJ = new PessoaJuridica(cnpj, razaoSocial, nome, email, endereco, telefone[0], telefone[1], telefone[2]);
+                new ManipulaBancoPessoaJuridica().incluir(clPJ);
+                //String razaoSocial = t
+            }
+            JOptionPane.showMessageDialog(rootPane, "Cliente cadastrado com sucesso!");
+            loadTableClientes();
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+        }
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         new TelaInicial().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
+
+    private void jRadioButton_PessoaJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PessoaJuridicaActionPerformed
+        jLabel_DtNasc_RazSoc.setText("Razão Social:");
+        jLabel_CPF_CNPJ.setText("CNPJ:");
+        tField_DataNascimento.setVisible(false);
+        tField_razaoSocial.setVisible(true);
+        jLabelNome_NomeFantasia.setText("Nome Fantasia:");
+    }//GEN-LAST:event_jRadioButton_PessoaJuridicaActionPerformed
+
+    private void jRadioButton_PessoaFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PessoaFisicaActionPerformed
+        jLabel_DtNasc_RazSoc.setText("Data Nascimento:");
+        jLabel_CPF_CNPJ.setText("CPF:");
+        tField_DataNascimento.setVisible(true);
+        tField_razaoSocial.setVisible(false);
+        jLabelNome_NomeFantasia.setText("Nome:");
+    }//GEN-LAST:event_jRadioButton_PessoaFisicaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -508,7 +454,6 @@ public class TelaListaClientes extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonVoltar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -521,6 +466,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelNome_NomeFantasia;
     private javax.swing.JLabel jLabel_CPF_CNPJ;
     private javax.swing.JLabel jLabel_DtNasc_RazSoc;
     private javax.swing.JRadioButton jRadioButton_PessoaFisica;
@@ -538,6 +484,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
     private javax.swing.JTextField tField_cpf_cnpj;
     private javax.swing.JTextField tField_email;
     private javax.swing.JTextField tField_nome;
+    private javax.swing.JTextField tField_razaoSocial;
     private javax.swing.JTextField tField_telefone;
     private javax.swing.JTextField tField_telefone1;
     private javax.swing.JTextField tField_telefone2;

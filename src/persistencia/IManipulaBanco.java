@@ -34,6 +34,14 @@ public interface IManipulaBanco<T> {
     public T parse(String dados) throws Exception;
 
     public default void incluir(T obj) throws Exception {
+        ArrayList<T> listaCompleta = buscarTodos();//   * pegando todos os dados ativos do banco
+        if (listaCompleta != null && !listaCompleta.isEmpty()) {//  * tem algo na lista
+            for (T objAtual : listaCompleta) {//    * percorrendo toda a lista
+                if (((T) obj).equals(((T) objAtual))) {//   * já existe um dado igual no banco
+                    throw new Exception("Já existe um cadastro ativo disso!");
+                }
+            }
+        }
         try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco(), true))) {
             int id = GeradorId.getID(getNomeArquivoID());
             bw.write(id + ";" + obj.toString() + "\n");
