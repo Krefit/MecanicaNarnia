@@ -1,3 +1,0 @@
-5;Severino;031.497.940-99;23/07/1997;[(62) 98888-8888, (62) 98888-8888, (62) 98888-8888];email@email.com;Rua,Rua 7,23,,Centro,Goiânia,GO,123341;true;Pintor;1099.00;35.00;1216
-0;josé das couves;982.353.010-67;23/07/2000;[(41) 98888-8888, (41) 98888-8888, (41) 98888-8888];josedascouves@gmail.com;avenida,avenida das verduras,99,em frente a rua das cenouras,horta,couvelândia,AC,1231;false;mecânico de motores;4800.00;250.00;310
-8;maria das couves;194.650.500-59;01/03/2001;[(11) 98111-1111, (11) 98111-1111, (11) 98111-1111];maria@email.com;Rua,rua das verduras,23,,jardim das couves,couvelândia,AC,1231;true;atendente;2300.00;0.00;111

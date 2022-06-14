@@ -1,3 +1,0 @@
-2;mobi;26;true
-3;Palio;27;true
-7;Civic;28;true
