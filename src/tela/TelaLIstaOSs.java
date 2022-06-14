@@ -36,11 +36,8 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
 
     private void loadTableOSs() {
         try {
-            if (this.idVeiculo == 0) {
-                loadTableOSsTodos();
-            } else {
-                loadTableOSsEspecifica();
-            }
+
+            loadTableOSsEspecifica();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -49,7 +46,9 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
 
     private void loadTableOSsEspecifica() throws Exception {
 
-        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel table = (DefaultTableModel) jTableOSs.getModel();
+        table.setRowCount(0);
+
         ArrayList<OrdemDeServico> listaOSs = null;
         if (idVeiculo == 0) {// * mostrar todas as OSs do banco
             loadTableOSsTodos();
@@ -154,7 +153,9 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
     }
 
     private void loadTableOSsTodos() throws Exception {
-        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+
+        DefaultTableModel table = (DefaultTableModel) jTableOSs.getModel();
+        table.setRowCount(0);
 
         ArrayList<OrdemDeServico> listaOSs = new ManipulaBancoOrdemServico().buscarTodos();
 
@@ -163,34 +164,35 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                 Servico servico = new ManipulaBancoServicos().buscar(os.getIdServico());
                 Peca peca = new ManipulaBancoPecas().buscar(os.getIdPeca());
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                String dados[] = new String[10];
+                String dados[] = new String[12];
 //  * nome do serviço, valor da mão de obra, data de entrada, data de saída,
 //  * código da peça usada, descrição da peça usada, quantidade de peças usada, valor unitário, valor total da nota
 
-                dados[0] = servico.getNomeServico();
+                dados[0] = "" + os.getCodigo();
                 dados[1] = "" + os.getSituacao();
-                dados[2] = String.format("%.2f", servico.getValorMaoDeObra());
-                dados[3] = sdf.format(os.getDataEntrada());
+                dados[2] = servico.getNomeServico();
+                dados[3] = String.format("%.2f", servico.getValorMaoDeObra());
+                dados[4] = sdf.format(os.getDataEntrada());
                 if (os.getDataSaida() != null) {//  * caso a ordem já tenha sido cumprida
-                    dados[4] = sdf.format(os.getDataSaida());
+                    dados[5] = sdf.format(os.getDataSaida());
 
                 } else {//  * caso a ordem não tenha sido cumprida
-                    dados[4] = "Em aberto";
+                    dados[5] = "Em aberto";
 
                 }
                 if (peca != null) {//   * caso alguma peça tenha sido utilizada
-                    dados[5] = peca.getCodigoPeca();
-                    dados[6] = peca.getDescricao();
-                    dados[7] = "" + os.getQuantidadePeca();
-                    dados[8] = String.format("%.2f", peca.getValorPeca());
-                    dados[9] = String.format("%.2f", servico.getValorMaoDeObra() + (os.getQuantidadePeca() * peca.getValorPeca()));
+                    dados[6] = peca.getCodigoPeca();
+                    dados[7] = peca.getDescricao();
+                    dados[8] = "" + os.getQuantidadePeca();
+                    dados[9] = String.format("%.2f", peca.getValorPeca());
+                    dados[10] = String.format("%.2f", servico.getValorMaoDeObra() + (os.getQuantidadePeca() * peca.getValorPeca()));
 
                 } else {//   * caso neenhuma peça tenha sido utilizada
-                    dados[5] = "0";
                     dados[6] = "0";
                     dados[7] = "0";
                     dados[8] = "0";
-                    dados[9] = String.format("%.2f", servico.getValorMaoDeObra());
+                    dados[9] = "0";
+                    dados[10] = String.format("%.2f", servico.getValorMaoDeObra());
 
                 }
                 table.addRow(dados);
@@ -209,13 +211,18 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupStatus = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableOSs = new javax.swing.JTable();
         jButtonVoltar = new javax.swing.JButton();
+        jRadioButtonExecutando = new javax.swing.JRadioButton();
+        jRadioButtonFinalizada = new javax.swing.JRadioButton();
+        jRadioButtonCancelado = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableOSs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -238,12 +245,33 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jTableOSs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableOSsMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableOSs);
 
         jButtonVoltar.setText("Voltar");
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVoltarActionPerformed(evt);
+            }
+        });
+
+        buttonGroupStatus.add(jRadioButtonExecutando);
+        jRadioButtonExecutando.setText("Executando");
+
+        buttonGroupStatus.add(jRadioButtonFinalizada);
+        jRadioButtonFinalizada.setText("Finalizada");
+
+        buttonGroupStatus.add(jRadioButtonCancelado);
+        jRadioButtonCancelado.setText("Cancelado");
+
+        jButton1.setText("Confirmar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -255,8 +283,15 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButtonCancelado)
+                        .addGap(33, 33, 33)
+                        .addComponent(jRadioButtonExecutando)
+                        .addGap(29, 29, 29)
+                        .addComponent(jRadioButtonFinalizada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonVoltar)))
                 .addContainerGap())
         );
@@ -264,10 +299,20 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonVoltar)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonVoltar)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButtonExecutando)
+                            .addComponent(jRadioButtonFinalizada)
+                            .addComponent(jRadioButtonCancelado)
+                            .addComponent(jButton1))
+                        .addContainerGap(31, Short.MAX_VALUE))))
         );
 
         pack();
@@ -277,6 +322,60 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
         new TelaInicial().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            int indexSelecionado = jTableOSs.getSelectedRow();
+            if (indexSelecionado < 0) {/// * não clicou na tabela
+                JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela, qual orçammento deseja alterar");
+            } else {//  * clique válido
+                ManipulaBancoOrdemServico mb = new ManipulaBancoOrdemServico();
+                int idOS = mb.buscar("" + jTableOSs.getValueAt(indexSelecionado, 0));
+                OrdemDeServico os = mb.buscar(idOS);
+                if (jRadioButtonExecutando.isSelected()) {
+                    os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);
+                } else if (jRadioButtonCancelado.isSelected()) {
+                    os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CANCELADA);
+                } else {//  * finalizou a OS
+                    os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CONCLUIDA);
+                }
+                mb.editar(mb.getID(os), os);//  * editando o banco de dados
+                loadTableOSs();//   * recarregando a tabela
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTableOSsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableOSsMouseClicked
+        try {
+            int indexSelecionado = jTableOSs.getSelectedRow();
+            if (indexSelecionado < 0) {/// * não clicou na tabela
+                JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela, qual orçammento deseja alterar");
+            } else {//  * clique válido
+                ManipulaBancoOrdemServico mb = new ManipulaBancoOrdemServico();
+                int idOS = mb.buscar("" + jTableOSs.getValueAt(indexSelecionado, 0));
+                OrdemDeServico os = mb.buscar(idOS);
+                switch (os.getSituacao()) {
+                    case CANCELADA:
+                        jRadioButtonCancelado.setSelected(true);
+                        break;
+                    case CONCLUIDA:
+                        jRadioButtonFinalizada.setSelected(true);
+                        break;
+                    case EM_EXECUCAO:
+                        jRadioButtonExecutando.setSelected(true);
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jTableOSsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -327,8 +426,13 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupStatus;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonVoltar;
+    private javax.swing.JRadioButton jRadioButtonCancelado;
+    private javax.swing.JRadioButton jRadioButtonExecutando;
+    private javax.swing.JRadioButton jRadioButtonFinalizada;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableOSs;
     // End of variables declaration//GEN-END:variables
 }

@@ -105,6 +105,26 @@ public interface IManipulaBanco<T> {
         }
     }
 
+    public default ArrayList<T> buscarTodosRemovidos() throws Exception {
+        ArrayList<T> listaCompleta = new ArrayList<>();
+        try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                T obj = parse(linha);// * parsing linha
+                if (!isCadastroAtivo(obj)) {// * adicionar apenas cadastros ativos
+                    listaCompleta.add(obj);
+                }
+                linha = br.readLine();
+            }
+        }
+
+        if (listaCompleta.isEmpty()) {//    * caso não tenha nenhum cadastro ativo
+            return null;
+        } else {
+            return listaCompleta;
+        }
+    }
+
     public default void remover(T obj) throws Exception {
         int id = buscar(obj);// * pegando o id do objeto
         remover(id);//  * usando a exclusão por id

@@ -142,7 +142,7 @@ public class Peca {
             return;//   * finalizando o método
         }
         if (quantidadeAhSerRetiradaDaReserva > quantidadeReservadas) {//   * não existem peças o suficiente reservadas
-            throw new Exception("Tentando retirar: " + quantidadeAhSerRetiradaDaReserva
+            throw new InvalidParameterException("Tentando retirar: " + quantidadeAhSerRetiradaDaReserva
                     + ", mas foram reservadas apenas: " + quantidadeReservadas
                     + " peças, informe um valor inferior ou igual a isso!");
         }
