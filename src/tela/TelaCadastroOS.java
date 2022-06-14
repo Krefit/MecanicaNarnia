@@ -425,6 +425,9 @@ public class TelaCadastroOS extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
+            if (jFormattedTextFieldQuantidadePecas.getText().equals("")) {
+                throw new Exception("informe a quantidade de peças que serão usadas");
+            }
             String defeitoRelatado = jTextAreaDefeitoRelatado.getText();
             int idServico = new ManipulaBancoServicos().buscar(String.valueOf(jTableServicos.getValueAt(jTableServicos.getSelectedRow(), 0)));
             Date dataEntrada = new SimpleDateFormat("dd/MM/yyyy").parse(jFormattedTextFieldDataEntrada.getText());

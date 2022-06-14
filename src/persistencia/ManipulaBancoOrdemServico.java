@@ -60,6 +60,7 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
         } else if (dados[7].equals(String.valueOf(OrdemDeServico.SituacaoOrdemServico.CANCELADA))) {
             os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CANCELADA);
         } else if (dados[7].equals(String.valueOf(OrdemDeServico.SituacaoOrdemServico.CONCLUIDA))) {
+            System.out.println("achou");
             os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);
             os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CONCLUIDA);
         }
@@ -149,6 +150,15 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
     }
 
     @Override
+    public void incluir(OrdemDeServico obj) throws Exception {
+        Peca p = new ManipulaBancoPecas().buscar(obj.getIdPeca());
+        if (p != null) {//  * caso estejaa usando alguma peça
+            p.reservarPecas(obj.getQuantidadePeca());// * reservando peça do estoque
+        }
+        IManipulaBanco.super.incluir(obj); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
     public void remover(int id) throws Exception {
         StringBuilder bancoCompleto = new StringBuilder();//   * vai armazenar todos os dados do banco, para serem reescritos
         try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
@@ -193,6 +203,14 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
             }
         }
         try ( BufferedWriter bw = new BufferedWriter(new FileWriter(getNomeDoArquivoNoDisco(), true))) {
+            Peca p = new ManipulaBancoPecas().buscar(objParaAdicionar.getIdPeca());
+            if (p != null) {//  * caso tenha alguma peça
+                if (objParaAdicionar.getSituacao().equals(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO)) {//    * caso esteja criando uma noova OS em execução
+                    p.retirarDoEstoque(objParaAdicionar.getQuantidadePeca());//  * retirnando peças do estoque
+                } else if (objParaAdicionar.getSituacao().equals(OrdemDeServico.SituacaoOrdemServico.CANCELADA)) {//    * caso esteja cancelando uma ordem de serviço existente
+                    p.cancelarReservarPecas(objParaAdicionar.getQuantidadePeca());//    * tirando peça  reservada, pois a OS foi cancelada
+                }
+            }
             bw.write(idObjParaRemover + ";" + objParaAdicionar.toString() + "\n");//    * salvando novo valor no banco e mantendo o id
         }
     }

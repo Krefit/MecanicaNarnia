@@ -56,11 +56,6 @@ public class OrdemDeServico {
 
     public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
             int idFuncionarioResponsavel, int idPeca, int quantidadePeca, double valorUnitarioDaPeca, int idVeiculo) throws Exception {
-        Peca p = new ManipulaBancoPecas().buscar(idPeca);
-        if (p == null) {
-            System.out.println(idPeca);
-            throw new Exception("A peça informada não existe no sistema!");
-        }
         this.codigo = codigo;
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
@@ -72,7 +67,6 @@ public class OrdemDeServico {
         this.idVeiculo = idVeiculo;
         this.valorUnitarioPeca = valorUnitarioDaPeca;
         situacao = SituacaoOrdemServico.EM_ABERTO;
-        p.reservarPecas(quantidadePeca);//  * reservando peças, no estoque
         this.cadastroAtivo = true;
     }
 
@@ -173,7 +167,6 @@ public class OrdemDeServico {
     }
 
     public void setSituacao(SituacaoOrdemServico situacao) throws Exception {
-        Peca p = new ManipulaBancoPecas().buscar(this.getIdPeca());
         OUTER:
         switch (this.situacao) {//  * situação em que a OS está
             case EM_ABERTO:
@@ -185,19 +178,15 @@ public class OrdemDeServico {
                             throw new Exception("Já é um orçamento!");
                         case EM_EXECUCAO:
                             //    * tranformar em OS
-                            if (p != null) {//  * caso será usada alguma peça
-                                p.retirarDoEstoque(this.quantidadePeca);
-                            }
                             this.situacao = SituacaoOrdemServico.EM_EXECUCAO;
+                            break;
                         case CONCLUIDA:
                             //  * concluir
                             throw new Exception("O orçamento não foi aprovado, por isso não é possivel já ter sido concluido!");
                         case CANCELADA:
                             //  * cancelar
-                            if (p != null) {//  * caso tenha alguma peça reservada
-                                p.cancelarReservarPecas(quantidadePeca);
-                            }
                             this.situacao = SituacaoOrdemServico.CANCELADA;
+                            break OUTER;
                         default:
                             break OUTER;
                     }
@@ -216,12 +205,11 @@ public class OrdemDeServico {
                         case CONCLUIDA:
                             //  * concluir
                             this.situacao = SituacaoOrdemServico.CONCLUIDA;
+                            break OUTER;
                         case CANCELADA:
                             //  * cancelar
-                            if (p != null) {//    * alguuma peça será usada
-                                p.cancelarReservarPecas(this.quantidadePeca);
-                            }
                             this.situacao = SituacaoOrdemServico.CANCELADA;
+                            break OUTER;
                         default:
                             break OUTER;
                     }
@@ -254,6 +242,28 @@ public class OrdemDeServico {
 
     public double calcularValorTotal() {
         return this.valorMaoDeObra + (this.quantidadePeca * this.valorUnitarioPeca);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.codigo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OrdemDeServico other = (OrdemDeServico) obj;
+        return this.codigo == other.codigo;
     }
 
     @Override

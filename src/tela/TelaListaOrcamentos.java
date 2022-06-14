@@ -31,42 +31,45 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
     public TelaListaOrcamentos() {
         initComponents();
         loadTableOrcamentoss();
+        jRadioButtonEmAberto.setSelected(true);
     }
-    
+
     private void loadTableOrcamentoss() {
         try {
             ArrayList<OrdemDeServico> listaOrcamentos = new ManipulaBancoOrdemServico().BuscarTodosOrcamentos();
             DefaultTableModel table = (DefaultTableModel) jTableOrcamentos.getModel();
             table.setRowCount(0);
-            for (OrdemDeServico os : listaOrcamentos) {
-                Veiculo v = new ManipulaBancoVeiculo().buscar(os.getIdVeiculo());
-                Servico s = new ManipulaBancoServicos().buscar(os.getIdServico());
-                String dataAbertura = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataEntrada());
-                Funcionario f = new ManipulaBancoFuncionario().buscar(os.getIdFuncionarioResponsavel());
-                Peca p = new ManipulaBancoPecas().buscar(os.getIdPeca());
-                if (v != null && s != null && f != null) {//    * conseguiu buscar todos os dados sem erros
-                    String[] dados = null;
-                    if (p != null) {// * foi usado alguma peça
-                        String[] temp = {String.valueOf(os.getCodigo()),
-                            v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
-                            String.valueOf(s.getValorMaoDeObra()), p.getDescricao(), String.valueOf(os.getQuantidadePeca()), String.valueOf(p.getValorPeca()),
-                            String.valueOf(os.calcularValorTotal())};
-                        dados = temp;
-                    } else {
-                        String[] temp = {String.valueOf(os.getCodigo()),
-                            v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
-                            String.valueOf(s.getValorMaoDeObra()), "0", "0", "0",
-                            String.valueOf(os.calcularValorTotal())};
-                        dados = temp;
+            if (listaOrcamentos != null) {//    * não tentar caso a tabela não contenha nenhum dado
+                for (OrdemDeServico os : listaOrcamentos) {
+                    Veiculo v = new ManipulaBancoVeiculo().buscar(os.getIdVeiculo());
+                    Servico s = new ManipulaBancoServicos().buscar(os.getIdServico());
+                    String dataAbertura = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataEntrada());
+                    Funcionario f = new ManipulaBancoFuncionario().buscar(os.getIdFuncionarioResponsavel());
+                    Peca p = new ManipulaBancoPecas().buscar(os.getIdPeca());
+                    if (v != null && s != null && f != null) {//    * conseguiu buscar todos os dados sem erros
+                        String[] dados = null;
+                        if (p != null) {// * foi usado alguma peça
+                            String[] temp = {String.valueOf(os.getCodigo()),
+                                v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
+                                String.valueOf(s.getValorMaoDeObra()), p.getDescricao(), String.valueOf(os.getQuantidadePeca()), String.valueOf(p.getValorPeca()),
+                                String.valueOf(os.calcularValorTotal())};
+                            dados = temp;
+                        } else {
+                            String[] temp = {String.valueOf(os.getCodigo()),
+                                v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
+                                String.valueOf(s.getValorMaoDeObra()), "0", "0", "0",
+                                String.valueOf(os.calcularValorTotal())};
+                            dados = temp;
+                        }
+
+                        table.addRow(dados);
+                    } else {//  * perdeu algum dado
+                        System.out.println("dado inválido da os: " + os.toString());
+                        JOptionPane.showMessageDialog(rootPane, "Erro no banco de dados, contacte o suporte tecnico");
                     }
-                    
-                    table.addRow(dados);
-                } else {//  * perdeu algum dado
-                    System.out.println("dado inválido da os: " + os.toString());
-                    JOptionPane.showMessageDialog(rootPane, "Erro no banco de dados, contacte o suporte tecnico");
                 }
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -85,9 +88,9 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
         buttonGroupSituacao = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOrcamentos = new javax.swing.JTable();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButtonEmAberto = new javax.swing.JRadioButton();
+        jRadioButtonAprovado = new javax.swing.JRadioButton();
+        jRadioButtonCancelado = new javax.swing.JRadioButton();
         jButtonConfirmar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
 
@@ -118,14 +121,14 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableOrcamentos);
 
-        buttonGroupSituacao.add(jRadioButton1);
-        jRadioButton1.setText("Esperando aprovação");
+        buttonGroupSituacao.add(jRadioButtonEmAberto);
+        jRadioButtonEmAberto.setText("Esperando aprovação");
 
-        buttonGroupSituacao.add(jRadioButton2);
-        jRadioButton2.setText("Aprovado");
+        buttonGroupSituacao.add(jRadioButtonAprovado);
+        jRadioButtonAprovado.setText("Aprovado");
 
-        buttonGroupSituacao.add(jRadioButton3);
-        jRadioButton3.setText("Cancelado");
+        buttonGroupSituacao.add(jRadioButtonCancelado);
+        jRadioButtonCancelado.setText("Cancelado");
 
         jButtonConfirmar.setText("Confirmar");
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -152,11 +155,11 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1372, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton3)
+                        .addComponent(jRadioButtonCancelado)
                         .addGap(33, 33, 33)
-                        .addComponent(jRadioButton1)
+                        .addComponent(jRadioButtonEmAberto)
                         .addGap(29, 29, 29)
-                        .addComponent(jRadioButton2)
+                        .addComponent(jRadioButtonAprovado)
                         .addGap(250, 250, 250)
                         .addComponent(jButtonConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,9 +173,9 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
+                    .addComponent(jRadioButtonEmAberto)
+                    .addComponent(jRadioButtonAprovado)
+                    .addComponent(jRadioButtonCancelado)
                     .addComponent(jButtonConfirmar)
                     .addComponent(jButtonVoltar))
                 .addContainerGap(92, Short.MAX_VALUE))
@@ -182,7 +185,28 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-
+        try {
+            int indexSelecionado = jTableOrcamentos.getSelectedRow();
+            if (indexSelecionado < 0) {/// * não clicou na tabela
+                JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela, qual orçammento deseja alterar");
+            } else {//  * clique válido
+                ManipulaBancoOrdemServico mb = new ManipulaBancoOrdemServico();
+                int idOS = mb.buscar("" + jTableOrcamentos.getValueAt(indexSelecionado, 0));
+                OrdemDeServico os = mb.buscar(idOS);
+                if (jRadioButtonEmAberto.isSelected()) {
+                    os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_ABERTO);
+                } else if (jRadioButtonCancelado.isSelected()) {
+                    os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CANCELADA);
+                } else {
+                    os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);
+                }
+                mb.editar(mb.getID(os), os);//  * editando o banco de dados
+                loadTableOrcamentoss();//   * recarregando a tabela
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
@@ -204,21 +228,21 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaListaOrcamentos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -237,9 +261,9 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupSituacao;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JButton jButtonVoltar;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButtonAprovado;
+    private javax.swing.JRadioButton jRadioButtonCancelado;
+    private javax.swing.JRadioButton jRadioButtonEmAberto;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableOrcamentos;
     // End of variables declaration//GEN-END:variables

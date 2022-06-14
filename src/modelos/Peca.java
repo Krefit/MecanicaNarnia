@@ -124,7 +124,8 @@ public class Peca {
             return;//   * finalizando o método
         }
         if (quantidadeAhSerRetirada > quantidadeNoEstoque) {//   * não existem peças o suficiente no estoque
-            throw new Exception("foram reservadas apenas: " + quantidadeReservadas + " peças, informe um valor inferior ou igual a isso!");
+            System.out.println("tentando retirar: " + quantidadeAhSerRetirada);
+            throw new Exception("O estoque possui apenas: " + quantidadeNoEstoque + " peças, informe um valor inferior ou igual a isso!");
         }
 //  * tudo certo
         Peca valorAntigo = new Peca(codigoPeca, descricao, valorPeca, quantidadeNoEstoque, estoquequantidadeMinima);
@@ -141,7 +142,9 @@ public class Peca {
             return;//   * finalizando o método
         }
         if (quantidadeAhSerRetiradaDaReserva > quantidadeReservadas) {//   * não existem peças o suficiente reservadas
-            throw new Exception("foram reservadas apenas: " + quantidadeReservadas + " peças, informe um valor inferior ou igual a isso!");
+            throw new Exception("Tentando retirar: " + quantidadeAhSerRetiradaDaReserva
+                    + ", mas foram reservadas apenas: " + quantidadeReservadas
+                    + " peças, informe um valor inferior ou igual a isso!");
         }
 //  * tudo certo
         Peca valorAntigo = new Peca(codigoPeca, descricao, valorPeca, quantidadeNoEstoque, estoquequantidadeMinima);
@@ -156,7 +159,7 @@ public class Peca {
         if (quantidadeAhSerReservada == 0) {//  * não fazer nada
             return;//   * finalizando o método
         }
-        if (quantidadeAhSerReservada > quantidadeNoEstoque) {//   * faltam peças no estoque
+        if (quantidadeAhSerReservada > (quantidadeNoEstoque - quantidadeReservadas)) {//   * faltam peças no estoque
             throw new Exception("Estoque insuficiente! O estoque possui apenas " + quantidadeNoEstoque + " peças");
         }
 //  * tudo certo
