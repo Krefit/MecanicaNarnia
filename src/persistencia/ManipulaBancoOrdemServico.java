@@ -31,7 +31,7 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
 //  *  situacao da OS, id do funcionario responsável, iD da peca usada, quantidade de pecas usadas, 
 //  *  valor unitario da peca, id do veiculo, cadastro esta ativo
 
-        if (dados.length != 14) {
+        if (dados.length != 15) {
             System.out.println(dadosCompletos);
             System.out.println(dados.length);
             throw new Exception("Dados incompletos da ordem de serviço");
@@ -54,7 +54,8 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
                 Integer.parseInt(dados[9]), //  * id da peça que será usada(0 caso não tenha nenhuma)
                 Integer.parseInt(dados[10]), //  * quantidade desta peça que serão usadas no veículo
                 Double.parseDouble(dados[11]), //  * valor unitário da peça
-                Integer.parseInt(dados[12])); //  * id do veiculo   
+                Integer.parseInt(dados[12]), //  * id do veiculo   
+                Double.parseDouble(dados[14]));//   * porcentagem de desconto
 
         if (dados[7].equals(String.valueOf(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO))) {//   * trocando o status da OS
             os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);

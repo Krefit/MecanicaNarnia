@@ -35,6 +35,7 @@ public class OrdemDeServico {
     private int quantidadePeca; //opciona
     private double valorUnitarioPeca;//apenas se usar peca
     private int idVeiculo;
+    private double porcentagemDesconto;
 
     private boolean cadastroAtivo;//    * não foi excluido
 
@@ -42,7 +43,7 @@ public class OrdemDeServico {
     }
 
     public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
-            int idFuncionarioResponsavel, int idVeiculo) throws Exception {
+            int idFuncionarioResponsavel, int idVeiculo, double porcentagemDesconto) throws Exception {
         this.codigo = codigo;
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
@@ -52,10 +53,11 @@ public class OrdemDeServico {
         this.idVeiculo = idVeiculo;
         situacao = SituacaoOrdemServico.EM_ABERTO;
         this.cadastroAtivo = true;
+        this.porcentagemDesconto = porcentagemDesconto;
     }
 
     public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
-            int idFuncionarioResponsavel, int idPeca, int quantidadePeca, double valorUnitarioDaPeca, int idVeiculo) throws Exception {
+            int idFuncionarioResponsavel, int idPeca, int quantidadePeca, double valorUnitarioDaPeca, int idVeiculo, double porcentagemDesconto) throws Exception {
         this.codigo = codigo;
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
@@ -68,6 +70,7 @@ public class OrdemDeServico {
         this.valorUnitarioPeca = valorUnitarioDaPeca;
         situacao = SituacaoOrdemServico.EM_ABERTO;
         this.cadastroAtivo = true;
+        this.porcentagemDesconto = porcentagemDesconto;
     }
 
     public static String getArquivoCodigo() {
@@ -80,6 +83,14 @@ public class OrdemDeServico {
 
     public static String getArquivoID() {
         return arquivoID;
+    }
+
+    public double getPorcentagemDesconto() {
+        return porcentagemDesconto;
+    }
+
+    public void setPorcentagemDesconto(double porcentagemDesconto) {
+        this.porcentagemDesconto = porcentagemDesconto;
     }
 
     public boolean isCadastroAtivo() {
@@ -241,7 +252,7 @@ public class OrdemDeServico {
     }
 
     public double calcularValorTotal() {
-        return this.valorMaoDeObra + (this.quantidadePeca * this.valorUnitarioPeca);
+        return (this.valorMaoDeObra + (this.quantidadePeca * this.valorUnitarioPeca)) * (1 + (porcentagemDesconto / 100.0));
     }
 
     @Override
@@ -272,11 +283,11 @@ public class OrdemDeServico {
         if (dataSaida != null) {
             return codigo + ";" + defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
                     + sdf.format(dataSaida) + ";" + situacao + ";" + idFuncionarioResponsavel + ";" + idPeca + ";"
-                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo;
+                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo + porcentagemDesconto;
         } else {
             return codigo + ";" + defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
                     + null + ";" + situacao + ";" + idFuncionarioResponsavel + ";" + idPeca + ";"
-                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo;
+                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo + porcentagemDesconto;
         }
     }
 }
