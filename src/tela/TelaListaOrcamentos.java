@@ -51,14 +51,23 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
                         if (p != null) {// * foi usado alguma peça
                             String[] temp = {String.valueOf(os.getCodigo()),
                                 v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
-                                String.valueOf(s.getValorMaoDeObra()), p.getDescricao(), String.valueOf(os.getQuantidadePeca()), String.valueOf(p.getValorPeca()),
-                                String.valueOf(os.calcularValorTotal())};
+                                String.valueOf(s.getValorMaoDeObra()),
+                                p.getDescricao(),
+                                String.valueOf(os.getQuantidadePeca()),
+                                String.valueOf(p.getValorPeca()),
+                                String.valueOf(os.getPorcentagemDesconto()),// * valor total da OS, sem desconto
+                                String.valueOf(os.calcularValorTotalSemDesconto()),// * valor total da OS, sem desconto
+                                String.valueOf(os.calcularValorTotalComDesconto())};// * valor total da OS, com desconto
+
                             dados = temp;
                         } else {
                             String[] temp = {String.valueOf(os.getCodigo()),
                                 v.getPlaca(), s.getNomeServico(), dataAbertura, f.getNome(),
                                 String.valueOf(s.getValorMaoDeObra()), "0", "0", "0",
-                                String.valueOf(os.calcularValorTotal())};
+                                String.valueOf(os.getPorcentagemDesconto()),// * valor total da OS, sem desconto
+                                String.valueOf(os.calcularValorTotalSemDesconto()),// * valor total da OS, sem desconto
+                                String.valueOf(os.calcularValorTotalComDesconto())};// * valor total da OS, com desconto
+
                             dados = temp;
                         }
 
@@ -101,14 +110,14 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Placa do veiculo", "Servico feito", "Data de abertura", "Funcionario responsável", "Valor mão de obra", "Peça usada", "Quantidade de peças usada", "valor unitário das peças", "Valor total "
+                "Código", "Placa do veiculo", "Servico feito", "Data de abertura", "Funcionario responsável", "Valor mão de obra", "Peça usada", "Quantidade de peças usada", "valor unitário das peças", "porcentagem de desconto", "Valor total sem desconto", "valor total com desconto"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

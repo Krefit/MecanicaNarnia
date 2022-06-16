@@ -251,8 +251,12 @@ public class OrdemDeServico {
         this.valorUnitarioPeca = valorUnitarioPeca;
     }
 
-    public double calcularValorTotal() {
-        return (this.valorMaoDeObra + (this.quantidadePeca * this.valorUnitarioPeca)) * (1 + (porcentagemDesconto / 100.0));
+    public double calcularValorTotalSemDesconto() {
+        return this.valorMaoDeObra + (this.quantidadePeca * this.valorUnitarioPeca);
+    }
+
+    public double calcularValorTotalComDesconto() {
+        return calcularValorTotalSemDesconto() * (1 + (porcentagemDesconto / 100.0));
     }
 
     @Override

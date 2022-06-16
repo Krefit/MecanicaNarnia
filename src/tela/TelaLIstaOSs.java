@@ -70,7 +70,8 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                                 "-----",//  * código da peça usada
                                 String.valueOf("0"),//  * quantidade de peças  usadas
                                 String.valueOf("0"),//  * valor unitário da peça
-                                String.valueOf(os.calcularValorTotal())};// * valor total da OS
+                                String.valueOf(os.calcularValorTotalSemDesconto()),// * valor total da OS, sem desconto
+                                String.valueOf(os.calcularValorTotalComDesconto())};// * valor total da OS, com desconto
 
                             table.addRow(dados);
                         } else {//  * usa peças
@@ -82,7 +83,8 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                                 peca.getCodigoPeca(),//  * código da peça usada
                                 String.valueOf(os.getQuantidadePeca()),//  * quantidade de peças  usadas
                                 String.valueOf(peca.getValorPeca()),//  * valor unitário da peça
-                                String.valueOf(os.calcularValorTotal())};// * valor total da OS
+                                String.valueOf(os.calcularValorTotalSemDesconto()),// * valor total da OS, sem desconto
+                                String.valueOf(os.calcularValorTotalComDesconto())};// * valor total da OS, com desconto
 
                             table.addRow(dados);
                         }
@@ -97,7 +99,8 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                                 "-----",//  * código da peça usada
                                 String.valueOf("0"),//  * quantidade de peças  usadas
                                 String.valueOf("0"),//  * valor unitário da peça
-                                String.valueOf(os.calcularValorTotal())};// * valor total da OS
+                                String.valueOf(os.calcularValorTotalSemDesconto()),// * valor total da OS, sem desconto
+                                String.valueOf(os.calcularValorTotalComDesconto())};// * valor total da OS, com desconto
 
                             table.addRow(dados);
                         } else {//  * usa peças
@@ -109,7 +112,8 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                                 peca.getCodigoPeca(),//  * código da peça usada
                                 String.valueOf(os.getQuantidadePeca()),//  * quantidade de peças  usadas
                                 String.valueOf(peca.getValorPeca()),//  * valor unitário da peça
-                                String.valueOf(os.calcularValorTotal())};// * valor total da OS
+                                String.valueOf(os.calcularValorTotalSemDesconto()),// * valor total da OS, sem desconto
+                                String.valueOf(os.calcularValorTotalComDesconto())};// * valor total da OS, com desconto
 
                             table.addRow(dados);
                         }
@@ -227,14 +231,14 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Status", "Serviço feito", "mão de obra", "Data de abertura", "Data de fechamento", "Peça usada", "Quantidade usada", "Valor unitário", "Valor Total"
+                "Código", "Status", "Serviço feito", "mão de obra", "Data de abertura", "Data de fechamento", "Peça usada", "Quantidade usada", "Valor unitário", "Valor sem desconto", "Valor com desconto"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
