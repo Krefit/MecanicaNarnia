@@ -94,9 +94,11 @@ public class TelaLogin extends javax.swing.JFrame {
         if(jTextFieldTxtUsuario.getText().equals("admin") && PasswordTyped.equals("1234")){
             JOptionPane.showMessageDialog(null, "BEM-VINDO AO SISTEMA");
             
-            TelaPrincipal newTelaPrincipal = new TelaPrincipal();
-            newTelaPrincipal.setVisible(true);
+            //call new window
+            TelaSplash newTelaSplash = new TelaSplash();
+            newTelaSplash.setVisible(true);
             this.dispose();
+
         }else{
             JOptionPane.showMessageDialog(null, "LOGIN OU SENHA INCORRETOS");
         }

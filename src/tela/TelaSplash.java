@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tela;
 import static java.lang.Thread.sleep;
 
-/**
- *
- * @author witorsather
- */
 public class TelaSplash extends javax.swing.JFrame {
 
     /**
@@ -67,27 +59,27 @@ public class TelaSplash extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        new Thread(){
+        new Thread() {
             int i = 0;
-            
-            public void run(){
-                while(i < 100){
+
+            public void run() {
+                while (i < 100) {
                     i++;
-                        //mostra no label
-                        jLabelCarrega.setText(String.valueOf(i) + "%");
-                        
-                        try{
-                            sleep(0100);
-                        } catch(Exception e){
-                        }
-                        
+                    //mostra no label
+                    jLabelCarrega.setText(String.valueOf(i) + "%");
+
+                    try {
+                        sleep(0100);
+                    } catch (Exception e) {
+                    }
 
                 }
-                        //para esconder o formulário
-                        TelaSplash.this.dispose();
-                        
-                        //para chamar outro formulário
-                        new TelaInicial().setVisible(true);
+                //para esconder o formulário
+                TelaSplash.this.dispose();
+
+                //para chamar outro formulário
+                TelaPrincipal newTelaPrincipal = new TelaPrincipal();
+                newTelaPrincipal.setVisible(true);
             }
         }.start(); //vai iniciar a Thread
     }//GEN-LAST:event_formWindowOpened
