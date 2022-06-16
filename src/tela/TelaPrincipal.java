@@ -5,6 +5,12 @@
  */
 package tela;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.beans.PropertyVetoException;
+import javax.swing.JOptionPane;
+import persistencia.ManipulaBancoPessoaFisica;
+
 /**
  *
  * @author witorsather
@@ -16,7 +22,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
+        pegarResolucao();
     }
+    
+    private void pegarResolucao() {
+        Toolkit t = Toolkit.getDefaultToolkit();
+        Dimension dimensao = t.getScreenSize();
+        this.setSize((dimensao.width + 5), (dimensao.height - 38));
+
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,8 +48,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemInserir = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -50,11 +66,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPanePrincipal.setLayout(jDesktopPanePrincipalLayout);
         jDesktopPanePrincipalLayout.setHorizontalGroup(
             jDesktopPanePrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 789, Short.MAX_VALUE)
+            .addGap(0, 929, Short.MAX_VALUE)
         );
         jDesktopPanePrincipalLayout.setVerticalGroup(
             jDesktopPanePrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 524, Short.MAX_VALUE)
+            .addGap(0, 394, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -71,9 +87,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Clientes");
 
-        jMenuItem2.setText("Alterar");
-        jMenu2.add(jMenuItem2);
-
         jMenuItemInserir.setText("Inserir");
         jMenuItemInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +94,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItemInserir);
+
+        jMenuItem2.setText("Alterar");
+        jMenu2.add(jMenuItem2);
 
         jMenuItem4.setText("Deletar");
         jMenu2.add(jMenuItem4);
@@ -115,15 +131,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItemInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInserirActionPerformed
         // TODO add your handling code here:
-        TelaCadastroDeClientes newCadastroDeClientes = new TelaCadastroDeClientes();
-        jDesktopPanePrincipal.add(newCadastroDeClientes);
-        newCadastroDeClientes.setVisible(true);
+        /*TelaListaCliente newTelaListaCliente = new TelaListaCliente();
+        jDesktopPanePrincipal.add(newTelaListaCliente);
+        newTelaListaCliente.setVisible(true);*/
 
+        TelaListaCliente mostrarInicio = new TelaListaCliente();
+        jDesktopPanePrincipal.add(mostrarInicio);
+        mostrarInicio.show();
+        try {
+            mostrarInicio.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+        }
     }//GEN-LAST:event_jMenuItemInserirActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
+        int confirmação = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja sair?");
+        //  * 0 se for sim, 1 se for não, 2 se for cancelar
+
+        if (confirmação == 0) {//   * quer sair
+            System.exit(0);
+        }     
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

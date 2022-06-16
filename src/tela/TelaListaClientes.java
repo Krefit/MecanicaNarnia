@@ -30,7 +30,8 @@ public class TelaListaClientes extends javax.swing.JFrame {
     public TelaListaClientes() {
         initComponents();
         loadComboBox();
-        loadTableClientes();
+        //loadTableClientes();
+        //setLocationRelativeTo(null);
     }
 
     private void loadComboBox() {
@@ -145,7 +146,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableClientes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 798, 275));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 880, 60));
 
         jButtonEditar.setText("Editar");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -234,7 +235,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
                 jRadioButton_PessoaFisicaActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton_PessoaFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 291, -1, -1));
+        getContentPane().add(jRadioButton_PessoaFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 291, 110, -1));
 
         buttonGroupTipoPessoa.add(jRadioButton_PessoaJuridica);
         jRadioButton_PessoaJuridica.setText("Pessoa Juridica");
@@ -243,7 +244,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
                 jRadioButton_PessoaJuridicaActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton_PessoaJuridica, new org.netbeans.lib.awtextra.AbsoluteConstraints(399, 291, -1, -1));
+        getContentPane().add(jRadioButton_PessoaJuridica, new org.netbeans.lib.awtextra.AbsoluteConstraints(399, 291, 120, -1));
 
         jButtonAdicionar.setText("Adicionar");
         jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
