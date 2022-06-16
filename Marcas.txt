@@ -1,3 +1,0 @@
-26;Fiat;true
-27;Chevrolet;true
-28;Honda;true
