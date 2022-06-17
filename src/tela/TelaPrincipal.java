@@ -48,10 +48,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItemInserir = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -86,24 +82,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Clientes");
-
-        jMenuItemInserir.setText("Inserir");
-        jMenuItemInserir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemInserirActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItemInserir);
-
-        jMenuItem2.setText("Alterar");
-        jMenu2.add(jMenuItem2);
-
-        jMenuItem4.setText("Deletar");
-        jMenu2.add(jMenuItem4);
-
-        jMenuItem5.setText("Pesquisar");
-        jMenu2.add(jMenuItem5);
-
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Produtos");
@@ -128,21 +106,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItemInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInserirActionPerformed
-        // TODO add your handling code here:
-        /*TelaListaCliente newTelaListaCliente = new TelaListaCliente();
-        jDesktopPanePrincipal.add(newTelaListaCliente);
-        newTelaListaCliente.setVisible(true);*/
-
-        TelaListaCliente mostrarInicio = new TelaListaCliente();
-        jDesktopPanePrincipal.add(mostrarInicio);
-        mostrarInicio.show();
-        try {
-            mostrarInicio.setMaximum(true);
-        } catch (PropertyVetoException ex) {
-        }
-    }//GEN-LAST:event_jMenuItemInserirActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
         int confirmação = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja sair?");
@@ -200,10 +163,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItemInserir;
     private javax.swing.JMenuItem jMenuItemSair;
     // End of variables declaration//GEN-END:variables
 }
