@@ -22,9 +22,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        setResizable(false);
-        setLocationRelativeTo(null);
-        pegarResolucao();
+        //setResizable(false);
+        //setLocationRelativeTo(null);
+        //pegarResolucao();
     }
     
     private void pegarResolucao() {

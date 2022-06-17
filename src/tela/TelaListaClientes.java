@@ -166,7 +166,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
 
         jLabelNome_NomeFantasia.setText("Nome: ");
         getContentPane().add(jLabelNome_NomeFantasia, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 319, -1, 20));
-        getContentPane().add(tField_razaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 280, -1));
+        getContentPane().add(tField_razaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 280, -1));
 
         jLabel_CPF_CNPJ.setText("CPF: ");
         getContentPane().add(jLabel_CPF_CNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 319, -1, 20));
@@ -186,7 +186,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
         getContentPane().add(tField_DataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 145, -1));
 
         jLabel_DtNasc_RazSoc.setText("Data de Nascimento:");
-        getContentPane().add(jLabel_DtNasc_RazSoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 377, -1, -1));
+        getContentPane().add(jLabel_DtNasc_RazSoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
 
         jLabel7.setText("Logradouro");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(493, 441, -1, 32));
