@@ -265,7 +265,7 @@ public class OrdemDeServico {
     }
 
     public double calcularValorTotalComDesconto() {
-        return calcularValorTotalSemDesconto() * (1 + (porcentagemDesconto / 100.0));
+        return calcularValorTotalSemDesconto() - (calcularValorTotalSemDesconto() * (porcentagemDesconto / 100.0));
     }
 
     @Override
@@ -296,11 +296,11 @@ public class OrdemDeServico {
         if (dataSaida != null) {
             return codigo + ";" + defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
                     + sdf.format(dataSaida) + ";" + situacao + ";" + idFuncionarioResponsavel + ";" + idPeca + ";"
-                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo + porcentagemDesconto;
+                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo + ";" + porcentagemDesconto;
         } else {
             return codigo + ";" + defeitoRelatado + ";" + idServico + ";" + String.format("%.2f", valorMaoDeObra).replace(",", ".") + ";" + sdf.format(dataEntrada) + ";"
                     + null + ";" + situacao + ";" + idFuncionarioResponsavel + ";" + idPeca + ";"
-                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo + porcentagemDesconto;
+                    + quantidadePeca + ";" + String.format("%.2f", valorUnitarioPeca).replace(",", ".") + ";" + idVeiculo + ";" + cadastroAtivo + ";" + porcentagemDesconto;
         }
     }
 }
