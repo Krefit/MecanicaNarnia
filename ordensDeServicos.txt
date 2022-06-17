@@ -1,0 +1,1 @@
+2;2;tinta descascando;2;350.00;17/06/2022;null;EM_ABERTO;2;5;2;45.00;2;true;15.0

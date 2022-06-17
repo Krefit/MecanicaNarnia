@@ -1,0 +1,1 @@
+2;Pintura;350.00;true
