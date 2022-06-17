@@ -44,6 +44,9 @@ public class OrdemDeServico {
 
     public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
             int idFuncionarioResponsavel, int idVeiculo, double porcentagemDesconto) throws Exception {
+        if (porcentagemDesconto < 0 || porcentagemDesconto > 100) {
+            throw new Exception("Tentou usar uma porcentagem de desconto de: " + porcentagemDesconto + "%, informe um valor válido");
+        }
         this.codigo = codigo;
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
@@ -58,6 +61,9 @@ public class OrdemDeServico {
 
     public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
             int idFuncionarioResponsavel, int idPeca, int quantidadePeca, double valorUnitarioDaPeca, int idVeiculo, double porcentagemDesconto) throws Exception {
+        if (porcentagemDesconto < 0 || porcentagemDesconto > 100) {
+            throw new Exception("Tentou usar uma porcentagem de desconto de: " + porcentagemDesconto + "%, informe um valor válido");
+        }
         this.codigo = codigo;
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
@@ -89,7 +95,10 @@ public class OrdemDeServico {
         return porcentagemDesconto;
     }
 
-    public void setPorcentagemDesconto(double porcentagemDesconto) {
+    public void setPorcentagemDesconto(double porcentagemDesconto) throws Exception {
+        if (porcentagemDesconto < 0 || porcentagemDesconto > 100) {
+            throw new Exception("Tentou usar uma porcentagem de desconto de: " + porcentagemDesconto + "%, informe um valor válido");
+        }
         this.porcentagemDesconto = porcentagemDesconto;
     }
 
