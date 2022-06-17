@@ -30,8 +30,8 @@ public class TelaListaClientes extends javax.swing.JFrame {
     public TelaListaClientes() {
         initComponents();
         loadComboBox();
-        //loadTableClientes();
-        //setLocationRelativeTo(null);
+        loadTableClientes();
+        setLocationRelativeTo(null);
     }
 
     private void loadComboBox() {

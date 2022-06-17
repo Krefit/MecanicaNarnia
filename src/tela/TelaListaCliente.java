@@ -33,9 +33,14 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
     
     public TelaListaCliente() {
         initComponents();
+
+
+        
         loadComboBox();
         loadTableClientes();
-        Font roboto = null;
+        
+        
+        /*Font roboto = null;
         try {
             roboto = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("Fontes/RobotoRegular.ttf"));
         } catch (IOException | FontFormatException e) {
@@ -44,7 +49,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         roboto = roboto.deriveFont(Font.PLAIN, 20);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(roboto);
-        this.setFont(roboto);
+        this.setFont(roboto);*/
     }
 
     private void loadComboBox() {
@@ -127,7 +132,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
 
         setTitle("CLIENTES");
 
-        jButtonEditar.setFont(getFont());
+        jButtonEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButtonEditar.setText("Editar");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +140,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonRemover.setFont(getFont());
+        jButtonRemover.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButtonRemover.setText("Remover");
         jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,52 +148,52 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabelNome_NomeFantasia.setFont(getFont());
+        jLabelNome_NomeFantasia.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabelNome_NomeFantasia.setText("Nome: ");
 
-        jLabel_CPF_CNPJ.setFont(getFont());
+        jLabel_CPF_CNPJ.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel_CPF_CNPJ.setText("CPF: ");
 
-        jLabel3.setFont(getFont());
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Celular:");
 
-        jLabel4.setFont(getFont());
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("Tipo Logradouro:");
 
-        jLabel5.setFont(getFont());
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText("Email:");
 
-        jLabel7.setFont(getFont());
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Logradouro");
 
-        jLabel8.setFont(getFont());
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("Nº:");
 
-        jLabel9.setFont(getFont());
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText("Complemento:");
 
-        jLabel10.setFont(getFont());
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("Bairro:");
 
-        jLabel11.setFont(getFont());
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Cidade:");
 
-        jLabel12.setFont(getFont());
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setText("Estado:");
 
         cb_Estado.setAutoscrolls(true);
         cb_Estado.setPreferredSize(new java.awt.Dimension(7, 22));
 
-        jLabel13.setFont(getFont());
+        jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel13.setText("CEP:");
 
-        jLabel14.setFont(getFont());
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel14.setText("Residencial:");
 
-        jLabel15.setFont(getFont());
+        jLabel15.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel15.setText("Comercial:");
 
-        jRadioButton_PessoaFisica.setFont(getFont());
+        jRadioButton_PessoaFisica.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton_PessoaFisica.setSelected(true);
         jRadioButton_PessoaFisica.setText("Pessoa Fisica");
         jRadioButton_PessoaFisica.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +202,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jRadioButton_PessoaJuridica.setFont(getFont());
+        jRadioButton_PessoaJuridica.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jRadioButton_PessoaJuridica.setText("Pessoa Juridica");
         jRadioButton_PessoaJuridica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +210,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonAdicionar.setFont(getFont());
+        jButtonAdicionar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButtonAdicionar.setText("Adicionar");
         jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +218,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonVoltar.setFont(getFont());
+        jButtonVoltar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButtonVoltar.setText("Voltar");
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,7 +226,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jTableClientes.setFont(getFont());
+        jTableClientes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -252,7 +257,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableClientes);
 
-        jLabel_DtNasc_RazSoc.setFont(getFont());
+        jLabel_DtNasc_RazSoc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel_DtNasc_RazSoc.setText("Data de Nascimento:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -431,6 +436,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             if (indexTabela < 0) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual cliente deseja editar");
             } else {
+                JOptionPane.showMessageDialog(rootPane, "Editado");
                 System.out.println("funcionou");
                 excluirPessoaFisica();
                 adicionarPessoaFisica();

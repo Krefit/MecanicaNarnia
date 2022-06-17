@@ -98,7 +98,6 @@ public class TelaLogin extends javax.swing.JFrame {
             TelaSplash newTelaSplash = new TelaSplash();
             newTelaSplash.setVisible(true);
             this.dispose();
-
         }else{
             JOptionPane.showMessageDialog(null, "LOGIN OU SENHA INCORRETOS");
         }
