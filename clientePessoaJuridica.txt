@@ -1,0 +1,1 @@
+2;narnia;07.424.715/0001-10;narnia;[99999999999, 99999999999, 99999999999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,5612431;true

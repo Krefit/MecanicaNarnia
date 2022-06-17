@@ -22,6 +22,9 @@ public class TelaListaPecas extends javax.swing.JFrame {
     public TelaListaPecas() {
         initComponents();
         jFormattedTextFieldQuantidadeReservadas.setEditable(false);
+        jFormattedTextFieldQuantidadeReservadas.setText("0");
+        jFormattedTextFieldQuantidadeEstoqueMinimo.setText("0");
+        jFormattedTextFieldQuantidadeEstoque.setText("0");
         LoadTableListaPecas();
     }
     
