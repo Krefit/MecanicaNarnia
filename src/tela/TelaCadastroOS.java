@@ -76,10 +76,12 @@ public class TelaCadastroOS extends javax.swing.JFrame {
                                 table.addRow(new Object[]{pj.getNomeFantasia(), v.getPlaca(), marca.getNomeMarca(),
                                     modelo.getNomeModelo()});
                             } else {
+                                System.out.println("fudeu");
 // falha, o dono do veiculo não consta no banco de dados
                             }
                         }
                     } else {
+                                System.out.println("fudeu2");
 // falha, o modelo ou a marca não consta no banco de dados
                     }
                 }
