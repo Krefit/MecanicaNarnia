@@ -6,6 +6,7 @@
 package persistencia;
 
 import enumerations.EstadosBrazil;
+import enumerations.TipoCliente;
 import geradorId.GeradorId;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -36,11 +37,11 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
 //  * renavan, tipo do veiculo, placa, ano de fabricação(dd/MM/yyyy), 
 //  * ano do modelo(dd/MM/yyyy), quilometragem, id do dono, cadastro está ativo
 
-        if (dadosVeiculo.length != 12) {
+        if (dadosVeiculo.length != 13) {
             System.out.println(dados);
             throw new Exception("Dados incorretos");
         }
-
+        TipoCliente tipoCliente = Enum.valueOf(TipoCliente.class, dadosVeiculo[12]);
         Veiculo veiculo = new Veiculo(Integer.parseInt(dadosVeiculo[1]),//  * id do modelo
                 Integer.parseInt(dadosVeiculo[2]),//    * id da marca
                 dadosVeiculo[3],//  * chassi
@@ -50,7 +51,8 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
                 Integer.parseInt(dadosVeiculo[7]),//    * ano de fabricação
                 Integer.parseInt(dadosVeiculo[8]),//    * ano do modelo
                 Integer.parseInt(dadosVeiculo[9]),//    * quilometragem
-                Integer.parseInt(dadosVeiculo[10]));//  * id do dono
+                Integer.parseInt(dadosVeiculo[10]),//  * id do dono
+                tipoCliente);// * tipo de cliente (pessoa fisica ou juridica)
 
         if (dadosVeiculo[11].equals(String.valueOf(false))) {
             veiculo.setCadastroAtivo(false);

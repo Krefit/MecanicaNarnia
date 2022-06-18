@@ -1,5 +1,6 @@
 package tela;
 
+import enumerations.TipoCliente;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import modelos.Veiculo;
@@ -8,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelos.Pessoa;
 import modelos.PessoaFisica;
+import modelos.PessoaJuridica;
 import modelos.auxiliares.MarcaVeiculo;
 import modelos.auxiliares.ModeloVeiculo;
 import persistencia.IManipulaBanco;
@@ -15,6 +17,7 @@ import persistencia.ManipulaBancoFuncionario;
 import persistencia.ManipulaBancoMarca;
 import persistencia.ManipulaBancoModelos;
 import persistencia.ManipulaBancoPessoaFisica;
+import persistencia.ManipulaBancoPessoaJuridica;
 
 public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
 
@@ -22,7 +25,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         loadComboBoxModelos();
-        jComboBoxModelos.setVisible(true);
+        jComboBoxModelos.setVisible(false);
         loadComboBoxMarcas();
         loadTableClientes();
         jTextFieldMarca.setVisible(false);
@@ -31,12 +34,16 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jTextFieldMarca.setEditable(false);
         jTextFieldModelo.setEditable(false);
         jButtonCadastrarVeiculo.setVisible(true);
+
+        jRadioButtonPessoaFisica.setEnabled(false);
+        jRadioButtonPessoaJuridica.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupTipoCliente = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldModelo = new javax.swing.JTextField();
         jTextFieldMarca = new javax.swing.JTextField();
@@ -65,6 +72,9 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jButtonVoltar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldQuilometragem = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jRadioButtonPessoaJuridica = new javax.swing.JRadioButton();
+        jRadioButtonPessoaFisica = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -141,6 +151,9 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
         });
         jScrollPane1.setViewportView(jTable1);
 
@@ -182,6 +195,17 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
         getContentPane().add(jTextFieldQuilometragem, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 210, -1));
 
+        jLabel2.setText("TIPO DE CLIENTE");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, -1, -1));
+
+        buttonGroupTipoCliente.add(jRadioButtonPessoaJuridica);
+        jRadioButtonPessoaJuridica.setText("Pessoa jurídica");
+        getContentPane().add(jRadioButtonPessoaJuridica, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 360, -1, -1));
+
+        buttonGroupTipoCliente.add(jRadioButtonPessoaFisica);
+        jRadioButtonPessoaFisica.setText("Pessoa física");
+        getContentPane().add(jRadioButtonPessoaFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 360, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -215,33 +239,44 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
 
     private void loadTableClientes() {
         try {
-            ArrayList<PessoaFisica> listaPessoas = new ManipulaBancoPessoaFisica().buscarTodos();
-            String[][] dados = new String[listaPessoas.size()][4];
-            for (int i = 0; i < listaPessoas.size(); i++) {
-                dados[i][0] = listaPessoas.get(i).getNome();
-                dados[i][1] = listaPessoas.get(i).getCpf();
-                dados[i][2] = listaPessoas.get(i).getTelefone()[0];
-                dados[i][3] = listaPessoas.get(i).getEmail();
+            ArrayList<PessoaFisica> listaPessoasFisicas = new ManipulaBancoPessoaFisica().buscarTodos();
+            String[][] dados = new String[listaPessoasFisicas.size()][5];
+            for (int i = 0; i < listaPessoasFisicas.size(); i++) {
+                dados[i][0] = "" + TipoCliente.PESSOA_FISICA;
+                dados[i][1] = listaPessoasFisicas.get(i).getNome();
+                dados[i][2] = listaPessoasFisicas.get(i).getCpf();
+                dados[i][3] = listaPessoasFisicas.get(i).getTelefone()[0];
+                dados[i][4] = listaPessoasFisicas.get(i).getEmail();
             }
 
-            jTable1.setModel(new DefaultTableModel(dados, new Object[]{"Nome", "CPF", "Telefone", "Email"}));
+            jTable1.setModel(new DefaultTableModel(dados, new Object[]{"Tipo de cliente", "Nome/Razão social", "CPF/CNPJ", "Telefone", "Email"}));
+
+            DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+
+            ArrayList<PessoaJuridica> listaPessoasJuridicas = new ManipulaBancoPessoaJuridica().buscarTodos();
+            String[] dados2 = new String[5];
+            for (int i = 0; i < listaPessoasJuridicas.size(); i++) {
+                dados2[0] = "" + TipoCliente.PESSOA_JURIDICA;
+                dados2[1] = listaPessoasJuridicas.get(i).getRazaoSocial();
+                dados2[2] = listaPessoasJuridicas.get(i).getCnpj();
+                dados2[3] = listaPessoasJuridicas.get(i).getTelefone()[0];
+                dados2[4] = listaPessoasJuridicas.get(i).getEmail();
+                table.addRow(dados2);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     private void jButtonCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarVeiculoActionPerformed
         try {
-            String cpf = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1));
+            TipoCliente tipoCliente = null;
 
-            ManipulaBancoPessoaFisica mb = new ManipulaBancoPessoaFisica();
-            int idDonoVeiculo = mb.buscar(cpf);
- 
+            int idDonoVeiculo = 0;
             ManipulaBancoMarca mbd = new ManipulaBancoMarca();
             int idMarca = mbd.buscar(jTextFieldMarca.getText());
-
             ManipulaBancoModelos mbm = new ManipulaBancoModelos();
             int idModelo = mbm.buscar(jTextFieldModelo.getText());
-
             String chassi = jTextFieldChassi.getText();
             String renavam = jTextFieldRenavam.getText();
             String tipoDoVeiculo = jTextFieldTipoDoVeiculo.getText();
@@ -250,8 +285,22 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
             int anoDoModelo = Integer.parseInt(jTextFieldAnoDoModelo.getText());
             int quilometragem = Integer.parseInt(jTextFieldQuilometragem.getText());
 
+            if (jRadioButtonPessoaFisica.isSelected()) {
+                ManipulaBancoPessoaFisica mb = new ManipulaBancoPessoaFisica();
+                String cpf = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2));
+                idDonoVeiculo = mb.buscar(cpf);
+                tipoCliente = TipoCliente.PESSOA_FISICA;
+            } else if (jRadioButtonPessoaJuridica.isSelected()) {
+                ManipulaBancoPessoaJuridica mb = new ManipulaBancoPessoaJuridica();
+                String cnpj = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2));
+                idDonoVeiculo = mb.buscar(cnpj);
+                tipoCliente = TipoCliente.PESSOA_JURIDICA;
+            }
+            if (idDonoVeiculo == 0) {
+                throw new Exception("Falha ao carregar dono do veiculo");
+            }
             Veiculo veiculoNovo = new Veiculo(idModelo, idMarca, chassi, renavam, tipoDoVeiculo,
-                    placa, anoDeFabricacao, anoDoModelo, quilometragem, idDonoVeiculo);
+                    placa, anoDeFabricacao, anoDoModelo, quilometragem, idDonoVeiculo, tipoCliente);
 
             new ManipulaBancoVeiculo().incluir(veiculoNovo);
             JOptionPane.showMessageDialog(null, "VEÍCULO CADASTRADO!");
@@ -285,7 +334,12 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxModelosActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0)));
+        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1)));
+        if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
+            jRadioButtonPessoaFisica.setSelected(true);
+        } else if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
+            jRadioButtonPessoaJuridica.setSelected(true);
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTable1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyTyped
@@ -311,6 +365,15 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         new TelaInicial().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1)));
+        if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
+            jRadioButtonPessoaFisica.setSelected(true);
+        } else if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
+            jRadioButtonPessoaJuridica.setSelected(true);
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
 
     /**
      * @param args the command line arguments
@@ -349,6 +412,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupTipoCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonCadastrarCliente;
@@ -359,12 +423,15 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButton jRadioButtonPessoaFisica;
+    private javax.swing.JRadioButton jRadioButtonPessoaJuridica;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldAnoDeFabricacao;

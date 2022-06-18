@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import enumerations.TipoCliente;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -27,12 +28,13 @@ public class Veiculo {
     private int quilometragem;
     private int idDonoVeiculo;
     private boolean cadastroAtivo;
+    private TipoCliente tipoCliente;
 
     public Veiculo() {
     }
 
     public Veiculo(int idModelo, int idMarca, String chassi, String renavam,
-            String tipoVeiculo, String placa, int anoFabricacao, int anoModelo, int quilometragem, int idDonoVeiculo) {
+            String tipoVeiculo, String placa, int anoFabricacao, int anoModelo, int quilometragem, int idDonoVeiculo, TipoCliente tipoCliente) {
         this.idModelo = idModelo;
         this.idMarca = idMarca;
         this.chassi = chassi;
@@ -44,6 +46,7 @@ public class Veiculo {
         this.quilometragem = quilometragem;
         this.idDonoVeiculo = idDonoVeiculo;
         this.cadastroAtivo = true;
+        this.tipoCliente = tipoCliente;
     }
 
     public boolean isCadastroAtivo() {
@@ -72,6 +75,14 @@ public class Veiculo {
 
     public int getIdMarca() {
         return idMarca;
+    }
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
     }
 
     public void setIdMarca(int idMarca) {
@@ -203,7 +214,7 @@ public class Veiculo {
     @Override
     public String toString() {
         return idModelo + ";" + idMarca + ";" + chassi + ";" + renavam + ";" + tipoVeiculo + ";" + placa + ";" + anoFabricacao
-                + ";" + anoModelo + ";" + quilometragem + ";" + idDonoVeiculo + ";" + cadastroAtivo;
+                + ";" + anoModelo + ";" + quilometragem + ";" + idDonoVeiculo + ";" + cadastroAtivo + ";" + tipoCliente;
     }
 
 }

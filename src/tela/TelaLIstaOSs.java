@@ -20,7 +20,7 @@ import persistencia.ManipulaBancoServicos;
  * @author tanak
  */
 public class TelaLIstaOSs extends javax.swing.JFrame {
-
+    
     private final int idVeiculo;
 
     /**
@@ -29,32 +29,33 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
      * @param idVeiculo
      */
     public TelaLIstaOSs(int idVeiculo) {
-        this.idVeiculo = idVeiculo;
         initComponents();
         loadTableOSs();
+        this.idVeiculo = idVeiculo;
+        jRadioButtonOrcamento.setEnabled(false);
     }
-
+    
     private void loadTableOSs() {
         try {
-
+            
             loadTableOSsEspecifica();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }
-
+    
     private void loadTableOSsEspecifica() throws Exception {
-
+        
         DefaultTableModel table = (DefaultTableModel) jTableOSs.getModel();
         table.setRowCount(0);
-
+        
         ArrayList<OrdemDeServico> listaOSs = null;
         if (idVeiculo == 0) {// * mostrar todas as OSs do banco
             loadTableOSsTodos();
         } else {
             listaOSs = new ManipulaBancoOrdemServico().buscarTodos(this.idVeiculo);
-
+            
             if (!listaOSs.isEmpty()) {//    * caso exista alguma OS para mostrar
                 for (OrdemDeServico os : listaOSs) {
                     Servico servico = new ManipulaBancoServicos().buscar(os.getIdServico());
@@ -151,18 +152,18 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "nenhuma ordem de serviço encontrada!");
             }
-
+            
         }
-
+        
     }
-
+    
     private void loadTableOSsTodos() throws Exception {
-
+        
         DefaultTableModel table = (DefaultTableModel) jTableOSs.getModel();
         table.setRowCount(0);
-
+        
         ArrayList<OrdemDeServico> listaOSs = new ManipulaBancoOrdemServico().buscarTodos();
-
+        
         if (!listaOSs.isEmpty()) {//    * caso exista alguma OS para mostrar
             for (OrdemDeServico os : listaOSs) {
                 Servico servico = new ManipulaBancoServicos().buscar(os.getIdServico());
@@ -179,10 +180,10 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                 dados[4] = sdf.format(os.getDataEntrada());
                 if (os.getDataSaida() != null) {//  * caso a ordem já tenha sido cumprida
                     dados[5] = sdf.format(os.getDataSaida());
-
+                    
                 } else {//  * caso a ordem não tenha sido cumprida
                     dados[5] = "Em aberto";
-
+                    
                 }
                 if (peca != null) {//   * caso alguma peça tenha sido utilizada
                     dados[6] = peca.getCodigoPeca();
@@ -190,14 +191,14 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                     dados[8] = "" + os.getQuantidadePeca();
                     dados[9] = String.format("%.2f", peca.getValorPeca());
                     dados[10] = String.format("%.2f", servico.getValorMaoDeObra() + (os.getQuantidadePeca() * peca.getValorPeca()));
-
+                    
                 } else {//   * caso neenhuma peça tenha sido utilizada
                     dados[6] = "0";
                     dados[7] = "0";
                     dados[8] = "0";
                     dados[9] = "0";
                     dados[10] = String.format("%.2f", servico.getValorMaoDeObra());
-
+                    
                 }
                 table.addRow(dados);
             }
@@ -223,6 +224,8 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
         jRadioButtonFinalizada = new javax.swing.JRadioButton();
         jRadioButtonCancelado = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        jRadioButtonOrcamento = new javax.swing.JRadioButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -279,6 +282,16 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
             }
         });
 
+        buttonGroupStatus.add(jRadioButtonOrcamento);
+        jRadioButtonOrcamento.setText("Orçamento");
+
+        jButton2.setText("Pesquisar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,37 +299,48 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1077, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButtonOrcamento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButtonCancelado)
                         .addGap(33, 33, 33)
                         .addComponent(jRadioButtonExecutando)
                         .addGap(29, 29, 29)
                         .addComponent(jRadioButtonFinalizada)
+                        .addGap(169, 169, 169)
+                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonVoltar)))
-                .addContainerGap())
+                        .addComponent(jButtonVoltar))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonVoltar)
-                        .addContainerGap())
+                        .addComponent(jButtonVoltar))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButtonExecutando)
-                            .addComponent(jRadioButtonFinalizada)
-                            .addComponent(jRadioButtonCancelado)
-                            .addComponent(jButton1))
-                        .addContainerGap(31, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jRadioButtonExecutando)
+                                    .addComponent(jRadioButtonFinalizada)
+                                    .addComponent(jRadioButtonCancelado)
+                                    .addComponent(jButton1)
+                                    .addComponent(jRadioButtonOrcamento)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)))
+                        .addGap(0, 18, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -371,6 +395,9 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                     case EM_EXECUCAO:
                         jRadioButtonExecutando.setSelected(true);
                         break;
+                    case EM_ABERTO:
+                        jRadioButtonOrcamento.setSelected(true);
+                        break;
                     default:
                         throw new AssertionError();
                 }
@@ -380,6 +407,10 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jTableOSsMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -395,21 +426,21 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelaLIstaOSs.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(TelaLIstaOSs.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaLIstaOSs.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaLIstaOSs.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -421,10 +452,10 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
             public void run() {
                 new TelaLIstaOSs(0).setVisible(true);
             }
-
+            
             public void run(int id) {
                 new TelaLIstaOSs(id).setVisible(true);
-
+                
             }
         });
     }
@@ -432,10 +463,12 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupStatus;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JRadioButton jRadioButtonCancelado;
     private javax.swing.JRadioButton jRadioButtonExecutando;
     private javax.swing.JRadioButton jRadioButtonFinalizada;
+    private javax.swing.JRadioButton jRadioButtonOrcamento;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableOSs;
     // End of variables declaration//GEN-END:variables

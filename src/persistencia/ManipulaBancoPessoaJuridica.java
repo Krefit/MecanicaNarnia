@@ -26,7 +26,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
     public PessoaJuridica parse(String dados) throws Exception {
         String[] dadosPessoa = dados.split(";");
 //  * id, nome fantasia, CNPJ, razao social, 
-//  * telefone, email, endereco, cadastro está ativo
+//  * telefones, email, endereco, cadastro está ativo
 
         if (dadosPessoa.length != 8) {
             throw new Exception("Dados incorretos");
@@ -51,7 +51,7 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
                 dadosPessoa[1],//   * nome fantasia
                 dadosPessoa[5],//   * email
                 endereco,//   * endereco
-                dadosPessoa[4]);//   * telefone
+                dadosPessoa[4].substring(1, dadosPessoa[4].length() - 1).split(","));//   * telefones
         if (dadosPessoa[7].equals(String.valueOf(false))) {//   * caso o cadastro esteja inativo
             pj.setCadastroAtivo(false);//   * inativar objeto antes de retornar
         }
