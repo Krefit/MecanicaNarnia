@@ -47,7 +47,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemSair = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuCliente = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -81,8 +82,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Clientes");
-        jMenuBar1.add(jMenu2);
+        jMenuCliente.setText("Clientes");
+        jMenuCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuClienteActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuCliente.add(jMenuItem1);
+
+        jMenuBar1.add(jMenuCliente);
 
         jMenu3.setText("Produtos");
         jMenuBar1.add(jMenu3);
@@ -120,6 +135,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setExtendedState(MAXIMIZED_BOTH);
     }//GEN-LAST:event_formWindowOpened
+
+    private void jMenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuClienteActionPerformed
+        TelaListaCliente newTelaListaCliente = new TelaListaCliente();
+        newTelaListaCliente.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuClienteActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,10 +184,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPanePrincipal;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCliente;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemSair;
     // End of variables declaration//GEN-END:variables
 }
