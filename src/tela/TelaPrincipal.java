@@ -8,6 +8,7 @@ package tela;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import persistencia.ManipulaBancoPessoaFisica;
 
@@ -26,12 +27,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //setLocationRelativeTo(null);
         //pegarResolucao();
     }
-    
+
     private void pegarResolucao() {
         Toolkit t = Toolkit.getDefaultToolkit();
         Dimension dimensao = t.getScreenSize();
         this.setSize((dimensao.width + 5), (dimensao.height - 38));
-        
+
+    }
+
+    private void limpaTela() {
+        JInternalFrame[] listaFrames = jDesktopPanePrincipal.getAllFrames();
+        if (listaFrames != null && listaFrames.length > 0) {//  * vendo se existe alguma internalFrame sendo mostrada
+            for (JInternalFrame frame : listaFrames) {
+                frame.setVisible(false);//  * apagando jInternalFrame
+            }
+        }
     }
 
     /**
@@ -147,17 +157,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuClienteActionPerformed
+        limpaTela();
         TelaListaCliente newTelaListaCliente = new TelaListaCliente();
         newTelaListaCliente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        limpaTela();
+        TelaListaCliente tela = new TelaListaCliente();
+        tela.setVisible(true);
+        jDesktopPanePrincipal.add(tela);
+        jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        TelaBuscaOS tela = new TelaBuscaOS(3);
+        limpaTela();
+        TelaListaOS tela = new TelaListaOS(this.jDesktopPanePrincipal);
         tela.setVisible(true);
         jDesktopPanePrincipal.add(tela);
         jDesktopPanePrincipal.setVisible(true);

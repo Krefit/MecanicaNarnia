@@ -40,12 +40,13 @@ import persistencia.ManipulaBancoVeiculo;
  */
 public class TelaBuscaOS extends javax.swing.JInternalFrame {
 
+    OrdemDeServico os = null;
+
     /**
      * Creates new form TelaBuscaOS
      */
     public TelaBuscaOS() {
         initComponents();
-        this.setEnabled(false);
         try {
             loadDadosTela(new ManipulaBancoOrdemServico().buscar(2));
         } catch (Exception ex) {
@@ -55,9 +56,9 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
 
     public TelaBuscaOS(int idOS) {
         initComponents();
-        this.setEnabled(false);
         try {
-            loadDadosTela(new ManipulaBancoOrdemServico().buscar(idOS));
+            this.os = (new ManipulaBancoOrdemServico().buscar(idOS));
+            loadDadosTela(this.os);
         } catch (Exception ex) {
             Logger.getLogger(TelaBuscaOS.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,7 +66,7 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
 
     public TelaBuscaOS(OrdemDeServico os) {
         initComponents();
-        this.setEnabled(false);
+        this.os = os;
         try {
             loadDadosTela(os);
         } catch (Exception ex) {
@@ -75,6 +76,7 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
 
     private void loadDadosTela(OrdemDeServico os) {
         try {
+            jTextFieldCodigoOS.setEnabled(false);
 //  * carregando dados de veículo
             Veiculo v = new ManipulaBancoVeiculo().buscar(os.getIdVeiculo());
             ModeloVeiculo modeloV = new ManipulaBancoModelos().buscar(v.getIdModelo());
@@ -113,6 +115,11 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
                 tField_cpf_cnpj.setText(pj.getCnpj());
                 tField_DataNascimento_nomeFantasia.setText(pj.getRazaoSocial());
                 cliente = pj;
+            } else {
+                throw new IllegalStateException("tentando carregar os dados de um cliente que não é nem pessoa física nem jurídica, "
+                        + "na telaBuscaOS, o tipo de cliente é validado com base no atributo presente no veiculo para o qual foi executada a OS"
+                        + ", que está tentando ser carregada na tela, "
+                        + "tentando carregar a OS:  " + this.os.toString());
             }
 
             Endereco eCliente = cliente.getEndereco();
@@ -169,8 +176,25 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
             jFormattedTextFieldTotalSemDesconto.setText(String.format("R$ %.2f", os.calcularValorTotalSemDesconto()));
             jFormattedTextFieldTotalComDesconto.setText(String.format("R$ %.2f", os.calcularValorTotalComDesconto()));
             jFormattedTextFieldValorDesconto.setText(String.format("R$ %.2f", (os.calcularValorTotalSemDesconto() - os.calcularValorTotalComDesconto())));
+            jTextFieldCodigoOS.setText("" + os.getCodigo());
             if (os.getDataSaida() != null) {
                 jFormattedTextFieldDataFinalizacao.setText(new SimpleDateFormat("dd/MM/yyyy").format(os.getDataSaida()));
+            }
+            switch (os.getSituacao()) {
+                case CANCELADA:
+                    jRadioButtonCancelado.setSelected(true);
+                    break;
+                case CONCLUIDA:
+                    jRadioButtonConcluido.setSelected(true);
+                    break;
+                case EM_ABERTO:
+                    jRadioButtonEmAberto.setSelected(true);
+                    break;
+                case EM_EXECUCAO:
+                    jRadioButtonAprovado.setSelected(true);
+                    break;
+                default:
+                    throw new AssertionError("parametro inválido ao carregar dados sobre a situação da ordem de serviço");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,13 +212,13 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jFormattedTextFieldDataEntrada = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jFormattedTextFieldPorcentagemDesconto = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDefeitoRelatado = new javax.swing.JTextArea();
-        jButtonVoltar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -289,6 +313,13 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel45 = new javax.swing.JLabel();
+        jRadioButtonEmAberto = new javax.swing.JRadioButton();
+        jRadioButtonAprovado = new javax.swing.JRadioButton();
+        jRadioButtonCancelado = new javax.swing.JRadioButton();
+        jButtonConfirmar = new javax.swing.JButton();
+        jLabelSituacao = new javax.swing.JLabel();
+        jRadioButtonConcluido = new javax.swing.JRadioButton();
+        jTextFieldCodigoOS = new javax.swing.JTextField();
 
         jFormattedTextFieldDataEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
@@ -302,13 +333,6 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
         jTextAreaDefeitoRelatado.setRows(5);
         jTextAreaDefeitoRelatado.setText("\n\t");
         jScrollPane1.setViewportView(jTextAreaDefeitoRelatado);
-
-        jButtonVoltar.setText("Voltar");
-        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVoltarActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("DATA ABERTURA");
 
@@ -340,23 +364,11 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nome do serviço: ");
 
-        jTextFieldNomeServico.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldNomeServicoKeyTyped(evt);
-            }
-        });
-
         jLabel19.setText("Valor serviço: ");
 
         jFormattedTextFieldValorMaoDeObra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
 
         jLabel20.setText("Especialidade: ");
-
-        jTextFieldEspecialidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldEspecialidadeActionPerformed(evt);
-            }
-        });
 
         jLabel21.setText("Salario/hora: ");
 
@@ -455,6 +467,27 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
         jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jLabel45.setText("VEICULO");
+
+        buttonGroup2.add(jRadioButtonEmAberto);
+        jRadioButtonEmAberto.setText("Esperando aprovação");
+
+        buttonGroup2.add(jRadioButtonAprovado);
+        jRadioButtonAprovado.setText("Aprovado");
+
+        buttonGroup2.add(jRadioButtonCancelado);
+        jRadioButtonCancelado.setText("Cancelado");
+
+        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfirmarActionPerformed(evt);
+            }
+        });
+
+        jLabelSituacao.setText("CODIGO ORDEM DE SERVIÇO");
+
+        buttonGroup2.add(jRadioButtonConcluido);
+        jRadioButtonConcluido.setText("Concluido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -662,8 +695,22 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1580, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabelSituacao)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTextFieldCodigoOS)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jRadioButtonCancelado)
+                                            .addGap(33, 33, 33)
+                                            .addComponent(jRadioButtonEmAberto)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jRadioButtonAprovado)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jRadioButtonConcluido)
+                                            .addGap(106, 106, 106)
+                                            .addComponent(jButtonConfirmar)
+                                            .addGap(405, 405, 405))
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addGroup(layout.createSequentialGroup()
@@ -883,71 +930,70 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel4)
-                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jFormattedTextFieldPorcentagemDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(jFormattedTextFieldValorDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel42)
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel44))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jFormattedTextFieldTotalSemDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(jFormattedTextFieldTotalComDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tField_nomeFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(jTextFieldEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
+                        .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel21)
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel23))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jFormattedTextFieldSalarioHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jFormattedTextFieldPorcentagemDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)
-                                .addComponent(jFormattedTextFieldMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jFormattedTextFieldValorDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel42)
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel44))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jFormattedTextFieldTotalSemDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addComponent(jFormattedTextFieldTotalComDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tField_nomeFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jTextFieldEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel22))
-                                    .addComponent(jFormattedTextFieldSalarioMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(3, 3, 3)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tField_telefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel43)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                                        .addComponent(jLabel21)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(jLabel23))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jFormattedTextFieldSalarioHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(8, 8, 8)
+                                        .addComponent(jFormattedTextFieldMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel22))
+                                            .addComponent(jFormattedTextFieldSalarioMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(3, 3, 3)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tField_telefoneFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel43)))
+                        .addGap(33, 81, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButtonEmAberto)
+                            .addComponent(jRadioButtonAprovado)
+                            .addComponent(jRadioButtonCancelado)
+                            .addComponent(jButtonConfirmar)
+                            .addComponent(jLabelSituacao)
+                            .addComponent(jRadioButtonConcluido)
+                            .addComponent(jTextFieldCodigoOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        new TelaInicial().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButtonVoltarActionPerformed
-
-    private void jTextFieldNomeServicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeServicoKeyTyped
-    }//GEN-LAST:event_jTextFieldNomeServicoKeyTyped
-
-    private void jTextFieldEspecialidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEspecialidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldEspecialidadeActionPerformed
 
     private void jFormattedTextFieldSalarioHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldSalarioHoraActionPerformed
         // TODO add your handling code here:
@@ -967,9 +1013,33 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
         tField_DataNascimento_nomeFantasia.setVisible(true);
     }//GEN-LAST:event_jRadioButton_PessoaJuridicaActionPerformed
 
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
+        try {
+            ManipulaBancoOrdemServico mb = new ManipulaBancoOrdemServico();
+            int idOS = Integer.parseInt(jTextFieldCodigoOS.getText());
+            OrdemDeServico os = mb.buscar(idOS);
+            if (jRadioButtonEmAberto.isSelected()) {
+                os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_ABERTO);
+            } else if (jRadioButtonCancelado.isSelected()) {
+                os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CANCELADA);
+            } else if (jRadioButtonAprovado.isSelected()) {
+                os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);
+            } else if (jRadioButtonConcluido.isSelected()) {
+                os.setSituacao(OrdemDeServico.SituacaoOrdemServico.CONCLUIDA);
+            }
+            mb.editar(mb.getID(os), os);//  * editando o banco de dados
+            this.os = os;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        loadDadosTela(this.os);
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButtonVoltar;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataEntrada;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataFinalizacao;
     private javax.swing.JFormattedTextField jFormattedTextFieldMatricula;
@@ -1026,8 +1096,13 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelNome_NomeFantasia;
+    private javax.swing.JLabel jLabelSituacao;
     private javax.swing.JLabel jLabel_CPF_CNPJ;
     private javax.swing.JLabel jLabel_DtNasc_RazSoc;
+    private javax.swing.JRadioButton jRadioButtonAprovado;
+    private javax.swing.JRadioButton jRadioButtonCancelado;
+    private javax.swing.JRadioButton jRadioButtonConcluido;
+    private javax.swing.JRadioButton jRadioButtonEmAberto;
     private javax.swing.JRadioButton jRadioButton_PessoaFisica;
     private javax.swing.JRadioButton jRadioButton_PessoaJuridica;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1041,6 +1116,7 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextFieldAnoDoModelo;
     private javax.swing.JTextField jTextFieldChassi;
     private javax.swing.JTextField jTextFieldCodigo;
+    private javax.swing.JTextField jTextFieldCodigoOS;
     private javax.swing.JTextField jTextFieldEspecialidade;
     private javax.swing.JTextField jTextFieldEstado;
     private javax.swing.JTextField jTextFieldMarca;
