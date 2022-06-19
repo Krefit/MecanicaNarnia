@@ -586,11 +586,16 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
 //  * 0 se for sim, 1 se for não, 2 se for cancelar
 
                 if (confirmação == 0) {//   * caso tenha confirmado a exclusão
-                    String cpfClienteParaExclusao = String.valueOf(jTableClientes.getValueAt(jTableClientes.getSelectedRow(), 1));
-                    int idClienteParaExclusao = new ManipulaBancoPessoaFisica().buscar(cpfClienteParaExclusao);
-                    if (idClienteParaExclusao != 0) {//   * é pessoa física
-                        new ManipulaBancoPessoaFisica().remover(idClienteParaExclusao);
-                    } else {//    * é pessoa jurídica
+                    if (jRadioButton_PessoaFisica.isSelected()) {
+                        String cpfClienteParaExclusao = String.valueOf(jTableClientes.getValueAt(jTableClientes.getSelectedRow(), 1));
+                        int idClienteParaExclusao = new ManipulaBancoPessoaFisica().buscar(cpfClienteParaExclusao);
+                        if (idClienteParaExclusao != 0) {//   * é pessoa física
+                            new ManipulaBancoPessoaFisica().remover(idClienteParaExclusao);
+                        } else {//    * é pessoa jurídica
+                        }
+                    } else {
+                        String cnpjClienteParaExclusao = String.valueOf(jTableClientes.getValueAt(jTableClientes.getSelectedRow(), 1));
+                        int idClienteParaExclusao = new ManipulaBancoPessoaJuridica().buscar(cnpjClienteParaExclusao);
                         new ManipulaBancoPessoaJuridica().remover(idClienteParaExclusao);
                     }
                 } else {//    * cancelar
@@ -659,7 +664,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
 
             Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
             if (jRadioButton_PessoaFisica.isSelected()) {
-                String cpf = jFormattedTextFieldCnpj.getText();
+                String cpf = jFormattedTextFieldCpf.getText();
                 String auxDataNascimento = jFormattedTextFieldDataNascimento.getText();
                 String[] vetDataNascimento = auxDataNascimento.split("/");
                 Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2]) - 1900, Integer.parseInt(vetDataNascimento[1]) - 1, Integer.parseInt(vetDataNascimento[0]));
