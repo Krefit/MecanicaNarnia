@@ -225,6 +225,7 @@ public class OrdemDeServico {
                         case CONCLUIDA:
                             //  * concluir
                             this.situacao = SituacaoOrdemServico.CONCLUIDA;
+                            this.dataSaida = new Date();
                             break OUTER;
                         case CANCELADA:
                             //  * cancelar

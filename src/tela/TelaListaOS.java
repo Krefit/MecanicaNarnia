@@ -13,9 +13,11 @@ import javax.swing.table.DefaultTableModel;
 import modelos.OrdemDeServico;
 import modelos.Peca;
 import modelos.Servico;
+import modelos.Veiculo;
 import persistencia.ManipulaBancoOrdemServico;
 import persistencia.ManipulaBancoPecas;
 import persistencia.ManipulaBancoServicos;
+import persistencia.ManipulaBancoVeiculo;
 
 /**
  *
@@ -47,10 +49,12 @@ public class TelaListaOS extends javax.swing.JInternalFrame {
 
             if (listaOSs != null && !listaOSs.isEmpty()) {//    * caso exista alguma OS para mostrar
                 for (OrdemDeServico os : listaOSs) {
+                    Veiculo v = new ManipulaBancoVeiculo().buscar(os.getIdVeiculo());
                     Servico servico = new ManipulaBancoServicos().buscar(os.getIdServico());
                     Peca peca = new ManipulaBancoPecas().buscar(os.getIdPeca());
                     String dataAbertura = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataEntrada());
                     String dados[] = {String.valueOf(os.getCodigo()),// * código da OS
+                        v.getPlaca(),// * placa do veículo
                         String.valueOf(os.getSituacao()),// * status da OS
                         servico.getNomeServico(),// * nome do serviço feito
                         String.valueOf(servico.getValorMaoDeObra()),//  * valor da mão de obra
@@ -63,15 +67,15 @@ public class TelaListaOS extends javax.swing.JInternalFrame {
                         String.valueOf(os.calcularValorTotalComDesconto())};// * valor total da OS, com desconto
 
                     if (os.getDataSaida() != null) {//  * já foi concluida
-                        dados[5] = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataSaida());
+                        dados[6] = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataSaida());
 
                     }
                     if (peca != null) {//   * usa alguma peça
-                        dados[6] = peca.getCodigoPeca();//  * código da peça usada
-                        dados[7] = String.valueOf(os.getQuantidadePeca());//  * quantidade de peças  usadas
-                        dados[8] = String.valueOf(peca.getValorPeca());//  * valor unitário da peça
-                        dados[9] = String.valueOf(os.calcularValorTotalSemDesconto());// * valor total da OS, sem desconto
-                        dados[10] = String.valueOf(os.calcularValorTotalComDesconto());// * valor total da OS, com desconto
+                        dados[7] = peca.getCodigoPeca();//  * código da peça usada
+                        dados[8] = String.valueOf(os.getQuantidadePeca());//  * quantidade de peças  usadas
+                        dados[9] = String.valueOf(peca.getValorPeca());//  * valor unitário da peça
+                        dados[10] = String.valueOf(os.calcularValorTotalSemDesconto());// * valor total da OS, sem desconto
+                        dados[11] = String.valueOf(os.calcularValorTotalComDesconto());// * valor total da OS, com desconto
                     }
                     table.addRow(dados);
                 }
@@ -100,14 +104,14 @@ public class TelaListaOS extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Status", "Serviço feito", "mão de obra", "Data de abertura", "Data de fechamento", "Peça usada", "Quantidade usada", "Valor unitário", "Valor sem desconto", "Valor com desconto"
+                "Código", "Placa do veículo", "Status", "Serviço feito", "mão de obra", "Data de abertura", "Data de fechamento", "Peça usada", "Quantidade usada", "Valor unitário", "Valor sem desconto", "Valor com desconto"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

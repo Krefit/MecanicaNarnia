@@ -1029,6 +1029,7 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
             }
             mb.editar(mb.getID(os), os);//  * editando o banco de dados
             this.os = os;
+            JOptionPane.showMessageDialog(rootPane, "Atualizado");
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
