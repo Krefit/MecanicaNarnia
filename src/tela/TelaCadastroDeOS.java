@@ -172,6 +172,8 @@ public class TelaCadastroDeOS extends javax.swing.JInternalFrame {
         jTableServicos = new javax.swing.JTable();
         jCheckBox1 = new javax.swing.JCheckBox();
 
+        setTitle("Cadastro de OS");
+
         jLabelQuantidadePecas.setText("quantidade de pecas usadas: ");
 
         jTextFieldBuscaServicos.addKeyListener(new java.awt.event.KeyAdapter() {
