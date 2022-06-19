@@ -229,7 +229,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaListaCliente newTelaListaCliente = new TelaListaCliente();
         newTelaListaCliente.setVisible(true);
-        this.dispose();
+        jDesktopPanePrincipal.add(newTelaListaCliente);
+        jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
     private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
@@ -273,7 +274,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemPecasActionPerformed
 
     private void jMenuItemCadastroDeMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeMarcaActionPerformed
-         limpaTela();
+        limpaTela();
         TelaCadastroDeMarcas newTelaCadastroDeMarcas = new TelaCadastroDeMarcas();
         newTelaCadastroDeMarcas.setVisible(true);
         jDesktopPanePrincipal.add(newTelaCadastroDeMarcas);
@@ -281,7 +282,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCadastroDeMarcaActionPerformed
 
     private void jMenuItemCadastroDeModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeModeloActionPerformed
-         limpaTela();
+        limpaTela();
         TelaCadastroModelos newTelaCadastroModelos = new TelaCadastroModelos();
         newTelaCadastroModelos.setVisible(true);
         jDesktopPanePrincipal.add(newTelaCadastroModelos);
@@ -289,7 +290,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCadastroDeModeloActionPerformed
 
     private void jMenuItemCadastroDeVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeVeiculoActionPerformed
-         limpaTela();
+        limpaTela();
         TelaCadastroDeVeiculos newTelaCadastroDeVeiculos = new TelaCadastroDeVeiculos();
         newTelaCadastroDeVeiculos.setVisible(true);
         jDesktopPanePrincipal.add(newTelaCadastroDeVeiculos);
