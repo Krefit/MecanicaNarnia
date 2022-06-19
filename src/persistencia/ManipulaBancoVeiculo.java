@@ -111,7 +111,27 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
         return buscarTodos().size();
     }
 
-    public int getQuantidadeVeiculos(int idDono) throws Exception {
+    public ArrayList<Veiculo> buscarTodos(int id, TipoCliente tipo) throws Exception {
+        ArrayList<Veiculo> lista = new ArrayList<>();
+        try ( BufferedReader br = new BufferedReader(new FileReader(getNomeDoArquivoNoDisco()))) {
+            String linha = br.readLine();
+            while (linha != null) {
+                Veiculo v = parse(linha);// * parsing linha
+                if (!isCadastroAtivo(v) && v.getTipoCliente().equals(tipo)) {// * adicionar apenas cadastros ativos
+                    lista.add(v);
+                }
+                linha = br.readLine();
+            }
+        }
+
+        if (lista.isEmpty()) {//    * caso não tenha nenhum cadastro ativo
+            return null;
+        } else {
+            return lista;
+        }
+    }
+
+    public int getQuantidadeVeiculos(int idDono, TipoCliente tipo) throws Exception {
         ArrayList<Veiculo> lista = buscarTodos();
         int quantidade = 0;
         for (Veiculo v : lista) {

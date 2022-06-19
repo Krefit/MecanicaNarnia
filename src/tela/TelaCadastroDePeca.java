@@ -38,7 +38,6 @@ public class TelaCadastroDePeca extends javax.swing.JFrame {
         jTextFieldNome = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButtonIncluir = new javax.swing.JButton();
-        jButtonVoltar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldCodigo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -72,13 +71,6 @@ public class TelaCadastroDePeca extends javax.swing.JFrame {
             }
         });
 
-        jButtonVoltar.setText("VOLTAR");
-        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVoltarActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("CÓDIGO");
 
         jLabel4.setText("VALOR");
@@ -89,13 +81,8 @@ public class TelaCadastroDePeca extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonVoltar)
-                        .addGap(19, 19, 19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(326, 326, 326))))
+                .addComponent(jLabel1)
+                .addGap(326, 326, 326))
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,9 +131,7 @@ public class TelaCadastroDePeca extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(jButtonVoltar)
-                .addGap(19, 19, 19))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,12 +150,6 @@ public class TelaCadastroDePeca extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButtonIncluirActionPerformed
-
-    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-            TelaInicial janelaNova = new TelaInicial();
-            janelaNova.setVisible(true);
-            dispose();
-    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,7 +204,6 @@ public class TelaCadastroDePeca extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIncluir;
-    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

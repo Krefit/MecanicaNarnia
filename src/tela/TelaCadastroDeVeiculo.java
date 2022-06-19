@@ -61,7 +61,6 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jTextFieldAnoDoModelo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextFieldDonoDoVeiculo = new javax.swing.JTextField();
-        jButtonCadastrarCliente = new javax.swing.JButton();
         jComboBoxModelos = new javax.swing.JComboBox<>();
         jComboBoxMarcas = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -69,7 +68,6 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButtonCadastrarVeiculo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButtonVoltar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldQuilometragem = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -111,14 +109,6 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         jLabel10.setText("DONO DO VEÍCULO");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
         getContentPane().add(jTextFieldDonoDoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 210, -1));
-
-        jButtonCadastrarCliente.setText("CADASTRAR CLIENTE");
-        jButtonCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCadastrarClienteActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonCadastrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
 
         jComboBoxModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxModelos.addActionListener(new java.awt.event.ActionListener() {
@@ -182,14 +172,6 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, 190, -1));
-
-        jButtonVoltar.setText("VOLTAR");
-        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVoltarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 630, -1, -1));
 
         jLabel11.setText("QUILOMETRAGEM");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
@@ -348,11 +330,6 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1KeyTyped
 
-    private void jButtonCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarClienteActionPerformed
-        new TelaCadastroCliente().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButtonCadastrarClienteActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new TelaCadastroDeMarca().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -360,11 +337,6 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new TelaCadastroModelo().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        new TelaInicial().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
         jTextFieldDonoDoVeiculo.setText(String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1)));
@@ -415,9 +387,7 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupTipoCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButtonCadastrarCliente;
     private javax.swing.JButton jButtonCadastrarVeiculo;
-    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JComboBox<String> jComboBoxMarcas;
     private javax.swing.JComboBox<String> jComboBoxModelos;
     private javax.swing.JLabel jLabel1;
