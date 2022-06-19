@@ -568,7 +568,6 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
                 }
 
                 JOptionPane.showMessageDialog(rootPane, "Editado");
-                System.out.println("funcionou");
                 loadTableClientes();
             }
         } catch (Exception e) {

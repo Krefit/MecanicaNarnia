@@ -26,7 +26,10 @@ public class Endereco {
     public Endereco() {
     }
 
-    public Endereco(String tipoLogradouro, String logradouro, String numero, String complemento, String bairro, String cidade, EstadosBrazil estado, String CEP) {
+    public Endereco(String tipoLogradouro, String logradouro, String numero, String complemento, String bairro, String cidade, EstadosBrazil estado, String CEP) throws Exception {
+        if (!ValidaCep(CEP)) {
+            throw new Exception("O CEP " + CEP + " é inválido");
+        }
         this.tipoLogradouro = tipoLogradouro;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -97,7 +100,10 @@ public class Endereco {
         return CEP;
     }
 
-    public void setCEP(String CEP) {
+    public void setCEP(String CEP) throws Exception {
+        if (!ValidaCep(CEP)) {
+            throw new Exception("O CEP " + CEP + " é inválido");
+        }
         this.CEP = CEP;
     }
 
@@ -149,6 +155,15 @@ public class Endereco {
             return false;
         }
         return this.estado == other.estado;
+    }
+    //Método que valida o Cep
+
+    private boolean ValidaCep(String cep) {
+        if (cep.length() == 8) {
+            cep = cep.substring(0, 5) + "-" + cep.substring(5, 3);
+            //txt.Text = cep;
+        }
+        return cep.matches("[0-9]{5}-[0-9]{3}");
     }
 
     @Override

@@ -349,36 +349,37 @@ public class TelaCadastroDeFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        String nome = tField_nome.getText();
-        String cpf = tField_cpf.getText();
-        String[] telefone = new String[3];
-        telefone[0] = tField_telefone.getText();
-        telefone[1] = tField_telefone.getText();
-        telefone[2] = tField_telefone.getText();
-        String tipoLogradouro = tField_TipoLogradouro.getText();
-        String logradoro = tField_Logradouro.getText();
-        String numero = tField_Numero.getText();
-        String complemento = tField_Complemento.getText();
-        String bairro = tField_Bairro.getText();
-        String cidade = tField_Cidade.getText();
-        String estado = cb_Estado.getSelectedItem().toString();
-        String CEP = tField_CEP.getText();
-        String auxDataNascimento = tField_DataNascimento.getText();
-        String[] vetDataNascimento = auxDataNascimento.split("/");
-        Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2]) - 1900, Integer.parseInt(vetDataNascimento[1]) - 1, Integer.parseInt(vetDataNascimento[0]));
-        String email = tField_email.getText();
-
-        EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class, estado);
-
-        Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
-
-        String especialidade = jTextFieldEspecialidade.getText();
-        double salarioHora = Double.parseDouble(jFormattedTextFieldSalarioHora.getText().replace(",", "."));//  * substituindo virgula por ponto
-        double salarioMes = Double.parseDouble(jFormattedTextFieldSalarioMes.getText().replace(",", "."));  //  * substituindo virgula por ponto
-        int matricula = Integer.parseInt(jFormattedTextFieldMatricula.getText());
-        Funcionario f = new Funcionario(especialidade, salarioMes, salarioHora, matricula, nome, cpf, dataNascimento, email, endereco, telefone);
 
         try {
+            String nome = tField_nome.getText();
+            String cpf = tField_cpf.getText();
+            String[] telefone = new String[3];
+            telefone[0] = tField_telefone.getText();
+            telefone[1] = tField_telefone.getText();
+            telefone[2] = tField_telefone.getText();
+            String tipoLogradouro = tField_TipoLogradouro.getText();
+            String logradoro = tField_Logradouro.getText();
+            String numero = tField_Numero.getText();
+            String complemento = tField_Complemento.getText();
+            String bairro = tField_Bairro.getText();
+            String cidade = tField_Cidade.getText();
+            String estado = cb_Estado.getSelectedItem().toString();
+            String CEP = tField_CEP.getText();
+            String auxDataNascimento = tField_DataNascimento.getText();
+            String[] vetDataNascimento = auxDataNascimento.split("/");
+            Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2]) - 1900, Integer.parseInt(vetDataNascimento[1]) - 1, Integer.parseInt(vetDataNascimento[0]));
+            String email = tField_email.getText();
+
+            EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class, estado);
+
+            Endereco endereco = new Endereco(tipoLogradouro, logradoro, numero, complemento, bairro, cidade, eb, CEP);
+
+            String especialidade = jTextFieldEspecialidade.getText();
+            double salarioHora = Double.parseDouble(jFormattedTextFieldSalarioHora.getText().replace(",", "."));//  * substituindo virgula por ponto
+            double salarioMes = Double.parseDouble(jFormattedTextFieldSalarioMes.getText().replace(",", "."));  //  * substituindo virgula por ponto
+            int matricula = Integer.parseInt(jFormattedTextFieldMatricula.getText());
+            Funcionario f = new Funcionario(especialidade, salarioMes, salarioHora, matricula, nome, cpf, dataNascimento, email, endereco, telefone);
+
             new ManipulaBancoFuncionario().incluir(f);
             JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
         } catch (Exception e) {
