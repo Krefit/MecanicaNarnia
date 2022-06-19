@@ -60,6 +60,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuCliente = new javax.swing.JMenu();
         jMenuItemClientes = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItemCadastroDeOS = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
@@ -110,9 +111,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuCliente);
 
-        jMenu3.setText("Produtos");
+        jMenu3.setText("Ordens de Serviço");
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItemCadastroDeOS.setText("Cadastro de Ordens de Serviço");
+        jMenuItemCadastroDeOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastroDeOSActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemCadastroDeOS);
+
+        jMenuItem2.setText("Ordens de Serviço");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -179,6 +188,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItemCadastroDeOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeOSActionPerformed
+                limpaTela();
+        TelaCadastroDeOS newTelaCadastroDeOS = new TelaCadastroDeOS();
+        newTelaCadastroDeOS.setVisible(true);
+        jDesktopPanePrincipal.add(newTelaCadastroDeOS);
+        jDesktopPanePrincipal.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadastroDeOSActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,6 +239,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemCadastroDeOS;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemSair;
     // End of variables declaration//GEN-END:variables
