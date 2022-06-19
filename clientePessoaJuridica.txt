@@ -1,3 +1,6 @@
-2;narnia;07.424.715/0001-10;narnia;[99999999999, 99999999999, 99999999999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;true
-2;Narnia;07.424.715/0001-10;Narnia;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;true
-0;narnia SA;07.424.715/0001-10;narnia SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;true
+2;narnia;07.424.715/0001-10;narnia;[99999999999, 99999999999, 99999999999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
+2;Narnia;07.424.715/0001-10;Narnia;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
+2;narnia SA;07.424.715/0001-10;narnia SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
+2;narnia;07.424.715/0001-10;narnia;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
+2;narnia;07.424.715/0001-10;narnia;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
+2;narnia SA;07.424.715/0001-10;narnia SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;true
