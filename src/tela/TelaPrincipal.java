@@ -58,9 +58,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenu();
-        jMenuItemClientes = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItemCadastroDeOS = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItemCadastroDeVeiculo = new javax.swing.JMenuItem();
@@ -109,27 +108,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jMenuItemClientes.setText("Clientes");
-        jMenuItemClientes.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemClientesActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenuCliente.add(jMenuItemClientes);
+        jMenuCliente.add(jMenuItem1);
 
         jMenuBar1.add(jMenuCliente);
 
-        jMenu3.setText("Ordens de Serviço");
+        jMenu3.setText("Produtos");
 
-        jMenuItemCadastroDeOS.setText("Cadastro de Ordens de Serviço");
-        jMenuItemCadastroDeOS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCadastroDeOSActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItemCadastroDeOS);
-
-        jMenuItem2.setText("Ordens de Serviço");
+        jMenuItem2.setText("jMenuItem2");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -233,13 +224,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
-    private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         limpaTela();
         TelaListaCliente tela = new TelaListaCliente();
         tela.setVisible(true);
         jDesktopPanePrincipal.add(tela);
         jDesktopPanePrincipal.setVisible(true);
-    }//GEN-LAST:event_jMenuItemClientesActionPerformed
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         limpaTela();
@@ -249,6 +240,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+<<<<<<< HEAD
     private void jMenuItemCadastroDeOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeOSActionPerformed
         limpaTela();
         TelaCadastroDeOS newTelaCadastroDeOS = new TelaCadastroDeOS();
@@ -297,6 +289,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastroDeVeiculoActionPerformed
 
+=======
+>>>>>>> 4ffe84a45da206035adea448b00354558a0714db
     /**
      * @param args the command line arguments
      */
@@ -342,7 +336,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+<<<<<<< HEAD
     private javax.swing.JMenuItem jMenuItemCadastroDeMarca;
     private javax.swing.JMenuItem jMenuItemCadastroDeModelo;
     private javax.swing.JMenuItem jMenuItemCadastroDeOS;
@@ -350,6 +346,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadastrodeServicos;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemPecas;
+=======
+>>>>>>> 4ffe84a45da206035adea448b00354558a0714db
     private javax.swing.JMenuItem jMenuItemSair;
     // End of variables declaration//GEN-END:variables
 }
