@@ -117,4 +117,15 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
         }
         return 0;
     }
+
+    public int buscar(String dado, boolean nome) throws Exception {
+        ArrayList<Funcionario> listaFunc = buscarTodos();
+
+        for (Funcionario f : listaFunc) {
+            if (("" + f.getNome()).equals(dado)) {
+                return getID(f);
+            }
+        }
+        return 0;
+    }
 }
