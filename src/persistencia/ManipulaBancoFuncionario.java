@@ -61,7 +61,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
                 new SimpleDateFormat("dd/MM/yyyy").parse(dados[3]),//    * data de nascimento
                 dados[5],//    * email
                 endereco,//    * endereço
-                dados[4].substring(dados[4].indexOf("[") + 1, dados[4].lastIndexOf("]")).split(","));//    * telefones, ignorando [] do array
+                telefones);//    * telefones, ignorando [] do array
         if (dados[7].equals(String.valueOf(false))) {//    * se tiver desativado, desativar
             f.setCadastroAtivo(false);
         }
@@ -111,7 +111,7 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
         ArrayList<Funcionario> listaFunc = buscarTodos();
 
         for (Funcionario f : listaFunc) {
-            if (f.getNome().equals(dado)) {
+            if (("" + f.getMatricula()).equals(dado)) {
                 return getID(f);
             }
         }
