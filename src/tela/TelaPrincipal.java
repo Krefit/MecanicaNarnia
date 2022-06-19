@@ -66,6 +66,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItemCadastroDeVeiculo = new javax.swing.JMenuItem();
+        jMenuItemCadastroDeMarca = new javax.swing.JMenuItem();
+        jMenuItemCadastroDeModelo = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItemPecas = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItemCadastrodeServicos = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -128,6 +136,58 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu2.setText("Veículos");
+
+        jMenuItemCadastroDeVeiculo.setText("Cadastro de Veículo");
+        jMenuItemCadastroDeVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastroDeVeiculoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCadastroDeVeiculo);
+
+        jMenuItemCadastroDeMarca.setText("Cadastro de Marca");
+        jMenuItemCadastroDeMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastroDeMarcaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCadastroDeMarca);
+
+        jMenuItemCadastroDeModelo.setText("Cadastro de Modelo");
+        jMenuItemCadastroDeModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastroDeModeloActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCadastroDeModelo);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu6.setText("Peças");
+
+        jMenuItemPecas.setText("Peças");
+        jMenuItemPecas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPecasActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItemPecas);
+
+        jMenuBar1.add(jMenu6);
+
+        jMenu5.setText("Serviços");
+
+        jMenuItemCadastrodeServicos.setText("Cadastro de Serviços");
+        jMenuItemCadastrodeServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastrodeServicosActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItemCadastrodeServicos);
+
+        jMenuBar1.add(jMenu5);
+
         jMenu4.setText("Sobre");
 
         jMenuItem3.setText("jMenuItem3");
@@ -175,7 +235,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaListaCliente newTelaListaCliente = new TelaListaCliente();
         newTelaListaCliente.setVisible(true);
-        this.dispose();
+        jDesktopPanePrincipal.add(newTelaListaCliente);
+        jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuClienteActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -212,6 +273,54 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItemCadastroDeOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeOSActionPerformed
+        limpaTela();
+        TelaCadastroDeOS newTelaCadastroDeOS = new TelaCadastroDeOS();
+        newTelaCadastroDeOS.setVisible(true);
+        jDesktopPanePrincipal.add(newTelaCadastroDeOS);
+        jDesktopPanePrincipal.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadastroDeOSActionPerformed
+
+    private void jMenuItemCadastrodeServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrodeServicosActionPerformed
+        limpaTela();
+        TelaCadastroServico newTelaCadastroServico = new TelaCadastroServico();
+        newTelaCadastroServico.setVisible(true);
+        jDesktopPanePrincipal.add(newTelaCadastroServico);
+        jDesktopPanePrincipal.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadastrodeServicosActionPerformed
+
+    private void jMenuItemPecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPecasActionPerformed
+        limpaTela();
+        TelaListaPeca newTelaListaPeca = new TelaListaPeca();
+        newTelaListaPeca.setVisible(true);
+        jDesktopPanePrincipal.add(newTelaListaPeca);
+        jDesktopPanePrincipal.setVisible(true);
+    }//GEN-LAST:event_jMenuItemPecasActionPerformed
+
+    private void jMenuItemCadastroDeMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeMarcaActionPerformed
+        limpaTela();
+        TelaCadastroDeMarcas newTelaCadastroDeMarcas = new TelaCadastroDeMarcas();
+        newTelaCadastroDeMarcas.setVisible(true);
+        jDesktopPanePrincipal.add(newTelaCadastroDeMarcas);
+        jDesktopPanePrincipal.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadastroDeMarcaActionPerformed
+
+    private void jMenuItemCadastroDeModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeModeloActionPerformed
+        limpaTela();
+        TelaCadastroModelos newTelaCadastroModelos = new TelaCadastroModelos();
+        newTelaCadastroModelos.setVisible(true);
+        jDesktopPanePrincipal.add(newTelaCadastroModelos);
+        jDesktopPanePrincipal.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadastroDeModeloActionPerformed
+
+    private void jMenuItemCadastroDeVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeVeiculoActionPerformed
+        limpaTela();
+        TelaCadastroDeVeiculos newTelaCadastroDeVeiculos = new TelaCadastroDeVeiculos();
+        newTelaCadastroDeVeiculos.setVisible(true);
+        jDesktopPanePrincipal.add(newTelaCadastroDeVeiculos);
+        jDesktopPanePrincipal.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadastroDeVeiculoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -219,7 +328,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -250,13 +359,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPanePrincipal;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItemCadastroDeMarca;
+    private javax.swing.JMenuItem jMenuItemCadastroDeModelo;
+    private javax.swing.JMenuItem jMenuItemCadastroDeVeiculo;
+    private javax.swing.JMenuItem jMenuItemCadastrodeServicos;
+    private javax.swing.JMenuItem jMenuItemPecas;
     private javax.swing.JMenuItem jMenuItemSair;
     // End of variables declaration//GEN-END:variables
 }
