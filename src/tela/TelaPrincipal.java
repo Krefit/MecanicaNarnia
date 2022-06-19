@@ -31,8 +31,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Toolkit t = Toolkit.getDefaultToolkit();
         Dimension dimensao = t.getScreenSize();
         this.setSize((dimensao.width + 5), (dimensao.height - 38));
-
- }
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,6 +50,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuCliente = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -100,6 +101,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuCliente);
 
         jMenu3.setText("Produtos");
+
+        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Sobre");
@@ -128,7 +138,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         if (confirmação == 0) {//   * quer sair
             System.exit(0);
-        }     
+        }
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -145,6 +155,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        TelaBuscaOS tela = new TelaBuscaOS(3);
+        tela.setVisible(true);
+        jDesktopPanePrincipal.add(tela);
+        jDesktopPanePrincipal.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +206,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemSair;
     // End of variables declaration//GEN-END:variables
 }
