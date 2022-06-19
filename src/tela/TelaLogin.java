@@ -5,6 +5,7 @@
  */
 package tela;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,6 +43,18 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1.setText("usuário");
 
         jLabel2.setText("senha");
+
+        jTextFieldTxtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldTxtUsuarioKeyPressed(evt);
+            }
+        });
+
+        jPasswordFieldTxtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordFieldTxtSenhaKeyPressed(evt);
+            }
+        });
 
         jButtonEntrar.setText("ENTRAR");
         jButtonEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -91,17 +104,29 @@ public class TelaLogin extends javax.swing.JFrame {
     private void jButtonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrarActionPerformed
         // TODO add your handling code here:
         String PasswordTyped = new String(jPasswordFieldTxtSenha.getPassword());
-        if(jTextFieldTxtUsuario.getText().equals("admin") && PasswordTyped.equals("1234")){
+        if (jTextFieldTxtUsuario.getText().equals("admin") && PasswordTyped.equals("1234")) {
             JOptionPane.showMessageDialog(null, "BEM-VINDO AO SISTEMA");
-            
+
             //call new window
             TelaSplash newTelaSplash = new TelaSplash();
             newTelaSplash.setVisible(true);
             this.dispose();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "LOGIN OU SENHA INCORRETOS");
         }
     }//GEN-LAST:event_jButtonEntrarActionPerformed
+
+    private void jTextFieldTxtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTxtUsuarioKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jButtonEntrarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTextFieldTxtUsuarioKeyPressed
+
+    private void jPasswordFieldTxtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldTxtSenhaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jButtonEntrarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jPasswordFieldTxtSenhaKeyPressed
 
     /**
      * @param args the command line arguments
