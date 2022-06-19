@@ -27,6 +27,9 @@ public class Pessoa {
             System.out.println(telefone[0] + "\t" + telefone[1] + "\t" + telefone[2]);
             throw new InputMismatchException("Telefone inválido");
         }
+        if (!validaEmail(email)) {
+            throw new InputMismatchException("O email \"" + email + "\" é inválido");
+        }
         this.telefone[0] = telefone[0].trim();//    * retirando espaços em branco
         this.telefone[1] = telefone[1].trim();//    * retirando espaços em branco
         this.telefone[2] = telefone[2].trim();//    * retirando espaços em branco
@@ -94,6 +97,11 @@ public class Pessoa {
         telefoneFormatado.append(telefoneParaFormatar.substring(7));
 
         return String.valueOf(telefoneFormatado);
+    }
+
+    private boolean validaEmail(String email) {
+        return email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
     }
 
     @Override

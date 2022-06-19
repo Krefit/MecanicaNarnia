@@ -5,7 +5,6 @@
 package modelos;
 
 import enumerations.TipoCliente;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -209,6 +208,22 @@ public class Veiculo {
             return false;
         }
         return Objects.equals(this.placa, other.placa);
+    }
+
+    public boolean validaRenavan(String renavan) {
+        final String FORMATED = "(\\d{4})[.](\\d{6})-(\\d{1})";
+        final String UNFORMATED = "(\\d{4})(\\d{6})(\\d{1})";
+        return renavan.matches(FORMATED) || renavan.matches(UNFORMATED);
+    }
+
+    public boolean validaChassi(String chassi) {
+        System.out.println(!chassi.matches("^0"));
+        System.out.println(!chassi.matches(" "));
+        System.out.println(!chassi.matches("^.{4,}([0-9A-Za-z])\\1{5,}"));
+        System.out.println(!chassi.matches("[iIoOqQ]"));
+        System.out.println(chassi.matches("[0-9]{4}$"));
+        return !chassi.matches("^0") && !chassi.matches(" ") && !chassi.matches("^.{4,}([0-9A-Za-z])\\1{5,}") && !chassi.matches("[iIoOqQ]")
+                && chassi.matches("[0-9]{4}$");
     }
 
     @Override

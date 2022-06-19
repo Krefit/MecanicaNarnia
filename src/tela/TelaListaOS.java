@@ -51,6 +51,7 @@ public class TelaListaOS extends javax.swing.JInternalFrame {
                     Peca peca = new ManipulaBancoPecas().buscar(os.getIdPeca());
                     String dataAbertura = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataEntrada());
                     String dados[] = {String.valueOf(os.getCodigo()),// * código da OS
+                        String.valueOf(os.getSituacao()),// * status da OS
                         servico.getNomeServico(),// * nome do serviço feito
                         String.valueOf(servico.getValorMaoDeObra()),//  * valor da mão de obra
                         dataAbertura,// * data de abertura da OS
@@ -62,15 +63,15 @@ public class TelaListaOS extends javax.swing.JInternalFrame {
                         String.valueOf(os.calcularValorTotalComDesconto())};// * valor total da OS, com desconto
 
                     if (os.getDataSaida() != null) {//  * já foi concluida
-                        dados[4] = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataSaida());
+                        dados[5] = new SimpleDateFormat("dd/MM/yyyy").format(os.getDataSaida());
 
                     }
                     if (peca != null) {//   * usa alguma peça
-                        dados[5] = peca.getCodigoPeca();//  * código da peça usada
-                        dados[6] = String.valueOf(os.getQuantidadePeca());//  * quantidade de peças  usadas
-                        dados[7] = String.valueOf(peca.getValorPeca());//  * valor unitário da peça
-                        dados[8] = String.valueOf(os.calcularValorTotalSemDesconto());// * valor total da OS, sem desconto
-                        dados[9] = String.valueOf(os.calcularValorTotalComDesconto());// * valor total da OS, com desconto
+                        dados[6] = peca.getCodigoPeca();//  * código da peça usada
+                        dados[7] = String.valueOf(os.getQuantidadePeca());//  * quantidade de peças  usadas
+                        dados[8] = String.valueOf(peca.getValorPeca());//  * valor unitário da peça
+                        dados[9] = String.valueOf(os.calcularValorTotalSemDesconto());// * valor total da OS, sem desconto
+                        dados[10] = String.valueOf(os.calcularValorTotalComDesconto());// * valor total da OS, com desconto
                     }
                     table.addRow(dados);
                 }
