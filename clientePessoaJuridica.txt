@@ -1,2 +1,2 @@
-2;narnia;07.424.715/0001-10;narnia;[99999999999, 99999999999, 99999999999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124321;false
-2;Narnia;07.424.715/0001-10;Narnia;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124321;false
+2;narnia;07.424.715/0001-10;narnia;[99999999999, 99999999999, 99999999999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,5612431;true
+0;Narnia;07.424.715/0001-10;Narnia;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-31 ;true

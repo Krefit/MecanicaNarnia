@@ -83,6 +83,8 @@
               <Component id="jButtonEditar" min="-2" pref="149" max="-2" attributes="0"/>
               <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
               <Component id="jButtonRemover" min="-2" pref="178" max="-2" attributes="0"/>
+              <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+              <Component id="jButtonVoltar" min="-2" pref="138" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="128" pref="128" max="-2" attributes="0"/>
@@ -314,6 +316,7 @@
                   <Component id="jButtonAdicionar" min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="jButtonEditar" min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="jButtonRemover" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="jButtonVoltar" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -520,6 +523,17 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAdicionarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonVoltar">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Voltar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVoltarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tField_nome_razaoSocial">

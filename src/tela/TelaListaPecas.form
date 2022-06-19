@@ -68,7 +68,10 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jFormattedTextFieldQuantidadeEstoqueMinimo" min="-2" pref="190" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jFormattedTextFieldQuantidadeEstoqueMinimo" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="jButtonVoltar" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace pref="20" max="32767" attributes="0"/>
@@ -103,6 +106,7 @@
                   <Component id="jButtonIncluir" pref="64" max="32767" attributes="0"/>
                   <Component id="jButtonEditar" max="32767" attributes="0"/>
                   <Component id="jButtonExcluir" max="32767" attributes="0"/>
+                  <Component id="jButtonVoltar" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
           </Group>
@@ -228,6 +232,14 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldCodigo">
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonVoltar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="VOLTAR"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVoltarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
