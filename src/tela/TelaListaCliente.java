@@ -13,6 +13,7 @@ import modelos.PessoaFisica;
 import persistencia.ManipulaBancoPessoaFisica;
 import persistencia.ManipulaBancoVeiculo;
 import enumerations.EstadosBrazil;
+import enumerations.TipoCliente;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -62,18 +63,23 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             table.setRowCount(0);// * apagando dados da tabela para não duplicar as linhas
             ArrayList<PessoaFisica> listaPessoas = new ManipulaBancoPessoaFisica().buscarTodos();
             ArrayList<PessoaJuridica> listaPessoasJuridicas = new ManipulaBancoPessoaJuridica().buscarTodos();
-            for (PessoaFisica p : listaPessoas) {
-                String[] dados = new String[jTableClientes.getColumnCount()];
-                dados[0] = p.getNome();
-                dados[1] = p.getCpf();
-                dados[2] = p.getTelefone()[0];
-                dados[3] = p.getTelefone()[1];
-                dados[4] = p.getTelefone()[2];
-                dados[5] = new SimpleDateFormat("dd/MM/yyyy").format(p.getDataNascimento());
-                dados[6] = p.getEmail();
-                dados[7] = "" + new ManipulaBancoVeiculo().getQuantidadeVeiculos(new ManipulaBancoPessoaFisica().buscar(p));
+            if (listaPessoas != null) {
+                for (PessoaFisica p : listaPessoas) {
+                    String[] dados = new String[jTableClientes.getColumnCount()];
+                    dados[0] = p.getNome();
+                    dados[1] = p.getCpf();
+                    dados[2] = p.getTelefone()[0];
+                    dados[3] = p.getTelefone()[1];
+                    dados[4] = p.getTelefone()[2];
+                    dados[5] = new SimpleDateFormat("dd/MM/yyyy").format(p.getDataNascimento());
+                    dados[6] = p.getEmail();
+                    dados[7] = "" + new ManipulaBancoVeiculo().getQuantidadeVeiculos(new ManipulaBancoPessoaFisica().buscar(p), TipoCliente.PESSOA_FISICA);
 
-                table.addRow(dados);
+                    table.addRow(dados);
+                }
+            }
+            if (listaPessoasJuridicas == null) {
+                return;
             }
             for (PessoaJuridica p : listaPessoasJuridicas) {
                 String[] dados = new String[jTableClientes.getColumnCount()];
@@ -84,7 +90,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
                 dados[4] = p.getTelefone()[2];
                 dados[5] = p.getNomeFantasia();
                 dados[6] = p.getEmail();
-                dados[7] = "" + new ManipulaBancoVeiculo().getQuantidadeVeiculos(new ManipulaBancoPessoaJuridica().buscar(p));
+                dados[7] = "" + new ManipulaBancoVeiculo().getQuantidadeVeiculos(new ManipulaBancoPessoaJuridica().buscar(p), TipoCliente.PESSOA_JURIDICA);
 
                 table.addRow(dados);
             }
@@ -132,7 +138,6 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         jRadioButton_PessoaFisica = new javax.swing.JRadioButton();
         jRadioButton_PessoaJuridica = new javax.swing.JRadioButton();
         jButtonAdicionar = new javax.swing.JButton();
-        jButtonVoltar = new javax.swing.JButton();
         tField_nome_razaoSocial = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableClientes = new javax.swing.JTable();
@@ -232,14 +237,6 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAdicionarActionPerformed(evt);
-            }
-        });
-
-        jButtonVoltar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButtonVoltar.setText("Voltar");
-        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVoltarActionPerformed(evt);
             }
         });
 
@@ -373,9 +370,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
                 .addGap(42, 42, 42)
                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(128, 128, 128)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -515,9 +510,46 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
                             .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabelNome_razaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(232, 232, 232))))
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jFormattedTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel11))
+                    .addComponent(tField_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel12))
+                    .addComponent(cb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel10))
+                    .addComponent(tField_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tField_TipoLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel7))
+                    .addComponent(tField_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel8))
+                    .addComponent(tField_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel9))
+                    .addComponent(tField_Complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -692,11 +724,6 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
-    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        new TelaInicial().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButtonVoltarActionPerformed
-
     private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
         try {
             int indexSelecionado = jTableClientes.getSelectedRow();
@@ -774,20 +801,20 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaListaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaListaClientes().setVisible(true);
+                new TelaListaCliente().setVisible(true);
             }
         });
     }
@@ -857,7 +884,6 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonAdicionar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonRemover;
-    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JFormattedTextField jFormattedTextFieldCep;
     private javax.swing.JFormattedTextField jFormattedTextFieldCnpj;
     private javax.swing.JFormattedTextField jFormattedTextFieldCpf;
