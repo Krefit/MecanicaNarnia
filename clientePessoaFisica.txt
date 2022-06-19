@@ -1,5 +1,5 @@
 15;Ze Ruela;542.349.720-53;02/10/1998;[62995278963, 62995278963, 62995278963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454684;false
-3;paula tejano;797.857.090-86;20/04/1969;[65988888888, 65988888888, 65988888888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,234522;true
+3;paula tejano;797.857.090-86;20/04/1969;[65988888888, 65988888888, 65988888888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,234522;false
 15;Ze Ruela;542.349.720-53;02/10/1998;[62995278963, 62995278963, 62995278963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454684;false
 15;Ze Ruela;542.349.720-53;02/10/1998;[62995278963, 62995278963, 62995278963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454684;false
 15;Ze Ruela;542.349.720-53;02/10/1998;[62995278963, 62995278963, 62995278963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454684;false
@@ -11,6 +11,8 @@
 15;Ze Ruel;542.349.720-53;02/10/1998;[62995278963, 62995278963, 62995278963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454684;false
 15;Ze Ruel;542.349.720-53;02/10/1998;[62995278963, 62995278963, 62995278963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454684;false
 15;Ze Ruel;542.349.720-53;02/10/1998;[62995278963, 62995278963, 62995278963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454684;false
-15;Ze Ruela;542.349.720-53;02/10/1998;[62995278963, 62995278963, 62995278963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454684;true
-20;Paula tejano;797.857.090-86;20/04/1969;[65988888888, 65988888888, 65988888888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,234522;false
-20;Paula Tejano;797.857.090-86;20/04/1969;[65988888888, 65988888888, 65988888888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,234522;false
+15;Ze Ruela;542.349.720-53;02/10/1998;[62995278963, 62995278963, 62995278963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454684;false
+3;Paula tejano;797.857.090-86;20/04/1969;[65988888888, 65988888888, 65988888888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,234522;false
+3;Paula Tejano;797.857.090-86;20/04/1969;[65988888888, 65988888888, 65988888888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,234522;false
+15;Ze Ruela;542.349.720-53;02/10/1998;[(62) 99527-8963, (62) 99527-8963, (62) 99527-8963];zeruela@gmail.com;Rua,Rua 4B,5,Próximo ao Mercado Central,Jardim Novo Mundo,Goiânia,GO,74454-684;true
+3;Paula tejano;797.857.090-86;20/04/1969;[(65) 98888-8888, (65) 98888-8888, (65) 98888-8888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,23452-2  ;true
