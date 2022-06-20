@@ -65,6 +65,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuCliente = new javax.swing.JMenu();
         jMenuItemClientes = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItemCadastroOS = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItemCadastroDeVeiculo = new javax.swing.JMenuItem();
@@ -127,6 +128,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuCliente);
 
         jMenu3.setText("Orçamentos/Ordens de serviço/ notas fiscais");
+
+        jMenuItemCadastroOS.setText("Cadastrar orçamento");
+        jMenuItemCadastroOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastroOSActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemCadastroOS);
 
         jMenuItem2.setText("Lista ordens de serviço");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -274,7 +283,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             url.openConnection();
             try {
                 Runtime.getRuntime().exec("cmd.exe /C start " + "https://jteles050.wixsite.com/n-rnia-desenvolvedor");
-                Runtime.getRuntime().exec("cmd.exe /C start " + "https://jteles050.wixsite.com/n-rnia-desenvolvedor");
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -285,14 +293,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItemCadastroDeOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeOSActionPerformed
-        limpaTela();
-        TelaCadastroDeOS newTelaCadastroDeOS = new TelaCadastroDeOS();
-        newTelaCadastroDeOS.setVisible(true);
-        jDesktopPanePrincipal.add(newTelaCadastroDeOS);
-        jDesktopPanePrincipal.setVisible(true);
-    }//GEN-LAST:event_jMenuItemCadastroDeOSActionPerformed
 
     private void jMenuItemCadastrodeServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrodeServicosActionPerformed
         limpaTela();
@@ -351,13 +351,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemFuncionariosActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemCadastroDeOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroOSActionPerformed
+//  * bug do netbeans, esse método é inutil e está apenas linkado a um evento antigo, que já foi escluido
+    }//GEN-LAST:event_jMenuItemCadastroOSActionPerformed
+
+    private void jMenuItemCadastroOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeOSActionPerformed
         limpaTela();
         TelaCadastroDeOS newTelaListaFuncionario = new TelaCadastroDeOS();
         newTelaListaFuncionario.setVisible(true);
         jDesktopPanePrincipal.add(newTelaListaFuncionario);
         jDesktopPanePrincipal.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemCadastroDeOSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,6 +414,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadastroDeMarca;
     private javax.swing.JMenuItem jMenuItemCadastroDeModelo;
     private javax.swing.JMenuItem jMenuItemCadastroDeVeiculo;
+    private javax.swing.JMenuItem jMenuItemCadastroOS;
     private javax.swing.JMenuItem jMenuItemCadastrodeServicos;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemFuncionarios;

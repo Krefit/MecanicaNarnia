@@ -42,6 +42,14 @@
             <Property name="text" type="java.lang.String" value="Or&#xe7;amentos/Ordens de servi&#xe7;o/ notas fiscais"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadastroOS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cadastrar or&#xe7;amento"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCadastroOSActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Lista ordens de servi&#xe7;o"/>

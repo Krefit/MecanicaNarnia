@@ -1,1 +1,2 @@
 2;Honda;true
+3;Fiat;true
