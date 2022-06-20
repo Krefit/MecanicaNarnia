@@ -95,9 +95,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jDesktopPanePrincipalLayout.setVerticalGroup(
             jDesktopPanePrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGap(0, 394, Short.MAX_VALUE)
         );
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/page.png"))); // NOI18N
         jMenu1.setText("Arquivo");
 
         jMenuItemSair.setText("Sair");
@@ -110,6 +111,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenuCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/group.png"))); // NOI18N
         jMenuCliente.setText("Clientes");
         jMenuCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +129,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuCliente);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-orçamento-15.png"))); // NOI18N
         jMenu3.setText("Orçamentos/Ordens de serviço/ notas fiscais");
 
         jMenuItemCadastroOS.setText("Cadastrar orçamento");
@@ -147,6 +150,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-ar-fresco-15.png"))); // NOI18N
         jMenu2.setText("Veículos");
 
         jMenuItemCadastroDeVeiculo.setText("Cadastro de Veículo");
@@ -175,6 +179,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-exhaust-pipe-15.png"))); // NOI18N
         jMenu6.setText("Peças");
 
         jMenuItemPecas.setText("Peças");
@@ -187,6 +192,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-serviços-15.png"))); // NOI18N
         jMenu5.setText("Serviços");
 
         jMenuItemCadastrodeServicos.setText("Cadastro de Serviços");
@@ -199,6 +205,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cartão-de-visitas-15.png"))); // NOI18N
         jMenu8.setText("Funcionários");
 
         jMenuItemFuncionarios.setText("Funcionários");
@@ -211,6 +218,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu8);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/help.png"))); // NOI18N
         jMenu4.setText("Sobre");
 
         jMenuItem3.setText("Site Desenvolvedora");

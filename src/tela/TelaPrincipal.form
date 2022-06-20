@@ -6,6 +6,9 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/page.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Arquivo"/>
           </Properties>
           <SubComponents>
@@ -21,6 +24,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuCliente">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/group.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Clientes"/>
           </Properties>
           <Events>
@@ -39,6 +45,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/icons8-or&#xe7;amento-15.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Or&#xe7;amentos/Ordens de servi&#xe7;o/ notas fiscais"/>
           </Properties>
           <SubComponents>
@@ -62,6 +71,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/icons8-ar-fresco-15.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ve&#xed;culos"/>
           </Properties>
           <SubComponents>
@@ -93,6 +105,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/icons8-exhaust-pipe-15.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Pe&#xe7;as"/>
           </Properties>
           <SubComponents>
@@ -108,6 +123,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/icons8-servi&#xe7;os-15.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Servi&#xe7;os"/>
           </Properties>
           <SubComponents>
@@ -123,6 +141,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu8">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/icons8-cart&#xe3;o-de-visitas-15.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Funcion&#xe1;rios"/>
           </Properties>
           <SubComponents>
@@ -138,6 +159,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/help.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Sobre"/>
           </Properties>
           <SubComponents>
@@ -200,7 +224,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="396" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="394" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
