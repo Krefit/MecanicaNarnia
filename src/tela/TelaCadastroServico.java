@@ -8,6 +8,8 @@ package tela;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.Servico;
 import persistencia.ManipulaBancoServicos;
 
@@ -27,7 +29,7 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
     
         private void loadTableServicos(String busca) {
         try {
-            DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+            DefaultTableModel table = (DefaultTableModel) jTableListaServicos.getModel();
             table.setRowCount(0);//apagando linhas antigas para não duplicar a tabela
 
             ArrayList<Servico> listaServicos = new ManipulaBancoServicos().buscarTodos();// * buscando todos os serviços registrados
@@ -36,6 +38,9 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
                     table.addRow(new Object[]{s.getNomeServico(), String.format("%.2f", s.getValorMaoDeObra())});//    * adicionando linha com os dados do serviço
                 }
             }
+            
+            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableListaServicos.getModel());
+            jTableListaServicos.setRowSorter(sorter);
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
@@ -54,11 +59,11 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jFormattedTextFieldValorMaoDeObra = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableListaServicos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldNomeServico = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonAddServico = new javax.swing.JButton();
 
         setTitle("Cadastro de Serviços");
 
@@ -66,7 +71,7 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
 
         jFormattedTextFieldValorMaoDeObra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableListaServicos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -89,7 +94,7 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableListaServicos);
 
         jLabel1.setText("Serviços:");
 
@@ -101,10 +106,10 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Adicionar serviço");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAddServico.setText("Adicionar serviço");
+        jButtonAddServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAddServicoActionPerformed(evt);
             }
         });
 
@@ -124,7 +129,7 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton1)
+                                .addComponent(jButtonAddServico)
                                 .addComponent(jFormattedTextFieldValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 89, Short.MAX_VALUE))
@@ -144,7 +149,7 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jFormattedTextFieldValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(jButtonAddServico)
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
@@ -155,7 +160,7 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
         loadTableServicos(jTextFieldNomeServico.getText());
     }//GEN-LAST:event_jTextFieldNomeServicoKeyTyped
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAddServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddServicoActionPerformed
         try {
             String nomeServico = jTextFieldNomeServico.getText();
             double valorMaoDeObra = Double.parseDouble(jFormattedTextFieldValorMaoDeObra.getText().replace(".", "").replace(",", "."));
@@ -169,17 +174,17 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
             System.out.println(e);
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAddServicoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAddServico;
     private javax.swing.JFormattedTextField jFormattedTextFieldValorMaoDeObra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableListaServicos;
     private javax.swing.JTextField jTextFieldNomeServico;
     // End of variables declaration//GEN-END:variables
 }

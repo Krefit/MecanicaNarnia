@@ -65,7 +65,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuCliente = new javax.swing.JMenu();
         jMenuItemClientes = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItemCadastroDeVeiculo = new javax.swing.JMenuItem();
@@ -127,15 +126,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuCliente);
 
-        jMenu3.setText("Ordens de serviço");
-
-        jMenuItem1.setText("Criar novo orçamento");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem1);
+        jMenu3.setText("Produtos");
 
         jMenuItem2.setText("Lista ordens de serviço");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +204,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setText("Sobre");
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("Site Desenvolvedora");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -414,7 +405,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCliente;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemCadastroDeMarca;

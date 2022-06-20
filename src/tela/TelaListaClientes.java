@@ -14,6 +14,8 @@ import persistencia.ManipulaBancoVeiculo;
 import enumerations.EstadosBrazil;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.PessoaJuridica;
 import modelos.auxiliares.Endereco;
 import persistencia.ManipulaBancoPessoaJuridica;
@@ -32,6 +34,11 @@ public class TelaListaClientes extends javax.swing.JFrame {
         loadComboBox();
         loadTableClientes();
         setLocationRelativeTo(null);
+        
+        jButtonVoltar.setVisible(false);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableClientes.getModel());
+        jTableClientes.setRowSorter(sorter);
     }
 
     private void loadComboBox() {

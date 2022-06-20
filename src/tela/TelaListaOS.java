@@ -10,6 +10,8 @@ import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.event.AncestorEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.OrdemDeServico;
 import modelos.Peca;
 import modelos.Servico;
@@ -36,6 +38,9 @@ public class TelaListaOS extends javax.swing.JInternalFrame {
         initComponents();
         this.telaAnterior = telaAnterior;
         loadTableOSs();
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableOSs.getModel());
+        jTableOSs.setRowSorter(sorter);
     }
 
     private void loadTableOSs() {

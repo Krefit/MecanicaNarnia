@@ -8,6 +8,8 @@ package tela;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.Peca;
 import persistencia.ManipulaBancoPecas;
 
@@ -27,6 +29,11 @@ public class TelaListaPeca extends javax.swing.JInternalFrame {
         jFormattedTextFieldQuantidadeEstoqueMinimo.setText("0");
         jFormattedTextFieldQuantidadeEstoque.setText("0");
         LoadTableListaPecas();
+        
+        jButtonVoltar.setVisible(false);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableListaPecas.getModel());
+        jTableListaPecas.setRowSorter(sorter);
     }
 
     private void LoadTableListaPecas() {

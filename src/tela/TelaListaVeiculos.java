@@ -7,6 +7,8 @@ package tela;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.PessoaFisica;
 import modelos.PessoaJuridica;
 import modelos.Veiculo;
@@ -30,6 +32,11 @@ public class TelaListaVeiculos extends javax.swing.JFrame {
     public TelaListaVeiculos() {
         initComponents();
         loadTableVeiculos("");
+        
+        jButtonVoltar.setVisible(false);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableVeiculos.getModel());
+        jTableVeiculos.setRowSorter(sorter);
     }
 
     private void loadTableVeiculos(String busca) {

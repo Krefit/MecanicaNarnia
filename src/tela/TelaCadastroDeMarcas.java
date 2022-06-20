@@ -8,6 +8,8 @@ package tela;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.auxiliares.MarcaVeiculo;
 import persistencia.ManipulaBancoMarca;
 
@@ -28,7 +30,9 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-    }
+        
+        jButtonVoltar.setVisible(false);
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -155,6 +159,9 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
             dtb.addRow(new Object[]{m.getNomeMarca()});
         }
         jTableMarcasExistentes.setModel(dtb);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableMarcasExistentes.getModel());
+        jTableMarcasExistentes.setRowSorter(sorter);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

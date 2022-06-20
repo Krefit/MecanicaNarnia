@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.Funcionario;
 import modelos.OrdemDeServico;
 import modelos.Peca;
@@ -32,6 +34,11 @@ public class TelaListaOrcamentos extends javax.swing.JFrame {
         initComponents();
         loadTableOrcamentoss();
         jRadioButtonEmAberto.setSelected(true);
+        
+        jButtonVoltar.setVisible(false);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableOrcamentos.getModel());
+        jTableOrcamentos.setRowSorter(sorter);
     }
 
     private void loadTableOrcamentoss() {

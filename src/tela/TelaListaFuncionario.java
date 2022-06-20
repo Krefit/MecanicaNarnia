@@ -11,6 +11,8 @@ import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.Funcionario;
 import modelos.auxiliares.Endereco;
 import persistencia.ManipulaBancoFuncionario;
@@ -28,6 +30,9 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
         initComponents();
         loadComboBox();
         loadTableFuncionarios();
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableFuncionarios.getModel());
+        jTableFuncionarios.setRowSorter(sorter);
     }
 
     private void loadComboBox() {

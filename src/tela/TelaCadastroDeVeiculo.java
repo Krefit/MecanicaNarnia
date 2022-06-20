@@ -7,6 +7,8 @@ import modelos.Veiculo;
 import persistencia.ManipulaBancoVeiculo;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.Pessoa;
 import modelos.PessoaFisica;
 import modelos.PessoaJuridica;
@@ -37,6 +39,10 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
 
         jRadioButtonPessoaFisica.setEnabled(false);
         jRadioButtonPessoaJuridica.setEnabled(false);
+        jButtonVoltar.setVisible(false);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTable1.getModel());
+        jTable1.setRowSorter(sorter);
     }
 
     @SuppressWarnings("unchecked")
@@ -146,7 +152,15 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -361,11 +375,6 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
         new TelaCadastroModelo().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        new TelaInicial().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButtonVoltarActionPerformed
-
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
         jTextFieldDonoDoVeiculo.setText(String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1)));
         if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
@@ -374,6 +383,11 @@ public class TelaCadastroDeVeiculo extends javax.swing.JFrame {
             jRadioButtonPessoaJuridica.setSelected(true);
         }
     }//GEN-LAST:event_jTable1MouseReleased
+
+    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
+        new TelaInicial().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     /**
      * @param args the command line arguments

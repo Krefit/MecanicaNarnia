@@ -11,6 +11,8 @@ import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.Funcionario;
 import modelos.OrdemDeServico;
 import modelos.Peca;
@@ -49,6 +51,17 @@ public class TelaCadastroOS extends javax.swing.JFrame {
         jTablePecas.setVisible(false);
         jFormattedTextFieldQuantidadePecas.setVisible(false);
         jLabelQuantidadePecas.setVisible(false);
+        
+        jButtonVoltar.setVisible(false);
+        
+        TableRowSorter<TableModel> sorterPecas = new TableRowSorter<TableModel>(jTablePecas.getModel());
+        jTablePecas.setRowSorter(sorterPecas);
+        
+        TableRowSorter<TableModel> sorterServicos = new TableRowSorter<TableModel>(jTableServicos.getModel());
+        jTableServicos.setRowSorter(sorterServicos);
+        
+        TableRowSorter<TableModel> sorterVeiculos = new TableRowSorter<TableModel>(jTableVeiculos.getModel());
+        jTableVeiculos.setRowSorter(sorterVeiculos);
     }
 
     private void loadTableVeiculos(String busca) {
@@ -163,14 +176,14 @@ public class TelaCadastroOS extends javax.swing.JFrame {
         jFormattedTextFieldDataEntrada = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jButtonCriarOrdemSerivco = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTablePecas = new javax.swing.JTable();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabelQuantidadePecas = new javax.swing.JLabel();
         jFormattedTextFieldQuantidadePecas = new javax.swing.JFormattedTextField();
-        jButton3 = new javax.swing.JButton();
+        jButtonAddServico = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jFormattedTextFieldPorcentagemDesconto = new javax.swing.JFormattedTextField();
 
@@ -272,10 +285,10 @@ public class TelaCadastroOS extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Criar nova Ordem de serviço");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCriarOrdemSerivco.setText("Criar nova Ordem de serviço");
+        jButtonCriarOrdemSerivco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCriarOrdemSerivcoActionPerformed(evt);
             }
         });
 
@@ -322,10 +335,10 @@ public class TelaCadastroOS extends javax.swing.JFrame {
 
         jFormattedTextFieldQuantidadePecas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
-        jButton3.setText("Adicionar novo serviço");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAddServico.setText("Adicionar novo serviço");
+        jButtonAddServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonAddServicoActionPerformed(evt);
             }
         });
 
@@ -351,7 +364,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addComponent(jButton1))
+                        .addComponent(jButtonCriarOrdemSerivco))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -379,7 +392,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jTextFieldBuscaServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3)))
+                                    .addComponent(jButtonAddServico)))
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(29, Short.MAX_VALUE))))
@@ -399,7 +412,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jFormattedTextFieldPorcentagemDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
-                        .addComponent(jButton1))
+                        .addComponent(jButtonCriarOrdemSerivco))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -412,7 +425,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldBuscaServicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonAddServico))
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -438,7 +451,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
         jTextFieldBuscaServicos.setText(String.valueOf(jTableServicos.getValueAt(jTableServicos.getSelectedRow(), 0)));
     }//GEN-LAST:event_jTableServicosMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonCriarOrdemSerivcoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCriarOrdemSerivcoActionPerformed
         try {
             if (jFormattedTextFieldQuantidadePecas.getText().equals("")) {
                 throw new Exception("informe a quantidade de peças que serão usadas");
@@ -471,7 +484,7 @@ public class TelaCadastroOS extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonCriarOrdemSerivcoActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         new TelaInicial().setVisible(true);
@@ -495,9 +508,9 @@ public class TelaCadastroOS extends javax.swing.JFrame {
         loadTableVeiculos(String.valueOf(evt.getKeyChar()));
     }//GEN-LAST:event_jTableVeiculosKeyTyped
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonAddServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddServicoActionPerformed
         new TelaCadastroServicos().setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonAddServicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -543,8 +556,8 @@ public class TelaCadastroOS extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonAddServico;
+    private javax.swing.JButton jButtonCriarOrdemSerivco;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;

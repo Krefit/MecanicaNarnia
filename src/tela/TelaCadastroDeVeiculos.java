@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.PessoaFisica;
 import modelos.PessoaJuridica;
 import modelos.Veiculo;
@@ -45,6 +47,11 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
         jRadioButtonPessoaFisica.setEnabled(false);
         jRadioButtonPessoaJuridica.setEnabled(false);
+        
+        jButtonVoltar.setVisible(false);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTabelaVeiculos.getModel());
+        jTabelaVeiculos.setRowSorter(sorter);
     }
 
     /**
@@ -77,7 +84,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
         jComboBoxModelos = new javax.swing.JComboBox<>();
         jComboBoxMarcas = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTabelaVeiculos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButtonCadastrarVeiculo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -128,7 +135,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -138,16 +145,24 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jTable1MouseReleased(evt);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jTabelaVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaVeiculosMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTabelaVeiculosMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTabelaVeiculos);
 
         jButton1.setText("Cadastrar nova marca");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -380,23 +395,23 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jComboBoxMarcasActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1)));
-        if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
+    private void jTabelaVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaVeiculosMouseClicked
+        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTabelaVeiculos.getModel().getValueAt(jTabelaVeiculos.getSelectedRow(), 1)));
+        if (jTabelaVeiculos.getValueAt(jTabelaVeiculos.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
             jRadioButtonPessoaFisica.setSelected(true);
-        } else if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
+        } else if (jTabelaVeiculos.getValueAt(jTabelaVeiculos.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
             jRadioButtonPessoaJuridica.setSelected(true);
         }
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_jTabelaVeiculosMouseClicked
 
-    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
-        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1)));
-        if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
+    private void jTabelaVeiculosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaVeiculosMouseReleased
+        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTabelaVeiculos.getModel().getValueAt(jTabelaVeiculos.getSelectedRow(), 1)));
+        if (jTabelaVeiculos.getValueAt(jTabelaVeiculos.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
             jRadioButtonPessoaFisica.setSelected(true);
-        } else if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
+        } else if (jTabelaVeiculos.getValueAt(jTabelaVeiculos.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
             jRadioButtonPessoaJuridica.setSelected(true);
         }
-    }//GEN-LAST:event_jTable1MouseReleased
+    }//GEN-LAST:event_jTabelaVeiculosMouseReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new TelaCadastroDeMarca().setVisible(true);
@@ -421,12 +436,12 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
             if (jRadioButtonPessoaFisica.isSelected()) {
                 ManipulaBancoPessoaFisica mb = new ManipulaBancoPessoaFisica();
-                String cpf = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2));
+                String cpf = String.valueOf(jTabelaVeiculos.getModel().getValueAt(jTabelaVeiculos.getSelectedRow(), 2));
                 idDonoVeiculo = mb.buscar(cpf);
                 tipoCliente = TipoCliente.PESSOA_FISICA;
             } else if (jRadioButtonPessoaJuridica.isSelected()) {
                 ManipulaBancoPessoaJuridica mb = new ManipulaBancoPessoaJuridica();
-                String cnpj = String.valueOf(jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2));
+                String cnpj = String.valueOf(jTabelaVeiculos.getModel().getValueAt(jTabelaVeiculos.getSelectedRow(), 2));
                 idDonoVeiculo = mb.buscar(cnpj);
                 tipoCliente = TipoCliente.PESSOA_JURIDICA;
             }
@@ -494,9 +509,9 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                 dados[i][4] = listaPessoasFisicas.get(i).getEmail();
             }
 
-            jTable1.setModel(new DefaultTableModel(dados, new Object[]{"Tipo de cliente", "Nome/Razão social", "CPF/CNPJ", "Telefone", "Email"}));
+            jTabelaVeiculos.setModel(new DefaultTableModel(dados, new Object[]{"Tipo de cliente", "Nome/Razão social", "CPF/CNPJ", "Telefone", "Email"}));
 
-            DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+            DefaultTableModel table = (DefaultTableModel) jTabelaVeiculos.getModel();
 
             ArrayList<PessoaJuridica> listaPessoasJuridicas = new ManipulaBancoPessoaJuridica().buscarTodos();
             String[] dados2 = new String[5];
@@ -535,7 +550,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButtonPessoaFisica;
     private javax.swing.JRadioButton jRadioButtonPessoaJuridica;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTabelaVeiculos;
     private javax.swing.JTextField jTextFieldAnoDeFabricacao;
     private javax.swing.JTextField jTextFieldAnoDoModelo;
     private javax.swing.JTextField jTextFieldChassi;

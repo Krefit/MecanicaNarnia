@@ -52,6 +52,9 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
 
         loadComboBox();
         loadTableClientes();
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableClientes.getModel());
+        jTableClientes.setRowSorter(sorter);
 
         /*Font roboto = null;
         try {

@@ -8,6 +8,8 @@ package tela;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.auxiliares.MarcaVeiculo;
 import modelos.auxiliares.ModeloVeiculo;
 import persistencia.ManipulaBancoMarca;
@@ -28,6 +30,9 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
         loadTableModelos();
         loadComboBoxMarcas();
         jButtonCriarModelo.setEnabled(false);
+        jButtonVoltar.setVisible(false);
+        
+        
     }
 
     /**
@@ -181,6 +186,9 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
             }
 
             jTableModelos.setModel(table);
+            
+            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableModelos.getModel());
+            jTableModelos.setRowSorter(sorter);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

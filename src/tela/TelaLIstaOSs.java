@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.OrdemDeServico;
 import modelos.Peca;
 import modelos.Servico;
@@ -33,6 +35,11 @@ public class TelaLIstaOSs extends javax.swing.JFrame {
         loadTableOSs();
         this.idVeiculo = idVeiculo;
         jRadioButtonOrcamento.setEnabled(false);
+        
+        jButtonVoltar.setVisible(false);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableOSs.getModel());
+        jTableOSs.setRowSorter(sorter);
     }
     
     private void loadTableOSs() {

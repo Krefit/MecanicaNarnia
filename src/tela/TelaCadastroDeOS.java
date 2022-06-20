@@ -12,6 +12,8 @@ import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelos.Funcionario;
 import modelos.OrdemDeServico;
 import modelos.Peca;
@@ -91,6 +93,15 @@ public class TelaCadastroDeOS extends javax.swing.JInternalFrame {
                     }
                 }
             }
+            
+            TableRowSorter<TableModel> sorterPecas = new TableRowSorter<TableModel>(jTablePecas.getModel());
+            jTablePecas.setRowSorter(sorterPecas);
+            
+            TableRowSorter<TableModel> sorterServicos = new TableRowSorter<TableModel>(jTableServicos.getModel());
+            jTableServicos.setRowSorter(sorterServicos);
+            
+            TableRowSorter<TableModel> sorterVeiculo = new TableRowSorter<TableModel>(jTableVeiculos.getModel());
+            jTableVeiculos.setRowSorter(sorterVeiculo);
 
         } catch (Exception e) {
             System.out.println(e);
