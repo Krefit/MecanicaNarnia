@@ -6,6 +6,7 @@
 package tela;
 
 import enumerations.TipoCliente;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -47,11 +48,61 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
         jRadioButtonPessoaFisica.setEnabled(false);
         jRadioButtonPessoaJuridica.setEnabled(false);
-        
-        jButtonVoltar.setVisible(false);
-        
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTabelaVeiculos.getModel());
-        jTabelaVeiculos.setRowSorter(sorter);
+
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTabelaClientes.getModel());
+        jTabelaClientes.setRowSorter(sorter);
+    }
+
+    private void filtraTabelaNome(String nome) {
+        try {
+            DefaultTableModel table = (DefaultTableModel) jTabelaClientes.getModel();
+            table.setRowCount(0);// * apagando dados da tabela para não duplicar as linhas
+            ArrayList<PessoaFisica> listaPessoas = new ManipulaBancoPessoaFisica().buscarTodos();
+            if (listaPessoas != null) {
+                for (PessoaFisica p : listaPessoas) {
+                    if (p.getNome().toUpperCase().contains(nome.toUpperCase())) {
+                        String[] dados = new String[jTabelaClientes.getColumnCount()];
+                        dados[0] = "" + TipoCliente.PESSOA_FISICA;
+                        dados[1] = p.getNome();
+                        dados[2] = p.getCpf();
+                        dados[3] = p.getTelefone()[0];
+                        dados[4] = p.getEmail();
+                        table.addRow(dados);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }
+
+    private void filtraTabelaRazaoSocial(String razaoSocial) {
+        try {
+            DefaultTableModel table = (DefaultTableModel) jTabelaClientes.getModel();
+            table.setRowCount(0);// * apagando dados da tabela para não duplicar as linhas
+            ArrayList<PessoaJuridica> listaPessoasJuridicas = new ManipulaBancoPessoaJuridica().buscarTodos();
+            if (listaPessoasJuridicas == null) {
+                return;
+            }
+            for (PessoaJuridica p : listaPessoasJuridicas) {
+                if (p.getRazaoSocial().toUpperCase().contains(razaoSocial.toUpperCase())) {
+
+                    String[] dados = new String[jTabelaClientes.getColumnCount()];
+                    dados[0] = "" + TipoCliente.PESSOA_JURIDICA;
+                    dados[1] = p.getRazaoSocial();
+                    dados[2] = p.getCnpj();
+                    dados[3] = p.getTelefone()[0];
+                    dados[4] = p.getEmail();
+
+                    table.addRow(dados);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }
 
     /**
@@ -80,20 +131,20 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
         jTextFieldAnoDoModelo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextFieldDonoDoVeiculo = new javax.swing.JTextField();
-        jButtonCadastrarCliente = new javax.swing.JButton();
         jComboBoxModelos = new javax.swing.JComboBox<>();
         jComboBoxMarcas = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaVeiculos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jTabelaClientes = new javax.swing.JTable();
         jButtonCadastrarVeiculo = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButtonVoltar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldQuilometragem = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jRadioButtonPessoaJuridica = new javax.swing.JRadioButton();
         jRadioButtonPessoaFisica = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldBuscaNome = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextFieldBuscaRazaoSocial = new javax.swing.JTextField();
 
         setTitle("Veículos");
         setToolTipText("");
@@ -114,13 +165,6 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
         jLabel10.setText("DONO DO VEÍCULO");
 
-        jButtonCadastrarCliente.setText("CADASTRAR CLIENTE");
-        jButtonCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCadastrarClienteActionPerformed(evt);
-            }
-        });
-
         jComboBoxModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxModelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +179,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
             }
         });
 
-        jTabelaVeiculos.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -154,41 +198,20 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTabelaVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaVeiculosMouseClicked(evt);
+                jTabelaClientesMouseClicked(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jTabelaVeiculosMouseReleased(evt);
+                jTabelaClientesMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(jTabelaVeiculos);
-
-        jButton1.setText("Cadastrar nova marca");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(jTabelaClientes);
 
         jButtonCadastrarVeiculo.setText("Cadastrar novo veiculo");
         jButtonCadastrarVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCadastrarVeiculoActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Cadastrar novo modelo");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButtonVoltar.setText("VOLTAR");
-        jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVoltarActionPerformed(evt);
             }
         });
 
@@ -200,178 +223,186 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
         jRadioButtonPessoaFisica.setText("Pessoa física");
 
+        jLabel3.setText("Nome:");
+
+        jTextFieldBuscaNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldBuscaNomeKeyReleased(evt);
+            }
+        });
+
+        jLabel12.setText("Nome/razão social: ");
+
+        jTextFieldBuscaRazaoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldBuscaRazaoSocialKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1177, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(255, 255, 255)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldChassi)
+                                    .addComponent(jTextFieldRenavam)
+                                    .addComponent(jTextFieldTipoDoVeiculo)
+                                    .addComponent(jTextFieldPlaca)
+                                    .addComponent(jTextFieldAnoDoModelo)
+                                    .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldMarca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldModelo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButtonCadastrarVeiculo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jRadioButtonPessoaFisica)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jRadioButtonPessoaJuridica)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(61, 61, 61)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldBuscaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(217, 217, 217))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addContainerGap(255, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(256, 256, 256)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel1)
-                            .addGap(239, 239, 239)
-                            .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jComboBoxMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(220, 220, 220)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jComboBoxModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(220, 220, 220)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(60, 60, 60)
-                            .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel4)
-                            .addGap(8, 8, 8)
-                            .addComponent(jTextFieldChassi, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel5)
-                            .addGap(10, 10, 10)
-                            .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel6)
-                            .addGap(14, 14, 14)
-                            .addComponent(jTextFieldTipoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel7)
-                            .addGap(8, 8, 8)
-                            .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel8)
-                            .addGap(14, 14, 14)
-                            .addComponent(jTextFieldAnoDeFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel9)
-                            .addGap(23, 23, 23)
-                            .addComponent(jTextFieldAnoDoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel11)
-                            .addGap(32, 32, 32)
-                            .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel10)
-                            .addGap(15, 15, 15)
-                            .addComponent(jTextFieldDonoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(20, 20, 20)
-                            .addComponent(jLabel2)
-                            .addGap(29, 29, 29)
-                            .addComponent(jRadioButtonPessoaFisica)
-                            .addGap(20, 20, 20)
-                            .addComponent(jRadioButtonPessoaJuridica))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jButtonCadastrarCliente)
-                            .addGap(108, 108, 108)
-                            .addComponent(jButtonCadastrarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(648, 648, 648)
-                            .addComponent(jButtonVoltar)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel10))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jTextFieldDonoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldAnoDeFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(341, 579, Short.MAX_VALUE)))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(641, Short.MAX_VALUE)
+                    .addComponent(jLabel12)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTextFieldBuscaRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(217, 217, 217)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 649, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jComboBoxMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldChassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(14, 14, 14)
+                        .addComponent(jTextFieldTipoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7)
+                        .addGap(3, 3, 3)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldAnoDoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldBuscaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(2, 2, 2)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jRadioButtonPessoaFisica)
+                    .addComponent(jRadioButtonPessoaJuridica))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCadastrarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(4, 4, 4)
-                            .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(1, 1, 1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jComboBoxMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1))
-                    .addGap(5, 5, 5)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jComboBoxModelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jButton2)
-                        .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(14, 14, 14)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(jLabel4))
-                        .addComponent(jTextFieldChassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(15, 15, 15)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(jLabel5))
-                        .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(15, 15, 15)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(jLabel6))
-                        .addComponent(jTextFieldTipoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(15, 15, 15)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(jLabel7))
-                        .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(15, 15, 15)
+                    .addGap(0, 1, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(235, 235, 235)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(3, 3, 3)
                             .addComponent(jLabel8))
                         .addComponent(jTextFieldAnoDeFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(15, 15, 15)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(jLabel9))
-                        .addComponent(jTextFieldAnoDoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(33, 33, 33)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel11)
-                        .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(11, 11, 11)
+                    .addGap(103, 103, 103)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel10)
-                        .addComponent(jTextFieldDonoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(jRadioButtonPessoaFisica)
-                        .addComponent(jRadioButtonPessoaJuridica))
-                    .addGap(7, 7, 7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButtonCadastrarCliente)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(jButtonCadastrarVeiculo)))
-                    .addGap(15, 15, 15)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(20, 20, 20)
-                    .addComponent(jButtonVoltar)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jTextFieldDonoDoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 278, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(340, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(jTextFieldBuscaRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(315, 315, 315)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarClienteActionPerformed
-        new TelaCadastroCliente().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButtonCadastrarClienteActionPerformed
 
     private void jComboBoxModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModelosActionPerformed
         if (jComboBoxModelos.getSelectedIndex() > 0) {
@@ -395,27 +426,23 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jComboBoxMarcasActionPerformed
 
-    private void jTabelaVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaVeiculosMouseClicked
-        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTabelaVeiculos.getModel().getValueAt(jTabelaVeiculos.getSelectedRow(), 1)));
-        if (jTabelaVeiculos.getValueAt(jTabelaVeiculos.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
+    private void jTabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaClientesMouseClicked
+        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTabelaClientes.getModel().getValueAt(jTabelaClientes.getSelectedRow(), 1)));
+        if (jTabelaClientes.getValueAt(jTabelaClientes.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
             jRadioButtonPessoaFisica.setSelected(true);
-        } else if (jTabelaVeiculos.getValueAt(jTabelaVeiculos.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
+        } else if (jTabelaClientes.getValueAt(jTabelaClientes.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
             jRadioButtonPessoaJuridica.setSelected(true);
         }
-    }//GEN-LAST:event_jTabelaVeiculosMouseClicked
+    }//GEN-LAST:event_jTabelaClientesMouseClicked
 
-    private void jTabelaVeiculosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaVeiculosMouseReleased
-        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTabelaVeiculos.getModel().getValueAt(jTabelaVeiculos.getSelectedRow(), 1)));
-        if (jTabelaVeiculos.getValueAt(jTabelaVeiculos.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
+    private void jTabelaClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaClientesMouseReleased
+        jTextFieldDonoDoVeiculo.setText(String.valueOf(jTabelaClientes.getModel().getValueAt(jTabelaClientes.getSelectedRow(), 1)));
+        if (jTabelaClientes.getValueAt(jTabelaClientes.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_FISICA))) {
             jRadioButtonPessoaFisica.setSelected(true);
-        } else if (jTabelaVeiculos.getValueAt(jTabelaVeiculos.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
+        } else if (jTabelaClientes.getValueAt(jTabelaClientes.getSelectedRow(), 0).equals(String.valueOf(TipoCliente.PESSOA_JURIDICA))) {
             jRadioButtonPessoaJuridica.setSelected(true);
         }
-    }//GEN-LAST:event_jTabelaVeiculosMouseReleased
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new TelaCadastroDeMarca().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jTabelaClientesMouseReleased
 
     private void jButtonCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarVeiculoActionPerformed
         try {
@@ -436,12 +463,12 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
             if (jRadioButtonPessoaFisica.isSelected()) {
                 ManipulaBancoPessoaFisica mb = new ManipulaBancoPessoaFisica();
-                String cpf = String.valueOf(jTabelaVeiculos.getModel().getValueAt(jTabelaVeiculos.getSelectedRow(), 2));
+                String cpf = String.valueOf(jTabelaClientes.getModel().getValueAt(jTabelaClientes.getSelectedRow(), 2));
                 idDonoVeiculo = mb.buscar(cpf);
                 tipoCliente = TipoCliente.PESSOA_FISICA;
             } else if (jRadioButtonPessoaJuridica.isSelected()) {
                 ManipulaBancoPessoaJuridica mb = new ManipulaBancoPessoaJuridica();
-                String cnpj = String.valueOf(jTabelaVeiculos.getModel().getValueAt(jTabelaVeiculos.getSelectedRow(), 2));
+                String cnpj = String.valueOf(jTabelaClientes.getModel().getValueAt(jTabelaClientes.getSelectedRow(), 2));
                 idDonoVeiculo = mb.buscar(cnpj);
                 tipoCliente = TipoCliente.PESSOA_JURIDICA;
             }
@@ -460,14 +487,13 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonCadastrarVeiculoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new TelaCadastroModelo().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jTextFieldBuscaNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscaNomeKeyReleased
+        filtraTabelaNome(jTextFieldBuscaNome.getText());
+    }//GEN-LAST:event_jTextFieldBuscaNomeKeyReleased
 
-    private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        new TelaInicial().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButtonVoltarActionPerformed
+    private void jTextFieldBuscaRazaoSocialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscaRazaoSocialKeyReleased
+        filtraTabelaRazaoSocial(jTextFieldBuscaRazaoSocial.getText());
+    }//GEN-LAST:event_jTextFieldBuscaRazaoSocialKeyReleased
 
     private void loadComboBoxModelos() {
         try {
@@ -509,9 +535,9 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                 dados[i][4] = listaPessoasFisicas.get(i).getEmail();
             }
 
-            jTabelaVeiculos.setModel(new DefaultTableModel(dados, new Object[]{"Tipo de cliente", "Nome/Razão social", "CPF/CNPJ", "Telefone", "Email"}));
+            jTabelaClientes.setModel(new DefaultTableModel(dados, new Object[]{"Tipo de cliente", "Nome/Razão social", "CPF/CNPJ", "Telefone", "Email"}));
 
-            DefaultTableModel table = (DefaultTableModel) jTabelaVeiculos.getModel();
+            DefaultTableModel table = (DefaultTableModel) jTabelaClientes.getModel();
 
             ArrayList<PessoaJuridica> listaPessoasJuridicas = new ManipulaBancoPessoaJuridica().buscarTodos();
             String[] dados2 = new String[5];
@@ -530,17 +556,15 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButtonCadastrarCliente;
     private javax.swing.JButton jButtonCadastrarVeiculo;
-    private javax.swing.JButton jButtonVoltar;
     private javax.swing.JComboBox<String> jComboBoxMarcas;
     private javax.swing.JComboBox<String> jComboBoxModelos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -550,9 +574,11 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButtonPessoaFisica;
     private javax.swing.JRadioButton jRadioButtonPessoaJuridica;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTabelaVeiculos;
+    private javax.swing.JTable jTabelaClientes;
     private javax.swing.JTextField jTextFieldAnoDeFabricacao;
     private javax.swing.JTextField jTextFieldAnoDoModelo;
+    private javax.swing.JTextField jTextFieldBuscaNome;
+    private javax.swing.JTextField jTextFieldBuscaRazaoSocial;
     private javax.swing.JTextField jTextFieldChassi;
     private javax.swing.JTextField jTextFieldDonoDoVeiculo;
     private javax.swing.JTextField jTextFieldMarca;

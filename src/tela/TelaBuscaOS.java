@@ -1157,6 +1157,9 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
             os.setIdFuncionarioResponsavel(idFuncionario);
             ManipulaBancoOrdemServico mbOs = new ManipulaBancoOrdemServico();
             mbOs.editar(mbOs.getID(os), os);
+            Funcionario funcResponsavel = mb.buscar(idFuncionario);
+
+            JOptionPane.showMessageDialog(rootPane, "trocando responsável pelo serviço para: " + funcResponsavel.getNome());
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());

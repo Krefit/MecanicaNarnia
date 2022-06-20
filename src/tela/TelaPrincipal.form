@@ -39,7 +39,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Produtos"/>
+            <Property name="text" type="java.lang.String" value="Or&#xe7;amentos/Ordens de servi&#xe7;o/ notas fiscais"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">

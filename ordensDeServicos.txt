@@ -1,10 +1,14 @@
 3;3;;2;350.00;18/06/2022;null;EM_ABERTO;2;4;1;45.00;4;false;10.0
 3;3;;2;350.00;18/06/2022;null;EM_EXECUCAO;2;4;1;45.00;4;false;10.0
 4;4;Mudar cor do carro;2;350.00;19/06/2022;null;EM_ABERTO;2;5;1;45.00;4;false;0.0
-3;3;;2;350.00;18/06/2022;19/06/2022;CONCLUIDA;2;4;1;45.00;4;true;10.0
+3;3;;2;350.00;18/06/2022;20/06/2022;CONCLUIDA;2;4;1;45.00;4;true;10.0
 4;4;Mudar cor do carro;2;350.00;19/06/2022;null;EM_EXECUCAO;2;5;1;45.00;4;false;0.0
 4;4;Mudar cor do carro;2;350.00;19/06/2022;null;EM_EXECUCAO;2;5;1;45.00;4;false;0.0
 4;4;Mudar cor do carro;2;350.00;19/06/2022;null;EM_EXECUCAO;6;5;1;45.00;4;false;0.0
+5;5;trocar cor do veiculo;2;350.00;19/06/2022;null;EM_ABERTO;6;5;1;45.00;4;false;0.0
+4;4;Mudar cor do carro;2;350.00;19/06/2022;20/06/2022;CONCLUIDA;6;5;1;45.00;4;true;0.0
+6;6;;2;350.00;19/06/2022;null;EM_ABERTO;2;4;1;45.00;4;false;0.0
+5;5;trocar cor do veiculo;2;350.00;19/06/2022;null;EM_ABERTO;2;5;1;45.00;4;false;0.0
 5;5;trocar cor do veiculo;2;350.00;19/06/2022;null;EM_ABERTO;6;5;1;45.00;4;true;0.0
-4;4;Mudar cor do carro;2;350.00;19/06/2022;19/06/2022;CONCLUIDA;6;5;1;45.00;4;true;0.0
-6;6;;2;350.00;19/06/2022;null;EM_ABERTO;2;4;1;45.00;4;true;0.0
+6;6;;2;350.00;19/06/2022;null;EM_ABERTO;6;4;1;45.00;4;false;0.0
+6;6;;2;350.00;19/06/2022;null;EM_ABERTO;6;4;1;45.00;4;true;0.0

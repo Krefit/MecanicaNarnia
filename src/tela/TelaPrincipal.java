@@ -126,7 +126,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuCliente);
 
-        jMenu3.setText("Produtos");
+        jMenu3.setText("Orçamentos/Ordens de serviço/ notas fiscais");
 
         jMenuItem2.setText("Lista ordens de serviço");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
