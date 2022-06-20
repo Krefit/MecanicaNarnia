@@ -39,7 +39,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setSize((dimensao.width + 5), (dimensao.height - 38));
 
     }
-
+    
     private void limpaTela() {
         JInternalFrame[] listaFrames = jDesktopPanePrincipal.getAllFrames();
         if (listaFrames != null && listaFrames.length > 0) {//  * vendo se existe alguma internalFrame sendo mostrada

@@ -1,1 +1,2 @@
+3;Paula tejano;797.857.090-86;20/04/1969;[(65) 98888-8888, (65) 98888-8888, (65) 98888-8888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,23452-223;false
 3;Paula tejano;797.857.090-86;20/04/1969;[(65) 98888-8888, (65) 98888-8888, (65) 98888-8888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,23452-223;true
