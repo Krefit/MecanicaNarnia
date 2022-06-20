@@ -65,8 +65,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuCliente = new javax.swing.JMenu();
         jMenuItemClientes = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItemCadastroOS = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItemCadastroOS = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItemCadastroDeVeiculo = new javax.swing.JMenuItem();
         jMenuItemCadastroDeMarca = new javax.swing.JMenuItem();
@@ -130,23 +130,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuCliente);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-orçamento-15.png"))); // NOI18N
-        jMenu3.setText("Orçamentos/Ordens de serviço/ notas fiscais");
+        jMenu3.setText("Ordens de Serviço");
 
-        jMenuItemCadastroOS.setText("Cadastrar orçamento");
-        jMenuItemCadastroOS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCadastroOSActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItemCadastroOS);
-
-        jMenuItem2.setText("Lista ordens de serviço");
+        jMenuItem2.setText("Lista Ordens de Serviço");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
         jMenu3.add(jMenuItem2);
+
+        jMenuItemCadastroOS.setText("Cadastrar Orçamento");
+        jMenuItemCadastroOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastroOSActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemCadastroOS);
 
         jMenuBar1.add(jMenu3);
 
