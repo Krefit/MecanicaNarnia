@@ -8,4 +8,6 @@
 4;2355;tinta azul;45.00;189;0;0;true
 5;2356;tinta vermelha;45.00;191;3;0;false
 5;2356;tinta vermelha;45.00;190;2;0;false
-5;2356;tinta vermelha;45.00;189;1;0;true
+5;2356;tinta vermelha;45.00;189;1;0;false
+5;2356;tinta vermelha;45.00;188;0;0;false
+5;2356;tinta vermelha;45.00;187;-1;0;true
