@@ -377,6 +377,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButtonCadastrarVeiculo">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-mais-2-matem&#xe1;tica-verde-30.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cadastrar novo veiculo"/>
       </Properties>
       <Events>

@@ -238,6 +238,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-mais-2-matem&#xe1;tica-verde-30.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Criar nova Ordem de servi&#xe7;o"/>
       </Properties>
       <Events>

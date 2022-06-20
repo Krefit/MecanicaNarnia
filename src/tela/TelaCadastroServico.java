@@ -106,6 +106,7 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonAddServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
         jButtonAddServico.setText("Adicionar serviço");
         jButtonAddServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +132,7 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
                         .addComponent(jFormattedTextFieldValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonAddServico)))
-                .addGap(0, 89, Short.MAX_VALUE))
+                .addGap(0, 71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -176,6 +176,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonIncluir">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-mais-2-matem&#xe1;tica-30.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="INCLUIR"/>
       </Properties>
       <Events>
@@ -199,6 +202,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonEditar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-l&#xe1;pis-30.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="EDITAR"/>
       </Properties>
       <Events>
@@ -212,6 +218,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonExcluir">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-excluir-30.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="EXCLUIR"/>
       </Properties>
       <Events>

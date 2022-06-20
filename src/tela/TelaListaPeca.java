@@ -132,6 +132,7 @@ public class TelaListaPeca extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-30.png"))); // NOI18N
         jButtonIncluir.setText("INCLUIR");
         jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,6 +149,7 @@ public class TelaListaPeca extends javax.swing.JInternalFrame {
 
         jLabel3.setText("CÓDIGO");
 
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-lápis-30.png"))); // NOI18N
         jButtonEditar.setText("EDITAR");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +159,7 @@ public class TelaListaPeca extends javax.swing.JInternalFrame {
 
         jLabel4.setText("VALOR UNITÁRIO:");
 
+        jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-excluir-30.png"))); // NOI18N
         jButtonExcluir.setText("EXCLUIR");
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

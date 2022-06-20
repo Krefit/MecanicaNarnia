@@ -251,6 +251,7 @@ public class TelaCadastroDeOS extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Defeito relatado: ");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
         jButton1.setText("Criar nova Ordem de serviço");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

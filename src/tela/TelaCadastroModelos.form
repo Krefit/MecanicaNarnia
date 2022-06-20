@@ -39,7 +39,7 @@
                       <Component id="jButtonCriarModelo" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -62,7 +62,7 @@
                   <Component id="jComboBoxMarcas" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="jButtonCriarModelo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
               <Component id="jButtonVoltar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
@@ -101,6 +101,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonCriarModelo">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8-mais-2-matem&#xe1;tica-verde-30.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Criar novo Modelo"/>
       </Properties>
       <Events>

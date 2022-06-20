@@ -369,6 +369,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         setTitle("CLIENTES");
 
         jButtonEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-lápis-30.png"))); // NOI18N
         jButtonEditar.setText("Editar");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,6 +378,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         });
 
         jButtonRemover.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-excluir-30.png"))); // NOI18N
         jButtonRemover.setText("Remover");
         jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -448,6 +450,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         });
 
         jButtonAdicionar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
         jButtonAdicionar.setText("Adicionar");
         jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
