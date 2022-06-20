@@ -30,7 +30,7 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
         initComponents();
         loadComboBox();
         loadTableFuncionarios();
-        
+
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableFuncionarios.getModel());
         jTableFuncionarios.setRowSorter(sorter);
     }
@@ -646,7 +646,7 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
             tField_CEP.setText(e.getCEP());
             tField_Cidade.setText(e.getCidade());
             tField_Complemento.setText(e.getComplemento());
-            tField_Logradouro.setText(e.getNumero());
+            tField_Logradouro.setText(e.getLogradouro());
             tField_Numero.setText(e.getNumero());
             tField_TipoLogradouro.setText(e.getTipoLogradouro());
             cb_Estado.setSelectedItem(e.getEstado());

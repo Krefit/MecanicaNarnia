@@ -335,12 +335,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCadastroDeVeiculoActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        limpaTela();
-        TelaListaFuncionario newTelaCadastroDeVeiculos = new TelaListaFuncionario();
-        newTelaCadastroDeVeiculos.setVisible(true);
-        jDesktopPanePrincipal.add(newTelaCadastroDeVeiculos);
-        jDesktopPanePrincipal.setVisible(true);
-
+//  * bug do netbeans, esse método é inutil e está apenas linkado a um evento antigo, que já foi excluido
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItemFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFuncionariosActionPerformed
@@ -352,7 +347,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemFuncionariosActionPerformed
 
     private void jMenuItemCadastroDeOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroOSActionPerformed
-//  * bug do netbeans, esse método é inutil e está apenas linkado a um evento antigo, que já foi escluido
+//  * bug do netbeans, esse método é inutil e está apenas linkado a um evento antigo, que já foi excluido
     }//GEN-LAST:event_jMenuItemCadastroOSActionPerformed
 
     private void jMenuItemCadastroOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeOSActionPerformed
