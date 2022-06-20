@@ -64,6 +64,8 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldNomeServico = new javax.swing.JTextField();
         jButtonAddServico = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonRemover = new javax.swing.JButton();
 
         setTitle("Cadastro de Serviços");
 
@@ -94,6 +96,11 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableListaServicos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTableListaServicosMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableListaServicos);
 
         jLabel1.setText("Serviços:");
@@ -114,42 +121,73 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-lápis-30.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jButtonRemover.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-excluir-30.png"))); // NOI18N
+        jButtonRemover.setText("Remover");
+        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldNomeServico))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextFieldValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonAddServico)))
-                .addGap(0, 71, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jFormattedTextFieldValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonAddServico, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonEditar)
+                                .addGap(55, 55, 55)))
+                        .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldNomeServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jFormattedTextFieldValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAddServico, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jFormattedTextFieldValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonEditar)
+                    .addComponent(jButtonRemover)
+                    .addComponent(jButtonAddServico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -175,9 +213,83 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonAddServicoActionPerformed
 
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        try {
+            int indexTabela = jTableListaServicos.getSelectedRow();
+            if (indexTabela < 0) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual cliente deseja editar");
+            } else {
+                String nomeServicoSelecionado = "" + jTableListaServicos.getValueAt(jTableListaServicos.getSelectedRow(), 0);
+
+                String nomeServico = jTextFieldNomeServico.getText();
+                double valorServico = Double.parseDouble(jFormattedTextFieldValorMaoDeObra.getText().replace(".", "").replace(",", "."));
+                Servico s = new Servico(nomeServico, valorServico);
+
+                ManipulaBancoServicos mb = new ManipulaBancoServicos();
+                int idParaEditar = mb.buscar(nomeServicoSelecionado);
+                mb.editar(idParaEditar, s);
+
+                loadTableServicos("");
+                JOptionPane.showMessageDialog(rootPane, "Editado");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
+        try {
+            int indexTabela = jTableListaServicos.getSelectedRow();
+            if (indexTabela < 0) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual cliente deseja editar");
+            } else {
+                int confirmação = JOptionPane.showConfirmDialog(rootPane, "Remover?");
+                //  * 0 se for sim, 1 se for não, 2 se for cancelar
+
+                if (confirmação == 0) {//   * caso tenha confirmado a exclusão
+                    String nomeServico = "" + jTableListaServicos.getValueAt(indexTabela, 0);
+                    ManipulaBancoServicos mb = new ManipulaBancoServicos();
+                    int idServico = mb.buscar(nomeServico);
+                    if (idServico == 0) {// * servico não encontrado
+                        throw new Exception("Selecione, na tabela qual cliente deseja editar");
+                    }
+                    mb.remover(idServico);
+                }
+                loadTableServicos("");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonRemoverActionPerformed
+
+    private void jTableListaServicosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaServicosMouseReleased
+        try {
+            int indexSelecionado = jTableListaServicos.getSelectedRow();
+            if (indexSelecionado < 0) {//   * clique inválido
+                throw new Exception("Selecione, na tabela qual cliente deseja editar");
+            }
+            ManipulaBancoServicos mb = new ManipulaBancoServicos();
+            String nome = "" + jTableListaServicos.getValueAt(indexSelecionado, 0);
+            Servico s = mb.buscar(mb.buscar(nome));
+            if (s == null) {//  * servico não encontrado
+                throw new Exception("Selecione, na tabela qual cliente deseja editar");
+            }
+            jTextFieldNomeServico.setText(s.getNomeServico());
+            jFormattedTextFieldValorMaoDeObra.setText(String.format("%.2f", s.getValorMaoDeObra()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+    }//GEN-LAST:event_jTableListaServicosMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddServico;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonRemover;
     private javax.swing.JFormattedTextField jFormattedTextFieldValorMaoDeObra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
