@@ -1142,6 +1142,9 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 //  * pegando dados do funcionário
         try {
+            if (os.getSituacao() == OrdemDeServico.SituacaoOrdemServico.CANCELADA || os.getSituacao() == OrdemDeServico.SituacaoOrdemServico.CONCLUIDA) {
+                throw new Exception("Esta Ordem de serviço não pode ser editada");
+            }
             int index = jTableFuncionarios.getSelectedRow();
             if (index < 0) {//    * não clicou na tabela
                 throw new Exception("Para editar, selecione na tabela qual o novo funcionário responsável pelo serviço");

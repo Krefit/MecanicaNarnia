@@ -49,13 +49,14 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
                 dados[2], //  * defeito relatado
                 Integer.parseInt(dados[3]), //  * id do serviço que será executado
                 Double.parseDouble(dados[4]), //  * valor da mao de obra
-                DataAbertura, //  * data de abertura da OS
                 Integer.parseInt(dados[8]), //  * id do fincionario responsável
                 Integer.parseInt(dados[9]), //  * id da peça que será usada(0 caso não tenha nenhuma)
                 Integer.parseInt(dados[10]), //  * quantidade desta peça que serão usadas no veículo
                 Double.parseDouble(dados[11]), //  * valor unitário da peça
                 Integer.parseInt(dados[12]), //  * id do veiculo   
                 Double.parseDouble(dados[14]));//   * porcentagem de desconto
+
+        os.setDataEntrada(DataAbertura);//  * settando data de abertura
 
         if (dados[7].equals(String.valueOf(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO))) {//   * trocando o status da OS
             os.setSituacao(OrdemDeServico.SituacaoOrdemServico.EM_EXECUCAO);

@@ -42,7 +42,7 @@ public class OrdemDeServico {
     public OrdemDeServico() {
     }
 
-    public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
+    public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra,
             int idFuncionarioResponsavel, int idVeiculo, double porcentagemDesconto) throws Exception {
         if (porcentagemDesconto < 0 || porcentagemDesconto > 100) {
             throw new Exception("Tentou usar uma porcentagem de desconto de: " + porcentagemDesconto + "%, informe um valor válido");
@@ -51,15 +51,15 @@ public class OrdemDeServico {
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
         this.valorMaoDeObra = valorMaoDeObra;
-        this.dataEntrada = dataEntrada;
         this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.idVeiculo = idVeiculo;
         situacao = SituacaoOrdemServico.EM_ABERTO;
         this.cadastroAtivo = true;
         this.porcentagemDesconto = porcentagemDesconto;
+        this.dataEntrada = new Date();
     }
 
-    public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra, Date dataEntrada,
+    public OrdemDeServico(int codigo, String defeitoRelatado, int idServico, double valorMaoDeObra,
             int idFuncionarioResponsavel, int idPeca, int quantidadePeca, double valorUnitarioDaPeca, int idVeiculo, double porcentagemDesconto) throws Exception {
         if (porcentagemDesconto < 0 || porcentagemDesconto > 100) {
             throw new Exception("Tentou usar uma porcentagem de desconto de: " + porcentagemDesconto + "%, informe um valor válido");
@@ -68,7 +68,6 @@ public class OrdemDeServico {
         this.defeitoRelatado = defeitoRelatado;
         this.idServico = idServico;
         this.valorMaoDeObra = valorMaoDeObra;
-        this.dataEntrada = dataEntrada;
         this.idFuncionarioResponsavel = idFuncionarioResponsavel;
         this.idPeca = idPeca;
         this.quantidadePeca = quantidadePeca;
@@ -77,6 +76,7 @@ public class OrdemDeServico {
         situacao = SituacaoOrdemServico.EM_ABERTO;
         this.cadastroAtivo = true;
         this.porcentagemDesconto = porcentagemDesconto;
+        this.dataEntrada = new Date();
     }
 
     public static String getArquivoCodigo() {
