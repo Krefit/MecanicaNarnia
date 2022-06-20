@@ -180,9 +180,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-exhaust-pipe-15.png"))); // NOI18N
-        jMenu6.setText("Peças");
+        jMenu6.setText("Produtos");
 
-        jMenuItemPecas.setText("Peças");
+        jMenuItemPecas.setText("Produtos");
         jMenuItemPecas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemPecasActionPerformed(evt);
