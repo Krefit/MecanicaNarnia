@@ -389,7 +389,11 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
         buttonGroup2.add(jRadioButtonCancelado);
         jRadioButtonCancelado.setText("Cancelado");
 
+        jButtonConfirmar.setBackground(new java.awt.Color(51, 204, 255));
+        jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-ok-30.png"))); // NOI18N
         jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonConfirmar.setBorderPainted(false);
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfirmarActionPerformed(evt);
@@ -401,7 +405,11 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
         buttonGroup2.add(jRadioButtonConcluido);
         jRadioButtonConcluido.setText("Concluido");
 
+        jButton1.setBackground(new java.awt.Color(51, 204, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-lápis-30.png"))); // NOI18N
         jButton1.setText("Editar OS");
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setBorderPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -816,8 +824,8 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
                                 .addGap(13, 13, 13)
                                 .addComponent(jRadioButtonConcluido, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(109, 109, 109)
-                                .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(83, 83, 83)
+                                .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -1065,7 +1073,7 @@ public class TelaBuscaOS extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonConfirmar)
                         .addComponent(jButton1)))
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

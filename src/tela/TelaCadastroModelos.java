@@ -72,8 +72,11 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Modelo criado com sucesso!");
 
+        jButtonCriarModelo.setBackground(new java.awt.Color(0, 204, 255));
         jButtonCriarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
         jButtonCriarModelo.setText("Criar novo Modelo");
+        jButtonCriarModelo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonCriarModelo.setBorderPainted(false);
         jButtonCriarModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCriarModeloActionPerformed(evt);
@@ -124,7 +127,7 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonVoltar)
                                 .addGap(13, 13, 13)))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +145,7 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCriarModelo))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

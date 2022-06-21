@@ -56,8 +56,11 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jButtonIncluirMarca.setBackground(new java.awt.Color(51, 204, 255));
         jButtonIncluirMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
         jButtonIncluirMarca.setText("INCLUIR");
+        jButtonIncluirMarca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonIncluirMarca.setBorderPainted(false);
         jButtonIncluirMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonIncluirMarcaActionPerformed(evt);
@@ -100,8 +103,7 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
                         .addGap(508, 508, 508))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(292, 292, 292)
-                        .addComponent(jLabel1)
-                        .addGap(202, 202, 202))
+                        .addComponent(jLabel1))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
