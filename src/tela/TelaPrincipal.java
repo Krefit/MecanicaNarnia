@@ -158,7 +158,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Veículos");
 
         jMenuItemCadastroDeVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-automotivo-15.png"))); // NOI18N
-        jMenuItemCadastroDeVeiculo.setText("Cadastro de Veículo");
+        jMenuItemCadastroDeVeiculo.setText("Lista de Veículo");
         jMenuItemCadastroDeVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadastroDeVeiculoActionPerformed(evt);
