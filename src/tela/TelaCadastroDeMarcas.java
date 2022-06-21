@@ -51,10 +51,14 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableMarcasExistentes = new javax.swing.JTable();
         jButtonVoltar = new javax.swing.JButton();
+        jButtonRemover = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
 
         setTitle("Marcas");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jTextFieldIncluirMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 325, 471, -1));
 
         jButtonIncluirMarca.setBackground(new java.awt.Color(0, 204, 255));
         jButtonIncluirMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
@@ -65,10 +69,13 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
                 jButtonIncluirMarcaActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonIncluirMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 110, 50));
 
         jLabel1.setText("CADASTRO DE MARCAS");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 6, -1, 15));
 
         jLabel2.setText("MARCAS EXISTENTES");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 39, -1, -1));
 
         jTableMarcasExistentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,7 +88,14 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableMarcasExistentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMarcasExistentesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableMarcasExistentes);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 61, 625, 218));
 
         jButtonVoltar.setText("VOLTAR");
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,49 +103,31 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
                 jButtonVoltarActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, -1, 13));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(304, 304, 304)
-                            .addComponent(jLabel1))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jTextFieldIncluirMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(44, 44, 44)
-                            .addComponent(jButtonIncluirMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(jButtonVoltar)))
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldIncluirMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonIncluirMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButtonRemover.setBackground(new java.awt.Color(0, 204, 255));
+        jButtonRemover.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-excluir-30.png"))); // NOI18N
+        jButtonRemover.setText("Remover");
+        jButtonRemover.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonRemover, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, 110, 50));
+
+        jButtonEditar.setBackground(new java.awt.Color(0, 204, 255));
+        jButtonEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-lápis-30.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 110, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,6 +161,79 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
+    private void jTableMarcasExistentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMarcasExistentesMouseClicked
+        // TODO add your handling code here:
+        try {
+            int indexSelecionado = jTableMarcasExistentes.getSelectedRow();
+            
+            if(indexSelecionado >= 0) {
+                String marcaSelecionada = String.valueOf(jTableMarcasExistentes.getValueAt(indexSelecionado,0));
+                
+                MarcaVeiculo marcaObjSelecionado = new ManipulaBancoMarca().buscar(new ManipulaBancoMarca().buscar(marcaSelecionada));
+                
+                jTextFieldIncluirMarca.setText(marcaObjSelecionado.getNomeMarca());
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jTableMarcasExistentesMouseClicked
+
+    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
+        try {
+            int indexTabela = jTableMarcasExistentes.getSelectedRow();
+            if (indexTabela < 0) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual marca deseja remover");
+            } else {
+                int confirmação = JOptionPane.showConfirmDialog(rootPane, "Remover?");
+                //  * 0 se for sim, 1 se for não, 2 se for cancelar
+
+                if (confirmação == 0) {//   * caso tenha confirmado a exclusão
+                    String marcaParaExclusao = String.valueOf(jTableMarcasExistentes.getValueAt(jTableMarcasExistentes.getSelectedRow(),0));
+                    int idMarcaParaExclusao = new ManipulaBancoMarca().buscar(marcaParaExclusao);
+                    if(idMarcaParaExclusao != 0){
+                        new ManipulaBancoMarca().remover(idMarcaParaExclusao);
+                    }
+                    
+                } else {//    * cancelar
+                    //  * pass
+                }
+            }
+            loadTableMarcas();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonRemoverActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        try {
+            int indexTabela = jTableMarcasExistentes.getSelectedRow();
+            if (indexTabela < 0) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual marca deseja editar");
+            } else {
+                
+                String marca = jTextFieldIncluirMarca.getText();
+
+                ManipulaBancoMarca mb = new ManipulaBancoMarca();
+                String marcaParaExclusao = String.valueOf(jTableMarcasExistentes.getValueAt(jTableMarcasExistentes.getSelectedRow(), 0));
+                int idMarcaParaExclusao = mb.buscar(marcaParaExclusao);
+                
+                MarcaVeiculo marcaInserir = new MarcaVeiculo(marca);
+                
+                mb.editar(idMarcaParaExclusao, marcaInserir);
+                
+                JOptionPane.showMessageDialog(rootPane, "Editado");
+                loadTableMarcas();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
     private void loadTableMarcas() throws Exception {
         DefaultTableModel dtb = new DefaultTableModel(new Object[]{"Marcas existentes: "}, 0);
         ArrayList<MarcaVeiculo> listaMarcas = new ManipulaBancoMarca().buscarTodos();
@@ -178,7 +247,9 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonIncluirMarca;
+    private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
