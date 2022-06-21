@@ -54,7 +54,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
 
         loadComboBox();
         loadTableClientes();
-        
+
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableClientes.getModel());
         jTableClientes.setRowSorter(sorter);
 
@@ -69,11 +69,11 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         ge.registerFont(roboto);
         this.setFont(roboto);*/
     }
-    
+
     private void loadComboBox() {
         cb_Estado.setModel(new DefaultComboBoxModel<>(EstadosBrazil.values()));
     }
-    
+
     private void loadTableClientes() {
         try {
             DefaultTableModel table = (DefaultTableModel) jTableClientes.getModel();
@@ -796,7 +796,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual cliente deseja editar");
             } else {
 
-                String nome = tField_nome_razaoSocial.getText();
+                String nome_razaoSocial = tField_nome_razaoSocial.getText();
                 String[] telefone = new String[3];
                 telefone[0] = jFormattedTextFieldTelefoneCelular.getText().trim();//   * apagando espaços em branco
                 if (jFormattedTextFieldTelefoneComercial.getText().trim().equals("")) {//   * caso não tenha informado o telefone comercial
@@ -828,15 +828,15 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
 
                     String cpf = jFormattedTextFieldCpf.getText();
                     Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(jFormattedTextFieldDataNascimento.getText());
-                    PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, email, endereco, telefone);
+                    PessoaFisica clPF = new PessoaFisica(nome_razaoSocial, cpf, dataNascimento, email, endereco, telefone);
                     mb.editar(idClienteParaExclusao, clPF);
                 } else if (jRadioButton_PessoaJuridica.isSelected()) {
                     String cnpjParaExclusao = String.valueOf(jTableClientes.getValueAt(jTableClientes.getSelectedRow(), 1));
                     int idClienteParaExclusao = new ManipulaBancoPessoaJuridica().buscar(cnpjParaExclusao);
 
                     String cnpj = jFormattedTextFieldCnpj.getText();
-                    String razaoSocial = tField_nome_razaoSocial.getText();
-                    PessoaJuridica clPJ = new PessoaJuridica(cnpj, razaoSocial, nome, email, endereco, telefone[0], telefone[1], telefone[2]);
+                    String nomeFantasia = tField_nomeFantasia.getText();
+                    PessoaJuridica clPJ = new PessoaJuridica(cnpj, nome_razaoSocial, nomeFantasia, email, endereco, telefone[0], telefone[1], telefone[2]);
                     new ManipulaBancoPessoaJuridica().editar(idClienteParaExclusao, clPJ);
                 }
 
@@ -883,7 +883,6 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     private void jRadioButton_PessoaFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PessoaFisicaActionPerformed
-        loadTableClientes("", operacaoBusca.PESSOA_FISICA);
         jLabelDataNasc_NomeFantasia.setText("Data Nascimento:");
         jLabel_CPF_CNPJ.setText("CPF:");
         jFormattedTextFieldCnpj.setVisible(false);
@@ -894,7 +893,6 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRadioButton_PessoaFisicaActionPerformed
 
     private void jRadioButton_PessoaJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PessoaJuridicaActionPerformed
-        loadTableClientes("", operacaoBusca.PESSOA_JURIDICA);
         jLabelDataNasc_NomeFantasia.setText("Nome Fantasia:");
         jLabel_CPF_CNPJ.setText("CNPJ:");
         jFormattedTextFieldDataNascimento.setVisible(false);
