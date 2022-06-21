@@ -54,7 +54,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
 
         loadComboBox();
         loadTableClientes();
-        
+
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableClientes.getModel());
         jTableClientes.setRowSorter(sorter);
 
@@ -69,11 +69,11 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
         ge.registerFont(roboto);
         this.setFont(roboto);*/
     }
-    
+
     private void loadComboBox() {
         cb_Estado.setModel(new DefaultComboBoxModel<>(EstadosBrazil.values()));
     }
-    
+
     private void loadTableClientes() {
         try {
             DefaultTableModel table = (DefaultTableModel) jTableClientes.getModel();
@@ -883,7 +883,6 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     private void jRadioButton_PessoaFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PessoaFisicaActionPerformed
-        loadTableClientes("", operacaoBusca.PESSOA_FISICA);
         jLabelDataNasc_NomeFantasia.setText("Data Nascimento:");
         jLabel_CPF_CNPJ.setText("CPF:");
         jFormattedTextFieldCnpj.setVisible(false);
@@ -894,7 +893,6 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRadioButton_PessoaFisicaActionPerformed
 
     private void jRadioButton_PessoaJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_PessoaJuridicaActionPerformed
-        loadTableClientes("", operacaoBusca.PESSOA_JURIDICA);
         jLabelDataNasc_NomeFantasia.setText("Nome Fantasia:");
         jLabel_CPF_CNPJ.setText("CNPJ:");
         jFormattedTextFieldDataNascimento.setVisible(false);
