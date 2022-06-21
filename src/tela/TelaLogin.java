@@ -45,10 +45,10 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        jLabel1.setText("usuário");
+        jLabel1.setText("Usuário");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cadeado-2-15.png"))); // NOI18N
-        jLabel2.setText("senha");
+        jLabel2.setText("Senha");
 
         jTextFieldTxtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
