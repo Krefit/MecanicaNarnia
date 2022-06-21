@@ -186,7 +186,6 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
         jButtonCadastrarVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
         jButtonCadastrarVeiculo.setText("Cadastrar novo veiculo");
         jButtonCadastrarVeiculo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonCadastrarVeiculo.setBorderPainted(false);
         jButtonCadastrarVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCadastrarVeiculoActionPerformed(evt);

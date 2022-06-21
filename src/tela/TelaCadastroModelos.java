@@ -76,7 +76,6 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
         jButtonCriarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
         jButtonCriarModelo.setText("Criar novo Modelo");
         jButtonCriarModelo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonCriarModelo.setBorderPainted(false);
         jButtonCriarModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCriarModeloActionPerformed(evt);

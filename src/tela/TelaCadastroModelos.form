@@ -139,7 +139,6 @@
                 <BevelBorder/>
               </Border>
             </Property>
-            <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCriarModeloActionPerformed"/>

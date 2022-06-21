@@ -317,7 +317,6 @@
                                               <Component id="jFormattedTextFieldPorcentagemDesconto" min="-2" pref="110" max="-2" attributes="0"/>
                                               <Component id="jFormattedTextFieldValorDesconto" min="-2" pref="110" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="16" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -346,7 +345,6 @@
                                               <Component id="jFormattedTextFieldTotalSemDesconto" min="-2" pref="110" max="-2" attributes="0"/>
                                               <Component id="jFormattedTextFieldTotalComDesconto" min="-2" pref="110" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="2" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -364,12 +362,9 @@
                                           <EmptySpace min="162" pref="162" max="-2" attributes="0"/>
                                           <Component id="jButton1" min="-2" pref="148" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jButtonConfirmar" min="-2" pref="116" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="jButtonConfirmar" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                  <EmptySpace min="48" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -828,7 +823,7 @@
         <Component class="javax.swing.JButton" name="jButtonConfirmar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="cc" red="33" type="rgb"/>
+              <Color blue="ff" green="cc" red="0" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/icons8-ok-30.png"/>
@@ -839,7 +834,6 @@
                 <BevelBorder/>
               </Border>
             </Property>
-            <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConfirmarActionPerformed"/>

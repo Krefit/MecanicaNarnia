@@ -139,11 +139,10 @@ public class TelaListaPeca extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButtonExcluir.setBackground(new java.awt.Color(0, 153, 255));
+        jButtonExcluir.setBackground(new java.awt.Color(0, 204, 255));
         jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-excluir-30.png"))); // NOI18N
         jButtonExcluir.setText("EXCLUIR");
         jButtonExcluir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonExcluir.setBorderPainted(false);
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExcluirActionPerformed(evt);
@@ -202,11 +201,10 @@ public class TelaListaPeca extends javax.swing.JInternalFrame {
 
         jLabel5.setText("QUANTIDADE NO ESTOQUE:");
 
-        jButtonIncluir.setBackground(new java.awt.Color(0, 153, 255));
+        jButtonIncluir.setBackground(new java.awt.Color(0, 204, 255));
         jButtonIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-30.png"))); // NOI18N
         jButtonIncluir.setText("INCLUIR");
         jButtonIncluir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonIncluir.setBorderPainted(false);
         jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonIncluirActionPerformed(evt);
@@ -232,11 +230,10 @@ public class TelaListaPeca extends javax.swing.JInternalFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Descrição" }));
 
-        jButtonEditar.setBackground(new java.awt.Color(0, 153, 255));
+        jButtonEditar.setBackground(new java.awt.Color(0, 204, 255));
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-lápis-30.png"))); // NOI18N
         jButtonEditar.setText("EDITAR");
         jButtonEditar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonEditar.setBorderPainted(false);
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditarActionPerformed(evt);
