@@ -4,4 +4,7 @@
 2;narnia;07.424.715/0001-10;narnia;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
 2;narnia;07.424.715/0001-10;narnia;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
 2;narnia SA;07.424.715/0001-10;narnia SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
-2;Narnia SA;07.424.715/0001-10;Narnia SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;true
+2;Narnia SA;07.424.715/0001-10;Narnia SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
+2;Narnia SA;07.424.715/0001-10;Narnia SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
+2;Desenvolvedora Narnia;07.424.715/0001-10;Narnia Desenvolvedora SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
+2;Desenvolvedora Narnia;07.424.715/0001-10;Narnia Desenvolvedora SA;[(99) 99876-5122, (99) 99941-2412, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;true

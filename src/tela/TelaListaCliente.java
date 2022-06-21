@@ -796,7 +796,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual cliente deseja editar");
             } else {
 
-                String nome = tField_nome_razaoSocial.getText();
+                String nome_razaoSocial = tField_nome_razaoSocial.getText();
                 String[] telefone = new String[3];
                 telefone[0] = jFormattedTextFieldTelefoneCelular.getText().trim();//   * apagando espaços em branco
                 if (jFormattedTextFieldTelefoneComercial.getText().trim().equals("")) {//   * caso não tenha informado o telefone comercial
@@ -828,15 +828,15 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
 
                     String cpf = jFormattedTextFieldCpf.getText();
                     Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(jFormattedTextFieldDataNascimento.getText());
-                    PessoaFisica clPF = new PessoaFisica(nome, cpf, dataNascimento, email, endereco, telefone);
+                    PessoaFisica clPF = new PessoaFisica(nome_razaoSocial, cpf, dataNascimento, email, endereco, telefone);
                     mb.editar(idClienteParaExclusao, clPF);
                 } else if (jRadioButton_PessoaJuridica.isSelected()) {
                     String cnpjParaExclusao = String.valueOf(jTableClientes.getValueAt(jTableClientes.getSelectedRow(), 1));
                     int idClienteParaExclusao = new ManipulaBancoPessoaJuridica().buscar(cnpjParaExclusao);
 
                     String cnpj = jFormattedTextFieldCnpj.getText();
-                    String razaoSocial = tField_nome_razaoSocial.getText();
-                    PessoaJuridica clPJ = new PessoaJuridica(cnpj, razaoSocial, nome, email, endereco, telefone[0], telefone[1], telefone[2]);
+                    String nomeFantasia = tField_nomeFantasia.getText();
+                    PessoaJuridica clPJ = new PessoaJuridica(cnpj, nome_razaoSocial, nomeFantasia, email, endereco, telefone[0], telefone[1], telefone[2]);
                     new ManipulaBancoPessoaJuridica().editar(idClienteParaExclusao, clPJ);
                 }
 

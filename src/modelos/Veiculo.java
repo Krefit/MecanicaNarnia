@@ -33,7 +33,17 @@ public class Veiculo {
     }
 
     public Veiculo(int idModelo, int idMarca, String chassi, String renavam,
-            String tipoVeiculo, String placa, int anoFabricacao, int anoModelo, int quilometragem, int idDonoVeiculo, TipoCliente tipoCliente) {
+            String tipoVeiculo, String placa, int anoFabricacao, int anoModelo, int quilometragem, int idDonoVeiculo, TipoCliente tipoCliente) throws Exception {
+        if (!validaPlaca(placa)) {
+            throw new Exception("A placa: \"" + placa + "\" não é válida");
+        }
+        if (!validaRenavan(renavam)) {
+            throw new Exception("O renavan: \"" + renavam + "\" não é válido");
+        }
+        if (!validaChassi(chassi)) {
+            throw new Exception("O Chassi: \"" + chassi + "\" não é válido");
+        }
+
         this.idModelo = idModelo;
         this.idMarca = idMarca;
         this.chassi = chassi;
@@ -92,7 +102,10 @@ public class Veiculo {
         return chassi;
     }
 
-    public void setChassi(String chassi) {
+    public void setChassi(String chassi) throws Exception {
+        if (!validaChassi(chassi)) {
+            throw new Exception("O Chassi: \"" + chassi + "\" não é válido");
+        }
         this.chassi = chassi;
     }
 
@@ -100,7 +113,10 @@ public class Veiculo {
         return renavam;
     }
 
-    public void setRenavam(String renavam) {
+    public void setRenavam(String renavam) throws Exception {
+        if (!validaRenavan(renavam)) {
+            throw new Exception("O renavan: \"" + renavam + "\" não é válido");
+        }
         this.renavam = renavam;
     }
 
@@ -116,7 +132,10 @@ public class Veiculo {
         return placa;
     }
 
-    public void setPlaca(String placa) {
+    public void setPlaca(String placa) throws Exception {
+        if (!validaPlaca(placa)) {
+            throw new Exception("A placa: \"" + placa + "\" não é válida");
+        }
         this.placa = placa;
     }
 
@@ -154,17 +173,8 @@ public class Veiculo {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 37 * hash + this.idModelo;
-        hash = 37 * hash + this.idMarca;
-        hash = 37 * hash + Objects.hashCode(this.chassi);
-        hash = 37 * hash + Objects.hashCode(this.renavam);
-        hash = 37 * hash + Objects.hashCode(this.tipoVeiculo);
-        hash = 37 * hash + Objects.hashCode(this.placa);
-        hash = 37 * hash + this.anoFabricacao;
-        hash = 37 * hash + this.anoModelo;
-        hash = 37 * hash + this.quilometragem;
-        hash = 37 * hash + this.idDonoVeiculo;
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.placa);
         return hash;
     }
 
@@ -180,50 +190,24 @@ public class Veiculo {
             return false;
         }
         final Veiculo other = (Veiculo) obj;
-        if (this.idModelo != other.idModelo) {
-            return false;
-        }
-        if (this.idMarca != other.idMarca) {
-            return false;
-        }
-        if (this.anoFabricacao != other.anoFabricacao) {
-            return false;
-        }
-        if (this.anoModelo != other.anoModelo) {
-            return false;
-        }
-        if (this.quilometragem != other.quilometragem) {
-            return false;
-        }
-        if (this.idDonoVeiculo != other.idDonoVeiculo) {
-            return false;
-        }
-        if (!Objects.equals(this.chassi, other.chassi)) {
-            return false;
-        }
-        if (!Objects.equals(this.renavam, other.renavam)) {
-            return false;
-        }
-        if (!Objects.equals(this.tipoVeiculo, other.tipoVeiculo)) {
-            return false;
-        }
         return Objects.equals(this.placa, other.placa);
     }
 
-    public boolean validaRenavan(String renavan) {
+
+
+    private boolean validaRenavan(String renavan) {
         final String FORMATED = "(\\d{4})[.](\\d{6})-(\\d{1})";
         final String UNFORMATED = "(\\d{4})(\\d{6})(\\d{1})";
         return renavan.matches(FORMATED) || renavan.matches(UNFORMATED);
     }
 
-    public boolean validaChassi(String chassi) {
-        System.out.println(!chassi.matches("^0"));
-        System.out.println(!chassi.matches(" "));
-        System.out.println(!chassi.matches("^.{4,}([0-9A-Za-z])\\1{5,}"));
-        System.out.println(!chassi.matches("[iIoOqQ]"));
-        System.out.println(chassi.matches("[0-9]{4}$"));
-        return !chassi.matches("^0") && !chassi.matches(" ") && !chassi.matches("^.{4,}([0-9A-Za-z])\\1{5,}") && !chassi.matches("[iIoOqQ]")
-                && chassi.matches("[0-9]{4}$");
+    private boolean validaPlaca(String placa) {
+        return placa.replace("-", "").matches("[a-zA-Z]{3}[0-9]{1}[a-zA-Z0-9]{1}[0-9]{2}");
+    }
+
+    private boolean validaChassi(String chassi) {
+        chassi = chassi.toUpperCase().replace(" ", "");
+        return !chassi.matches("^O") && !chassi.matches(" ") && !chassi.matches("[iIoOqQ]") && chassi.length() == 17;
     }
 
     @Override
