@@ -56,11 +56,10 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButtonIncluirMarca.setBackground(new java.awt.Color(51, 204, 255));
+        jButtonIncluirMarca.setBackground(new java.awt.Color(0, 204, 255));
         jButtonIncluirMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
         jButtonIncluirMarca.setText("INCLUIR");
         jButtonIncluirMarca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonIncluirMarca.setBorderPainted(false);
         jButtonIncluirMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonIncluirMarcaActionPerformed(evt);

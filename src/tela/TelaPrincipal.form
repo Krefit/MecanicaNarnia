@@ -14,6 +14,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemSair">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-sair-15.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
               <Events>
@@ -35,6 +38,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemClientes">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-empresa-cliente-15.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Clientes"/>
               </Properties>
               <Events>
@@ -53,6 +59,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-lista-15.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Lista Ordens de Servi&#xe7;o"/>
               </Properties>
               <Events>
@@ -61,6 +70,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadastroOS">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-livro-raz&#xe3;o-15.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Or&#xe7;amento"/>
               </Properties>
               <Events>
@@ -79,6 +91,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadastroDeVeiculo">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-automotivo-15.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Ve&#xed;culo"/>
               </Properties>
               <Events>
@@ -87,6 +102,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadastroDeMarca">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-ar-fresco-15-marca.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Marca"/>
               </Properties>
               <Events>
@@ -95,6 +113,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadastroDeModelo">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-car-roof-box-15-modelo.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Modelo"/>
               </Properties>
               <Events>
@@ -113,7 +134,10 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPecas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Produtos"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-automotivo-15.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Pe&#xe7;as"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPecasActionPerformed"/>
@@ -131,6 +155,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadastrodeServicos">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-servi&#xe7;os-servi&#xe7;os-15.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Servi&#xe7;os"/>
               </Properties>
               <Events>
@@ -149,6 +176,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemFuncionarios">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-funcion&#xe1;rio-homem-15.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Funcion&#xe1;rios"/>
               </Properties>
               <Events>
@@ -167,6 +197,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/icons8-link-externo-15.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Site Desenvolvedora"/>
               </Properties>
               <Events>

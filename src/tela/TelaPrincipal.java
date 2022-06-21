@@ -101,6 +101,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/page.png"))); // NOI18N
         jMenu1.setText("Arquivo");
 
+        jMenuItemSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-sair-15.png"))); // NOI18N
         jMenuItemSair.setText("Sair");
         jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,6 +120,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jMenuItemClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-empresa-cliente-15.png"))); // NOI18N
         jMenuItemClientes.setText("Clientes");
         jMenuItemClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,6 +134,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-orçamento-15.png"))); // NOI18N
         jMenu3.setText("Ordens de Serviço");
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-lista-15.png"))); // NOI18N
         jMenuItem2.setText("Lista Ordens de Serviço");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +143,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem2);
 
+        jMenuItemCadastroOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-livro-razão-15.png"))); // NOI18N
         jMenuItemCadastroOS.setText("Cadastrar Orçamento");
         jMenuItemCadastroOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,6 +157,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-ar-fresco-15.png"))); // NOI18N
         jMenu2.setText("Veículos");
 
+        jMenuItemCadastroDeVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-automotivo-15.png"))); // NOI18N
         jMenuItemCadastroDeVeiculo.setText("Cadastro de Veículo");
         jMenuItemCadastroDeVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +166,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItemCadastroDeVeiculo);
 
+        jMenuItemCadastroDeMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-ar-fresco-15-marca.png"))); // NOI18N
         jMenuItemCadastroDeMarca.setText("Cadastro de Marca");
         jMenuItemCadastroDeMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +175,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItemCadastroDeMarca);
 
+        jMenuItemCadastroDeModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-car-roof-box-15-modelo.png"))); // NOI18N
         jMenuItemCadastroDeModelo.setText("Cadastro de Modelo");
         jMenuItemCadastroDeModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +189,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-exhaust-pipe-15.png"))); // NOI18N
         jMenu6.setText("Produtos");
 
-        jMenuItemPecas.setText("Produtos");
+        jMenuItemPecas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-automotivo-15.png"))); // NOI18N
+        jMenuItemPecas.setText("Peças");
         jMenuItemPecas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemPecasActionPerformed(evt);
@@ -195,6 +203,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-serviços-15.png"))); // NOI18N
         jMenu5.setText("Serviços");
 
+        jMenuItemCadastrodeServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-serviços-serviços-15.png"))); // NOI18N
         jMenuItemCadastrodeServicos.setText("Cadastro de Serviços");
         jMenuItemCadastrodeServicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,6 +217,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cartão-de-visitas-15.png"))); // NOI18N
         jMenu8.setText("Funcionários");
 
+        jMenuItemFuncionarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-funcionário-homem-15.png"))); // NOI18N
         jMenuItemFuncionarios.setText("Funcionários");
         jMenuItemFuncionarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +231,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/help.png"))); // NOI18N
         jMenu4.setText("Sobre");
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-link-externo-15.png"))); // NOI18N
         jMenuItem3.setText("Site Desenvolvedora");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
