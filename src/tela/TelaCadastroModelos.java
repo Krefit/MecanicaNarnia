@@ -7,6 +7,7 @@ package tela;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -52,41 +53,59 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
         jTextFieldModelo = new javax.swing.JTextField();
         jComboBoxMarcas = new javax.swing.JComboBox<>();
         jButtonVoltar = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonRemover = new javax.swing.JButton();
 
         setTitle("Modelos");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTableModelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableModelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableModelosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableModelos);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 440, 275));
+
         jLabel1.setText("Modelo criado com sucesso!");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 287, -1, -1));
 
         jButtonCriarModelo.setBackground(new java.awt.Color(0, 204, 255));
         jButtonCriarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
-        jButtonCriarModelo.setText("Criar novo Modelo");
+        jButtonCriarModelo.setText("Incluir");
         jButtonCriarModelo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonCriarModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCriarModeloActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonCriarModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 110, 50));
 
         jTextFieldModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldModeloActionPerformed(evt);
             }
         });
+        jPanel1.add(jTextFieldModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 309, 239, -1));
 
         jComboBoxMarcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxMarcas.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +113,7 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
                 jComboBoxMarcasActionPerformed(evt);
             }
         });
+        jPanel1.add(jComboBoxMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 337, 239, -1));
 
         jButtonVoltar.setText("VOLTAR");
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -101,60 +121,41 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
                 jButtonVoltarActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 365, -1, 12));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(jButtonVoltar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBoxMarcas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldModelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                                .addComponent(jButtonCriarModelo)))))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonCriarModelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jButtonEditar.setBackground(new java.awt.Color(0, 204, 255));
+        jButtonEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-lápis-30.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 110, 50));
+
+        jButtonRemover.setBackground(new java.awt.Color(0, 204, 255));
+        jButtonRemover.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-excluir-30.png"))); // NOI18N
+        jButtonRemover.setText("Remover");
+        jButtonRemover.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonRemover, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 110, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
         );
 
         pack();
@@ -188,6 +189,84 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
         new TelaCadastroDeVeiculo().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        try {
+            int indexTabela = jTableModelos.getSelectedRow();
+            if (indexTabela < 0) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual marca deseja editar");
+            } else {
+
+                String modelo = jTextFieldModelo.getText();
+
+                ManipulaBancoModelos mb = new ManipulaBancoModelos();
+                String modeloParaExclusao = String.valueOf(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0));
+                int idModeloParaExclusao = mb.buscar(modeloParaExclusao);
+                int idMarca = jComboBoxMarcas.getSelectedIndex();
+
+                ModeloVeiculo modeloInserir = new ModeloVeiculo(modelo, idMarca);
+
+                mb.editar(idModeloParaExclusao, modeloInserir);
+
+                JOptionPane.showMessageDialog(rootPane, "Editado");
+                loadTableModelos();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
+        try {
+            int indexTabela = jTableModelos.getSelectedRow();
+            if (indexTabela < 0) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual marca deseja remover");
+            } else {
+                int confirmação = JOptionPane.showConfirmDialog(rootPane, "Remover?");
+                //  * 0 se for sim, 1 se for não, 2 se for cancelar
+
+                if (confirmação == 0) {//   * caso tenha confirmado a exclusão
+                    String modeloParaExclusao = String.valueOf(jTableModelos.getValueAt(jTableModelos.getSelectedRow(),0));
+                    int idModeloParaExclusao = new ManipulaBancoModelos().buscar(modeloParaExclusao);
+                    if(idModeloParaExclusao != 0){
+                        new ManipulaBancoModelos().remover(idModeloParaExclusao);
+                    }
+
+                } else {//    * cancelar
+                    //  * pass
+                }
+            }
+            loadTableModelos();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonRemoverActionPerformed
+
+    private void jTableModelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableModelosMouseClicked
+        // TODO add your handling code here:
+        try {
+            int indexSelecionado = jTableModelos.getSelectedRow();
+            
+            if(indexSelecionado >= 0) {
+                String modeloSelecionada = String.valueOf(jTableModelos.getValueAt(indexSelecionado,0));
+                String marcaSelecionada = String.valueOf(jTableModelos.getValueAt(indexSelecionado,1));
+                
+                ModeloVeiculo modeloObjSelecionado = new ManipulaBancoModelos().buscar(new ManipulaBancoModelos().buscar(modeloSelecionada));
+                
+                MarcaVeiculo marcaObj = new ManipulaBancoMarca().buscar(new ManipulaBancoMarca().buscar(marcaSelecionada));
+                
+                jTextFieldModelo.setText(modeloObjSelecionado.getNomeModelo());
+                jComboBoxMarcas.setSelectedItem(marcaObj.getNomeMarca());
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }        
+    }//GEN-LAST:event_jTableModelosMouseClicked
 
     private void loadTableModelos() {
         try {
@@ -233,6 +312,8 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCriarModelo;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JComboBox<String> jComboBoxMarcas;
     private javax.swing.JLabel jLabel1;
