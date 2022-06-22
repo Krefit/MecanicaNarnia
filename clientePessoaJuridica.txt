@@ -8,3 +8,4 @@
 2;Narnia SA;07.424.715/0001-10;Narnia SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
 2;Desenvolvedora Narnia;07.424.715/0001-10;Narnia Desenvolvedora SA;[(99) 99999-9999, (99) 99999-9999, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;false
 2;Desenvolvedora Narnia;07.424.715/0001-10;Narnia Desenvolvedora SA;[(99) 99876-5122, (99) 99941-2412, (99) 99999-9999];narnia@email.com;avenida,goias,2,,centro,goiania ,GO,56124-311;true
+3;Omar Telo LTDA;87.059.493/0001-13;Omar Telo LTDA;[(62) 99514-4578, (62) 98478-8778, (62) 98985-1588];omartelo@gmail.com;Avenida,João Ferreira,550,Próximo Mercado Central,Setor Sul,Goiânia,GO,77760-005;true
