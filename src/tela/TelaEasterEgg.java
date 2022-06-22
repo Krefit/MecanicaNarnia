@@ -19,6 +19,7 @@ public class TelaEasterEgg extends javax.swing.JFrame {
     public TelaEasterEgg() {
         initComponents();
         alinhar();
+        requestFocus();
     }
     private void alinhar() {
         Toolkit t = Toolkit.getDefaultToolkit();
