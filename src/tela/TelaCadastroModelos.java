@@ -185,8 +185,6 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxMarcasActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        new TelaCadastroDeVeiculo().setVisible(true);
-        dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed

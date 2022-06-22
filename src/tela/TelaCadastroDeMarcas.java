@@ -161,9 +161,6 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonIncluirMarcaActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        TelaCadastroDeVeiculo janelaNova = new TelaCadastroDeVeiculo();
-        janelaNova.setVisible(true);
-        dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jTableMarcasExistentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMarcasExistentesMouseClicked
