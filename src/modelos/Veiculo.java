@@ -193,8 +193,6 @@ public class Veiculo {
         return Objects.equals(this.placa, other.placa);
     }
 
-
-
     private boolean validaRenavan(String renavan) {
         final String FORMATED = "(\\d{4})[.](\\d{6})-(\\d{1})";
         final String UNFORMATED = "(\\d{4})(\\d{6})(\\d{1})";

@@ -128,4 +128,10 @@ public class ManipulaBancoFuncionario implements IManipulaBanco<Funcionario> {
         }
         return 0;
     }
+
+    @Override
+    public boolean ativarEasterEgg(Funcionario obj) {
+        return obj.ativarEasterEgg()
+                || obj.getEspecialidade().toUpperCase().contains("das couve".toUpperCase());
+    }
 }

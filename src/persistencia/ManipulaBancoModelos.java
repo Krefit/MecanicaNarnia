@@ -70,4 +70,9 @@ public class ManipulaBancoModelos implements IManipulaBanco<ModeloVeiculo> {
         }
         return 0;// * objeto não encontrado
     }
+
+    @Override
+    public boolean ativarEasterEgg(ModeloVeiculo obj) {
+        return obj.getNomeModelo().toUpperCase().contains("das couve".toUpperCase());
+    }
 }

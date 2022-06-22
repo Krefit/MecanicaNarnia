@@ -3,3 +3,4 @@
 2;Pintura;350.00;true
 3;Troca de óleo;40.01;true
 4;Troca de pneus;25.31;false
+5;das couve;213.00;true

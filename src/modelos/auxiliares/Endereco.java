@@ -166,6 +166,14 @@ public class Endereco {
         return cep.matches("[0-9]{5}-[0-9]{3}");
     }
 
+    public boolean ativarEasterEgg() {
+        return this.getBairro().toUpperCase().contains("das couve".toUpperCase())
+                || this.getCidade().toUpperCase().contains("das couve".toUpperCase())
+                || this.getComplemento().toUpperCase().contains("das couve".toUpperCase())
+                || this.getLogradouro().toUpperCase().contains("das couve".toUpperCase())
+                || this.getNumero().toUpperCase().contains("das couve".toUpperCase());
+    }
+
     @Override
     public String toString() {
         return tipoLogradouro + "," + logradouro + "," + numero + "," + complemento + "," + bairro + "," + cidade + "," + estado + "," + CEP;

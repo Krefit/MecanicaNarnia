@@ -6,7 +6,6 @@ package modelos;
 
 import modelos.auxiliares.Endereco;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  *

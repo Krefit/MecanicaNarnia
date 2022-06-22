@@ -6,8 +6,6 @@ package modelos;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import persistencia.ManipulaBancoPecas;
-import persistencia.ManipulaBancoServicos;
 
 /**
  *

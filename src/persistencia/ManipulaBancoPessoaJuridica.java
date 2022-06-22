@@ -5,14 +5,9 @@
 package persistencia;
 
 import enumerations.EstadosBrazil;
-import geradorId.GeradorId;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import modelos.PessoaJuridica;
 import modelos.auxiliares.Endereco;
 
@@ -113,6 +108,14 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
             }
         }
         return 0; //    * objeto não encontrado
+    }
+
+    @Override
+    public boolean ativarEasterEgg(PessoaJuridica obj) {
+        return obj.getEmail().toUpperCase().contains("das couve".toUpperCase())
+                || obj.getEndereco().ativarEasterEgg()
+                || obj.getNomeFantasia().toUpperCase().contains("das couve".toUpperCase())
+                || obj.getRazaoSocial().toUpperCase().contains("das couve".toUpperCase());
     }
 
 }

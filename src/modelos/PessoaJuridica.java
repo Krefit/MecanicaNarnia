@@ -180,8 +180,6 @@ public class PessoaJuridica extends Pessoa {
         return Objects.equals(this.cnpj, other.cnpj);
     }
 
-
-
     @Override
     public String toString() {
         return nomeFantasia + ';' + cnpj + ';' + razaoSocial + ';' + super.toString();

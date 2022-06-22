@@ -4,11 +4,8 @@
  */
 package persistencia;
 
-import geradorId.GeradorId;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import modelos.auxiliares.MarcaVeiculo;
 
@@ -81,5 +78,10 @@ public class ManipulaBancoMarca implements IManipulaBanco<MarcaVeiculo> {
         }
 
         return 0;// * objeto não encontrado
+    }
+
+    @Override
+    public boolean ativarEasterEgg(MarcaVeiculo m) {
+        return m.getNomeMarca().toUpperCase().contains("das couve".toUpperCase());
     }
 }

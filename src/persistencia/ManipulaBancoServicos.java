@@ -4,11 +4,8 @@
  */
 package persistencia;
 
-import geradorId.GeradorId;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import modelos.Servico;
 
@@ -77,6 +74,11 @@ public class ManipulaBancoServicos implements IManipulaBanco<Servico> {
             }
         }
         return 0;// * objeto não encontrado
+    }
+
+    @Override
+    public boolean ativarEasterEgg(Servico obj) {
+        return obj.getNomeServico().toUpperCase().contains("das couve".toUpperCase());
     }
 
 }

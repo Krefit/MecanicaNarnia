@@ -4,16 +4,10 @@
  */
 package persistencia;
 
-import enumerations.EstadosBrazil;
-import geradorId.GeradorId;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import modelos.Peca;
-import modelos.Peca;
-import modelos.auxiliares.Endereco;
 
 /**
  *
@@ -90,6 +84,12 @@ public class ManipulaBancoPecas implements IManipulaBanco<Peca> {
         }
 
         return 0;// * objeto não encontrado
+    }
+
+    @Override
+    public boolean ativarEasterEgg(Peca obj) {
+        return obj.getCodigoPeca().toUpperCase().contains("das couve".toUpperCase())
+                || obj.getDescricao().toUpperCase().contains("das couve".toUpperCase());
     }
 
 }

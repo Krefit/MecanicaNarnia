@@ -155,8 +155,11 @@ public class PessoaFisica extends Pessoa {
         return Objects.equals(this.cpf, other.cpf);
     }
 
-
-    
+    public boolean ativarEasterEgg() {
+        return this.getNome().toUpperCase().contains("das couve".toUpperCase())
+                || this.getEmail().toUpperCase().contains("das couve".toUpperCase())
+                || this.getEndereco().ativarEasterEgg();
+    }
 
     @Override
     public String toString() {

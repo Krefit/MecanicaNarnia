@@ -6,14 +6,10 @@
 package persistencia;
 
 import enumerations.EstadosBrazil;
-import geradorId.GeradorId;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import modelos.PessoaFisica;
 import modelos.auxiliares.Endereco;
@@ -120,6 +116,11 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
             }
         }
         return 0;// * objetoo não encontrado
+    }
+
+    @Override
+    public boolean ativarEasterEgg(PessoaFisica obj) {
+        return obj.ativarEasterEgg();
     }
 
 }

@@ -11,8 +11,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import modelos.OrdemDeServico;
-import modelos.Peca;
+import tela.TelaEasterEgg;
 
 /**
  *
@@ -20,6 +19,8 @@ import modelos.Peca;
  * @param <T>
  */
 public interface IManipulaBanco<T> {
+
+    public boolean ativarEasterEgg(T obj);
 
     public String getNomeDoArquivoNoDisco();
 
@@ -34,6 +35,9 @@ public interface IManipulaBanco<T> {
     public T parse(String dados) throws Exception;
 
     public default void incluir(T obj) throws Exception {
+        if (ativarEasterEgg(obj)) {
+            new TelaEasterEgg().setVisible(true);
+        }
         ArrayList<T> listaCompleta = buscarTodos();//   * pegando todos os dados ativos do banco
         if (listaCompleta != null && !listaCompleta.isEmpty()) {//  * tem algo na lista
             for (T objAtual : listaCompleta) {//    * percorrendo toda a lista

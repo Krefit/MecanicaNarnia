@@ -4,7 +4,6 @@
  */
 package persistencia;
 
-import geradorId.GeradorId;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import modelos.OrdemDeServico;
 import modelos.Peca;
-import modelos.Veiculo;
 
 /**
  *
@@ -222,6 +220,12 @@ public class ManipulaBancoOrdemServico implements IManipulaBanco<OrdemDeServico>
         } catch (InvalidParameterException e) {//   * pegando apenas o erro de peca, mechendo no estoque
             new ManipulaBancoOrdemServico().incluir(osAntiga);//    * reescrevendo no banco, caso tenha dado algum erro no método
         }
+
+    }
+
+    @Override
+    public boolean ativarEasterEgg(OrdemDeServico obj) {
+        return obj.getDefeitoRelatado().toUpperCase().contains("das couve".toUpperCase());
 
     }
 }

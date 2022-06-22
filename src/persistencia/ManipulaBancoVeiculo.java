@@ -5,21 +5,11 @@
  */
 package persistencia;
 
-import enumerations.EstadosBrazil;
 import enumerations.TipoCliente;
-import geradorId.GeradorId;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import javax.print.DocFlavor;
-import modelos.OrdemDeServico;
 import modelos.Veiculo;
-import modelos.auxiliares.Endereco;
 
 /**
  *
@@ -120,5 +110,11 @@ public class ManipulaBancoVeiculo implements IManipulaBanco<Veiculo> {
             }
         }
         return quantidade;
+    }
+
+    @Override
+    public boolean ativarEasterEgg(Veiculo obj) {
+        return obj.getChassi().toUpperCase().contains("das couve".toUpperCase())
+                || obj.getTipoVeiculo().toUpperCase().contains("das couve".toUpperCase());
     }
 }
