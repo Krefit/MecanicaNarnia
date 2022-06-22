@@ -276,6 +276,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaListaCliente newTelaListaCliente = new TelaListaCliente();
         newTelaListaCliente.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = newTelaListaCliente.getSize();
+        newTelaListaCliente.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(newTelaListaCliente);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuClienteActionPerformed
@@ -284,6 +289,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaListaCliente tela = new TelaListaCliente();
         tela.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = tela.getSize();
+        tela.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(tela);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemClientesActionPerformed
@@ -292,6 +302,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaListaOS tela = new TelaListaOS(this.jDesktopPanePrincipal);
         tela.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = tela.getSize();
+        tela.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(tela);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -317,6 +332,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaCadastroServico newTelaCadastroServico = new TelaCadastroServico();
         newTelaCadastroServico.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = newTelaCadastroServico.getSize();
+        newTelaCadastroServico.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(newTelaCadastroServico);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastrodeServicosActionPerformed
@@ -325,6 +345,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaListaPeca newTelaListaPeca = new TelaListaPeca();
         newTelaListaPeca.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = newTelaListaPeca.getSize();
+        newTelaListaPeca.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(newTelaListaPeca);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemPecasActionPerformed
@@ -333,6 +358,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaCadastroDeMarcas newTelaCadastroDeMarcas = new TelaCadastroDeMarcas();
         newTelaCadastroDeMarcas.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = newTelaCadastroDeMarcas.getSize();
+        newTelaCadastroDeMarcas.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(newTelaCadastroDeMarcas);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastroDeMarcaActionPerformed
@@ -341,6 +371,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaCadastroModelos newTelaCadastroModelos = new TelaCadastroModelos();
         newTelaCadastroModelos.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = newTelaCadastroModelos.getSize();
+        newTelaCadastroModelos.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(newTelaCadastroModelos);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastroDeModeloActionPerformed
@@ -349,6 +384,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaCadastroDeVeiculos newTelaCadastroDeVeiculos = new TelaCadastroDeVeiculos();
         newTelaCadastroDeVeiculos.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = newTelaCadastroDeVeiculos.getSize();
+        newTelaCadastroDeVeiculos.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(newTelaCadastroDeVeiculos);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastroDeVeiculoActionPerformed
@@ -361,6 +401,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaListaFuncionario newTelaListaFuncionario = new TelaListaFuncionario();
         newTelaListaFuncionario.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = newTelaListaFuncionario.getSize();
+        newTelaListaFuncionario.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(newTelaListaFuncionario);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemFuncionariosActionPerformed
@@ -373,6 +418,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         limpaTela();
         TelaCadastroDeOS newTelaListaFuncionario = new TelaCadastroDeOS();
         newTelaListaFuncionario.setVisible(true);
+        
+        Dimension desktopSize = this.getSize();
+        Dimension jInternalFrameSize = newTelaListaFuncionario.getSize();
+        newTelaListaFuncionario.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+        
         jDesktopPanePrincipal.add(newTelaListaFuncionario);
         jDesktopPanePrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastroDeOSActionPerformed
