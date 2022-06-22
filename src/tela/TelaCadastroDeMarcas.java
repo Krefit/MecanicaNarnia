@@ -30,9 +30,9 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        
+
         jButtonVoltar.setVisible(false);
-   }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,15 +79,20 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
 
         jTableMarcasExistentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Marcas existentes:"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableMarcasExistentes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableMarcasExistentesMouseClicked(evt);
@@ -165,16 +170,15 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             int indexSelecionado = jTableMarcasExistentes.getSelectedRow();
-            
-            if(indexSelecionado >= 0) {
-                String marcaSelecionada = String.valueOf(jTableMarcasExistentes.getValueAt(indexSelecionado,0));
-                
+
+            if (indexSelecionado >= 0) {
+                String marcaSelecionada = String.valueOf(jTableMarcasExistentes.getValueAt(indexSelecionado, 0));
+
                 MarcaVeiculo marcaObjSelecionado = new ManipulaBancoMarca().buscar(new ManipulaBancoMarca().buscar(marcaSelecionada));
-                
+
                 jTextFieldIncluirMarca.setText(marcaObjSelecionado.getNomeMarca());
             }
-            
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -191,12 +195,12 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
                 //  * 0 se for sim, 1 se for não, 2 se for cancelar
 
                 if (confirmação == 0) {//   * caso tenha confirmado a exclusão
-                    String marcaParaExclusao = String.valueOf(jTableMarcasExistentes.getValueAt(jTableMarcasExistentes.getSelectedRow(),0));
+                    String marcaParaExclusao = String.valueOf(jTableMarcasExistentes.getValueAt(jTableMarcasExistentes.getSelectedRow(), 0));
                     int idMarcaParaExclusao = new ManipulaBancoMarca().buscar(marcaParaExclusao);
-                    if(idMarcaParaExclusao != 0){
+                    if (idMarcaParaExclusao != 0) {
                         new ManipulaBancoMarca().remover(idMarcaParaExclusao);
                     }
-                    
+
                 } else {//    * cancelar
                     //  * pass
                 }
@@ -214,17 +218,17 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
             if (indexTabela < 0) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual marca deseja editar");
             } else {
-                
+
                 String marca = jTextFieldIncluirMarca.getText();
 
                 ManipulaBancoMarca mb = new ManipulaBancoMarca();
                 String marcaParaExclusao = String.valueOf(jTableMarcasExistentes.getValueAt(jTableMarcasExistentes.getSelectedRow(), 0));
                 int idMarcaParaExclusao = mb.buscar(marcaParaExclusao);
-                
+
                 MarcaVeiculo marcaInserir = new MarcaVeiculo(marca);
-                
+
                 mb.editar(idMarcaParaExclusao, marcaInserir);
-                
+
                 JOptionPane.showMessageDialog(rootPane, "Editado");
                 loadTableMarcas();
             }
@@ -235,14 +239,13 @@ public class TelaCadastroDeMarcas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void loadTableMarcas() throws Exception {
-        DefaultTableModel dtb = new DefaultTableModel(new Object[]{"Marcas existentes: "}, 0);
+        DefaultTableModel dtb = (DefaultTableModel) jTableMarcasExistentes.getModel();
+        dtb.setRowCount(0);
         ArrayList<MarcaVeiculo> listaMarcas = new ManipulaBancoMarca().buscarTodos();
         for (MarcaVeiculo m : listaMarcas) {
             dtb.addRow(new Object[]{m.getNomeMarca()});
         }
-        jTableMarcasExistentes.setModel(dtb);
-        
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableMarcasExistentes.getModel());
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTableMarcasExistentes.getModel());
         jTableMarcasExistentes.setRowSorter(sorter);
     }
 

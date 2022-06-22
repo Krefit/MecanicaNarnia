@@ -7,4 +7,8 @@
 2;City;2;false
 0;City a;2;false
 2;City;2;true
-6;City tes;2;false
+0;City tes;2;false
+7;HB20;6;false
+0;HB20;3;false
+0;HB21;3;false
+7;HB20;6;false

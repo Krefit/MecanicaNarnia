@@ -32,8 +32,7 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
         loadComboBoxMarcas();
         jButtonCriarModelo.setEnabled(false);
         jButtonVoltar.setVisible(false);
-        
-        
+
     }
 
     /**
@@ -66,11 +65,11 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome modelo", "Nome marca"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -196,13 +195,16 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
             if (indexTabela < 0) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual marca deseja editar");
             } else {
-
+                if (jComboBoxMarcas.getSelectedIndex() == 0) {//  * mão escolheu a marca
+                    JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual marca deseja editar");
+                    return;
+                }
                 String modelo = jTextFieldModelo.getText();
 
                 ManipulaBancoModelos mb = new ManipulaBancoModelos();
                 String modeloParaExclusao = String.valueOf(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0));
                 int idModeloParaExclusao = mb.buscar(modeloParaExclusao);
-                int idMarca = jComboBoxMarcas.getSelectedIndex();
+                int idMarca = new ManipulaBancoMarca().buscar("" + jComboBoxMarcas.getSelectedItem());
 
                 ModeloVeiculo modeloInserir = new ModeloVeiculo(modelo, idMarca);
 
@@ -227,9 +229,9 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
                 //  * 0 se for sim, 1 se for não, 2 se for cancelar
 
                 if (confirmação == 0) {//   * caso tenha confirmado a exclusão
-                    String modeloParaExclusao = String.valueOf(jTableModelos.getValueAt(jTableModelos.getSelectedRow(),0));
+                    String modeloParaExclusao = String.valueOf(jTableModelos.getValueAt(jTableModelos.getSelectedRow(), 0));
                     int idModeloParaExclusao = new ManipulaBancoModelos().buscar(modeloParaExclusao);
-                    if(idModeloParaExclusao != 0){
+                    if (idModeloParaExclusao != 0) {
                         new ManipulaBancoModelos().remover(idModeloParaExclusao);
                     }
 
@@ -248,44 +250,41 @@ public class TelaCadastroModelos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             int indexSelecionado = jTableModelos.getSelectedRow();
-            
-            if(indexSelecionado >= 0) {
-                String modeloSelecionada = String.valueOf(jTableModelos.getValueAt(indexSelecionado,0));
-                String marcaSelecionada = String.valueOf(jTableModelos.getValueAt(indexSelecionado,1));
-                
+
+            if (indexSelecionado >= 0) {
+                String modeloSelecionada = String.valueOf(jTableModelos.getValueAt(indexSelecionado, 0));
+                String marcaSelecionada = String.valueOf(jTableModelos.getValueAt(indexSelecionado, 1));
+
                 ModeloVeiculo modeloObjSelecionado = new ManipulaBancoModelos().buscar(new ManipulaBancoModelos().buscar(modeloSelecionada));
-                
+
                 MarcaVeiculo marcaObj = new ManipulaBancoMarca().buscar(new ManipulaBancoMarca().buscar(marcaSelecionada));
-                
+
                 jTextFieldModelo.setText(modeloObjSelecionado.getNomeModelo());
                 jComboBoxMarcas.setSelectedItem(marcaObj.getNomeMarca());
             }
-            
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }        
+        }
     }//GEN-LAST:event_jTableModelosMouseClicked
 
     private void loadTableModelos() {
         try {
-            DefaultTableModel table = new DefaultTableModel(new Object[]{"Nome modelo", "Nome Marca"}, 0);
+            DefaultTableModel table = (DefaultTableModel) jTableModelos.getModel();
+            table.setRowCount(0);
             ArrayList<ModeloVeiculo> listaModelos = new ManipulaBancoModelos().buscarTodos();
 
             for (ModeloVeiculo m : listaModelos) {
-                System.out.println(m.getIdMarca());
                 MarcaVeiculo marca = new ManipulaBancoMarca().buscar(m.getIdMarca());
                 if (marca != null) {
                     table.addRow(new Object[]{m.getNomeModelo(), marca.getNomeMarca()});
                 } else {
-                    System.out.println("marca não encontrada");
+                    new Exception("marca com o ID: " + m.getIdMarca() + " não encontrada").printStackTrace();
 //  * marca não encontrada
                 }
             }
 
-            jTableModelos.setModel(table);
-            
             TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTableModelos.getModel());
             jTableModelos.setRowSorter(sorter);
         } catch (Exception e) {
