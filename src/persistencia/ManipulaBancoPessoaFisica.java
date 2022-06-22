@@ -112,4 +112,14 @@ public class ManipulaBancoPessoaFisica implements IManipulaBanco<PessoaFisica> {
         return 0;// * objetoo não encontrado
     }
 
+    public int buscarPorNome(String Nome) throws Exception {
+        ArrayList<PessoaFisica> listaPessoas = buscarTodos();
+        for (PessoaFisica p : listaPessoas) {
+            if (p.getNome().equals(Nome)) {//    * encontrou
+                return getID(p);//  * retornando o id
+            }
+        }
+        return 0;// * objetoo não encontrado
+    }
+
 }

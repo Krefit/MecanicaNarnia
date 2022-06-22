@@ -82,6 +82,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                 }
                 if (v.getTipoCliente() == TipoCliente.PESSOA_FISICA) {
                     String[] dados = {
+                        mbPessoaFisica.buscar(v.getIdDonoVeiculo()).getNome(),
                         v.getPlaca(),
                         v.getChassi(),
                         v.getRenavam(),
@@ -89,11 +90,11 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                         modelo.getNomeModelo(),
                         "" + v.getTipoVeiculo(),
                         "" + v.getAnoFabricacao(),
-                        "" + v.getAnoModelo(),
-                        mbPessoaFisica.buscar(v.getIdDonoVeiculo()).getNome()};
+                        "" + v.getAnoModelo()};
                     table.addRow(dados);
                 } else if (v.getTipoCliente() == TipoCliente.PESSOA_JURIDICA) {
                     String[] dados = {
+                        mbPessoaJuridica.buscar(v.getIdDonoVeiculo()).getRazaoSocial(),
                         v.getPlaca(),
                         v.getChassi(),
                         v.getRenavam(),
@@ -101,8 +102,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                         modelo.getNomeModelo(),
                         "" + v.getTipoVeiculo(),
                         "" + v.getAnoFabricacao(),
-                        "" + v.getAnoModelo(),
-                        mbPessoaJuridica.buscar(v.getIdDonoVeiculo()).getRazaoSocial()};
+                        "" + v.getAnoModelo()};
                     table.addRow(dados);
 
                 }
@@ -363,6 +363,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaClientes = new javax.swing.JTable();
@@ -455,8 +456,10 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
         jLabel4.setText("CHASSI");
 
+        buttonGroup1.add(jRadioButtonPessoaJuridica);
         jRadioButtonPessoaJuridica.setText("Pessoa jurídica");
 
+        buttonGroup1.add(jRadioButtonPessoaFisica);
         jRadioButtonPessoaFisica.setText("Pessoa física");
 
         jLabel5.setText("RENAVAM");
@@ -472,8 +475,6 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
         jLabel6.setText("TIPO DO VEÍCULO");
 
         jLabel7.setText("PLACA");
-
-        jTextFieldPlaca.setEditable(false);
 
         jLabel8.setText("ANO DE FABRICAÇÃO");
 
@@ -508,7 +509,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Placa", "Chassi", "Renavan", "Marca", "Modelo", "Tipo de veiculo", "Ano de fabricação", "Ano do modelo", "Dono do veiculo"
+                "Dono do veiculo", "Placa", "Chassi", "Renavan", "Marca", "Modelo", "Tipo de veiculo", "Ano de fabricação", "Ano do modelo"
             }
         ) {
             Class[] types = new Class [] {
@@ -653,8 +654,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                                 .addGap(315, 315, 315)
                                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0))))
+                                .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(744, 744, 744)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -733,10 +733,11 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                         .addGap(84, 84, 84)
                         .addComponent(jLabel12)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCadastrarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonRemover, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonCadastrarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -891,11 +892,15 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
             if (indexTabela < 0) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual cliente deseja editar");
             } else {
-                String placa = "" + jTableListaVeiculos.getValueAt(indexTabela, 0);
 
-                if (JOptionPane.showConfirmDialog(rootPane, "Editar veiculo com a placa: " + placa + "?(a placa não é editável)") != 0) {// * não confirmou
+                String placa = "" + jTableListaVeiculos.getValueAt(indexTabela, 1);
+
+                if (JOptionPane.showConfirmDialog(rootPane, "Editar veiculo com a placa: " + placa + "?") != 0) {// * não confirmou
                     return;
                 }
+                ManipulaBancoVeiculo mb = new ManipulaBancoVeiculo();
+                int idAntigo = mb.getID(mb.buscar(mb.buscar(placa)));
+
                 TipoCliente tipoCliente = null;
 
                 int idDonoVeiculo = 0;
@@ -903,6 +908,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                 int idMarca = mbd.buscar(jTextFieldMarca.getText());
                 ManipulaBancoModelos mbm = new ManipulaBancoModelos();
                 int idModelo = mbm.buscar(jTextFieldModelo.getText());
+                placa = jTextFieldPlaca.getText();
                 String chassi = jTextFieldChassi.getText();
                 String renavam = jTextFieldRenavam.getText();
                 String tipoDoVeiculo = jTextFieldTipoDoVeiculo.getText();
@@ -911,14 +917,14 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                 int quilometragem = Integer.parseInt(jTextFieldQuilometragem.getText());
 
                 if (jRadioButtonPessoaFisica.isSelected()) {
-                    ManipulaBancoPessoaFisica mb = new ManipulaBancoPessoaFisica();
-                    String cpf = String.valueOf(jTabelaClientes.getModel().getValueAt(jTabelaClientes.getSelectedRow(), 2));
-                    idDonoVeiculo = mb.buscar(cpf);
+                    ManipulaBancoPessoaFisica mbPF = new ManipulaBancoPessoaFisica();
+                    String NomeDono = String.valueOf(jTableListaVeiculos.getModel().getValueAt(jTableListaVeiculos.getSelectedRow(), 0));
+                    idDonoVeiculo = mbPF.buscarPorNome(NomeDono);
                     tipoCliente = TipoCliente.PESSOA_FISICA;
                 } else if (jRadioButtonPessoaJuridica.isSelected()) {
-                    ManipulaBancoPessoaJuridica mb = new ManipulaBancoPessoaJuridica();
-                    String cnpj = String.valueOf(jTabelaClientes.getModel().getValueAt(jTabelaClientes.getSelectedRow(), 2));
-                    idDonoVeiculo = mb.buscar(cnpj);
+                    ManipulaBancoPessoaJuridica mbPJ = new ManipulaBancoPessoaJuridica();
+                    String NomeDono = String.valueOf(jTableListaVeiculos.getModel().getValueAt(jTableListaVeiculos.getSelectedRow(), 0));
+                    idDonoVeiculo = mbPJ.buscarPorRazaoSocial(NomeDono);
                     tipoCliente = TipoCliente.PESSOA_JURIDICA;
                 }
                 if (idDonoVeiculo == 0) {
@@ -936,8 +942,6 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                         idDonoVeiculo,
                         tipoCliente);
 
-                ManipulaBancoVeiculo mb = new ManipulaBancoVeiculo();
-                int idAntigo = mb.getID(mb.buscar(mb.buscar(placa)));
                 mb.editar(idAntigo, v);
 
                 loadTableVeiculos();
@@ -955,7 +959,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
             if (index < 0) {//  * clique inválido
                 return;
             }
-            String placa = "" + jTableListaVeiculos.getValueAt(index, 0);
+            String placa = "" + jTableListaVeiculos.getValueAt(index, 1);
             ManipulaBancoVeiculo mbVeiculo = new ManipulaBancoVeiculo();
             ManipulaBancoMarca mbMarca = new ManipulaBancoMarca();
             ManipulaBancoModelos mbModelo = new ManipulaBancoModelos();
@@ -974,6 +978,11 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
             jTextFieldTipoDoVeiculo.setText(v.getTipoVeiculo());
             jComboBoxMarcas.setSelectedItem(mbMarca.buscar(v.getIdMarca()).getNomeMarca());
             jComboBoxModelos.setSelectedItem(mbModelo.buscar(v.getIdModelo()).getNomeModelo());
+            if (v.getTipoCliente() == TipoCliente.PESSOA_FISICA) {
+                jRadioButtonPessoaFisica.setSelected(true);
+            } else if (v.getTipoCliente() == TipoCliente.PESSOA_JURIDICA) {
+                jRadioButtonPessoaJuridica.setSelected(true);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -987,7 +996,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Selecione, na tabela qual cliente deseja editar");
             } else {
                 ManipulaBancoVeiculo mb = new ManipulaBancoVeiculo();
-                String placa = "" + jTableListaVeiculos.getValueAt(indexTabela, 0);
+                String placa = "" + jTableListaVeiculos.getValueAt(indexTabela, 1);
                 int confirmação = JOptionPane.showConfirmDialog(rootPane, "Remover veiculo com a placa: " + placa + " ?");
                 //  * 0 se for sim, 1 se for não, 2 se for cancelar
 
@@ -1066,6 +1075,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonCadastrarVeiculo;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonPesquisar;

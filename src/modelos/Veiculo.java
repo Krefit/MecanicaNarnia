@@ -46,10 +46,10 @@ public class Veiculo {
 
         this.idModelo = idModelo;
         this.idMarca = idMarca;
-        this.chassi = chassi;
+        this.chassi = chassi.toUpperCase();
         this.renavam = renavam;
         this.tipoVeiculo = tipoVeiculo;
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
         this.anoFabricacao = anoFabricacao;
         this.anoModelo = anoModelo;
         this.quilometragem = quilometragem;
@@ -106,7 +106,7 @@ public class Veiculo {
         if (!validaChassi(chassi)) {
             throw new Exception("O Chassi: \"" + chassi + "\" não é válido");
         }
-        this.chassi = chassi;
+        this.chassi = chassi.toUpperCase();
     }
 
     public String getRenavam() {
@@ -136,7 +136,7 @@ public class Veiculo {
         if (!validaPlaca(placa)) {
             throw new Exception("A placa: \"" + placa + "\" não é válida");
         }
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
     }
 
     public int getAnoFabricacao() {

@@ -105,4 +105,14 @@ public class ManipulaBancoPessoaJuridica implements IManipulaBanco<PessoaJuridic
         return 0; //    * objeto não encontrado
     }
 
+    public int buscarPorRazaoSocial(String nome) throws Exception {
+        ArrayList<PessoaJuridica> listaPessoas = buscarTodos();
+        for (PessoaJuridica p : listaPessoas) {
+            if (p.getRazaoSocial().equals(nome)) {//    * encontrou
+                return getID(p);//  * retornando o id
+            }
+        }
+        return 0; //    * objeto não encontrado
+    }
+
 }
