@@ -1,4 +1,4 @@
-2;1543;oleo de motor;23.00;100;0;0;true
+2;1543;oleo de motor;23.00;100;0;0;false
 3;1545;junta do cabeçote;230.00;10;0;0;false
 4;2355;tinta azul;45.00;190;0;0;false
 5;2356;tinta vermelha;45.00;191;0;0;false
@@ -12,6 +12,9 @@
 5;2356;tinta vermelha;45.00;188;0;0;false
 5;2356;tinta vermelha;45.00;187;-1;0;false
 5;2356;tinta vermelha;45.00;187;0;0;true
-4;2355;tinta azul;45.00;189;1;0;true
+4;2355;tinta azul;45.00;189;1;0;false
 3;1545;junta do cabeçote;2300.00;10;0;0;false
 3;1545;junta do cabeçote;230.00;10;0;0;true
+4;2355;tinta azul;45.00;189;2;0;true
+2;1543;oleo de motor;23.00;100;4;0;false
+2;1543;oleo de motor;23.00;96;0;0;true

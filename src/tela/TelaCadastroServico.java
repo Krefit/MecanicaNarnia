@@ -67,6 +67,7 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
         jFormattedTextFieldValorMaoDeObra = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableListaServicos = new javax.swing.JTable();
+        jButtonPesquisar = new javax.swing.JButton();
 
         setTitle("Cadastro de Serviços");
 
@@ -75,12 +76,6 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
         jLabel1.setText("Serviços:");
 
         jLabel2.setText("Nome do serviço: ");
-
-        jTextFieldNomeServico.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldNomeServicoKeyTyped(evt);
-            }
-        });
 
         jButtonAddServico.setBackground(new java.awt.Color(0, 204, 255));
         jButtonAddServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-mais-2-matemática-verde-30.png"))); // NOI18N
@@ -148,6 +143,13 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableListaServicos);
 
+        jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,8 +173,14 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
                                 .addComponent(jButtonAddServico, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButtonPesquisar)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -189,7 +197,8 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jFormattedTextFieldValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldValorMaoDeObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPesquisar))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,10 +220,6 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldNomeServicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeServicoKeyTyped
-        loadTableServicos(jTextFieldNomeServico.getText());
-    }//GEN-LAST:event_jTextFieldNomeServicoKeyTyped
 
     private void jButtonAddServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddServicoActionPerformed
         try {
@@ -304,10 +309,15 @@ public class TelaCadastroServico extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jTableListaServicosMouseReleased
 
+    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        loadTableServicos(jTextFieldNomeServico.getText());
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddServico;
     private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JButton jButtonRemover;
     private javax.swing.JFormattedTextField jFormattedTextFieldValorMaoDeObra;
     private javax.swing.JLabel jLabel1;

@@ -9,3 +9,5 @@
 3;Paula Tejano;887.626.620-82;20/04/1969;[(65) 98888-8888, (65) 98888-8888, (65) 98888-8888];paulatejano@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,23452-223;false
 3;Paula Fernanda;887.626.620-82;20/04/1969;[(65) 98888-8888, (65) 98888-8888, (65) 98888-8888];paulafernanda@hotmail.com;rua,Consolação,23,apt 69,centro,goiânia,GO,23452-223;true
 26;Kevin Faria;283.077.220-20;09/02/1980;[(62) 98568-8985, (62) 99911-8580, (62) 98987-8950];kevinfaria@gmail.com;Rua,Jorge de Souza,0,Qd. 5 Lote 20,Marista,Aparecida de Goiânia,GO,76555-560;true
+28;Fulano Beltrano;750.320.151-72;28/03/1994;[(62) 98294-1812, (62) 98294-1812, (62) 98294-1812];fulano@beltrano.com;rua,coapbia,122,qd 3 lt 27,gyn2,Gyn,GO,74000-000;false
+28;Fulano Beltrano;750.320.151-72;28/03/1994;[(62) 98294-1812, (62) 98294-1812, (62) 98294-1812];fulano@beltrano.com;rua,coapbia,122,qd 3 lt 27 ,gyn2,Gyn,GO,74000-000;true

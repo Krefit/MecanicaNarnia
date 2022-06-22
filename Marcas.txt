@@ -12,5 +12,7 @@
 2;Honda;true
 6;Hiunday;false
 6;Hiunday;true
-7;marca das couve;false
-7;marca das couve;true
+0;marca das couve;false
+0;marca das couve;false
+0;Ford;false
+8;Chevrolet;false

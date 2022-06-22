@@ -796,12 +796,12 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
                 String nome_razaoSocial = tField_nome_razaoSocial.getText();
                 String[] telefone = new String[3];
                 telefone[0] = jFormattedTextFieldTelefoneCelular.getText().trim();//   * apagando espaços em branco
-                if (jFormattedTextFieldTelefoneComercial.getText().trim().equals("")) {//   * caso não tenha informado o telefone comercial
+                if (jFormattedTextFieldTelefoneComercial.getText().replace("(", "").replace(")", "").replace("-", "").trim().equals("")) {//   * caso não tenha informado o telefone comercial
                     telefone[1] = telefone[0];//    * duplicando o telefone celular
                 } else {//  * informou o  telefone comercial
                     telefone[1] = jFormattedTextFieldTelefoneComercial.getText().trim();//   * apagando espaços em branco
                 }
-                if (jFormattedTextFieldTelefoneResidencial.getText().trim().equals("")) {// * caso não tenha informado o telefone residencial
+                if (jFormattedTextFieldTelefoneResidencial.getText().replace("(", "").replace(")", "").replace("-", "").trim().equals("")) {// * caso não tenha informado o telefone residencial
                     telefone[2] = telefone[0];//    * duplicando o telefone celular
                 } else {//  * informou o  telefone residencial
                     telefone[2] = jFormattedTextFieldTelefoneResidencial.getText().trim();//   * apagando espaços em branco
@@ -911,12 +911,12 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             private String CEP;*/
             String[] telefone = new String[3];
             telefone[0] = jFormattedTextFieldTelefoneCelular.getText().trim();//   * apagando espaços em branco
-            if (jFormattedTextFieldTelefoneComercial.getText().trim().equals("")) {//   * caso não tenha informado o telefone comercial
+            if (jFormattedTextFieldTelefoneComercial.getText().replace("(", "").replace(")", "").replace("-", "").trim().equals("")) {//   * caso não tenha informado o telefone comercial
                 telefone[1] = telefone[0];//    * duplicando o telefone celular
             } else {//  * informou o  telefone comercial
-                telefone[1] = jFormattedTextFieldTelefoneComercial.getText().trim();//   * apagando espaços em branco
+                telefone[1] = jFormattedTextFieldTelefoneComercial.getText().replace("(", "").replace(")", "").replace("-", "").trim();//   * apagando espaços em branco
             }
-            if (jFormattedTextFieldTelefoneResidencial.getText().trim().equals("")) {// * caso não tenha informado o telefone residencial
+            if (jFormattedTextFieldTelefoneResidencial.getText().replace("(", "").replace(")", "").replace("-", "").trim().equals("")) {// * caso não tenha informado o telefone residencial
                 telefone[2] = telefone[0];//    * duplicando o telefone celular
             } else {//  * informou o  telefone residencial
                 telefone[2] = jFormattedTextFieldTelefoneResidencial.getText().trim();//   * apagando espaços em branco

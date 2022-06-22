@@ -761,6 +761,10 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
         try {
             TipoCliente tipoCliente = null;
 
+            if (jTabelaClientes.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(null, "Selecione pelo o dono do veículo na tabela de clientes.");
+                return;
+            }
             int idDonoVeiculo = 0;
             ManipulaBancoMarca mbd = new ManipulaBancoMarca();
             int idMarca = mbd.buscar(jTextFieldMarca.getText());
@@ -793,6 +797,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
             new ManipulaBancoVeiculo().incluir(veiculoNovo);
             JOptionPane.showMessageDialog(null, "VEÍCULO CADASTRADO!");
+            loadTableVeiculos();
         } catch (Exception erro) {
             System.err.println(erro.getMessage());
             erro.printStackTrace();
@@ -898,9 +903,9 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                 if (JOptionPane.showConfirmDialog(rootPane, "Editar veiculo com a placa: " + placa + "?") != 0) {// * não confirmou
                     return;
                 }
-                String nomeDono = "";
+                String nomeDono = jTextFieldDonoDoVeiculo.getText();
                 if (jTabelaClientes.getSelectedRow() >= 0) {//    * a tabela foi clicada
-                    nomeDono = "" + jTabelaClientes.getValueAt(jTabelaClientes.getSelectedRow(), 1);
+                    nomeDono = "" + jTabelaClientes.getValueAt(jTabelaClientes.getSelectedRow(), 0);
                     if (JOptionPane.showConfirmDialog(rootPane, "Trocar o dono do veiculo para: " + nomeDono + "?") != 0) {//    * não confirmou a mudança
                         return;
                     }
@@ -983,6 +988,7 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
             jTextFieldTipoDoVeiculo.setText(v.getTipoVeiculo());
             jComboBoxMarcas.setSelectedItem(mbMarca.buscar(v.getIdMarca()).getNomeMarca());
             jComboBoxModelos.setSelectedItem(mbModelo.buscar(v.getIdModelo()).getNomeModelo());
+            jTextFieldDonoDoVeiculo.setText("" + jTableListaVeiculos.getValueAt(index, 0));
             if (v.getTipoCliente() == TipoCliente.PESSOA_FISICA) {
                 jRadioButtonPessoaFisica.setSelected(true);
             } else if (v.getTipoCliente() == TipoCliente.PESSOA_JURIDICA) {

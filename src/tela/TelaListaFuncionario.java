@@ -139,7 +139,6 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
         cb_Estado = new javax.swing.JComboBox<>();
         tField_Numero = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        tField_telefone = new javax.swing.JTextField();
         jFormattedTextFieldMatricula = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -173,8 +172,9 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         tField_CEP = new javax.swing.JTextField();
         jButtonAdicionar = new javax.swing.JButton();
-        tField_DataNascimento = new javax.swing.JTextField();
         tField_nome = new javax.swing.JTextField();
+        jFormattedTextFieldDataNascimento = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldTelefone = new javax.swing.JFormattedTextField();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -298,6 +298,18 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
+        try {
+            jFormattedTextFieldDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            jFormattedTextFieldTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -328,28 +340,28 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
                         .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(tField_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
+                                .addComponent(cb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(43, 43, 43)
                                 .addComponent(tField_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel7)
-                                .addGap(5, 5, 5)
-                                .addComponent(tField_DataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
+                                .addComponent(jFormattedTextFieldDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel15)
-                                .addGap(2, 2, 2)))
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cb_Estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tField_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -360,8 +372,7 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
                                 .addGap(68, 68, 68)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tField_email)
-                            .addComponent(tField_TipoLogradouro, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(tField_TipoLogradouro, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -414,15 +425,16 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxTipoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonBuscar)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tField_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4))
                     .addComponent(jLabel7)
-                    .addComponent(tField_DataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tField_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jFormattedTextFieldDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6)
                     .addComponent(tField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -503,9 +515,9 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
             String nome = tField_nome.getText();
             String cpf = tField_cpf.getText();
             String[] telefone = new String[3];
-            telefone[0] = tField_telefone.getText();
-            telefone[1] = tField_telefone.getText();
-            telefone[2] = tField_telefone.getText();
+            telefone[0] = jFormattedTextFieldTelefone.getText();
+            telefone[1] = jFormattedTextFieldTelefone.getText();
+            telefone[2] = jFormattedTextFieldTelefone.getText();
             String tipoLogradouro = tField_TipoLogradouro.getText();
             String logradoro = tField_Logradouro.getText();
             String numero = tField_Numero.getText();
@@ -514,9 +526,8 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
             String cidade = tField_Cidade.getText();
             String estado = cb_Estado.getSelectedItem().toString();
             String CEP = tField_CEP.getText();
-            String auxDataNascimento = tField_DataNascimento.getText();
-            String[] vetDataNascimento = auxDataNascimento.split("/");
-            Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2]) - 1900, Integer.parseInt(vetDataNascimento[1]) - 1, Integer.parseInt(vetDataNascimento[0]));
+            String auxDataNascimento = jFormattedTextFieldDataNascimento.getText();
+            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(auxDataNascimento);
             String email = tField_email.getText();
 
             EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class,
@@ -567,9 +578,9 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
             String nome = tField_nome.getText();
             String cpf = tField_cpf.getText();
             String[] telefone = new String[3];
-            telefone[0] = tField_telefone.getText();
-            telefone[1] = tField_telefone.getText();
-            telefone[2] = tField_telefone.getText();
+            telefone[0] = jFormattedTextFieldTelefone.getText();
+            telefone[1] = jFormattedTextFieldTelefone.getText();
+            telefone[2] = jFormattedTextFieldTelefone.getText();
             String tipoLogradouro = tField_TipoLogradouro.getText();
             String logradoro = tField_Logradouro.getText();
             String numero = tField_Numero.getText();
@@ -578,9 +589,8 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
             String cidade = tField_Cidade.getText();
             String estado = cb_Estado.getSelectedItem().toString();
             String CEP = tField_CEP.getText();
-            String auxDataNascimento = tField_DataNascimento.getText();
-            String[] vetDataNascimento = auxDataNascimento.split("/");
-            Date dataNascimento = new Date(Integer.parseInt(vetDataNascimento[2]) - 1900, Integer.parseInt(vetDataNascimento[1]) - 1, Integer.parseInt(vetDataNascimento[0]));
+            String auxDataNascimento = jFormattedTextFieldDataNascimento.getText();
+            Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(auxDataNascimento);
             String email = tField_email.getText();
 
             EstadosBrazil eb = Enum.valueOf(EstadosBrazil.class,
@@ -667,10 +677,10 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
 
             //  * settando dados do funcionario
             tField_cpf.setText(f.getCpf());
-            tField_DataNascimento.setText(new SimpleDateFormat("dd/MM/yyyy").format(f.getDataNascimento()));
+            jFormattedTextFieldDataNascimento.setText(new SimpleDateFormat("dd/MM/yyyy").format(f.getDataNascimento()));
             tField_email.setText(f.getEmail());
             tField_nome.setText(f.getNome());
-            tField_telefone.setText(f.getTelefone()[0]);
+            jFormattedTextFieldTelefone.setText(f.getTelefone()[0]);
             jTextFieldEspecialidade.setText(f.getEspecialidade());
             jFormattedTextFieldMatricula.setText(matricula);
             jFormattedTextFieldSalarioHora.setText(String.format("%.2f", f.getSalariohora()));
@@ -690,9 +700,11 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonRemover;
     private javax.swing.JComboBox<String> jComboBoxTipoBuscar;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDataNascimento;
     private javax.swing.JFormattedTextField jFormattedTextFieldMatricula;
     private javax.swing.JFormattedTextField jFormattedTextFieldSalarioHora;
     private javax.swing.JFormattedTextField jFormattedTextFieldSalarioMes;
+    private javax.swing.JFormattedTextField jFormattedTextFieldTelefone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -718,13 +730,11 @@ public class TelaListaFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tField_CEP;
     private javax.swing.JTextField tField_Cidade;
     private javax.swing.JTextField tField_Complemento;
-    private javax.swing.JTextField tField_DataNascimento;
     private javax.swing.JTextField tField_Logradouro;
     private javax.swing.JTextField tField_Numero;
     private javax.swing.JTextField tField_TipoLogradouro;
     private javax.swing.JTextField tField_cpf;
     private javax.swing.JTextField tField_email;
     private javax.swing.JTextField tField_nome;
-    private javax.swing.JTextField tField_telefone;
     // End of variables declaration//GEN-END:variables
 }

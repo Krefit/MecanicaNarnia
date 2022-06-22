@@ -2,5 +2,10 @@
 0;Troca de óleo;40.00;false
 2;Pintura;350.00;true
 3;Troca de óleo;40.01;true
-4;Troca de pneus;25.31;false
-5;das couve;213.00;true
+0;Troca de pneus;25.31;false
+0;das couve;213.00;false
+6;Troca de Pneu;100.00;true
+0;Pau no cu de quem ta lendo;2.00;false
+0;Pau no cu de quem ta lendo;2.00;false
+0;Pau no cu de quem ta lendo;2.00;false
+7;Pau no toba;2.00;false
