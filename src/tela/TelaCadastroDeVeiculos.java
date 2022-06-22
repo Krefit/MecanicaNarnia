@@ -898,6 +898,13 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
                 if (JOptionPane.showConfirmDialog(rootPane, "Editar veiculo com a placa: " + placa + "?") != 0) {// * não confirmou
                     return;
                 }
+                String nomeDono = "";
+                if (jTabelaClientes.getSelectedRow() >= 0) {//    * a tabela foi clicada
+                    nomeDono = "" + jTabelaClientes.getValueAt(jTabelaClientes.getSelectedRow(), 1);
+                    if (JOptionPane.showConfirmDialog(rootPane, "Trocar o dono do veiculo para: " + nomeDono + "?") != 0) {//    * não confirmou a mudança
+                        return;
+                    }
+                }
                 ManipulaBancoVeiculo mb = new ManipulaBancoVeiculo();
                 int idAntigo = mb.getID(mb.buscar(mb.buscar(placa)));
 
@@ -918,13 +925,11 @@ public class TelaCadastroDeVeiculos extends javax.swing.JInternalFrame {
 
                 if (jRadioButtonPessoaFisica.isSelected()) {
                     ManipulaBancoPessoaFisica mbPF = new ManipulaBancoPessoaFisica();
-                    String NomeDono = String.valueOf(jTableListaVeiculos.getModel().getValueAt(jTableListaVeiculos.getSelectedRow(), 0));
-                    idDonoVeiculo = mbPF.buscarPorNome(NomeDono);
+                    idDonoVeiculo = mbPF.buscarPorNome(nomeDono);
                     tipoCliente = TipoCliente.PESSOA_FISICA;
                 } else if (jRadioButtonPessoaJuridica.isSelected()) {
                     ManipulaBancoPessoaJuridica mbPJ = new ManipulaBancoPessoaJuridica();
-                    String NomeDono = String.valueOf(jTableListaVeiculos.getModel().getValueAt(jTableListaVeiculos.getSelectedRow(), 0));
-                    idDonoVeiculo = mbPJ.buscarPorRazaoSocial(NomeDono);
+                    idDonoVeiculo = mbPJ.buscarPorRazaoSocial(nomeDono);
                     tipoCliente = TipoCliente.PESSOA_JURIDICA;
                 }
                 if (idDonoVeiculo == 0) {
