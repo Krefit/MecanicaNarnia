@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tanak/OneDrive/Documentos/GitHub/MecanicaNarnia/src/tela/TelaEasterEgg.java</file>
-            <file>file:/C:/Users/tanak/OneDrive/Documentos/GitHub/MecanicaNarnia/src/tela/TelaPrincipal.java</file>
-            <file>file:/C:/Users/tanak/OneDrive/Documentos/GitHub/MecanicaNarnia/src/tela/TelaListaFuncionario.java</file>
+            <file>file:/C:/Users/ALUNO/Documents/GitHub/MecanicaNarnia/src/modelos/Pessoa.java</file>
+            <file>file:/C:/Users/ALUNO/Documents/GitHub/MecanicaNarnia/src/tela/TelaSplash.java</file>
+            <file>file:/C:/Users/ALUNO/Documents/GitHub/MecanicaNarnia/src/modelos/PessoaFisica.java</file>
+            <file>file:/C:/Users/ALUNO/Documents/GitHub/MecanicaNarnia/src/modelos/OrdemDeServico.java</file>
         </group>
     </open-files>
 </project-private>

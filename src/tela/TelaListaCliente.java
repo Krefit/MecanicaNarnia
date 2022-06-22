@@ -809,7 +809,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
                 String tipoLogradouro = tField_TipoLogradouro.getText();
                 String logradoro = tField_Logradouro.getText();
                 String numero = tField_Numero.getText();
-                String complemento = tField_Complemento.getText();
+                String complemento = tField_Complemento.getText().replace(",", " ");
                 String bairro = tField_Bairro.getText();
                 String cidade = tField_Cidade.getText();
                 String estado = cb_Estado.getSelectedItem().toString();
@@ -924,7 +924,7 @@ public class TelaListaCliente extends javax.swing.JInternalFrame {
             String tipoLogradouro = tField_TipoLogradouro.getText();
             String logradoro = tField_Logradouro.getText();
             String numero = tField_Numero.getText();
-            String complemento = tField_Complemento.getText();
+            String complemento = tField_Complemento.getText().replace(",", " ");
             String bairro = tField_Bairro.getText();
             String cidade = tField_Cidade.getText();
             String estado = cb_Estado.getSelectedItem().toString();
